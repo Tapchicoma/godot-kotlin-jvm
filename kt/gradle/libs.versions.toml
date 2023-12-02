@@ -6,7 +6,7 @@ godot = "4.1.2"
 
 shadowJar = "8.1.1" # https://github.com/johnrengelman/shadow/releases
 kotlinPoet = "1.15.2" # https://github.com/square/kotlinpoet/releases
-ksp = "1.9.0-1.0.13" # https://github.com/google/ksp/releases
+ksp = "1.9.21-1.0.15" # https://github.com/google/ksp/releases
 
 jacksonDataBind = "2.11.0"
 jacksonDataFormatXml = "2.10.1"
