@@ -5,3 +5,6 @@ val jvmMethodToNotGenerate = listOf(
     "InterpolatedCamera" to "setTarget"
 )
 
+val enumsToNotGenerate = listOf(
+    "Error"
+)

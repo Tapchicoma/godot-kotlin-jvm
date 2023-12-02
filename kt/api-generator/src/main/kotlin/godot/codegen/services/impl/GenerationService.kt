@@ -344,7 +344,16 @@ class GenerationService(
                 .addFunction(
                     FunSpec.builder("from")
                         .addParameter("value", Long::class)
-                        .addStatement("return entries.single { it.%N == %N }", "id", "value")
+                        .returns(enum.getTypeClassName().typeName)
+                        .addStatement(
+                            """
+                            return entries.single {
+                                it.%N == %N
+                            }
+                            """.trimIndent(),
+                            "id",
+                            "value"
+                        )
                         .build()
                 )
                 .build()
@@ -736,6 +745,7 @@ class GenerationService(
     private fun TypeSpec.Builder.generateTypesafeRpc() {
         val camelToSnakeCaseUtilFunction = MemberName(godotUtilPackage, "camelToSnakeCase")
         val asStringNameUtilFunction = MemberName(godotCorePackage, "asStringName")
+        val godotErrorType = ClassName(godotCorePackage, "GodotError")
         for (i in 0..10) {
             val kFunctionTypeParameters = mutableListOf<TypeVariableName>()
             if (i != 0) {
@@ -751,6 +761,7 @@ class GenerationService(
                 val rpcFunSpec = FunSpec
                     .builder(rpcFunctionMode.functionName)
                     .addModifiers(KModifier.INLINE)
+                    .returns(godotErrorType)
 
                 if (rpcFunctionMode.hasId) {
                     rpcFunSpec.addParameter("id", Long::class.asClassName())

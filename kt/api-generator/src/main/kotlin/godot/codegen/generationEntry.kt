@@ -3,6 +3,7 @@ package godot.codegen
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.squareup.kotlinpoet.FileSpec
+import godot.codegen.constants.enumsToNotGenerate
 import godot.tools.common.constants.godotApiPackage
 import godot.codegen.models.ApiDescription
 import godot.codegen.models.enriched.toEnriched
@@ -21,7 +22,11 @@ fun File.generateApiFrom(jsonSource: File, docsDir: File? = null) {
 
     val classRepository: ClassRepository = JsonClassRepository(apiDescription.classes.toEnriched())
     val singletonRepository: SingletonRepository = JsonSingletonRepository(apiDescription.singletons.toEnriched())
-    val globalEnumRepository: GlobalEnumRepository = JsonGlobalEnumRepository(apiDescription.globalEnums.toEnriched())
+    val globalEnumRepository: GlobalEnumRepository = JsonGlobalEnumRepository(
+        apiDescription.globalEnums
+            .filter { it.name !in enumsToNotGenerate }
+            .toEnriched()
+    )
     val coreTypeEnumRepository: CoreTypeEnumRepository = KnownCoreTypeEnumRepository()
     val docRepository: IDocRepository = DocRepository(classDocs)
     val nativeStructureRepository = NativeStructureRepository(apiDescription.nativeStructures.toEnriched())
