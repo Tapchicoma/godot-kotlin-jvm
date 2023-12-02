@@ -39,3 +39,4 @@ grgit = { id = "org.ajoberstar.grgit", version.ref = "grgit" }
 shadowJar = { id = "com.github.johnrengelman.shadow", version.ref = "shadowJar" }
 gradlePublish = { id = "com.gradle.plugin-publish", version.ref = "gradlePublish" }
 kotlinPreProcessors = { id = "com.utopia-rise.kotlin-preprocessors", version.ref = "kotlinPreProcessors" }
+ideaSync = { id = "org.jetbrains.gradle.plugin.idea-ext", version.ref = "ideaSync" }
