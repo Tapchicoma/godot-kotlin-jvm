@@ -18,10 +18,15 @@ kotlinDefinitions {
     define("DEBUG", !isRelease)
 }
 
+val fakeDocsDir = layout.buildDirectory.dir("docs").map {
+    it.asFile.mkdir()
+    it
+}
 apiGenerator {
     outputDir.set(project.file("$rootDir/godot-library/src/main/kotlin/godot/gen"))
     sourceJson.set(project.file("$rootDir/api-generator/src/main/resources/api.json"))
-    docsDir.set(project.file("$projectDir/../../../../doc/classes"))
+    //docsDir.set(project.file("$projectDir/../../../../doc/classes"))
+    docsDir.set(fakeDocsDir)
 }
 
 kotlin {
