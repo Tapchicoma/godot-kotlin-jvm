@@ -15,33 +15,19 @@ import godot.util.VoidPtr
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
-import kotlin.Unit
 
-/**
- * A modification that holds and executes a [godot.SkeletonModificationStack2D].
- *
- * This [godot.SkeletonModification2D] holds a reference to a [godot.SkeletonModificationStack2D], allowing you to use multiple modification stacks on a single [godot.Skeleton2D].
- *
- * **Note:** The modifications in the held [godot.SkeletonModificationStack2D] will only be executed if their execution mode matches the execution mode of the SkeletonModification2DStackHolder.
- */
 @GodotBaseType
 public open class SkeletonModification2DStackHolder : SkeletonModification2D() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_SKELETONMODIFICATION2DSTACKHOLDER, scriptIndex)
     return true
   }
 
-  /**
-   * Sets the [godot.SkeletonModificationStack2D] that this modification is holding. This modification stack will then be executed when this modification is executed.
-   */
-  public fun setHeldModificationStack(heldModificationStack: SkeletonModificationStack2D): Unit {
+  public fun setHeldModificationStack(heldModificationStack: SkeletonModificationStack2D) {
     TransferContext.writeArguments(OBJECT to heldModificationStack)
     TransferContext.callMethod(rawPtr, MethodBindings.setHeldModificationStackPtr, NIL)
   }
 
-  /**
-   * Returns the [godot.SkeletonModificationStack2D] that this modification is holding.
-   */
   public fun getHeldModificationStack(): SkeletonModificationStack2D? {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getHeldModificationStackPtr, OBJECT)

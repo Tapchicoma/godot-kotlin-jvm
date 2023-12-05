@@ -29,28 +29,10 @@ import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmOverloads
 
-/**
- * A set of [godot.AnimationRootNode]s placed on 2D coordinates, crossfading between the three adjacent ones. Used by [godot.AnimationTree].
- *
- * Tutorials:
- * [https://godotengine.org/asset-library/asset/678](https://godotengine.org/asset-library/asset/678)
- *
- * A resource used by [godot.AnimationNodeBlendTree].
- *
- * [godot.AnimationNodeBlendSpace1D] represents a virtual 2D space on which [godot.AnimationRootNode]s are placed. Outputs the linear blend of the three adjacent animations using a [godot.core.Vector2] weight. Adjacent in this context means the three [godot.AnimationRootNode]s making up the triangle that contains the current value.
- *
- * You can add vertices to the blend space with [addBlendPoint] and automatically triangulate it by setting [autoTriangles] to `true`. Otherwise, use [addTriangle] and [removeTriangle] to triangulate the blend space by hand.
- */
 @GodotBaseType
 public open class AnimationNodeBlendSpace2D : AnimationRootNode() {
-  /**
-   * Emitted every time the blend space's triangles are created, removed, or when one of their vertices changes position.
-   */
   public val trianglesUpdated: Signal0 by signal()
 
-  /**
-   * If `true`, the blend space is triangulated automatically. The mesh updates every time you add or remove points with [addBlendPoint] and [removeBlendPoint].
-   */
   public var autoTriangles: Boolean
     get() {
       TransferContext.writeArguments()
@@ -62,9 +44,6 @@ public open class AnimationNodeBlendSpace2D : AnimationRootNode() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAutoTrianglesPtr, NIL)
     }
 
-  /**
-   * The blend space's X and Y axes' lower limit for the points' position. See [addBlendPoint].
-   */
   @CoreTypeLocalCopy
   public var minSpace: Vector2
     get() {
@@ -77,9 +56,6 @@ public open class AnimationNodeBlendSpace2D : AnimationRootNode() {
       TransferContext.callMethod(rawPtr, MethodBindings.setMinSpacePtr, NIL)
     }
 
-  /**
-   * The blend space's X and Y axes' upper limit for the points' position. See [addBlendPoint].
-   */
   @CoreTypeLocalCopy
   public var maxSpace: Vector2
     get() {
@@ -92,9 +68,6 @@ public open class AnimationNodeBlendSpace2D : AnimationRootNode() {
       TransferContext.callMethod(rawPtr, MethodBindings.setMaxSpacePtr, NIL)
     }
 
-  /**
-   * Position increment to snap to when moving a point.
-   */
   @CoreTypeLocalCopy
   public var snap: Vector2
     get() {
@@ -107,9 +80,6 @@ public open class AnimationNodeBlendSpace2D : AnimationRootNode() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSnapPtr, NIL)
     }
 
-  /**
-   * Name of the blend space's X axis.
-   */
   public var xLabel: String
     get() {
       TransferContext.writeArguments()
@@ -121,9 +91,6 @@ public open class AnimationNodeBlendSpace2D : AnimationRootNode() {
       TransferContext.callMethod(rawPtr, MethodBindings.setXLabelPtr, NIL)
     }
 
-  /**
-   * Name of the blend space's Y axis.
-   */
   public var yLabel: String
     get() {
       TransferContext.writeArguments()
@@ -135,9 +102,6 @@ public open class AnimationNodeBlendSpace2D : AnimationRootNode() {
       TransferContext.callMethod(rawPtr, MethodBindings.setYLabelPtr, NIL)
     }
 
-  /**
-   * Controls the interpolation between animations. See [enum BlendMode] constants.
-   */
   public var blendMode: BlendMode
     get() {
       TransferContext.writeArguments()
@@ -149,11 +113,6 @@ public open class AnimationNodeBlendSpace2D : AnimationRootNode() {
       TransferContext.callMethod(rawPtr, MethodBindings.setBlendModePtr, NIL)
     }
 
-  /**
-   * If `false`, the blended animations' frame are stopped when the blend value is `0`.
-   *
-   * If `true`, forcing the blended animations to advance frame.
-   */
   public var sync: Boolean
     get() {
       TransferContext.writeArguments()
@@ -165,14 +124,12 @@ public open class AnimationNodeBlendSpace2D : AnimationRootNode() {
       TransferContext.callMethod(rawPtr, MethodBindings.setUseSyncPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_ANIMATIONNODEBLENDSPACE2D, scriptIndex)
     return true
   }
 
   /**
-   * The blend space's X and Y axes' lower limit for the points' position. See [addBlendPoint].
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -195,8 +152,6 @@ public open class AnimationNodeBlendSpace2D : AnimationRootNode() {
 
 
   /**
-   * The blend space's X and Y axes' upper limit for the points' position. See [addBlendPoint].
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -219,8 +174,6 @@ public open class AnimationNodeBlendSpace2D : AnimationRootNode() {
 
 
   /**
-   * Position increment to snap to when moving a point.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -242,104 +195,71 @@ public open class AnimationNodeBlendSpace2D : AnimationRootNode() {
   }
 
 
-  /**
-   * Adds a new point that represents a [node] at the position set by [pos]. You can insert it at a specific index using the [atIndex] argument. If you use the default value for [atIndex], the point is inserted at the end of the blend points array.
-   */
   @JvmOverloads
   public fun addBlendPoint(
     node: AnimationRootNode,
     pos: Vector2,
     atIndex: Int = -1,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(OBJECT to node, VECTOR2 to pos, LONG to atIndex.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.addBlendPointPtr, NIL)
   }
 
-  /**
-   * Updates the position of the point at index [point] on the blend axis.
-   */
-  public fun setBlendPointPosition(point: Int, pos: Vector2): Unit {
+  public fun setBlendPointPosition(point: Int, pos: Vector2) {
     TransferContext.writeArguments(LONG to point.toLong(), VECTOR2 to pos)
     TransferContext.callMethod(rawPtr, MethodBindings.setBlendPointPositionPtr, NIL)
   }
 
-  /**
-   * Returns the position of the point at index [point].
-   */
   public fun getBlendPointPosition(point: Int): Vector2 {
     TransferContext.writeArguments(LONG to point.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getBlendPointPositionPtr, VECTOR2)
     return (TransferContext.readReturnValue(VECTOR2, false) as Vector2)
   }
 
-  /**
-   * Changes the [godot.AnimationNode] referenced by the point at index [point].
-   */
-  public fun setBlendPointNode(point: Int, node: AnimationRootNode): Unit {
+  public fun setBlendPointNode(point: Int, node: AnimationRootNode) {
     TransferContext.writeArguments(LONG to point.toLong(), OBJECT to node)
     TransferContext.callMethod(rawPtr, MethodBindings.setBlendPointNodePtr, NIL)
   }
 
-  /**
-   * Returns the [godot.AnimationRootNode] referenced by the point at index [point].
-   */
   public fun getBlendPointNode(point: Int): AnimationRootNode? {
     TransferContext.writeArguments(LONG to point.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getBlendPointNodePtr, OBJECT)
     return (TransferContext.readReturnValue(OBJECT, true) as AnimationRootNode?)
   }
 
-  /**
-   * Removes the point at index [point] from the blend space.
-   */
-  public fun removeBlendPoint(point: Int): Unit {
+  public fun removeBlendPoint(point: Int) {
     TransferContext.writeArguments(LONG to point.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.removeBlendPointPtr, NIL)
   }
 
-  /**
-   * Returns the number of points in the blend space.
-   */
   public fun getBlendPointCount(): Int {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getBlendPointCountPtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Creates a new triangle using three points [x], [y], and [z]. Triangles can overlap. You can insert the triangle at a specific index using the [atIndex] argument. If you use the default value for [atIndex], the point is inserted at the end of the blend points array.
-   */
   @JvmOverloads
   public fun addTriangle(
     x: Int,
     y: Int,
     z: Int,
     atIndex: Int = -1,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(LONG to x.toLong(), LONG to y.toLong(), LONG to z.toLong(), LONG to atIndex.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.addTrianglePtr, NIL)
   }
 
-  /**
-   * Returns the position of the point at index [point] in the triangle of index [triangle].
-   */
   public fun getTrianglePoint(triangle: Int, point: Int): Int {
     TransferContext.writeArguments(LONG to triangle.toLong(), LONG to point.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getTrianglePointPtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Removes the triangle at index [triangle] from the blend space.
-   */
-  public fun removeTriangle(triangle: Int): Unit {
+  public fun removeTriangle(triangle: Int) {
     TransferContext.writeArguments(LONG to triangle.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.removeTrianglePtr, NIL)
   }
 
-  /**
-   * Returns the number of triangles in the blend space.
-   */
   public fun getTriangleCount(): Int {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getTriangleCountPtr, LONG)
@@ -349,17 +269,8 @@ public open class AnimationNodeBlendSpace2D : AnimationRootNode() {
   public enum class BlendMode(
     id: Long,
   ) {
-    /**
-     * The interpolation between animations is linear.
-     */
     BLEND_MODE_INTERPOLATED(0),
-    /**
-     * The blend space plays the animation of the animation node which blending position is closest to. Useful for frame-by-frame 2D animations.
-     */
     BLEND_MODE_DISCRETE(1),
-    /**
-     * Similar to [BLEND_MODE_DISCRETE], but starts the new animation at the last animation's playback position.
-     */
     BLEND_MODE_DISCRETE_CARRY(2),
     ;
 
@@ -369,7 +280,9 @@ public open class AnimationNodeBlendSpace2D : AnimationRootNode() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): BlendMode = entries.single {
+          it.id == `value`
+      }
     }
   }
 

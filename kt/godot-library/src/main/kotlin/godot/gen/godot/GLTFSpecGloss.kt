@@ -83,7 +83,7 @@ public open class GLTFSpecGloss : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSpecGlossImgPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_GLTFSPECGLOSS, scriptIndex)
     return true
   }

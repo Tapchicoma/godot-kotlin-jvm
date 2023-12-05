@@ -20,67 +20,41 @@ import godot.util.VoidPtr
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
-import kotlin.Unit
 
-/**
- * A node used to preload sub-resources inside a scene.
- *
- * This node is used to preload sub-resources inside a scene, so when the scene is loaded, all the resources are ready to use and can be retrieved from the preloader. You can add the resources using the ResourcePreloader tab when the node is selected.
- *
- * GDScript has a simplified [@GDScript.preload] built-in method which can be used in most situations, leaving the use of [godot.ResourcePreloader] for more advanced scenarios.
- */
 @GodotBaseType
 public open class ResourcePreloader : Node() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_RESOURCEPRELOADER, scriptIndex)
     return true
   }
 
-  /**
-   * Adds a resource to the preloader with the given [name]. If a resource with the given [name] already exists, the new resource will be renamed to "[name] N" where N is an incrementing number starting from 2.
-   */
-  public fun addResource(name: StringName, resource: Resource): Unit {
+  public fun addResource(name: StringName, resource: Resource) {
     TransferContext.writeArguments(STRING_NAME to name, OBJECT to resource)
     TransferContext.callMethod(rawPtr, MethodBindings.addResourcePtr, NIL)
   }
 
-  /**
-   * Removes the resource associated to [name] from the preloader.
-   */
-  public fun removeResource(name: StringName): Unit {
+  public fun removeResource(name: StringName) {
     TransferContext.writeArguments(STRING_NAME to name)
     TransferContext.callMethod(rawPtr, MethodBindings.removeResourcePtr, NIL)
   }
 
-  /**
-   * Renames a resource inside the preloader from [name] to [newname].
-   */
-  public fun renameResource(name: StringName, newname: StringName): Unit {
+  public fun renameResource(name: StringName, newname: StringName) {
     TransferContext.writeArguments(STRING_NAME to name, STRING_NAME to newname)
     TransferContext.callMethod(rawPtr, MethodBindings.renameResourcePtr, NIL)
   }
 
-  /**
-   * Returns `true` if the preloader contains a resource associated to [name].
-   */
   public fun hasResource(name: StringName): Boolean {
     TransferContext.writeArguments(STRING_NAME to name)
     TransferContext.callMethod(rawPtr, MethodBindings.hasResourcePtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Returns the resource associated to [name].
-   */
   public fun getResource(name: StringName): Resource? {
     TransferContext.writeArguments(STRING_NAME to name)
     TransferContext.callMethod(rawPtr, MethodBindings.getResourcePtr, OBJECT)
     return (TransferContext.readReturnValue(OBJECT, true) as Resource?)
   }
 
-  /**
-   * Returns the list of resources inside the preloader.
-   */
   public fun getResourceList(): PackedStringArray {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getResourceListPtr, PACKED_STRING_ARRAY)

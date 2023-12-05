@@ -18,18 +18,8 @@ import kotlin.NotImplementedError
 import kotlin.String
 import kotlin.Suppress
 
-/**
- * Base resource for video streams.
- *
- * Base resource type for all video streams. Classes that derive from [godot.VideoStream] can all be used as resource types to play back videos in [godot.VideoStreamPlayer].
- */
 @GodotBaseType
 public open class VideoStream : Resource() {
-  /**
-   * The video file path or URI that this [godot.VideoStream] resource handles.
-   *
-   * For [godot.VideoStreamTheora], this filename should be an Ogg Theora video file with the `.ogv` extension.
-   */
   public var `file`: String
     get() {
       TransferContext.writeArguments()
@@ -41,14 +31,11 @@ public open class VideoStream : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFilePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_VIDEOSTREAM, scriptIndex)
     return true
   }
 
-  /**
-   * Called when the video starts playing, to initialize and return a subclass of [godot.VideoStreamPlayback].
-   */
   public open fun _instantiatePlayback(): VideoStreamPlayback? {
     throw NotImplementedError("_instantiate_playback is not implemented for VideoStream")
   }

@@ -25,44 +25,14 @@ import kotlin.Float
 import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
-import kotlin.Unit
 import kotlin.jvm.JvmOverloads
 
-/**
- * A traversable 3D region that [godot.NavigationAgent3D]s can use for pathfinding.
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/navigation/navigation_using_navigationregions.html]($DOCS_URL/tutorials/navigation/navigation_using_navigationregions.html)
- *
- * A traversable 3D region based on a [godot.NavigationMesh] that [godot.NavigationAgent3D]s can use for pathfinding.
- *
- * Two regions can be connected to each other if they share a similar edge. You can set the minimum distance between two vertices required to connect two edges by using [godot.NavigationServer3D.mapSetEdgeConnectionMargin].
- *
- * **Note:** Overlapping two regions' navigation meshes is not enough for connecting two regions. They must share a similar edge.
- *
- * The cost of entering this region from another region can be controlled with the [enterCost] value.
- *
- * **Note:** This value is not added to the path cost when the start position is already inside this region.
- *
- * The cost of traveling distances inside this region can be controlled with the [travelCost] multiplier.
- *
- * **Note:** This node caches changes to its properties, so if you make changes to the underlying region [RID] in [godot.NavigationServer3D], they will not be reflected in this node's properties.
- */
 @GodotBaseType
 public open class NavigationRegion3D : Node3D() {
-  /**
-   * Notifies when the [godot.NavigationMesh] has changed.
-   */
   public val navigationMeshChanged: Signal0 by signal()
 
-  /**
-   * Notifies when the navigation mesh bake operation is completed.
-   */
   public val bakeFinished: Signal0 by signal()
 
-  /**
-   * The [godot.NavigationMesh] resource to use.
-   */
   public var navigationMesh: NavigationMesh?
     get() {
       TransferContext.writeArguments()
@@ -74,9 +44,6 @@ public open class NavigationRegion3D : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setNavigationMeshPtr, NIL)
     }
 
-  /**
-   * Determines if the [godot.NavigationRegion3D] is enabled or disabled.
-   */
   public var enabled: Boolean
     get() {
       TransferContext.writeArguments()
@@ -88,9 +55,6 @@ public open class NavigationRegion3D : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setEnabledPtr, NIL)
     }
 
-  /**
-   * If enabled the navigation region will use edge connections to connect with other navigation regions within proximity of the navigation map edge connection margin.
-   */
   public var useEdgeConnections: Boolean
     get() {
       TransferContext.writeArguments()
@@ -102,9 +66,6 @@ public open class NavigationRegion3D : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setUseEdgeConnectionsPtr, NIL)
     }
 
-  /**
-   * A bitfield determining all navigation layers the region belongs to. These navigation layers can be checked upon when requesting a path with [godot.NavigationServer3D.mapGetPath].
-   */
   public var navigationLayers: Long
     get() {
       TransferContext.writeArguments()
@@ -116,9 +77,6 @@ public open class NavigationRegion3D : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setNavigationLayersPtr, NIL)
     }
 
-  /**
-   * When pathfinding enters this region's navigation mesh from another regions navigation mesh the `enter_cost` value is added to the path distance for determining the shortest path.
-   */
   public var enterCost: Float
     get() {
       TransferContext.writeArguments()
@@ -130,9 +88,6 @@ public open class NavigationRegion3D : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setEnterCostPtr, NIL)
     }
 
-  /**
-   * When pathfinding moves inside this region's navigation mesh the traveled distances are multiplied with `travel_cost` for determining the shortest path.
-   */
   public var travelCost: Float
     get() {
       TransferContext.writeArguments()
@@ -144,42 +99,30 @@ public open class NavigationRegion3D : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTravelCostPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_NAVIGATIONREGION3D, scriptIndex)
     return true
   }
 
-  /**
-   * Based on [value], enables or disables the specified layer in the [navigationLayers] bitmask, given a [layerNumber] between 1 and 32.
-   */
-  public fun setNavigationLayerValue(layerNumber: Int, `value`: Boolean): Unit {
+  public fun setNavigationLayerValue(layerNumber: Int, `value`: Boolean) {
     TransferContext.writeArguments(LONG to layerNumber.toLong(), BOOL to value)
     TransferContext.callMethod(rawPtr, MethodBindings.setNavigationLayerValuePtr, NIL)
   }
 
-  /**
-   * Returns whether or not the specified layer of the [navigationLayers] bitmask is enabled, given a [layerNumber] between 1 and 32.
-   */
   public fun getNavigationLayerValue(layerNumber: Int): Boolean {
     TransferContext.writeArguments(LONG to layerNumber.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getNavigationLayerValuePtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Returns the [RID] of this region on the [godot.NavigationServer3D]. Combined with [godot.NavigationServer3D.mapGetClosestPointOwner] can be used to identify the [godot.NavigationRegion3D] closest to a point on the merged navigation map.
-   */
   public fun getRegionRid(): RID {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getRegionRidPtr, _RID)
     return (TransferContext.readReturnValue(_RID, false) as RID)
   }
 
-  /**
-   * Bakes the [godot.NavigationMesh]. If [onThread] is set to `true` (default), the baking is done on a separate thread. Baking on separate thread is useful because navigation baking is not a cheap operation. When it is completed, it automatically sets the new [godot.NavigationMesh]. Please note that baking on separate thread may be very slow if geometry is parsed from meshes as async access to each mesh involves heavy synchronization. Also, please note that baking on a separate thread is automatically disabled on operating systems that cannot use threads (such as Web with threads disabled).
-   */
   @JvmOverloads
-  public fun bakeNavigationMesh(onThread: Boolean = true): Unit {
+  public fun bakeNavigationMesh(onThread: Boolean = true) {
     TransferContext.writeArguments(BOOL to onThread)
     TransferContext.callMethod(rawPtr, MethodBindings.bakeNavigationMeshPtr, NIL)
   }

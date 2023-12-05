@@ -18,19 +18,8 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
 
-/**
- * A container that arranges its child controls horizontally or vertically and wraps them around at the borders.
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/ui/gui_containers.html]($DOCS_URL/tutorials/ui/gui_containers.html)
- *
- * A container that arranges its child controls horizontally or vertically and wraps them around at the borders. This is similar to how text in a book wraps around when no more words can fit on a line.
- */
 @GodotBaseType
 public open class FlowContainer : Container() {
-  /**
-   * The alignment of the container's children (must be one of [ALIGNMENT_BEGIN], [ALIGNMENT_CENTER], or [ALIGNMENT_END]).
-   */
   public var alignment: AlignmentMode
     get() {
       TransferContext.writeArguments()
@@ -42,11 +31,6 @@ public open class FlowContainer : Container() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAlignmentPtr, NIL)
     }
 
-  /**
-   * If `true`, the [godot.FlowContainer] will arrange its children vertically, rather than horizontally.
-   *
-   * Can't be changed when using [godot.HFlowContainer] and [godot.VFlowContainer].
-   */
   public var vertical: Boolean
     get() {
       TransferContext.writeArguments()
@@ -58,14 +42,11 @@ public open class FlowContainer : Container() {
       TransferContext.callMethod(rawPtr, MethodBindings.setVerticalPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_FLOWCONTAINER, scriptIndex)
     return true
   }
 
-  /**
-   * Returns the current line count.
-   */
   public fun getLineCount(): Int {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getLineCountPtr, LONG)
@@ -75,17 +56,8 @@ public open class FlowContainer : Container() {
   public enum class AlignmentMode(
     id: Long,
   ) {
-    /**
-     * The child controls will be arranged at the beginning of the container, i.e. top if orientation is vertical, left if orientation is horizontal (right for RTL layout).
-     */
     ALIGNMENT_BEGIN(0),
-    /**
-     * The child controls will be centered in the container.
-     */
     ALIGNMENT_CENTER(1),
-    /**
-     * The child controls will be arranged at the end of the container, i.e. bottom if orientation is vertical, right if orientation is horizontal (left for RTL layout).
-     */
     ALIGNMENT_END(2),
     ;
 
@@ -95,7 +67,9 @@ public open class FlowContainer : Container() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): AlignmentMode = entries.single {
+          it.id == `value`
+      }
     }
   }
 

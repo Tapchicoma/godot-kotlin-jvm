@@ -11,17 +11,9 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * Adds a low-pass filter to the audio bus.
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/audio/audio_buses.html]($DOCS_URL/tutorials/audio/audio_buses.html)
- *
- * Cuts frequencies higher than the [godot.AudioEffectFilter.cutoffHz] and allows lower frequencies to pass.
- */
 @GodotBaseType
 public open class AudioEffectLowPassFilter : AudioEffectFilter() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_AUDIOEFFECTLOWPASSFILTER, scriptIndex)
     return true
   }

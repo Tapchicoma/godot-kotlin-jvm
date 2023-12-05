@@ -21,20 +21,14 @@ import kotlin.Long
 import kotlin.Suppress
 import kotlin.jvm.JvmOverloads
 
-/**
- *
- */
 @GodotBaseType
 public open class AudioEffectSpectrumAnalyzerInstance internal constructor() : AudioEffectInstance()
     {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_AUDIOEFFECTSPECTRUMANALYZERINSTANCE, scriptIndex)
     return true
   }
 
-  /**
-   *
-   */
   @JvmOverloads
   public fun getMagnitudeForFrequencyRange(
     fromHz: Float,
@@ -49,13 +43,7 @@ public open class AudioEffectSpectrumAnalyzerInstance internal constructor() : A
   public enum class MagnitudeMode(
     id: Long,
   ) {
-    /**
-     * Use the average value as magnitude.
-     */
     MAGNITUDE_AVERAGE(0),
-    /**
-     * Use the maximum value as magnitude.
-     */
     MAGNITUDE_MAX(1),
     ;
 
@@ -65,7 +53,9 @@ public open class AudioEffectSpectrumAnalyzerInstance internal constructor() : A
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): MagnitudeMode = entries.single {
+          it.id == `value`
+      }
     }
   }
 

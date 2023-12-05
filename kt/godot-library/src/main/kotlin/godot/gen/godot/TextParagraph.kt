@@ -41,19 +41,10 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
-import kotlin.Unit
 import kotlin.jvm.JvmOverloads
 
-/**
- * Holds a paragraph of text.
- *
- * Abstraction over [godot.TextServer] for handling a single paragraph of text.
- */
 @GodotBaseType
 public open class TextParagraph : RefCounted() {
-  /**
-   * Text writing direction.
-   */
   public var direction: TextServer.Direction
     get() {
       TransferContext.writeArguments()
@@ -65,9 +56,6 @@ public open class TextParagraph : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDirectionPtr, NIL)
     }
 
-  /**
-   * Custom punctuation character list, used for word breaking. If set to empty string, server defaults are used.
-   */
   public var customPunctuation: String
     get() {
       TransferContext.writeArguments()
@@ -79,9 +67,6 @@ public open class TextParagraph : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setCustomPunctuationPtr, NIL)
     }
 
-  /**
-   * Text orientation.
-   */
   public var orientation: TextServer.Orientation
     get() {
       TransferContext.writeArguments()
@@ -93,9 +78,6 @@ public open class TextParagraph : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setOrientationPtr, NIL)
     }
 
-  /**
-   * If set to `true` text will display invalid characters.
-   */
   public var preserveInvalid: Boolean
     get() {
       TransferContext.writeArguments()
@@ -107,9 +89,6 @@ public open class TextParagraph : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setPreserveInvalidPtr, NIL)
     }
 
-  /**
-   * If set to `true` text will display control characters.
-   */
   public var preserveControl: Boolean
     get() {
       TransferContext.writeArguments()
@@ -121,9 +100,6 @@ public open class TextParagraph : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setPreserveControlPtr, NIL)
     }
 
-  /**
-   * Paragraph horizontal alignment.
-   */
   public var alignment: HorizontalAlignment
     get() {
       TransferContext.writeArguments()
@@ -135,9 +111,6 @@ public open class TextParagraph : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAlignmentPtr, NIL)
     }
 
-  /**
-   * Line breaking rules. For more info see [godot.TextServer].
-   */
   public var breakFlags: TextServer.LineBreakFlag
     get() {
       TransferContext.writeArguments()
@@ -149,9 +122,6 @@ public open class TextParagraph : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setBreakFlagsPtr, NIL)
     }
 
-  /**
-   * Line fill alignment rules. For more info see [enum TextServer.JustificationFlag].
-   */
   public var justificationFlags: TextServer.JustificationFlag
     get() {
       TransferContext.writeArguments()
@@ -163,9 +133,6 @@ public open class TextParagraph : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setJustificationFlagsPtr, NIL)
     }
 
-  /**
-   * Sets the clipping behavior when the text exceeds the paragraph's set width. See [enum TextServer.OverrunBehavior] for a description of all modes.
-   */
   public var textOverrunBehavior: TextServer.OverrunBehavior
     get() {
       TransferContext.writeArguments()
@@ -177,9 +144,6 @@ public open class TextParagraph : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTextOverrunBehaviorPtr, NIL)
     }
 
-  /**
-   * Paragraph width.
-   */
   public var width: Float
     get() {
       TransferContext.writeArguments()
@@ -191,9 +155,6 @@ public open class TextParagraph : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setWidthPtr, NIL)
     }
 
-  /**
-   * Limits the lines of text shown.
-   */
   public var maxLinesVisible: Int
     get() {
       TransferContext.writeArguments()
@@ -205,32 +166,21 @@ public open class TextParagraph : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setMaxLinesVisiblePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_TEXTPARAGRAPH, scriptIndex)
     return true
   }
 
-  /**
-   * Clears text paragraph (removes text and inline objects).
-   */
-  public fun clear(): Unit {
+  public fun clear() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.clearPtr, NIL)
   }
 
-  /**
-   * Overrides BiDi for the structured text.
-   *
-   * Override ranges should cover full source text without overlaps. BiDi algorithm will be used on each range separately.
-   */
-  public fun setBidiOverride(`override`: VariantArray<Any?>): Unit {
+  public fun setBidiOverride(`override`: VariantArray<Any?>) {
     TransferContext.writeArguments(ARRAY to override)
     TransferContext.callMethod(rawPtr, MethodBindings.setBidiOverridePtr, NIL)
   }
 
-  /**
-   * Sets drop cap, overrides previously set drop cap. Drop cap (dropped capital) is a decorative element at the beginning of a paragraph that is larger than the rest of the text.
-   */
   @JvmOverloads
   public fun setDropcap(
     text: String,
@@ -244,17 +194,11 @@ public open class TextParagraph : RefCounted() {
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Removes dropcap.
-   */
-  public fun clearDropcap(): Unit {
+  public fun clearDropcap() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.clearDropcapPtr, NIL)
   }
 
-  /**
-   * Adds text span and font to draw it.
-   */
   @JvmOverloads
   public fun addString(
     text: String,
@@ -268,9 +212,6 @@ public open class TextParagraph : RefCounted() {
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Adds inline object to the text buffer, [key] must be unique. In the text, object is represented as [length] object replacement characters.
-   */
   @JvmOverloads
   public fun addObject(
     key: Any?,
@@ -284,9 +225,6 @@ public open class TextParagraph : RefCounted() {
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Sets new size and alignment of embedded object.
-   */
   @JvmOverloads
   public fun resizeObject(
     key: Any?,
@@ -299,184 +237,124 @@ public open class TextParagraph : RefCounted() {
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Aligns paragraph to the given tab-stops.
-   */
-  public fun tabAlign(tabStops: PackedFloat32Array): Unit {
+  public fun tabAlign(tabStops: PackedFloat32Array) {
     TransferContext.writeArguments(PACKED_FLOAT_32_ARRAY to tabStops)
     TransferContext.callMethod(rawPtr, MethodBindings.tabAlignPtr, NIL)
   }
 
-  /**
-   * Returns the size of the bounding box of the paragraph, without line breaks.
-   */
   public fun getNonWrappedSize(): Vector2 {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getNonWrappedSizePtr, VECTOR2)
     return (TransferContext.readReturnValue(VECTOR2, false) as Vector2)
   }
 
-  /**
-   * Returns the size of the bounding box of the paragraph.
-   */
   public fun getSize(): Vector2 {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getSizePtr, VECTOR2)
     return (TransferContext.readReturnValue(VECTOR2, false) as Vector2)
   }
 
-  /**
-   * Returns TextServer full string buffer RID.
-   */
   public fun getRid(): RID {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getRidPtr, _RID)
     return (TransferContext.readReturnValue(_RID, false) as RID)
   }
 
-  /**
-   * Returns TextServer line buffer RID.
-   */
   public fun getLineRid(line: Int): RID {
     TransferContext.writeArguments(LONG to line.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getLineRidPtr, _RID)
     return (TransferContext.readReturnValue(_RID, false) as RID)
   }
 
-  /**
-   * Returns drop cap text buffer RID.
-   */
   public fun getDropcapRid(): RID {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getDropcapRidPtr, _RID)
     return (TransferContext.readReturnValue(_RID, false) as RID)
   }
 
-  /**
-   * Returns number of lines in the paragraph.
-   */
   public fun getLineCount(): Int {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getLineCountPtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Returns array of inline objects in the line.
-   */
   public fun getLineObjects(line: Int): VariantArray<Any?> {
     TransferContext.writeArguments(LONG to line.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getLineObjectsPtr, ARRAY)
     return (TransferContext.readReturnValue(ARRAY, false) as VariantArray<Any?>)
   }
 
-  /**
-   * Returns bounding rectangle of the inline object.
-   */
   public fun getLineObjectRect(line: Int, key: Any?): Rect2 {
     TransferContext.writeArguments(LONG to line.toLong(), ANY to key)
     TransferContext.callMethod(rawPtr, MethodBindings.getLineObjectRectPtr, RECT2)
     return (TransferContext.readReturnValue(RECT2, false) as Rect2)
   }
 
-  /**
-   * Returns size of the bounding box of the line of text.
-   */
   public fun getLineSize(line: Int): Vector2 {
     TransferContext.writeArguments(LONG to line.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getLineSizePtr, VECTOR2)
     return (TransferContext.readReturnValue(VECTOR2, false) as Vector2)
   }
 
-  /**
-   * Returns character range of the line.
-   */
   public fun getLineRange(line: Int): Vector2i {
     TransferContext.writeArguments(LONG to line.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getLineRangePtr, VECTOR2I)
     return (TransferContext.readReturnValue(VECTOR2I, false) as Vector2i)
   }
 
-  /**
-   * Returns the text line ascent (number of pixels above the baseline for horizontal layout or to the left of baseline for vertical).
-   */
   public fun getLineAscent(line: Int): Float {
     TransferContext.writeArguments(LONG to line.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getLineAscentPtr, DOUBLE)
     return (TransferContext.readReturnValue(DOUBLE, false) as Double).toFloat()
   }
 
-  /**
-   * Returns the text line descent (number of pixels below the baseline for horizontal layout or to the right of baseline for vertical).
-   */
   public fun getLineDescent(line: Int): Float {
     TransferContext.writeArguments(LONG to line.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getLineDescentPtr, DOUBLE)
     return (TransferContext.readReturnValue(DOUBLE, false) as Double).toFloat()
   }
 
-  /**
-   * Returns width (for horizontal layout) or height (for vertical) of the line of text.
-   */
   public fun getLineWidth(line: Int): Float {
     TransferContext.writeArguments(LONG to line.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getLineWidthPtr, DOUBLE)
     return (TransferContext.readReturnValue(DOUBLE, false) as Double).toFloat()
   }
 
-  /**
-   * Returns pixel offset of the underline below the baseline.
-   */
   public fun getLineUnderlinePosition(line: Int): Float {
     TransferContext.writeArguments(LONG to line.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getLineUnderlinePositionPtr, DOUBLE)
     return (TransferContext.readReturnValue(DOUBLE, false) as Double).toFloat()
   }
 
-  /**
-   * Returns thickness of the underline.
-   */
   public fun getLineUnderlineThickness(line: Int): Float {
     TransferContext.writeArguments(LONG to line.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getLineUnderlineThicknessPtr, DOUBLE)
     return (TransferContext.readReturnValue(DOUBLE, false) as Double).toFloat()
   }
 
-  /**
-   * Returns drop cap bounding box size.
-   */
   public fun getDropcapSize(): Vector2 {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getDropcapSizePtr, VECTOR2)
     return (TransferContext.readReturnValue(VECTOR2, false) as Vector2)
   }
 
-  /**
-   * Returns number of lines used by dropcap.
-   */
   public fun getDropcapLines(): Int {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getDropcapLinesPtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Draw all lines of the text and drop cap into a canvas item at a given position, with [color]. [pos] specifies the top left corner of the bounding box.
-   */
   @JvmOverloads
   public fun draw(
     canvas: RID,
     pos: Vector2,
     color: Color = Color(Color(1, 1, 1, 1)),
     dcColor: Color = Color(Color(1, 1, 1, 1)),
-  ): Unit {
+  ) {
     TransferContext.writeArguments(_RID to canvas, VECTOR2 to pos, COLOR to color, COLOR to dcColor)
     TransferContext.callMethod(rawPtr, MethodBindings.drawPtr, NIL)
   }
 
-  /**
-   * Draw outlines of all lines of the text and drop cap into a canvas item at a given position, with [color]. [pos] specifies the top left corner of the bounding box.
-   */
   @JvmOverloads
   public fun drawOutline(
     canvas: RID,
@@ -484,28 +362,22 @@ public open class TextParagraph : RefCounted() {
     outlineSize: Int = 1,
     color: Color = Color(Color(1, 1, 1, 1)),
     dcColor: Color = Color(Color(1, 1, 1, 1)),
-  ): Unit {
+  ) {
     TransferContext.writeArguments(_RID to canvas, VECTOR2 to pos, LONG to outlineSize.toLong(), COLOR to color, COLOR to dcColor)
     TransferContext.callMethod(rawPtr, MethodBindings.drawOutlinePtr, NIL)
   }
 
-  /**
-   * Draw single line of text into a canvas item at a given position, with [color]. [pos] specifies the top left corner of the bounding box.
-   */
   @JvmOverloads
   public fun drawLine(
     canvas: RID,
     pos: Vector2,
     line: Int,
     color: Color = Color(Color(1, 1, 1, 1)),
-  ): Unit {
+  ) {
     TransferContext.writeArguments(_RID to canvas, VECTOR2 to pos, LONG to line.toLong(), COLOR to color)
     TransferContext.callMethod(rawPtr, MethodBindings.drawLinePtr, NIL)
   }
 
-  /**
-   * Draw outline of the single line of text into a canvas item at a given position, with [color]. [pos] specifies the top left corner of the bounding box.
-   */
   @JvmOverloads
   public fun drawLineOutline(
     canvas: RID,
@@ -513,41 +385,32 @@ public open class TextParagraph : RefCounted() {
     line: Int,
     outlineSize: Int = 1,
     color: Color = Color(Color(1, 1, 1, 1)),
-  ): Unit {
+  ) {
     TransferContext.writeArguments(_RID to canvas, VECTOR2 to pos, LONG to line.toLong(), LONG to outlineSize.toLong(), COLOR to color)
     TransferContext.callMethod(rawPtr, MethodBindings.drawLineOutlinePtr, NIL)
   }
 
-  /**
-   * Draw drop cap into a canvas item at a given position, with [color]. [pos] specifies the top left corner of the bounding box.
-   */
   @JvmOverloads
   public fun drawDropcap(
     canvas: RID,
     pos: Vector2,
     color: Color = Color(Color(1, 1, 1, 1)),
-  ): Unit {
+  ) {
     TransferContext.writeArguments(_RID to canvas, VECTOR2 to pos, COLOR to color)
     TransferContext.callMethod(rawPtr, MethodBindings.drawDropcapPtr, NIL)
   }
 
-  /**
-   * Draw drop cap outline into a canvas item at a given position, with [color]. [pos] specifies the top left corner of the bounding box.
-   */
   @JvmOverloads
   public fun drawDropcapOutline(
     canvas: RID,
     pos: Vector2,
     outlineSize: Int = 1,
     color: Color = Color(Color(1, 1, 1, 1)),
-  ): Unit {
+  ) {
     TransferContext.writeArguments(_RID to canvas, VECTOR2 to pos, LONG to outlineSize.toLong(), COLOR to color)
     TransferContext.callMethod(rawPtr, MethodBindings.drawDropcapOutlinePtr, NIL)
   }
 
-  /**
-   * Returns caret character offset at the specified coordinates. This function always returns a valid position.
-   */
   public fun hitTest(coords: Vector2): Int {
     TransferContext.writeArguments(VECTOR2 to coords)
     TransferContext.callMethod(rawPtr, MethodBindings.hitTestPtr, LONG)

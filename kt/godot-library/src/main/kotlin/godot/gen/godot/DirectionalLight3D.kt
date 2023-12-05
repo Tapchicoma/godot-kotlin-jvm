@@ -18,19 +18,8 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
 
-/**
- * Directional light from a distance, as from the Sun.
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/3d/lights_and_shadows.html]($DOCS_URL/tutorials/3d/lights_and_shadows.html)
- *
- * A directional light is a type of [godot.Light3D] node that models an infinite number of parallel rays covering the entire scene. It is used for lights with strong intensity that are located far away from the scene to model sunlight or moonlight. The worldspace location of the DirectionalLight3D transform (origin) is ignored. Only the basis is used to determine light direction.
- */
 @GodotBaseType
 public open class DirectionalLight3D : Light3D() {
-  /**
-   * The light's shadow rendering algorithm. See [enum ShadowMode].
-   */
   public var directionalShadowMode: ShadowMode
     get() {
       TransferContext.writeArguments()
@@ -42,9 +31,6 @@ public open class DirectionalLight3D : Light3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setShadowModePtr, NIL)
     }
 
-  /**
-   * If `true`, shadow detail is sacrificed in exchange for smoother transitions between splits. Enabling shadow blend splitting also has a moderate performance cost. This is ignored when [directionalShadowMode] is [SHADOW_ORTHOGONAL].
-   */
   public var directionalShadowBlendSplits: Boolean
     get() {
       TransferContext.writeArguments()
@@ -56,9 +42,6 @@ public open class DirectionalLight3D : Light3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setBlendSplitsPtr, NIL)
     }
 
-  /**
-   * Set whether this [godot.DirectionalLight3D] is visible in the sky, in the scene, or both in the sky and in the scene. See [enum SkyMode] for options.
-   */
   public var skyMode: SkyMode
     get() {
       TransferContext.writeArguments()
@@ -70,7 +53,7 @@ public open class DirectionalLight3D : Light3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSkyModePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_DIRECTIONALLIGHT3D, scriptIndex)
     return true
   }
@@ -78,17 +61,8 @@ public open class DirectionalLight3D : Light3D() {
   public enum class ShadowMode(
     id: Long,
   ) {
-    /**
-     * Renders the entire scene's shadow map from an orthogonal point of view. This is the fastest directional shadow mode. May result in blurrier shadows on close objects.
-     */
     SHADOW_ORTHOGONAL(0),
-    /**
-     * Splits the view frustum in 2 areas, each with its own shadow map. This shadow mode is a compromise between [SHADOW_ORTHOGONAL] and [godot.SHADOW_PARALLEL_4_SPLITS] in terms of performance.
-     */
     SHADOW_PARALLEL_2_SPLITS(1),
-    /**
-     * Splits the view frustum in 4 areas, each with its own shadow map. This is the slowest directional shadow mode.
-     */
     SHADOW_PARALLEL_4_SPLITS(2),
     ;
 
@@ -98,24 +72,17 @@ public open class DirectionalLight3D : Light3D() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): ShadowMode = entries.single {
+          it.id == `value`
+      }
     }
   }
 
   public enum class SkyMode(
     id: Long,
   ) {
-    /**
-     * Makes the light visible in both scene lighting and sky rendering.
-     */
     SKY_MODE_LIGHT_AND_SKY(0),
-    /**
-     * Makes the light visible in scene lighting only (including direct lighting and global illumination). When using this mode, the light will not be visible from sky shaders.
-     */
     SKY_MODE_LIGHT_ONLY(1),
-    /**
-     * Makes the light visible to sky shaders only. When using this mode the light will not cast light into the scene (either through direct lighting or through global illumination), but can be accessed through sky shaders. This can be useful, for example, when you want to control sky effects without illuminating the scene (during a night cycle, for example).
-     */
     SKY_MODE_SKY_ONLY(2),
     ;
 
@@ -125,7 +92,9 @@ public open class DirectionalLight3D : Light3D() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): SkyMode = entries.single {
+          it.id == `value`
+      }
     }
   }
 

@@ -17,85 +17,9 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
-import kotlin.Unit
 
-/**
- * Pipeline color blend state attachment (used by [godot.RenderingDevice]).
- *
- * Controls how blending between source and destination fragments is performed when using [godot.RenderingDevice].
- *
- * For reference, this is how common user-facing blend modes are implemented in Godot's 2D renderer:
- *
- * **Mix:**
- *
- * ```
- * 		var attachment = RDPipelineColorBlendStateAttachment.new()
- * 		attachment.enable_blend = true
- * 		attachment.color_blend_op = RenderingDevice.BLEND_OP_ADD
- * 		attachment.src_color_blend_factor = RenderingDevice.BLEND_FACTOR_SRC_ALPHA
- * 		attachment.dst_color_blend_factor = RenderingDevice.BLEND_FACTOR_ONE_MINUS_SRC_ALPHA
- * 		attachment.alpha_blend_op = RenderingDevice.BLEND_OP_ADD
- * 		attachment.src_alpha_blend_factor = RenderingDevice.BLEND_FACTOR_ONE
- * 		attachment.dst_alpha_blend_factor = RenderingDevice.BLEND_FACTOR_ONE_MINUS_SRC_ALPHA
- * 		```
- *
- * **Add:**
- *
- * ```
- * 		var attachment = RDPipelineColorBlendStateAttachment.new()
- * 		attachment.enable_blend = true
- * 		attachment.alpha_blend_op = RenderingDevice.BLEND_OP_ADD
- * 		attachment.color_blend_op = RenderingDevice.BLEND_OP_ADD
- * 		attachment.src_color_blend_factor = RenderingDevice.BLEND_FACTOR_SRC_ALPHA
- * 		attachment.dst_color_blend_factor = RenderingDevice.BLEND_FACTOR_ONE
- * 		attachment.src_alpha_blend_factor = RenderingDevice.BLEND_FACTOR_SRC_ALPHA
- * 		attachment.dst_alpha_blend_factor = RenderingDevice.BLEND_FACTOR_ONE
- * 		```
- *
- * **Subtract:**
- *
- * ```
- * 		var attachment = RDPipelineColorBlendStateAttachment.new()
- * 		attachment.enable_blend = true
- * 		attachment.alpha_blend_op = RenderingDevice.BLEND_OP_REVERSE_SUBTRACT
- * 		attachment.color_blend_op = RenderingDevice.BLEND_OP_REVERSE_SUBTRACT
- * 		attachment.src_color_blend_factor = RenderingDevice.BLEND_FACTOR_SRC_ALPHA
- * 		attachment.dst_color_blend_factor = RenderingDevice.BLEND_FACTOR_ONE
- * 		attachment.src_alpha_blend_factor = RenderingDevice.BLEND_FACTOR_SRC_ALPHA
- * 		attachment.dst_alpha_blend_factor = RenderingDevice.BLEND_FACTOR_ONE
- * 		```
- *
- * **Multiply:**
- *
- * ```
- * 		var attachment = RDPipelineColorBlendStateAttachment.new()
- * 		attachment.enable_blend = true
- * 		attachment.alpha_blend_op = RenderingDevice.BLEND_OP_ADD
- * 		attachment.color_blend_op = RenderingDevice.BLEND_OP_ADD
- * 		attachment.src_color_blend_factor = RenderingDevice.BLEND_FACTOR_DST_COLOR
- * 		attachment.dst_color_blend_factor = RenderingDevice.BLEND_FACTOR_ZERO
- * 		attachment.src_alpha_blend_factor = RenderingDevice.BLEND_FACTOR_DST_ALPHA
- * 		attachment.dst_alpha_blend_factor = RenderingDevice.BLEND_FACTOR_ZERO
- * 		```
- *
- * **Pre-multiplied alpha:**
- *
- * ```
- * 		var attachment = RDPipelineColorBlendStateAttachment.new()
- * 		attachment.enable_blend = true
- * 		attachment.alpha_blend_op = RenderingDevice.BLEND_OP_ADD
- * 		attachment.color_blend_op = RenderingDevice.BLEND_OP_ADD
- * 		attachment.src_color_blend_factor = RenderingDevice.BLEND_FACTOR_ONE
- * 		attachment.dst_color_blend_factor = RenderingDevice.BLEND_FACTOR_ONE_MINUS_SRC_ALPHA
- * 		attachment.src_alpha_blend_factor = RenderingDevice.BLEND_FACTOR_ONE
- * 		attachment.dst_alpha_blend_factor = RenderingDevice.BLEND_FACTOR_ONE_MINUS_SRC_ALPHA
- * 		```
- */
 @GodotBaseType
 public open class RDPipelineColorBlendStateAttachment : RefCounted() {
-  /**
-   * If `true`, performs blending between the source and destination according to the factors defined in [srcColorBlendFactor], [dstColorBlendFactor], [srcAlphaBlendFactor] and [dstAlphaBlendFactor]. The blend modes [colorBlendOp] and [alphaBlendOp] are also taken into account, with [writeR], [writeG], [writeB] and [writeA] controlling the output.
-   */
   public var enableBlend: Boolean
     get() {
       TransferContext.writeArguments()
@@ -107,9 +31,6 @@ public open class RDPipelineColorBlendStateAttachment : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setEnableBlendPtr, NIL)
     }
 
-  /**
-   * Controls how the blend factor for the color channels is determined based on the source's fragments.
-   */
   public var srcColorBlendFactor: RenderingDevice.BlendFactor
     get() {
       TransferContext.writeArguments()
@@ -121,9 +42,6 @@ public open class RDPipelineColorBlendStateAttachment : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSrcColorBlendFactorPtr, NIL)
     }
 
-  /**
-   * Controls how the blend factor for the color channels is determined based on the destination's fragments.
-   */
   public var dstColorBlendFactor: RenderingDevice.BlendFactor
     get() {
       TransferContext.writeArguments()
@@ -135,9 +53,6 @@ public open class RDPipelineColorBlendStateAttachment : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDstColorBlendFactorPtr, NIL)
     }
 
-  /**
-   * The blend mode to use for the red/green/blue color channels.
-   */
   public var colorBlendOp: RenderingDevice.BlendOperation
     get() {
       TransferContext.writeArguments()
@@ -149,9 +64,6 @@ public open class RDPipelineColorBlendStateAttachment : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setColorBlendOpPtr, NIL)
     }
 
-  /**
-   * Controls how the blend factor for the alpha channel is determined based on the source's fragments.
-   */
   public var srcAlphaBlendFactor: RenderingDevice.BlendFactor
     get() {
       TransferContext.writeArguments()
@@ -163,9 +75,6 @@ public open class RDPipelineColorBlendStateAttachment : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSrcAlphaBlendFactorPtr, NIL)
     }
 
-  /**
-   * Controls how the blend factor for the alpha channel is determined based on the destination's fragments.
-   */
   public var dstAlphaBlendFactor: RenderingDevice.BlendFactor
     get() {
       TransferContext.writeArguments()
@@ -177,9 +86,6 @@ public open class RDPipelineColorBlendStateAttachment : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDstAlphaBlendFactorPtr, NIL)
     }
 
-  /**
-   * The blend mode to use for the alpha channel.
-   */
   public var alphaBlendOp: RenderingDevice.BlendOperation
     get() {
       TransferContext.writeArguments()
@@ -191,9 +97,6 @@ public open class RDPipelineColorBlendStateAttachment : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAlphaBlendOpPtr, NIL)
     }
 
-  /**
-   * If `true`, writes the new red color channel to the final result.
-   */
   public var writeR: Boolean
     get() {
       TransferContext.writeArguments()
@@ -205,9 +108,6 @@ public open class RDPipelineColorBlendStateAttachment : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setWriteRPtr, NIL)
     }
 
-  /**
-   * If `true`, writes the new green color channel to the final result.
-   */
   public var writeG: Boolean
     get() {
       TransferContext.writeArguments()
@@ -219,9 +119,6 @@ public open class RDPipelineColorBlendStateAttachment : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setWriteGPtr, NIL)
     }
 
-  /**
-   * If `true`, writes the new blue color channel to the final result.
-   */
   public var writeB: Boolean
     get() {
       TransferContext.writeArguments()
@@ -233,9 +130,6 @@ public open class RDPipelineColorBlendStateAttachment : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setWriteBPtr, NIL)
     }
 
-  /**
-   * If `true`, writes the new alpha channel to the final result.
-   */
   public var writeA: Boolean
     get() {
       TransferContext.writeArguments()
@@ -247,15 +141,12 @@ public open class RDPipelineColorBlendStateAttachment : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setWriteAPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_RDPIPELINECOLORBLENDSTATEATTACHMENT, scriptIndex)
     return true
   }
 
-  /**
-   * Convenience method to perform standard mix blending with straight (non-premultiplied) alpha. This sets [enableBlend] to `true`, [srcColorBlendFactor] to [godot.RenderingDevice.BLEND_FACTOR_SRC_ALPHA], [dstColorBlendFactor] to [godot.RenderingDevice.BLEND_FACTOR_ONE_MINUS_SRC_ALPHA], [srcAlphaBlendFactor] to [godot.RenderingDevice.BLEND_FACTOR_SRC_ALPHA] and [dstAlphaBlendFactor] to [godot.RenderingDevice.BLEND_FACTOR_ONE_MINUS_SRC_ALPHA].
-   */
-  public fun setAsMix(): Unit {
+  public fun setAsMix() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.setAsMixPtr, NIL)
   }

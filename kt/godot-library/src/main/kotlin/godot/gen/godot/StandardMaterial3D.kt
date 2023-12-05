@@ -11,17 +11,9 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * Physically based rendering (PBR) material that can be applied to 3D objects.
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/3d/standard_material_3d.html]($DOCS_URL/tutorials/3d/standard_material_3d.html)
- *
- * [godot.StandardMaterial3D]'s properties are inherited from [godot.BaseMaterial3D]. [godot.StandardMaterial3D] uses separate textures for ambient occlusion, roughness and metallic maps. To use a single ORM map for all 3 textures, use an [godot.ORMMaterial3D] instead.
- */
 @GodotBaseType
 public open class StandardMaterial3D : BaseMaterial3D() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_STANDARDMATERIAL3D, scriptIndex)
     return true
   }

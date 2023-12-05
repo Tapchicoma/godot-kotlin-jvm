@@ -11,12 +11,9 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- *
- */
 @GodotBaseType
 public open class JavaClass : RefCounted() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_JAVACLASS, scriptIndex)
     return true
   }

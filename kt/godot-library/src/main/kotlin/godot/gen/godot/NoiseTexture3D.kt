@@ -117,7 +117,7 @@ public open class NoiseTexture3D : Texture3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setNoisePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_NOISETEXTURE3D, scriptIndex)
     return true
   }

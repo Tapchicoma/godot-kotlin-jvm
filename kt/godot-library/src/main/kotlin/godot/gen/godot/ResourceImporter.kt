@@ -12,17 +12,9 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
 
-/**
- * Base class for resource importers.
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/plugins/editor/import_plugins.html]($DOCS_URL/tutorials/plugins/editor/import_plugins.html)
- *
- * This is the base class for Godot's resource importers. To implement your own resource importers using editor plugins, see [godot.EditorImportPlugin].
- */
 @GodotBaseType
 public open class ResourceImporter internal constructor() : RefCounted() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_RESOURCEIMPORTER, scriptIndex)
     return true
   }
@@ -30,13 +22,7 @@ public open class ResourceImporter internal constructor() : RefCounted() {
   public enum class ImportOrder(
     id: Long,
   ) {
-    /**
-     * The default import order.
-     */
     IMPORT_ORDER_DEFAULT(0),
-    /**
-     * The import order for scenes, which ensures scenes are imported *after* all other core resources such as textures. Custom importers should generally have an import order lower than `100` to avoid issues when importing scenes that rely on custom resources.
-     */
     IMPORT_ORDER_SCENE(100),
     ;
 
@@ -46,7 +32,9 @@ public open class ResourceImporter internal constructor() : RefCounted() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): ImportOrder = entries.single {
+          it.id == `value`
+      }
     }
   }
 

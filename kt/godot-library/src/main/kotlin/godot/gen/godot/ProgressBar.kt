@@ -18,16 +18,8 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
 
-/**
- * A control used for visual representation of a percentage.
- *
- * A control used for visual representation of a percentage. Shows fill percentage from right to left.
- */
 @GodotBaseType
 public open class ProgressBar : Range() {
-  /**
-   * The fill direction. See [enum FillMode] for possible values.
-   */
   public var fillMode: Int
     get() {
       TransferContext.writeArguments()
@@ -39,9 +31,6 @@ public open class ProgressBar : Range() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFillModePtr, NIL)
     }
 
-  /**
-   * If `true`, the fill percentage is displayed on the bar.
-   */
   public var showPercentage: Boolean
     get() {
       TransferContext.writeArguments()
@@ -53,7 +42,7 @@ public open class ProgressBar : Range() {
       TransferContext.callMethod(rawPtr, MethodBindings.setShowPercentagePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_PROGRESSBAR, scriptIndex)
     return true
   }
@@ -61,21 +50,9 @@ public open class ProgressBar : Range() {
   public enum class FillMode(
     id: Long,
   ) {
-    /**
-     * The progress bar fills from begin to end horizontally, according to the language direction. If [godot.Control.isLayoutRtl] returns `false`, it fills from left to right, and if it returns `true`, it fills from right to left.
-     */
     FILL_BEGIN_TO_END(0),
-    /**
-     * The progress bar fills from end to begin horizontally, according to the language direction. If [godot.Control.isLayoutRtl] returns `false`, it fills from right to left, and if it returns `true`, it fills from left to right.
-     */
     FILL_END_TO_BEGIN(1),
-    /**
-     * The progress fills from top to bottom.
-     */
     FILL_TOP_TO_BOTTOM(2),
-    /**
-     * The progress fills from bottom to top.
-     */
     FILL_BOTTOM_TO_TOP(3),
     ;
 
@@ -85,7 +62,9 @@ public open class ProgressBar : Range() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): FillMode = entries.single {
+          it.id == `value`
+      }
     }
   }
 

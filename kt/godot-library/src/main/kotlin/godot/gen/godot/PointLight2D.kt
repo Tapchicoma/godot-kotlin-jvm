@@ -25,19 +25,8 @@ import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmName
 
-/**
- * Positional 2D light source.
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/2d/2d_lights_and_shadows.html]($DOCS_URL/tutorials/2d/2d_lights_and_shadows.html)
- *
- * Casts light in a 2D environment. This light's shape is defined by a (usually grayscale) texture.
- */
 @GodotBaseType
 public open class PointLight2D : Light2D() {
-  /**
-   * [godot.Texture2D] used for the light's appearance.
-   */
   public var texture: Texture2D?
     get() {
       TransferContext.writeArguments()
@@ -49,9 +38,6 @@ public open class PointLight2D : Light2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTexturePtr, NIL)
     }
 
-  /**
-   * The offset of the light's [texture].
-   */
   @CoreTypeLocalCopy
   public var offset: Vector2
     get() {
@@ -64,9 +50,6 @@ public open class PointLight2D : Light2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTextureOffsetPtr, NIL)
     }
 
-  /**
-   * The [texture]'s scale factor.
-   */
   public var textureScale: Float
     get() {
       TransferContext.writeArguments()
@@ -78,9 +61,6 @@ public open class PointLight2D : Light2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTextureScalePtr, NIL)
     }
 
-  /**
-   * The height of the light. Used with 2D normal mapping. The units are in pixels, e.g. if the height is 100, then it will illuminate an object 100 pixels away at a 45° angle to the plane.
-   */
   public var height: Float
     @JvmName("getHeight_prop")
     @Suppress("INAPPLICABLE_JVM_NAME")
@@ -91,14 +71,12 @@ public open class PointLight2D : Light2D() {
       super.setHeight(value)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_POINTLIGHT2D, scriptIndex)
     return true
   }
 
   /**
-   * The offset of the light's [texture].
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our

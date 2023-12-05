@@ -31,7 +31,6 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
-import kotlin.Unit
 import kotlin.jvm.JvmOverloads
 
 @GodotBaseType
@@ -130,17 +129,17 @@ public open class SceneMultiplayer : MultiplayerAPI() {
       TransferContext.callMethod(rawPtr, MethodBindings.setMaxDeltaPacketSizePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_SCENEMULTIPLAYER, scriptIndex)
     return true
   }
 
-  public fun clear(): Unit {
+  public fun clear() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.clearPtr, NIL)
   }
 
-  public fun disconnectPeer(id: Int): Unit {
+  public fun disconnectPeer(id: Int) {
     TransferContext.writeArguments(LONG to id.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.disconnectPeerPtr, NIL)
   }

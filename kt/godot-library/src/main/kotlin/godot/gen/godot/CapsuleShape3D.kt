@@ -18,21 +18,8 @@ import kotlin.Float
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * A 3D capsule shape used for physics collision.
- *
- * Tutorials:
- * [https://godotengine.org/asset-library/asset/675](https://godotengine.org/asset-library/asset/675)
- *
- * A 3D capsule shape, intended for use in physics. Usually used to provide a shape for a [godot.CollisionShape3D].
- *
- * **Performance:** [godot.CapsuleShape3D] is fast to check collisions against. It is faster than [godot.CylinderShape3D], but slower than [godot.SphereShape3D] and [godot.BoxShape3D].
- */
 @GodotBaseType
 public open class CapsuleShape3D : Shape3D() {
-  /**
-   * The capsule's radius.
-   */
   public var radius: Float
     get() {
       TransferContext.writeArguments()
@@ -44,9 +31,6 @@ public open class CapsuleShape3D : Shape3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRadiusPtr, NIL)
     }
 
-  /**
-   * The capsule's height.
-   */
   public var height: Float
     get() {
       TransferContext.writeArguments()
@@ -58,7 +42,7 @@ public open class CapsuleShape3D : Shape3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setHeightPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_CAPSULESHAPE3D, scriptIndex)
     return true
   }

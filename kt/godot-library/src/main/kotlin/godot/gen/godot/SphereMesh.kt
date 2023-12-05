@@ -21,16 +21,8 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
 
-/**
- * Class representing a spherical [godot.PrimitiveMesh].
- *
- * Class representing a spherical [godot.PrimitiveMesh].
- */
 @GodotBaseType
 public open class SphereMesh : PrimitiveMesh() {
-  /**
-   * Radius of sphere.
-   */
   public var radius: Float
     get() {
       TransferContext.writeArguments()
@@ -42,9 +34,6 @@ public open class SphereMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRadiusPtr, NIL)
     }
 
-  /**
-   * Full height of the sphere.
-   */
   public var height: Float
     get() {
       TransferContext.writeArguments()
@@ -56,9 +45,6 @@ public open class SphereMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setHeightPtr, NIL)
     }
 
-  /**
-   * Number of radial segments on the sphere.
-   */
   public var radialSegments: Int
     get() {
       TransferContext.writeArguments()
@@ -70,9 +56,6 @@ public open class SphereMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRadialSegmentsPtr, NIL)
     }
 
-  /**
-   * Number of segments along the height of the sphere.
-   */
   public var rings: Int
     get() {
       TransferContext.writeArguments()
@@ -84,11 +67,6 @@ public open class SphereMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRingsPtr, NIL)
     }
 
-  /**
-   * If `true`, a hemisphere is created rather than a full sphere.
-   *
-   * **Note:** To get a regular hemisphere, the height and radius of the sphere must be equal.
-   */
   public var isHemisphere: Boolean
     get() {
       TransferContext.writeArguments()
@@ -100,7 +78,7 @@ public open class SphereMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setIsHemispherePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_SPHEREMESH, scriptIndex)
     return true
   }

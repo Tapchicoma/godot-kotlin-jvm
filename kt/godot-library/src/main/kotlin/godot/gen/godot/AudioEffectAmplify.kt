@@ -18,19 +18,8 @@ import kotlin.Float
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * Adds an amplifying audio effect to an audio bus.
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/audio/audio_buses.html]($DOCS_URL/tutorials/audio/audio_buses.html)
- *
- * Increases or decreases the volume being routed through the audio bus.
- */
 @GodotBaseType
 public open class AudioEffectAmplify : AudioEffect() {
-  /**
-   * Amount of amplification in decibels. Positive values make the sound louder, negative values make it quieter. Value can range from -80 to 24.
-   */
   public var volumeDb: Float
     get() {
       TransferContext.writeArguments()
@@ -42,7 +31,7 @@ public open class AudioEffectAmplify : AudioEffect() {
       TransferContext.callMethod(rawPtr, MethodBindings.setVolumeDbPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_AUDIOEFFECTAMPLIFY, scriptIndex)
     return true
   }

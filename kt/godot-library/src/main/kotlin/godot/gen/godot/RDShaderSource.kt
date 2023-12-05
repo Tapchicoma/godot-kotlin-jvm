@@ -19,18 +19,8 @@ import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 
-/**
- * Shader source code (used by [godot.RenderingDevice]).
- *
- * Shader source code in text form.
- *
- * See also [godot.RDShaderFile]. [godot.RDShaderSource] is only meant to be used with the [godot.RenderingDevice] API. It should not be confused with Godot's own [godot.Shader] resource, which is what Godot's various nodes use for high-level shader programming.
- */
 @GodotBaseType
 public open class RDShaderSource : RefCounted() {
-  /**
-   * Source code for the shader's vertex stage.
-   */
   public var sourceVertex: String
     get() {
       TransferContext.writeArguments(LONG to 0L)
@@ -42,9 +32,6 @@ public open class RDShaderSource : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setStageSourcePtr, NIL)
     }
 
-  /**
-   * Source code for the shader's fragment stage.
-   */
   public var sourceFragment: String
     get() {
       TransferContext.writeArguments(LONG to 1L)
@@ -56,9 +43,6 @@ public open class RDShaderSource : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setStageSourcePtr, NIL)
     }
 
-  /**
-   * Source code for the shader's tessellation control stage.
-   */
   public var sourceTesselationControl: String
     get() {
       TransferContext.writeArguments(LONG to 2L)
@@ -70,9 +54,6 @@ public open class RDShaderSource : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setStageSourcePtr, NIL)
     }
 
-  /**
-   * Source code for the shader's tessellation evaluation stage.
-   */
   public var sourceTesselationEvaluation: String
     get() {
       TransferContext.writeArguments(LONG to 3L)
@@ -84,9 +65,6 @@ public open class RDShaderSource : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setStageSourcePtr, NIL)
     }
 
-  /**
-   * Source code for the shader's compute stage.
-   */
   public var sourceCompute: String
     get() {
       TransferContext.writeArguments(LONG to 4L)
@@ -98,9 +76,6 @@ public open class RDShaderSource : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setStageSourcePtr, NIL)
     }
 
-  /**
-   * The language the shader is written in.
-   */
   public var language: RenderingDevice.ShaderLanguage
     get() {
       TransferContext.writeArguments()
@@ -112,7 +87,7 @@ public open class RDShaderSource : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setLanguagePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_RDSHADERSOURCE, scriptIndex)
     return true
   }

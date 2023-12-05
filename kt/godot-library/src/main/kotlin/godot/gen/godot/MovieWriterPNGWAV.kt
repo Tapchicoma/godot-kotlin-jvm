@@ -13,7 +13,7 @@ import kotlin.Suppress
 
 @GodotBaseType
 public open class MovieWriterPNGWAV internal constructor() : MovieWriter() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_MOVIEWRITERPNGWAV, scriptIndex)
     return true
   }

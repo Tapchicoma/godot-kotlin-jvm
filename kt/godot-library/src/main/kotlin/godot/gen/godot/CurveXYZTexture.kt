@@ -18,18 +18,8 @@ import kotlin.Int
 import kotlin.Suppress
 import kotlin.jvm.JvmName
 
-/**
- * A texture that shows 3 different curves (stored on the red, green and blue color channels).
- *
- * Renders 3 given [godot.Curve]s provided to it, on the red, green and blue channels respectively. Compared to using separate [godot.CurveTexture]s, this further simplifies the task of drawing curves and/or saving them as image files.
- *
- * If you only need to store one curve within a single texture, use [godot.CurveTexture] instead. See also [godot.GradientTexture1D] and [godot.GradientTexture2D].
- */
 @GodotBaseType
 public open class CurveXYZTexture : Texture2D() {
-  /**
-   * The width of the texture (in pixels). Higher values make it possible to represent high-frequency data better (such as sudden direction changes), at the cost of increased generation time and memory usage.
-   */
   public var width: Int
     @JvmName("getWidth_prop")
     @Suppress("INAPPLICABLE_JVM_NAME")
@@ -39,9 +29,6 @@ public open class CurveXYZTexture : Texture2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setWidthPtr, NIL)
     }
 
-  /**
-   * The [godot.Curve] that is rendered onto the texture's red channel.
-   */
   public var curveX: Curve?
     get() {
       TransferContext.writeArguments()
@@ -53,9 +40,6 @@ public open class CurveXYZTexture : Texture2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setCurveXPtr, NIL)
     }
 
-  /**
-   * The [godot.Curve] that is rendered onto the texture's green channel.
-   */
   public var curveY: Curve?
     get() {
       TransferContext.writeArguments()
@@ -67,9 +51,6 @@ public open class CurveXYZTexture : Texture2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setCurveYPtr, NIL)
     }
 
-  /**
-   * The [godot.Curve] that is rendered onto the texture's blue channel.
-   */
   public var curveZ: Curve?
     get() {
       TransferContext.writeArguments()
@@ -81,7 +62,7 @@ public open class CurveXYZTexture : Texture2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setCurveZPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_CURVEXYZTEXTURE, scriptIndex)
     return true
   }

@@ -15,54 +15,28 @@ import godot.util.VoidPtr
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
-import kotlin.Unit
 import kotlin.jvm.JvmName
 
-/**
- * A synchronization mechanism used to control access to a shared resource by [godot.Thread]s.
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/performance/thread_safe_apis.html]($DOCS_URL/tutorials/performance/thread_safe_apis.html)
- *
- * A synchronization semaphore that can be used to synchronize multiple [godot.Thread]s. Initialized to zero on creation. For a binary version, see [godot.Mutex].
- *
- * **Warning:** Semaphores must be used carefully to avoid deadlocks.
- *
- * **Warning:** To guarantee that the operating system is able to perform proper cleanup (no crashes, no deadlocks), these conditions must be met:
- *
- * - When a [godot.Semaphore]'s reference count reaches zero and it is therefore destroyed, no threads must be waiting on it.
- *
- * - When a [godot.Thread]'s reference count reaches zero and it is therefore destroyed, it must not be waiting on any semaphore.
- */
 @GodotBaseType
 public open class Semaphore : RefCounted() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_SEMAPHORE, scriptIndex)
     return true
   }
 
-  /**
-   * Waits for the [godot.Semaphore], if its value is zero, blocks until non-zero.
-   */
   @JvmName("semaphoreWait")
-  public fun wait(): Unit {
+  public fun wait() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.waitPtr, NIL)
   }
 
-  /**
-   * Like [wait], but won't block, so if the value is zero, fails immediately and returns `false`. If non-zero, it returns `true` to report success.
-   */
   public fun tryWait(): Boolean {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.tryWaitPtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Lowers the [godot.Semaphore], allowing one more thread in.
-   */
-  public fun post(): Unit {
+  public fun post() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.postPtr, NIL)
   }

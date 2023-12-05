@@ -16,21 +16,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * Base class for [godot.AnimationNode]s with more than two input ports that must be synchronized.
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/animation/animation_tree.html]($DOCS_URL/tutorials/animation/animation_tree.html)
- *
- * An animation node used to combine, mix, or blend two or more animations together while keeping them synchronized within an [godot.AnimationTree].
- */
 @GodotBaseType
 public open class AnimationNodeSync : AnimationNode() {
-  /**
-   * If `false`, the blended animations' frame are stopped when the blend value is `0`.
-   *
-   * If `true`, forcing the blended animations to advance frame.
-   */
   public var sync: Boolean
     get() {
       TransferContext.writeArguments()
@@ -42,7 +29,7 @@ public open class AnimationNodeSync : AnimationNode() {
       TransferContext.callMethod(rawPtr, MethodBindings.setUseSyncPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_ANIMATIONNODESYNC, scriptIndex)
     return true
   }

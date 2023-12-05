@@ -40,7 +40,7 @@ public open class CSGMesh3D : CSGPrimitive3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setMaterialPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_CSGMESH3D, scriptIndex)
     return true
   }

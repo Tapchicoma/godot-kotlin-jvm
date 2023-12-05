@@ -20,16 +20,8 @@ import kotlin.Int
 import kotlin.Suppress
 import kotlin.Unit
 
-/**
- * A node that applies a color tint to a canvas.
- *
- * [godot.CanvasModulate] applies a color tint to all nodes on a canvas. Only one can be used to tint a canvas, but [godot.CanvasLayer]s can be used to render things independently.
- */
 @GodotBaseType
 public open class CanvasModulate : Node2D() {
-  /**
-   * The tint color to apply.
-   */
   @CoreTypeLocalCopy
   public var color: Color
     get() {
@@ -42,14 +34,12 @@ public open class CanvasModulate : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setColorPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_CANVASMODULATE, scriptIndex)
     return true
   }
 
   /**
-   * The tint color to apply.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our

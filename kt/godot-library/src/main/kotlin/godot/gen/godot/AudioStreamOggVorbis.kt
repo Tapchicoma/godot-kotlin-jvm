@@ -89,7 +89,7 @@ public open class AudioStreamOggVorbis : AudioStream() {
       TransferContext.callMethod(rawPtr, MethodBindings.setLoopOffsetPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_AUDIOSTREAMOGGVORBIS, scriptIndex)
     return true
   }

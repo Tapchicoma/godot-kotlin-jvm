@@ -17,16 +17,8 @@ import kotlin.Int
 import kotlin.String
 import kotlin.Suppress
 
-/**
- * A reference to an existing [godot.VisualShaderNodeParameter].
- *
- * Creating a reference to a [godot.VisualShaderNodeParameter] allows you to reuse this parameter in different shaders or shader stages easily.
- */
 @GodotBaseType
 public open class VisualShaderNodeParameterRef : VisualShaderNode() {
-  /**
-   * The name of the parameter which this reference points to.
-   */
   public var parameterName: String
     get() {
       TransferContext.writeArguments()
@@ -38,7 +30,7 @@ public open class VisualShaderNodeParameterRef : VisualShaderNode() {
       TransferContext.callMethod(rawPtr, MethodBindings.setParameterNamePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_VISUALSHADERNODEPARAMETERREF, scriptIndex)
     return true
   }

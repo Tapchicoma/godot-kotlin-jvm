@@ -96,7 +96,7 @@ public open class MobileVRInterface : XRInterface() {
       TransferContext.callMethod(rawPtr, MethodBindings.setK2Ptr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_MOBILEVRINTERFACE, scriptIndex)
     return true
   }

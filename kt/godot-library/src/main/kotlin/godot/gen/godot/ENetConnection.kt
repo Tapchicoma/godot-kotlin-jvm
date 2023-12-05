@@ -28,12 +28,11 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
-import kotlin.Unit
 import kotlin.jvm.JvmOverloads
 
 @GodotBaseType
 public open class ENetConnection : RefCounted() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_ENETCONNECTION, scriptIndex)
     return true
   }
@@ -64,7 +63,7 @@ public open class ENetConnection : RefCounted() {
     return GodotError.from(TransferContext.readReturnValue(LONG) as Long)
   }
 
-  public fun destroy(): Unit {
+  public fun destroy() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.destroyPtr, NIL)
   }
@@ -88,18 +87,18 @@ public open class ENetConnection : RefCounted() {
     return (TransferContext.readReturnValue(ARRAY, false) as VariantArray<Any?>)
   }
 
-  public fun flush(): Unit {
+  public fun flush() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.flushPtr, NIL)
   }
 
   @JvmOverloads
-  public fun bandwidthLimit(inBandwidth: Int = 0, outBandwidth: Int = 0): Unit {
+  public fun bandwidthLimit(inBandwidth: Int = 0, outBandwidth: Int = 0) {
     TransferContext.writeArguments(LONG to inBandwidth.toLong(), LONG to outBandwidth.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.bandwidthLimitPtr, NIL)
   }
 
-  public fun channelLimit(limit: Int): Unit {
+  public fun channelLimit(limit: Int) {
     TransferContext.writeArguments(LONG to limit.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.channelLimitPtr, NIL)
   }
@@ -108,12 +107,12 @@ public open class ENetConnection : RefCounted() {
     channel: Int,
     packet: PackedByteArray,
     flags: Int,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(LONG to channel.toLong(), PACKED_BYTE_ARRAY to packet, LONG to flags.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.broadcastPtr, NIL)
   }
 
-  public fun compress(mode: CompressionMode): Unit {
+  public fun compress(mode: CompressionMode) {
     TransferContext.writeArguments(LONG to mode.id)
     TransferContext.callMethod(rawPtr, MethodBindings.compressPtr, NIL)
   }
@@ -131,7 +130,7 @@ public open class ENetConnection : RefCounted() {
     return GodotError.from(TransferContext.readReturnValue(LONG) as Long)
   }
 
-  public fun refuseNewConnections(refuse: Boolean): Unit {
+  public fun refuseNewConnections(refuse: Boolean) {
     TransferContext.writeArguments(BOOL to refuse)
     TransferContext.callMethod(rawPtr, MethodBindings.refuseNewConnectionsPtr, NIL)
   }
@@ -164,7 +163,7 @@ public open class ENetConnection : RefCounted() {
     destinationAddress: String,
     destinationPort: Int,
     packet: PackedByteArray,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(STRING to destinationAddress, LONG to destinationPort.toLong(), PACKED_BYTE_ARRAY to packet)
     TransferContext.callMethod(rawPtr, MethodBindings.socketSendPtr, NIL)
   }
@@ -185,7 +184,9 @@ public open class ENetConnection : RefCounted() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): CompressionMode = entries.single {
+          it.id == `value`
+      }
     }
   }
 
@@ -205,7 +206,9 @@ public open class ENetConnection : RefCounted() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): EventType = entries.single {
+          it.id == `value`
+      }
     }
   }
 
@@ -224,7 +227,9 @@ public open class ENetConnection : RefCounted() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): HostStatistic = entries.single {
+          it.id == `value`
+      }
     }
   }
 

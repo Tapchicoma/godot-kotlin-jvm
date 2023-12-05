@@ -29,16 +29,8 @@ import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 
-/**
- * A texture-based nine-patch [godot.StyleBox].
- *
- * A texture-based nine-patch [godot.StyleBox], in a way similar to [godot.NinePatchRect]. This stylebox performs a 3×3 scaling of a texture, where only the center cell is fully stretched. This makes it possible to design bordered styles regardless of the stylebox's size.
- */
 @GodotBaseType
 public open class StyleBoxTexture : StyleBox() {
-  /**
-   * The texture to use when drawing this style box.
-   */
   public var texture: Texture2D?
     get() {
       TransferContext.writeArguments()
@@ -50,13 +42,6 @@ public open class StyleBoxTexture : StyleBox() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTexturePtr, NIL)
     }
 
-  /**
-   * Increases the left margin of the 3×3 texture box.
-   *
-   * A higher value means more of the source texture is considered to be part of the left border of the 3×3 box.
-   *
-   * This is also the value used as fallback for [godot.StyleBox.contentMarginLeft] if it is negative.
-   */
   public var textureMarginLeft: Float
     get() {
       TransferContext.writeArguments(LONG to 0L)
@@ -68,13 +53,6 @@ public open class StyleBoxTexture : StyleBox() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTextureMarginPtr, NIL)
     }
 
-  /**
-   * Increases the top margin of the 3×3 texture box.
-   *
-   * A higher value means more of the source texture is considered to be part of the top border of the 3×3 box.
-   *
-   * This is also the value used as fallback for [godot.StyleBox.contentMarginTop] if it is negative.
-   */
   public var textureMarginTop: Float
     get() {
       TransferContext.writeArguments(LONG to 1L)
@@ -86,13 +64,6 @@ public open class StyleBoxTexture : StyleBox() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTextureMarginPtr, NIL)
     }
 
-  /**
-   * Increases the right margin of the 3×3 texture box.
-   *
-   * A higher value means more of the source texture is considered to be part of the right border of the 3×3 box.
-   *
-   * This is also the value used as fallback for [godot.StyleBox.contentMarginRight] if it is negative.
-   */
   public var textureMarginRight: Float
     get() {
       TransferContext.writeArguments(LONG to 2L)
@@ -104,13 +75,6 @@ public open class StyleBoxTexture : StyleBox() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTextureMarginPtr, NIL)
     }
 
-  /**
-   * Increases the bottom margin of the 3×3 texture box.
-   *
-   * A higher value means more of the source texture is considered to be part of the bottom border of the 3×3 box.
-   *
-   * This is also the value used as fallback for [godot.StyleBox.contentMarginBottom] if it is negative.
-   */
   public var textureMarginBottom: Float
     get() {
       TransferContext.writeArguments(LONG to 3L)
@@ -122,9 +86,6 @@ public open class StyleBoxTexture : StyleBox() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTextureMarginPtr, NIL)
     }
 
-  /**
-   * Expands the left margin of this style box when drawing, causing it to be drawn larger than requested.
-   */
   public var expandMarginLeft: Float
     get() {
       TransferContext.writeArguments(LONG to 0L)
@@ -136,9 +97,6 @@ public open class StyleBoxTexture : StyleBox() {
       TransferContext.callMethod(rawPtr, MethodBindings.setExpandMarginPtr, NIL)
     }
 
-  /**
-   * Expands the top margin of this style box when drawing, causing it to be drawn larger than requested.
-   */
   public var expandMarginTop: Float
     get() {
       TransferContext.writeArguments(LONG to 1L)
@@ -150,9 +108,6 @@ public open class StyleBoxTexture : StyleBox() {
       TransferContext.callMethod(rawPtr, MethodBindings.setExpandMarginPtr, NIL)
     }
 
-  /**
-   * Expands the right margin of this style box when drawing, causing it to be drawn larger than requested.
-   */
   public var expandMarginRight: Float
     get() {
       TransferContext.writeArguments(LONG to 2L)
@@ -164,9 +119,6 @@ public open class StyleBoxTexture : StyleBox() {
       TransferContext.callMethod(rawPtr, MethodBindings.setExpandMarginPtr, NIL)
     }
 
-  /**
-   * Expands the bottom margin of this style box when drawing, causing it to be drawn larger than requested.
-   */
   public var expandMarginBottom: Float
     get() {
       TransferContext.writeArguments(LONG to 3L)
@@ -178,9 +130,6 @@ public open class StyleBoxTexture : StyleBox() {
       TransferContext.callMethod(rawPtr, MethodBindings.setExpandMarginPtr, NIL)
     }
 
-  /**
-   * Controls how the stylebox's texture will be stretched or tiled horizontally. See [enum AxisStretchMode] for possible values.
-   */
   public var axisStretchHorizontal: AxisStretchMode
     get() {
       TransferContext.writeArguments()
@@ -192,9 +141,6 @@ public open class StyleBoxTexture : StyleBox() {
       TransferContext.callMethod(rawPtr, MethodBindings.setHAxisStretchModePtr, NIL)
     }
 
-  /**
-   * Controls how the stylebox's texture will be stretched or tiled vertically. See [enum AxisStretchMode] for possible values.
-   */
   public var axisStretchVertical: AxisStretchMode
     get() {
       TransferContext.writeArguments()
@@ -206,13 +152,6 @@ public open class StyleBoxTexture : StyleBox() {
       TransferContext.callMethod(rawPtr, MethodBindings.setVAxisStretchModePtr, NIL)
     }
 
-  /**
-   * Species a sub-region of the texture to use.
-   *
-   * This is equivalent to first wrapping the texture in an [godot.AtlasTexture] with the same region.
-   *
-   * If empty (`Rect2(0, 0, 0, 0)`), the whole texture will be used.
-   */
   @CoreTypeLocalCopy
   public var regionRect: Rect2
     get() {
@@ -225,9 +164,6 @@ public open class StyleBoxTexture : StyleBox() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRegionRectPtr, NIL)
     }
 
-  /**
-   * Modulates the color of the texture when this style box is drawn.
-   */
   @CoreTypeLocalCopy
   public var modulateColor: Color
     get() {
@@ -240,9 +176,6 @@ public open class StyleBoxTexture : StyleBox() {
       TransferContext.callMethod(rawPtr, MethodBindings.setModulatePtr, NIL)
     }
 
-  /**
-   * If `true`, the nine-patch texture's center tile will be drawn.
-   */
   public var drawCenter: Boolean
     get() {
       TransferContext.writeArguments()
@@ -254,18 +187,12 @@ public open class StyleBoxTexture : StyleBox() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDrawCenterPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_STYLEBOXTEXTURE, scriptIndex)
     return true
   }
 
   /**
-   * Species a sub-region of the texture to use.
-   *
-   * This is equivalent to first wrapping the texture in an [godot.AtlasTexture] with the same region.
-   *
-   * If empty (`Rect2(0, 0, 0, 0)`), the whole texture will be used.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -288,8 +215,6 @@ public open class StyleBoxTexture : StyleBox() {
 
 
   /**
-   * Modulates the color of the texture when this style box is drawn.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -311,18 +236,12 @@ public open class StyleBoxTexture : StyleBox() {
   }
 
 
-  /**
-   * Sets the margin to [size] pixels for all sides.
-   */
-  public fun setTextureMarginAll(size: Float): Unit {
+  public fun setTextureMarginAll(size: Float) {
     TransferContext.writeArguments(DOUBLE to size.toDouble())
     TransferContext.callMethod(rawPtr, MethodBindings.setTextureMarginAllPtr, NIL)
   }
 
-  /**
-   * Sets the expand margin to [size] pixels for all sides.
-   */
-  public fun setExpandMarginAll(size: Float): Unit {
+  public fun setExpandMarginAll(size: Float) {
     TransferContext.writeArguments(DOUBLE to size.toDouble())
     TransferContext.callMethod(rawPtr, MethodBindings.setExpandMarginAllPtr, NIL)
   }
@@ -330,17 +249,8 @@ public open class StyleBoxTexture : StyleBox() {
   public enum class AxisStretchMode(
     id: Long,
   ) {
-    /**
-     * Stretch the stylebox's texture. This results in visible distortion unless the texture size matches the stylebox's size perfectly.
-     */
     AXIS_STRETCH_MODE_STRETCH(0),
-    /**
-     * Repeats the stylebox's texture to match the stylebox's size according to the nine-patch system.
-     */
     AXIS_STRETCH_MODE_TILE(1),
-    /**
-     * Repeats the stylebox's texture to match the stylebox's size according to the nine-patch system. Unlike [AXIS_STRETCH_MODE_TILE], the texture may be slightly stretched to make the nine-patch texture tile seamlessly.
-     */
     AXIS_STRETCH_MODE_TILE_FIT(2),
     ;
 
@@ -350,7 +260,9 @@ public open class StyleBoxTexture : StyleBox() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): AxisStretchMode = entries.single {
+          it.id == `value`
+      }
     }
   }
 

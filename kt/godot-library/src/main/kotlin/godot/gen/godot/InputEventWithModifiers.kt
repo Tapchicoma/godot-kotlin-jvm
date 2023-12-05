@@ -19,19 +19,8 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
 
-/**
- * Abstract base class for input events affected by modifier keys like [kbd]Shift[/kbd] and [kbd]Alt[/kbd].
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/inputs/inputevent.html]($DOCS_URL/tutorials/inputs/inputevent.html)
- *
- * Stores information about mouse, keyboard, and touch gesture input events. This includes information about which modifier keys are pressed, such as [kbd]Shift[/kbd] or [kbd]Alt[/kbd]. See [godot.Node.Input].
- */
 @GodotBaseType
 public open class InputEventWithModifiers internal constructor() : InputEventFromWindow() {
-  /**
-   * Automatically use [kbd]Meta[/kbd] ([kbd]Command[/kbd]) on macOS and [kbd]Ctrl[/kbd] on other platforms. If `true`, [ctrlPressed] and [metaPressed] cannot be set.
-   */
   public var commandOrControlAutoremap: Boolean
     get() {
       TransferContext.writeArguments()
@@ -43,9 +32,6 @@ public open class InputEventWithModifiers internal constructor() : InputEventFro
       TransferContext.callMethod(rawPtr, MethodBindings.setCommandOrControlAutoremapPtr, NIL)
     }
 
-  /**
-   * State of the [kbd]Alt[/kbd] modifier.
-   */
   public var altPressed: Boolean
     get() {
       TransferContext.writeArguments()
@@ -57,9 +43,6 @@ public open class InputEventWithModifiers internal constructor() : InputEventFro
       TransferContext.callMethod(rawPtr, MethodBindings.setAltPressedPtr, NIL)
     }
 
-  /**
-   * State of the [kbd]Shift[/kbd] modifier.
-   */
   public var shiftPressed: Boolean
     get() {
       TransferContext.writeArguments()
@@ -71,9 +54,6 @@ public open class InputEventWithModifiers internal constructor() : InputEventFro
       TransferContext.callMethod(rawPtr, MethodBindings.setShiftPressedPtr, NIL)
     }
 
-  /**
-   * State of the [kbd]Ctrl[/kbd] modifier.
-   */
   public var ctrlPressed: Boolean
     get() {
       TransferContext.writeArguments()
@@ -85,9 +65,6 @@ public open class InputEventWithModifiers internal constructor() : InputEventFro
       TransferContext.callMethod(rawPtr, MethodBindings.setCtrlPressedPtr, NIL)
     }
 
-  /**
-   * State of the [kbd]Meta[/kbd] modifier. On Windows and Linux, this represents the Windows key (sometimes called "meta" or "super" on Linux). On macOS, this represents the Command key.
-   */
   public var metaPressed: Boolean
     get() {
       TransferContext.writeArguments()
@@ -99,25 +76,17 @@ public open class InputEventWithModifiers internal constructor() : InputEventFro
       TransferContext.callMethod(rawPtr, MethodBindings.setMetaPressedPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_INPUTEVENTWITHMODIFIERS, scriptIndex)
     return true
   }
 
-  /**
-   * On macOS, returns `true` if [kbd]Meta[/kbd] ([kbd]Command[/kbd]) is pressed.
-   *
-   * On other platforms, returns `true` if [kbd]Ctrl[/kbd] is pressed.
-   */
   public fun isCommandOrControlPressed(): Boolean {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.isCommandOrControlPressedPtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Returns the keycode combination of modifier keys.
-   */
   public fun getModifiersMask(): KeyModifierMask {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getModifiersMaskPtr, LONG)

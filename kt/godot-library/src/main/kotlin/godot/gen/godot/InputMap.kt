@@ -23,127 +23,76 @@ import kotlin.Double
 import kotlin.Float
 import kotlin.Int
 import kotlin.Suppress
-import kotlin.Unit
 import kotlin.jvm.JvmOverloads
 
-/**
- * A singleton that manages all [godot.InputEventAction]s.
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/inputs/inputevent.html#inputmap]($DOCS_URL/tutorials/inputs/inputevent.html#inputmap)
- *
- * Manages all [godot.InputEventAction] which can be created/modified from the project settings menu **Project > Project Settings > Input Map** or in code with [addAction] and [actionAddEvent]. See [godot.Node.Input].
- */
 @GodotBaseType
 public object InputMap : Object() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     getSingleton(ENGINECLASS_INPUTMAP)
     return false
   }
 
-  /**
-   * Returns `true` if the [godot.InputMap] has a registered action with the given name.
-   */
   public fun hasAction(action: StringName): Boolean {
     TransferContext.writeArguments(STRING_NAME to action)
     TransferContext.callMethod(rawPtr, MethodBindings.hasActionPtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Returns an array of all actions in the [godot.InputMap].
-   */
   public fun getActions(): VariantArray<StringName> {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getActionsPtr, ARRAY)
     return (TransferContext.readReturnValue(ARRAY, false) as VariantArray<StringName>)
   }
 
-  /**
-   * Adds an empty action to the [godot.InputMap] with a configurable [deadzone].
-   *
-   * An [godot.InputEvent] can then be added to this action with [actionAddEvent].
-   */
   @JvmOverloads
-  public fun addAction(action: StringName, deadzone: Float = 0.5f): Unit {
+  public fun addAction(action: StringName, deadzone: Float = 0.5f) {
     TransferContext.writeArguments(STRING_NAME to action, DOUBLE to deadzone.toDouble())
     TransferContext.callMethod(rawPtr, MethodBindings.addActionPtr, NIL)
   }
 
-  /**
-   * Removes an action from the [godot.InputMap].
-   */
-  public fun eraseAction(action: StringName): Unit {
+  public fun eraseAction(action: StringName) {
     TransferContext.writeArguments(STRING_NAME to action)
     TransferContext.callMethod(rawPtr, MethodBindings.eraseActionPtr, NIL)
   }
 
-  /**
-   * Sets a deadzone value for the action.
-   */
-  public fun actionSetDeadzone(action: StringName, deadzone: Float): Unit {
+  public fun actionSetDeadzone(action: StringName, deadzone: Float) {
     TransferContext.writeArguments(STRING_NAME to action, DOUBLE to deadzone.toDouble())
     TransferContext.callMethod(rawPtr, MethodBindings.actionSetDeadzonePtr, NIL)
   }
 
-  /**
-   * Returns a deadzone value for the action.
-   */
   public fun actionGetDeadzone(action: StringName): Float {
     TransferContext.writeArguments(STRING_NAME to action)
     TransferContext.callMethod(rawPtr, MethodBindings.actionGetDeadzonePtr, DOUBLE)
     return (TransferContext.readReturnValue(DOUBLE, false) as Double).toFloat()
   }
 
-  /**
-   * Adds an [godot.InputEvent] to an action. This [godot.InputEvent] will trigger the action.
-   */
-  public fun actionAddEvent(action: StringName, event: InputEvent): Unit {
+  public fun actionAddEvent(action: StringName, event: InputEvent) {
     TransferContext.writeArguments(STRING_NAME to action, OBJECT to event)
     TransferContext.callMethod(rawPtr, MethodBindings.actionAddEventPtr, NIL)
   }
 
-  /**
-   * Returns `true` if the action has the given [godot.InputEvent] associated with it.
-   */
   public fun actionHasEvent(action: StringName, event: InputEvent): Boolean {
     TransferContext.writeArguments(STRING_NAME to action, OBJECT to event)
     TransferContext.callMethod(rawPtr, MethodBindings.actionHasEventPtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Removes an [godot.InputEvent] from an action.
-   */
-  public fun actionEraseEvent(action: StringName, event: InputEvent): Unit {
+  public fun actionEraseEvent(action: StringName, event: InputEvent) {
     TransferContext.writeArguments(STRING_NAME to action, OBJECT to event)
     TransferContext.callMethod(rawPtr, MethodBindings.actionEraseEventPtr, NIL)
   }
 
-  /**
-   * Removes all events from an action.
-   */
-  public fun actionEraseEvents(action: StringName): Unit {
+  public fun actionEraseEvents(action: StringName) {
     TransferContext.writeArguments(STRING_NAME to action)
     TransferContext.callMethod(rawPtr, MethodBindings.actionEraseEventsPtr, NIL)
   }
 
-  /**
-   * Returns an array of [godot.InputEvent]s associated with a given action.
-   *
-   * **Note:** When used in the editor (e.g. a tool script or [godot.EditorPlugin]), this method will return events for the editor action. If you want to access your project's input binds from the editor, read the `input/ *` settings from [godot.ProjectSettings].
-   */
   public fun actionGetEvents(action: StringName): VariantArray<InputEvent> {
     TransferContext.writeArguments(STRING_NAME to action)
     TransferContext.callMethod(rawPtr, MethodBindings.actionGetEventsPtr, ARRAY)
     return (TransferContext.readReturnValue(ARRAY, false) as VariantArray<InputEvent>)
   }
 
-  /**
-   * Returns `true` if the given event is part of an existing action. This method ignores keyboard modifiers if the given [godot.InputEvent] is not pressed (for proper release detection). See [actionHasEvent] if you don't want this behavior.
-   *
-   * If [exactMatch] is `false`, it ignores additional input modifiers for [godot.InputEventKey] and [godot.InputEventMouseButton] events, and the direction for [godot.InputEventJoypadMotion] events.
-   */
   @JvmOverloads
   public fun eventIsAction(
     event: InputEvent,
@@ -155,10 +104,7 @@ public object InputMap : Object() {
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Clears all [godot.InputEventAction] in the [godot.InputMap] and load it anew from [godot.ProjectSettings].
-   */
-  public fun loadFromProjectSettings(): Unit {
+  public fun loadFromProjectSettings() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.loadFromProjectSettingsPtr, NIL)
   }

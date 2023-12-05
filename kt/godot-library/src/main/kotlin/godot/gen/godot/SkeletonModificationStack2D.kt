@@ -21,22 +21,9 @@ import kotlin.Float
 import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
-import kotlin.Unit
 
-/**
- * A resource that holds a stack of [godot.SkeletonModification2D]s.
- *
- * This resource is used by the Skeleton and holds a stack of [godot.SkeletonModification2D]s.
- *
- * This controls the order of the modifications and how they are applied. Modification order is especially important for full-body IK setups, as you need to execute the modifications in the correct order to get the desired results. For example, you want to execute a modification on the spine *before* the arms on a humanoid skeleton.
- *
- * This resource also controls how strongly all of the modifications are applied to the [godot.Skeleton2D].
- */
 @GodotBaseType
 public open class SkeletonModificationStack2D : Resource() {
-  /**
-   * If `true`, the modification's in the stack will be called. This is handled automatically through the [godot.Skeleton2D] node.
-   */
   public var enabled: Boolean
     get() {
       TransferContext.writeArguments()
@@ -48,9 +35,6 @@ public open class SkeletonModificationStack2D : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setEnabledPtr, NIL)
     }
 
-  /**
-   * The interpolation strength of the modifications in stack. A value of `0` will make it where the modifications are not applied, a strength of `0.5` will be half applied, and a strength of `1` will allow the modifications to be fully applied and override the [godot.Skeleton2D] [godot.Bone2D] poses.
-   */
   public var strength: Float
     get() {
       TransferContext.writeArguments()
@@ -62,9 +46,6 @@ public open class SkeletonModificationStack2D : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setStrengthPtr, NIL)
     }
 
-  /**
-   * The number of modifications in the stack.
-   */
   public var modificationCount: Int
     get() {
       TransferContext.writeArguments()
@@ -76,82 +57,53 @@ public open class SkeletonModificationStack2D : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setModificationCountPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_SKELETONMODIFICATIONSTACK2D, scriptIndex)
     return true
   }
 
-  /**
-   * Sets up the modification stack so it can execute. This function should be called by [godot.Skeleton2D] and shouldn't be manually called unless you know what you are doing.
-   */
-  public fun setup(): Unit {
+  public fun setup() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.setupPtr, NIL)
   }
 
-  /**
-   * Executes all of the [godot.SkeletonModification2D]s in the stack that use the same execution mode as the passed-in [executionMode], starting from index `0` to [modificationCount].
-   *
-   * **Note:** The order of the modifications can matter depending on the modifications. For example, modifications on a spine should operate before modifications on the arms in order to get proper results.
-   */
-  public fun execute(delta: Float, executionMode: Int): Unit {
+  public fun execute(delta: Float, executionMode: Int) {
     TransferContext.writeArguments(DOUBLE to delta.toDouble(), LONG to executionMode.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.executePtr, NIL)
   }
 
-  /**
-   * Enables all [godot.SkeletonModification2D]s in the stack.
-   */
-  public fun enableAllModifications(enabled: Boolean): Unit {
+  public fun enableAllModifications(enabled: Boolean) {
     TransferContext.writeArguments(BOOL to enabled)
     TransferContext.callMethod(rawPtr, MethodBindings.enableAllModificationsPtr, NIL)
   }
 
-  /**
-   * Returns the [godot.SkeletonModification2D] at the passed-in index, [modIdx].
-   */
   public fun getModification(modIdx: Int): SkeletonModification2D? {
     TransferContext.writeArguments(LONG to modIdx.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getModificationPtr, OBJECT)
     return (TransferContext.readReturnValue(OBJECT, true) as SkeletonModification2D?)
   }
 
-  /**
-   * Adds the passed-in [godot.SkeletonModification2D] to the stack.
-   */
-  public fun addModification(modification: SkeletonModification2D): Unit {
+  public fun addModification(modification: SkeletonModification2D) {
     TransferContext.writeArguments(OBJECT to modification)
     TransferContext.callMethod(rawPtr, MethodBindings.addModificationPtr, NIL)
   }
 
-  /**
-   * Deletes the [godot.SkeletonModification2D] at the index position [modIdx], if it exists.
-   */
-  public fun deleteModification(modIdx: Int): Unit {
+  public fun deleteModification(modIdx: Int) {
     TransferContext.writeArguments(LONG to modIdx.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.deleteModificationPtr, NIL)
   }
 
-  /**
-   * Sets the modification at [modIdx] to the passed-in modification, [modification].
-   */
-  public fun setModification(modIdx: Int, modification: SkeletonModification2D): Unit {
+  public fun setModification(modIdx: Int, modification: SkeletonModification2D) {
     TransferContext.writeArguments(LONG to modIdx.toLong(), OBJECT to modification)
     TransferContext.callMethod(rawPtr, MethodBindings.setModificationPtr, NIL)
   }
 
-  /**
-   * Returns a boolean that indicates whether the modification stack is setup and can execute.
-   */
   public fun getIsSetup(): Boolean {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getIsSetupPtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Returns the [godot.Skeleton2D] node that the SkeletonModificationStack2D is bound to.
-   */
   public fun getSkeleton(): Skeleton2D? {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getSkeletonPtr, OBJECT)

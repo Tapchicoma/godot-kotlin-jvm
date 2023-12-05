@@ -29,7 +29,6 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
-import kotlin.Unit
 import kotlin.jvm.JvmOverloads
 
 @GodotBaseType
@@ -40,7 +39,7 @@ public open class WebRTCPeerConnection : RefCounted() {
 
   public val dataChannelReceived: Signal1<WebRTCDataChannel> by signal("channel")
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_WEBRTCPEERCONNECTION, scriptIndex)
     return true
   }
@@ -94,7 +93,7 @@ public open class WebRTCPeerConnection : RefCounted() {
     return GodotError.from(TransferContext.readReturnValue(LONG) as Long)
   }
 
-  public fun close(): Unit {
+  public fun close() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.closePtr, NIL)
   }
@@ -134,7 +133,9 @@ public open class WebRTCPeerConnection : RefCounted() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): ConnectionState = entries.single {
+          it.id == `value`
+      }
     }
   }
 
@@ -152,7 +153,9 @@ public open class WebRTCPeerConnection : RefCounted() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): GatheringState = entries.single {
+          it.id == `value`
+      }
     }
   }
 
@@ -173,12 +176,14 @@ public open class WebRTCPeerConnection : RefCounted() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): SignalingState = entries.single {
+          it.id == `value`
+      }
     }
   }
 
   public companion object {
-    public fun setDefaultExtension(extensionClass: StringName): Unit {
+    public fun setDefaultExtension(extensionClass: StringName) {
       TransferContext.writeArguments(STRING_NAME to extensionClass)
       TransferContext.callMethod(0, MethodBindings.setDefaultExtensionPtr, NIL)
     }

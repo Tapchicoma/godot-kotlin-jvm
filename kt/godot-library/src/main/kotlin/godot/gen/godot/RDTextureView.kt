@@ -17,16 +17,8 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
 
-/**
- * Texture view (used by [godot.RenderingDevice]).
- *
- * This object is used by [godot.RenderingDevice].
- */
 @GodotBaseType
 public open class RDTextureView : RefCounted() {
-  /**
-   * Optional override for the data format to return sampled values in. The default value of [godot.RenderingDevice.DATA_FORMAT_MAX] does not override the format.
-   */
   public var formatOverride: RenderingDevice.DataFormat
     get() {
       TransferContext.writeArguments()
@@ -38,9 +30,6 @@ public open class RDTextureView : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFormatOverridePtr, NIL)
     }
 
-  /**
-   * The channel to sample when sampling the red color channel.
-   */
   public var swizzleR: RenderingDevice.TextureSwizzle
     get() {
       TransferContext.writeArguments()
@@ -52,9 +41,6 @@ public open class RDTextureView : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSwizzleRPtr, NIL)
     }
 
-  /**
-   * The channel to sample when sampling the green color channel.
-   */
   public var swizzleG: RenderingDevice.TextureSwizzle
     get() {
       TransferContext.writeArguments()
@@ -66,9 +52,6 @@ public open class RDTextureView : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSwizzleGPtr, NIL)
     }
 
-  /**
-   * The channel to sample when sampling the blue color channel.
-   */
   public var swizzleB: RenderingDevice.TextureSwizzle
     get() {
       TransferContext.writeArguments()
@@ -80,9 +63,6 @@ public open class RDTextureView : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSwizzleBPtr, NIL)
     }
 
-  /**
-   * The channel to sample when sampling the alpha channel.
-   */
   public var swizzleA: RenderingDevice.TextureSwizzle
     get() {
       TransferContext.writeArguments()
@@ -94,7 +74,7 @@ public open class RDTextureView : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSwizzleAPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_RDTEXTUREVIEW, scriptIndex)
     return true
   }

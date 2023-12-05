@@ -13,7 +13,7 @@ import kotlin.Suppress
 
 @GodotBaseType
 public open class TextServerAdvanced : TextServerExtension() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_TEXTSERVERADVANCED, scriptIndex)
     return true
   }

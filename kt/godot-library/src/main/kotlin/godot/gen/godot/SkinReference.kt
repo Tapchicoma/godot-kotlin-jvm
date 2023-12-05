@@ -17,28 +17,19 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- *
- */
 @GodotBaseType
 public open class SkinReference internal constructor() : RefCounted() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_SKINREFERENCE, scriptIndex)
     return true
   }
 
-  /**
-   *
-   */
   public fun getSkeleton(): RID {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getSkeletonPtr, _RID)
     return (TransferContext.readReturnValue(_RID, false) as RID)
   }
 
-  /**
-   *
-   */
   public fun getSkin(): Skin? {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getSkinPtr, OBJECT)

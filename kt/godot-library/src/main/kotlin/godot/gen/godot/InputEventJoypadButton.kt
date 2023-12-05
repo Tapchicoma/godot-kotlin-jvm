@@ -22,19 +22,8 @@ import kotlin.Long
 import kotlin.Suppress
 import kotlin.jvm.JvmName
 
-/**
- * Represents a gamepad button being pressed or released.
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/inputs/inputevent.html]($DOCS_URL/tutorials/inputs/inputevent.html)
- *
- * Input event type for gamepad buttons. For gamepad analog sticks and joysticks, see [godot.InputEventJoypadMotion].
- */
 @GodotBaseType
 public open class InputEventJoypadButton : InputEvent() {
-  /**
-   * Button identifier. One of the [enum JoyButton] button constants.
-   */
   public var buttonIndex: JoyButton
     get() {
       TransferContext.writeArguments()
@@ -46,9 +35,6 @@ public open class InputEventJoypadButton : InputEvent() {
       TransferContext.callMethod(rawPtr, MethodBindings.setButtonIndexPtr, NIL)
     }
 
-  /**
-   * Represents the pressure the user puts on the button with their finger, if the controller supports it. Ranges from `0` to `1`.
-   */
   public var pressure: Float
     get() {
       TransferContext.writeArguments()
@@ -60,9 +46,6 @@ public open class InputEventJoypadButton : InputEvent() {
       TransferContext.callMethod(rawPtr, MethodBindings.setPressurePtr, NIL)
     }
 
-  /**
-   * If `true`, the button's state is pressed. If `false`, the button's state is released.
-   */
   public var pressed: Boolean
     @JvmName("isPressed_prop")
     @Suppress("INAPPLICABLE_JVM_NAME")
@@ -72,7 +55,7 @@ public open class InputEventJoypadButton : InputEvent() {
       TransferContext.callMethod(rawPtr, MethodBindings.setPressedPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_INPUTEVENTJOYPADBUTTON, scriptIndex)
     return true
   }

@@ -17,11 +17,10 @@ import kotlin.Int
 import kotlin.NotImplementedError
 import kotlin.String
 import kotlin.Suppress
-import kotlin.Unit
 
 @GodotBaseType
 public open class WebRTCPeerConnectionExtension : WebRTCPeerConnection() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_WEBRTCPEERCONNECTIONEXTENSION, scriptIndex)
     return true
   }
@@ -71,7 +70,7 @@ public open class WebRTCPeerConnectionExtension : WebRTCPeerConnection() {
     throw NotImplementedError("_poll is not implemented for WebRTCPeerConnectionExtension")
   }
 
-  public open fun _close(): Unit {
+  public open fun _close() {
   }
 
   public companion object

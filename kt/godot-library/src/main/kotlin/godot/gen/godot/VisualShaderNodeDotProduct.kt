@@ -11,14 +11,9 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * Calculates a dot product of two vectors within the visual shader graph.
- *
- * Translates to `dot(a, b)` in the shader language.
- */
 @GodotBaseType
 public open class VisualShaderNodeDotProduct : VisualShaderNode() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_VISUALSHADERNODEDOTPRODUCT, scriptIndex)
     return true
   }

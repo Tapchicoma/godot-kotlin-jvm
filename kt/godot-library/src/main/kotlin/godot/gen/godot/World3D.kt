@@ -18,19 +18,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * A resource that holds all components of a 3D world, such as a visual scenario and a physics space.
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/physics/ray-casting.html]($DOCS_URL/tutorials/physics/ray-casting.html)
- *
- * Class that has everything pertaining to a world: A physics space, a visual scenario, and a sound space. 3D nodes register their resources into the current 3D world.
- */
 @GodotBaseType
 public open class World3D : Resource() {
-  /**
-   * The World3D's [godot.Environment].
-   */
   public var environment: Environment?
     get() {
       TransferContext.writeArguments()
@@ -42,9 +31,6 @@ public open class World3D : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setEnvironmentPtr, NIL)
     }
 
-  /**
-   * The World3D's fallback environment will be used if [environment] fails or is missing.
-   */
   public var fallbackEnvironment: Environment?
     get() {
       TransferContext.writeArguments()
@@ -56,9 +42,6 @@ public open class World3D : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFallbackEnvironmentPtr, NIL)
     }
 
-  /**
-   * The default [godot.CameraAttributes] resource to use if none set on the [godot.Camera3D].
-   */
   public var cameraAttributes: Material?
     get() {
       TransferContext.writeArguments()
@@ -70,9 +53,6 @@ public open class World3D : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setCameraAttributesPtr, NIL)
     }
 
-  /**
-   * The World3D's physics space.
-   */
   public val space: RID
     get() {
       TransferContext.writeArguments()
@@ -80,9 +60,6 @@ public open class World3D : Resource() {
       return (TransferContext.readReturnValue(_RID, false) as RID)
     }
 
-  /**
-   * The [RID] of this world's navigation map. Used by the [godot.NavigationServer3D].
-   */
   public val navigationMap: RID
     get() {
       TransferContext.writeArguments()
@@ -90,9 +67,6 @@ public open class World3D : Resource() {
       return (TransferContext.readReturnValue(_RID, false) as RID)
     }
 
-  /**
-   * The World3D's visual scenario.
-   */
   public val scenario: RID
     get() {
       TransferContext.writeArguments()
@@ -100,9 +74,6 @@ public open class World3D : Resource() {
       return (TransferContext.readReturnValue(_RID, false) as RID)
     }
 
-  /**
-   * Direct access to the world's physics 3D space state. Used for querying current and potential collisions. When using multi-threaded physics, access is limited to [godot.Node.PhysicsProcess] in the main thread.
-   */
   public val directSpaceState: PhysicsDirectSpaceState3D?
     get() {
       TransferContext.writeArguments()
@@ -110,7 +81,7 @@ public open class World3D : Resource() {
       return (TransferContext.readReturnValue(OBJECT, true) as PhysicsDirectSpaceState3D?)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_WORLD3D, scriptIndex)
     return true
   }

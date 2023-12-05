@@ -20,18 +20,8 @@ import kotlin.Int
 import kotlin.Suppress
 import kotlin.Unit
 
-/**
- * Flat plane shape for use with occlusion culling in [godot.OccluderInstance3D].
- *
- * [godot.QuadOccluder3D] stores a flat plane shape that can be used by the engine's occlusion culling system. See also [godot.PolygonOccluder3D] if you need to customize the quad's shape.
- *
- * See [godot.OccluderInstance3D]'s documentation for instructions on setting up occlusion culling.
- */
 @GodotBaseType
 public open class QuadOccluder3D : Occluder3D() {
-  /**
-   * The quad's size in 3D units.
-   */
   @CoreTypeLocalCopy
   public var size: Vector2
     get() {
@@ -44,14 +34,12 @@ public open class QuadOccluder3D : Occluder3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSizePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_QUADOCCLUDER3D, scriptIndex)
     return true
   }
 
   /**
-   * The quad's size in 3D units.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our

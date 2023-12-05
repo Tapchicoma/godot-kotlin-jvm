@@ -11,17 +11,9 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * A GUI control that displays a [godot.StyleBox].
- *
- * Tutorials:
- * [https://godotengine.org/asset-library/asset/523](https://godotengine.org/asset-library/asset/523)
- *
- * [godot.Panel] is a GUI control that displays a [godot.StyleBox]. See also [godot.PanelContainer].
- */
 @GodotBaseType
 public open class Panel : Control() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_PANEL, scriptIndex)
     return true
   }

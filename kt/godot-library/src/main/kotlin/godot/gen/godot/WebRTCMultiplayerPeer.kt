@@ -24,12 +24,11 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
-import kotlin.Unit
 import kotlin.jvm.JvmOverloads
 
 @GodotBaseType
 public open class WebRTCMultiplayerPeer : MultiplayerPeer() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_WEBRTCMULTIPLAYERPEER, scriptIndex)
     return true
   }
@@ -69,7 +68,7 @@ public open class WebRTCMultiplayerPeer : MultiplayerPeer() {
     return GodotError.from(TransferContext.readReturnValue(LONG) as Long)
   }
 
-  public fun removePeer(peerId: Int): Unit {
+  public fun removePeer(peerId: Int) {
     TransferContext.writeArguments(LONG to peerId.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.removePeerPtr, NIL)
   }

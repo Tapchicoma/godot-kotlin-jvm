@@ -19,21 +19,8 @@ import kotlin.Float
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * Adds a delay audio effect to an audio bus. Plays input signal back after a period of time.
- *
- * Two tap delay and feedback options.
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/audio/audio_buses.html]($DOCS_URL/tutorials/audio/audio_buses.html)
- *
- * Plays input signal back after a period of time. The delayed signal may be played back multiple times to create the sound of a repeating, decaying echo. Delay effects range from a subtle echo effect to a pronounced blending of previous sounds with new sounds.
- */
 @GodotBaseType
 public open class AudioEffectDelay : AudioEffect() {
-  /**
-   * Output percent of original sound. At 0, only delayed sounds are output. Value can range from 0 to 1.
-   */
   public var dry: Float
     get() {
       TransferContext.writeArguments()
@@ -45,9 +32,6 @@ public open class AudioEffectDelay : AudioEffect() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDryPtr, NIL)
     }
 
-  /**
-   * If `true`, `tap1` will be enabled.
-   */
   public var tap1Active: Boolean
     get() {
       TransferContext.writeArguments()
@@ -59,9 +43,6 @@ public open class AudioEffectDelay : AudioEffect() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTap1ActivePtr, NIL)
     }
 
-  /**
-   * `tap1` delay time in milliseconds.
-   */
   public var tap1DelayMs: Float
     get() {
       TransferContext.writeArguments()
@@ -73,9 +54,6 @@ public open class AudioEffectDelay : AudioEffect() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTap1DelayMsPtr, NIL)
     }
 
-  /**
-   * Sound level for `tap1`.
-   */
   public var tap1LevelDb: Float
     get() {
       TransferContext.writeArguments()
@@ -87,9 +65,6 @@ public open class AudioEffectDelay : AudioEffect() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTap1LevelDbPtr, NIL)
     }
 
-  /**
-   * Pan position for `tap1`. Value can range from -1 (fully left) to 1 (fully right).
-   */
   public var tap1Pan: Float
     get() {
       TransferContext.writeArguments()
@@ -101,9 +76,6 @@ public open class AudioEffectDelay : AudioEffect() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTap1PanPtr, NIL)
     }
 
-  /**
-   * If `true`, `tap2` will be enabled.
-   */
   public var tap2Active: Boolean
     get() {
       TransferContext.writeArguments()
@@ -115,9 +87,6 @@ public open class AudioEffectDelay : AudioEffect() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTap2ActivePtr, NIL)
     }
 
-  /**
-   * **Tap2** delay time in milliseconds.
-   */
   public var tap2DelayMs: Float
     get() {
       TransferContext.writeArguments()
@@ -129,9 +98,6 @@ public open class AudioEffectDelay : AudioEffect() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTap2DelayMsPtr, NIL)
     }
 
-  /**
-   * Sound level for `tap2`.
-   */
   public var tap2LevelDb: Float
     get() {
       TransferContext.writeArguments()
@@ -143,9 +109,6 @@ public open class AudioEffectDelay : AudioEffect() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTap2LevelDbPtr, NIL)
     }
 
-  /**
-   * Pan position for `tap2`. Value can range from -1 (fully left) to 1 (fully right).
-   */
   public var tap2Pan: Float
     get() {
       TransferContext.writeArguments()
@@ -157,9 +120,6 @@ public open class AudioEffectDelay : AudioEffect() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTap2PanPtr, NIL)
     }
 
-  /**
-   * If `true`, feedback is enabled.
-   */
   public var feedbackActive: Boolean
     get() {
       TransferContext.writeArguments()
@@ -171,9 +131,6 @@ public open class AudioEffectDelay : AudioEffect() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFeedbackActivePtr, NIL)
     }
 
-  /**
-   * Feedback delay time in milliseconds.
-   */
   public var feedbackDelayMs: Float
     get() {
       TransferContext.writeArguments()
@@ -185,9 +142,6 @@ public open class AudioEffectDelay : AudioEffect() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFeedbackDelayMsPtr, NIL)
     }
 
-  /**
-   * Sound level for `tap1`.
-   */
   public var feedbackLevelDb: Float
     get() {
       TransferContext.writeArguments()
@@ -199,9 +153,6 @@ public open class AudioEffectDelay : AudioEffect() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFeedbackLevelDbPtr, NIL)
     }
 
-  /**
-   * Low-pass filter for feedback, in Hz. Frequencies below this value are filtered out of the source signal.
-   */
   public var feedbackLowpass: Float
     get() {
       TransferContext.writeArguments()
@@ -213,7 +164,7 @@ public open class AudioEffectDelay : AudioEffect() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFeedbackLowpassPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_AUDIOEFFECTDELAY, scriptIndex)
     return true
   }

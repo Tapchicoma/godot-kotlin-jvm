@@ -21,73 +21,42 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
-import kotlin.Unit
 
-/**
- * Server keeping track of different cameras accessible in Godot.
- *
- * The [godot.CameraServer] keeps track of different cameras accessible in Godot. These are external cameras such as webcams or the cameras on your phone.
- *
- * It is notably used to provide AR modules with a video feed from the camera.
- *
- * **Note:** This class is currently only implemented on macOS and iOS. On other platforms, no [godot.CameraFeed]s will be available.
- */
 @GodotBaseType
 public object CameraServer : Object() {
-  /**
-   * Emitted when a [godot.CameraFeed] is added (e.g. a webcam is plugged in).
-   */
   public val cameraFeedAdded: Signal1<Long> by signal("id")
 
-  /**
-   * Emitted when a [godot.CameraFeed] is removed (e.g. a webcam is unplugged).
-   */
   public val cameraFeedRemoved: Signal1<Long> by signal("id")
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     getSingleton(ENGINECLASS_CAMERASERVER)
     return false
   }
 
-  /**
-   * Returns the [godot.CameraFeed] corresponding to the camera with the given [index].
-   */
   public fun getFeed(index: Int): CameraFeed? {
     TransferContext.writeArguments(LONG to index.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getFeedPtr, OBJECT)
     return (TransferContext.readReturnValue(OBJECT, true) as CameraFeed?)
   }
 
-  /**
-   * Returns the number of [godot.CameraFeed]s registered.
-   */
   public fun getFeedCount(): Int {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getFeedCountPtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Returns an array of [godot.CameraFeed]s.
-   */
   public fun feeds(): VariantArray<CameraFeed> {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.feedsPtr, ARRAY)
     return (TransferContext.readReturnValue(ARRAY, false) as VariantArray<CameraFeed>)
   }
 
-  /**
-   * Adds the camera [feed] to the camera server.
-   */
-  public fun addFeed(feed: CameraFeed): Unit {
+  public fun addFeed(feed: CameraFeed) {
     TransferContext.writeArguments(OBJECT to feed)
     TransferContext.callMethod(rawPtr, MethodBindings.addFeedPtr, NIL)
   }
 
-  /**
-   * Removes the specified camera [feed].
-   */
-  public fun removeFeed(feed: CameraFeed): Unit {
+  public fun removeFeed(feed: CameraFeed) {
     TransferContext.writeArguments(OBJECT to feed)
     TransferContext.callMethod(rawPtr, MethodBindings.removeFeedPtr, NIL)
   }
@@ -95,21 +64,9 @@ public object CameraServer : Object() {
   public enum class FeedImage(
     id: Long,
   ) {
-    /**
-     * The RGBA camera image.
-     */
     FEED_RGBA_IMAGE(0),
-    /**
-     * The [godot.YCbCr](https://en.wikipedia.org/wiki/YCbCr) camera image.
-     */
     FEED_YCBCR_IMAGE(0),
-    /**
-     * The Y component camera image.
-     */
     FEED_Y_IMAGE(0),
-    /**
-     * The CbCr component camera image.
-     */
     FEED_CBCR_IMAGE(1),
     ;
 
@@ -119,7 +76,9 @@ public object CameraServer : Object() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): FeedImage = entries.single {
+          it.id == `value`
+      }
     }
   }
 

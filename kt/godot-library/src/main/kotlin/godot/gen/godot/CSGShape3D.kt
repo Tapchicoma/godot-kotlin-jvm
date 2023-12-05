@@ -23,7 +23,6 @@ import kotlin.Float
 import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
-import kotlin.Unit
 
 @GodotBaseType
 public open class CSGShape3D internal constructor() : GeometryInstance3D() {
@@ -104,7 +103,7 @@ public open class CSGShape3D internal constructor() : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setCollisionPriorityPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_CSGSHAPE3D, scriptIndex)
     return true
   }
@@ -115,7 +114,7 @@ public open class CSGShape3D internal constructor() : GeometryInstance3D() {
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  public fun setCollisionMaskValue(layerNumber: Int, `value`: Boolean): Unit {
+  public fun setCollisionMaskValue(layerNumber: Int, `value`: Boolean) {
     TransferContext.writeArguments(LONG to layerNumber.toLong(), BOOL to value)
     TransferContext.callMethod(rawPtr, MethodBindings.setCollisionMaskValuePtr, NIL)
   }
@@ -126,7 +125,7 @@ public open class CSGShape3D internal constructor() : GeometryInstance3D() {
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  public fun setCollisionLayerValue(layerNumber: Int, `value`: Boolean): Unit {
+  public fun setCollisionLayerValue(layerNumber: Int, `value`: Boolean) {
     TransferContext.writeArguments(LONG to layerNumber.toLong(), BOOL to value)
     TransferContext.callMethod(rawPtr, MethodBindings.setCollisionLayerValuePtr, NIL)
   }
@@ -157,7 +156,9 @@ public open class CSGShape3D internal constructor() : GeometryInstance3D() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): Operation = entries.single {
+          it.id == `value`
+      }
     }
   }
 

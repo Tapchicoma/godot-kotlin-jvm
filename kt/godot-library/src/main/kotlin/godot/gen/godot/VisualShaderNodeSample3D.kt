@@ -17,16 +17,8 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
 
-/**
- * A base node for nodes which samples 3D textures in the visual shader graph.
- *
- * A virtual class, use the descendants instead.
- */
 @GodotBaseType
 public open class VisualShaderNodeSample3D internal constructor() : VisualShaderNode() {
-  /**
-   * An input source type.
-   */
   public var source: Source
     get() {
       TransferContext.writeArguments()
@@ -38,7 +30,7 @@ public open class VisualShaderNodeSample3D internal constructor() : VisualShader
       TransferContext.callMethod(rawPtr, MethodBindings.setSourcePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_VISUALSHADERNODESAMPLE3D, scriptIndex)
     return true
   }
@@ -46,17 +38,8 @@ public open class VisualShaderNodeSample3D internal constructor() : VisualShader
   public enum class Source(
     id: Long,
   ) {
-    /**
-     * Creates internal uniform and provides a way to assign it within node.
-     */
     SOURCE_TEXTURE(0),
-    /**
-     * Use the uniform texture from sampler port.
-     */
     SOURCE_PORT(1),
-    /**
-     * Represents the size of the [enum Source] enum.
-     */
     SOURCE_MAX(2),
     ;
 
@@ -66,7 +49,9 @@ public open class VisualShaderNodeSample3D internal constructor() : VisualShader
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): Source = entries.single {
+          it.id == `value`
+      }
     }
   }
 

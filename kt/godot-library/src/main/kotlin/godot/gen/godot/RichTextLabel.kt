@@ -42,50 +42,18 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
-import kotlin.Unit
 import kotlin.jvm.JvmOverloads
 
-/**
- * A control for displaying text that can contain different font styles, images, and basic formatting.
- *
- * Tutorials:
- * [https://godotengine.org/asset-library/asset/677](https://godotengine.org/asset-library/asset/677)
- *
- * A control for displaying text that can contain custom fonts, images, and basic formatting. [godot.RichTextLabel] manages these as an internal tag stack. It also adapts itself to given width/heights.
- *
- * **Note:** Assignments to [text] clear the tag stack and reconstruct it from the property's contents. Any edits made to [text] will erase previous edits made from other manual sources such as [appendText] and the `push_*` / [pop] methods.
- *
- * **Note:** RichTextLabel doesn't support entangled BBCode tags. For example, instead of using `**bold*bold italic**italic*`, use `**bold*bold italic****italic*`.
- *
- * **Note:** `push_* / pop_*` functions won't affect BBCode.
- *
- * **Note:** Unlike [godot.Label], [godot.RichTextLabel] doesn't have a *property* to horizontally align text to the center. Instead, enable [bbcodeEnabled] and surround the text in a `[center]` tag as follows: `[center]Example[/center]`. There is currently no built-in way to vertically align text either, but this can be emulated by relying on anchors/containers and the [fitContent] property.
- */
 @GodotBaseType
 public open class RichTextLabel : Control() {
-  /**
-   * Triggered when the user clicks on content between meta tags. If the meta is defined in text, e.g. `[hi]({"data"="hi"})`, then the parameter for this signal will be a [godot.String] type. If a particular type or an object is desired, the [pushMeta] method must be used to manually insert the data into the tag stack.
-   */
   public val metaClicked: Signal1<Any?> by signal("meta")
 
-  /**
-   * Triggers when the mouse enters a meta tag.
-   */
   public val metaHoverStarted: Signal1<Any?> by signal("meta")
 
-  /**
-   * Triggers when the mouse exits a meta tag.
-   */
   public val metaHoverEnded: Signal1<Any?> by signal("meta")
 
-  /**
-   * Triggered when the document is fully loaded.
-   */
   public val finished: Signal0 by signal()
 
-  /**
-   * If `true`, the label uses BBCode formatting.
-   */
   public var bbcodeEnabled: Boolean
     get() {
       TransferContext.writeArguments()
@@ -97,11 +65,6 @@ public open class RichTextLabel : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setUseBbcodePtr, NIL)
     }
 
-  /**
-   * The label's text in BBCode format. Is not representative of manual modifications to the internal tag stack. Erases changes made by other methods when edited.
-   *
-   * **Note:** If [bbcodeEnabled] is `true`, it is unadvised to use the `+=` operator with `text` (e.g. `text += "some string"`) as it replaces the whole text and can cause slowdowns. It will also erase all BBCode that was added to stack using `push_*` methods. Use [appendText] for adding text instead, unless you absolutely need to close a tag that was opened in an earlier method call.
-   */
   public var text: String
     get() {
       TransferContext.writeArguments()
@@ -113,9 +76,6 @@ public open class RichTextLabel : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTextPtr, NIL)
     }
 
-  /**
-   * If `true`, the label's minimum size will be automatically updated to fit its content, matching the behavior of [godot.Label].
-   */
   public var fitContent: Boolean
     get() {
       TransferContext.writeArguments()
@@ -127,9 +87,6 @@ public open class RichTextLabel : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFitContentPtr, NIL)
     }
 
-  /**
-   * If `true`, the scrollbar is visible. Setting this to `false` does not block scrolling completely. See [scrollToLine].
-   */
   public var scrollActive: Boolean
     get() {
       TransferContext.writeArguments()
@@ -141,9 +98,6 @@ public open class RichTextLabel : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setScrollActivePtr, NIL)
     }
 
-  /**
-   * If `true`, the window scrolls down to display new content automatically.
-   */
   public var scrollFollowing: Boolean
     get() {
       TransferContext.writeArguments()
@@ -155,9 +109,6 @@ public open class RichTextLabel : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setScrollFollowPtr, NIL)
     }
 
-  /**
-   * If set to something other than [godot.TextServer.AUTOWRAP_OFF], the text gets wrapped inside the node's bounding rectangle. To see how each mode behaves, see [enum TextServer.AutowrapMode].
-   */
   public var autowrapMode: TextServer.AutowrapMode
     get() {
       TransferContext.writeArguments()
@@ -169,9 +120,6 @@ public open class RichTextLabel : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAutowrapModePtr, NIL)
     }
 
-  /**
-   * The number of spaces associated with a single tab length. Does not affect `\t` in text tags, only indent tags.
-   */
   public var tabSize: Int
     get() {
       TransferContext.writeArguments()
@@ -183,9 +131,6 @@ public open class RichTextLabel : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTabSizePtr, NIL)
     }
 
-  /**
-   * If `true`, a right-click displays the context menu.
-   */
   public var contextMenuEnabled: Boolean
     get() {
       TransferContext.writeArguments()
@@ -197,9 +142,6 @@ public open class RichTextLabel : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setContextMenuEnabledPtr, NIL)
     }
 
-  /**
-   * If `true`, shortcut keys for context menu items are enabled, even if the context menu is disabled.
-   */
   public var shortcutKeysEnabled: Boolean
     get() {
       TransferContext.writeArguments()
@@ -211,11 +153,6 @@ public open class RichTextLabel : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setShortcutKeysEnabledPtr, NIL)
     }
 
-  /**
-   * The currently installed custom effects. This is an array of [godot.RichTextEffect]s.
-   *
-   * To add a custom effect, it's more convenient to use [installEffect].
-   */
   public var customEffects: VariantArray<Any?>
     get() {
       TransferContext.writeArguments()
@@ -227,9 +164,6 @@ public open class RichTextLabel : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setEffectsPtr, NIL)
     }
 
-  /**
-   * If `true`, the label underlines meta tags such as `[url]{text}[/url]`.
-   */
   public var metaUnderlined: Boolean
     get() {
       TransferContext.writeArguments()
@@ -241,9 +175,6 @@ public open class RichTextLabel : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setMetaUnderlinePtr, NIL)
     }
 
-  /**
-   * If `true`, the label underlines hint tags such as `[hint=description]{text}[/hint]`.
-   */
   public var hintUnderlined: Boolean
     get() {
       TransferContext.writeArguments()
@@ -255,9 +186,6 @@ public open class RichTextLabel : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setHintUnderlinePtr, NIL)
     }
 
-  /**
-   * If `true`, text processing is done in a background thread.
-   */
   public var threaded: Boolean
     get() {
       TransferContext.writeArguments()
@@ -269,11 +197,6 @@ public open class RichTextLabel : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setThreadedPtr, NIL)
     }
 
-  /**
-   * The delay after which the loading progress bar is displayed, in milliseconds. Set to `-1` to disable progress bar entirely.
-   *
-   * **Note:** Progress bar is displayed only if [threaded] is enabled.
-   */
   public var progressBarDelay: Int
     get() {
       TransferContext.writeArguments()
@@ -285,9 +208,6 @@ public open class RichTextLabel : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setProgressBarDelayPtr, NIL)
     }
 
-  /**
-   * If `true`, the label allows text selection.
-   */
   public var selectionEnabled: Boolean
     get() {
       TransferContext.writeArguments()
@@ -299,9 +219,6 @@ public open class RichTextLabel : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSelectionEnabledPtr, NIL)
     }
 
-  /**
-   * If `true`, the selected text will be deselected when focus is lost.
-   */
   public var deselectOnFocusLossEnabled: Boolean
     get() {
       TransferContext.writeArguments()
@@ -313,11 +230,6 @@ public open class RichTextLabel : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDeselectOnFocusLossEnabledPtr, NIL)
     }
 
-  /**
-   * The number of characters to display. If set to `-1`, all characters are displayed. This can be useful when animating the text appearing in a dialog box.
-   *
-   * **Note:** Setting this property updates [visibleRatio] accordingly.
-   */
   public var visibleCharacters: Int
     get() {
       TransferContext.writeArguments()
@@ -329,9 +241,6 @@ public open class RichTextLabel : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setVisibleCharactersPtr, NIL)
     }
 
-  /**
-   * Sets the clipping behavior when [visibleCharacters] or [visibleRatio] is set. See [enum TextServer.VisibleCharactersBehavior] for more info.
-   */
   public var visibleCharactersBehavior: TextServer.VisibleCharactersBehavior
     get() {
       TransferContext.writeArguments()
@@ -343,11 +252,6 @@ public open class RichTextLabel : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setVisibleCharactersBehaviorPtr, NIL)
     }
 
-  /**
-   * The fraction of characters to display, relative to the total number of characters (see [getTotalCharacterCount]). If set to `1.0`, all characters are displayed. If set to `0.5`, only half of the characters will be displayed. This can be useful when animating the text appearing in a dialog box.
-   *
-   * **Note:** Setting this property updates [visibleCharacters] accordingly.
-   */
   public var visibleRatio: Float
     get() {
       TransferContext.writeArguments()
@@ -359,9 +263,6 @@ public open class RichTextLabel : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setVisibleRatioPtr, NIL)
     }
 
-  /**
-   * Base text writing direction.
-   */
   public var textDirection: Control.TextDirection
     get() {
       TransferContext.writeArguments()
@@ -373,9 +274,6 @@ public open class RichTextLabel : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTextDirectionPtr, NIL)
     }
 
-  /**
-   * Language code used for line-breaking and text shaping algorithms, if left empty current locale is used instead.
-   */
   public var language: String
     get() {
       TransferContext.writeArguments()
@@ -387,9 +285,6 @@ public open class RichTextLabel : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setLanguagePtr, NIL)
     }
 
-  /**
-   * Set BiDi algorithm override for the structured text.
-   */
   public var structuredTextBidiOverride: TextServer.StructuredTextParser
     get() {
       TransferContext.writeArguments()
@@ -401,9 +296,6 @@ public open class RichTextLabel : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setStructuredTextBidiOverridePtr, NIL)
     }
 
-  /**
-   * Set additional options for BiDi override.
-   */
   public var structuredTextBidiOverrideOptions: VariantArray<Any?>
     get() {
       TransferContext.writeArguments()
@@ -417,35 +309,22 @@ public open class RichTextLabel : Control() {
           NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_RICHTEXTLABEL, scriptIndex)
     return true
   }
 
-  /**
-   * Returns the text without BBCode mark-up.
-   */
   public fun getParsedText(): String {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getParsedTextPtr, STRING)
     return (TransferContext.readReturnValue(STRING, false) as String)
   }
 
-  /**
-   * Adds raw non-BBCode-parsed text to the tag stack.
-   */
-  public fun addText(text: String): Unit {
+  public fun addText(text: String) {
     TransferContext.writeArguments(STRING to text)
     TransferContext.callMethod(rawPtr, MethodBindings.addTextPtr, NIL)
   }
 
-  /**
-   * Adds an image's opening and closing tags to the tag stack, optionally providing a [width] and [height] to resize the image, a [color] to tint the image and a [region] to only use parts of the image.
-   *
-   * If [width] or [height] is set to 0, the image size will be adjusted in order to keep the original aspect ratio.
-   *
-   * If [width] and [height] are not set, but [region] is, the region's rect will be used.
-   */
   @JvmOverloads
   public fun addImage(
     image: Texture2D,
@@ -454,113 +333,72 @@ public open class RichTextLabel : Control() {
     color: Color = Color(Color(1, 1, 1, 1)),
     inlineAlign: InlineAlignment = InlineAlignment.INLINE_ALIGNMENT_CENTER,
     region: Rect2 = Rect2(0.0, 0.0, 0.0, 0.0),
-  ): Unit {
+  ) {
     TransferContext.writeArguments(OBJECT to image, LONG to width.toLong(), LONG to height.toLong(), COLOR to color, LONG to inlineAlign.id, RECT2 to region)
     TransferContext.callMethod(rawPtr, MethodBindings.addImagePtr, NIL)
   }
 
-  /**
-   * Adds a newline tag to the tag stack.
-   */
-  public fun newline(): Unit {
+  public fun newline() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.newlinePtr, NIL)
   }
 
-  /**
-   * Removes a paragraph of content from the label. Returns `true` if the paragraph exists.
-   *
-   * The [paragraph] argument is the index of the paragraph to remove, it can take values in the interval `[0, get_paragraph_count() - 1]`.
-   */
   public fun removeParagraph(paragraph: Int): Boolean {
     TransferContext.writeArguments(LONG to paragraph.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.removeParagraphPtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Adds a `[font]` tag to the tag stack. Overrides default fonts for its duration.
-   */
-  public fun pushFont(font: Font, fontSize: Int): Unit {
+  public fun pushFont(font: Font, fontSize: Int) {
     TransferContext.writeArguments(OBJECT to font, LONG to fontSize.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.pushFontPtr, NIL)
   }
 
-  /**
-   * Adds a `[font_size]` tag to the tag stack. Overrides default font size for its duration.
-   */
-  public fun pushFontSize(fontSize: Int): Unit {
+  public fun pushFontSize(fontSize: Int) {
     TransferContext.writeArguments(LONG to fontSize.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.pushFontSizePtr, NIL)
   }
 
-  /**
-   * Adds a `[font]` tag with a normal font to the tag stack.
-   */
-  public fun pushNormal(): Unit {
+  public fun pushNormal() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.pushNormalPtr, NIL)
   }
 
-  /**
-   * Adds a `[font]` tag with a bold font to the tag stack. This is the same as adding a `**` tag if not currently in a `*` tag.
-   */
-  public fun pushBold(): Unit {
+  public fun pushBold() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.pushBoldPtr, NIL)
   }
 
-  /**
-   * Adds a `[font]` tag with a bold italics font to the tag stack.
-   */
-  public fun pushBoldItalics(): Unit {
+  public fun pushBoldItalics() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.pushBoldItalicsPtr, NIL)
   }
 
-  /**
-   * Adds a `[font]` tag with an italics font to the tag stack. This is the same as adding an `*` tag if not currently in a `**` tag.
-   */
-  public fun pushItalics(): Unit {
+  public fun pushItalics() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.pushItalicsPtr, NIL)
   }
 
-  /**
-   * Adds a `[font]` tag with a monospace font to the tag stack.
-   */
-  public fun pushMono(): Unit {
+  public fun pushMono() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.pushMonoPtr, NIL)
   }
 
-  /**
-   * Adds a `[color]` tag to the tag stack.
-   */
-  public fun pushColor(color: Color): Unit {
+  public fun pushColor(color: Color) {
     TransferContext.writeArguments(COLOR to color)
     TransferContext.callMethod(rawPtr, MethodBindings.pushColorPtr, NIL)
   }
 
-  /**
-   * Adds a `[outline_size]` tag to the tag stack. Overrides default text outline size for its duration.
-   */
-  public fun pushOutlineSize(outlineSize: Int): Unit {
+  public fun pushOutlineSize(outlineSize: Int) {
     TransferContext.writeArguments(LONG to outlineSize.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.pushOutlineSizePtr, NIL)
   }
 
-  /**
-   * Adds a `[outline_color]` tag to the tag stack. Adds text outline for its duration.
-   */
-  public fun pushOutlineColor(color: Color): Unit {
+  public fun pushOutlineColor(color: Color) {
     TransferContext.writeArguments(COLOR to color)
     TransferContext.callMethod(rawPtr, MethodBindings.pushOutlineColorPtr, NIL)
   }
 
-  /**
-   * Adds a `[p]` tag to the tag stack.
-   */
   @JvmOverloads
   public fun pushParagraph(
     alignment: HorizontalAlignment,
@@ -570,81 +408,57 @@ public open class RichTextLabel : Control() {
         TextServer.StructuredTextParser.STRUCTURED_TEXT_DEFAULT,
     justificationFlags: TextServer.JustificationFlag = TextServer.JustificationFlagValue(163),
     tabStops: PackedFloat32Array = PackedFloat32Array(),
-  ): Unit {
+  ) {
     TransferContext.writeArguments(LONG to alignment.id, LONG to baseDirection.id, STRING to language, LONG to stParser.id, LONG to justificationFlags.flag, PACKED_FLOAT_32_ARRAY to tabStops)
     TransferContext.callMethod(rawPtr, MethodBindings.pushParagraphPtr, NIL)
   }
 
-  /**
-   * Adds an `[indent]` tag to the tag stack. Multiplies [level] by current [tabSize] to determine new margin length.
-   */
-  public fun pushIndent(level: Int): Unit {
+  public fun pushIndent(level: Int) {
     TransferContext.writeArguments(LONG to level.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.pushIndentPtr, NIL)
   }
 
-  /**
-   * Adds `[ol]` or `[ul]` tag to the tag stack. Multiplies [level] by current [tabSize] to determine new margin length.
-   */
   @JvmOverloads
   public fun pushList(
     level: Int,
     type: ListType,
     capitalize: Boolean,
     bullet: String = "•",
-  ): Unit {
+  ) {
     TransferContext.writeArguments(LONG to level.toLong(), LONG to type.id, BOOL to capitalize, STRING to bullet)
     TransferContext.callMethod(rawPtr, MethodBindings.pushListPtr, NIL)
   }
 
-  /**
-   * Adds a meta tag to the tag stack. Similar to the BBCode `[{text}](something)`, but supports non-[godot.String] metadata types.
-   */
-  public fun pushMeta(`data`: Any?): Unit {
+  public fun pushMeta(`data`: Any?) {
     TransferContext.writeArguments(ANY to data)
     TransferContext.callMethod(rawPtr, MethodBindings.pushMetaPtr, NIL)
   }
 
-  /**
-   * Adds a `[hint]` tag to the tag stack. Same as BBCode `[hint=something]{text}[/hint]`.
-   */
-  public fun pushHint(description: String): Unit {
+  public fun pushHint(description: String) {
     TransferContext.writeArguments(STRING to description)
     TransferContext.callMethod(rawPtr, MethodBindings.pushHintPtr, NIL)
   }
 
-  /**
-   * Adds a `<u>` tag to the tag stack.
-   */
-  public fun pushUnderline(): Unit {
+  public fun pushUnderline() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.pushUnderlinePtr, NIL)
   }
 
-  /**
-   * Adds a `~~` tag to the tag stack.
-   */
-  public fun pushStrikethrough(): Unit {
+  public fun pushStrikethrough() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.pushStrikethroughPtr, NIL)
   }
 
-  /**
-   * Adds a `[table=columns,inline_align]` tag to the tag stack.
-   */
   @JvmOverloads
   public fun pushTable(
     columns: Int,
     inlineAlign: InlineAlignment = InlineAlignment.INLINE_ALIGNMENT_TOP_TO,
     alignToRow: Int = -1,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(LONG to columns.toLong(), LONG to inlineAlign.id, LONG to alignToRow.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.pushTablePtr, NIL)
   }
 
-  /**
-   * Adds a `[dropcap]` tag to the tag stack. Drop cap (dropped capital) is a decorative element at the beginning of a paragraph that is larger than the rest of the text.
-   */
   @JvmOverloads
   public fun pushDropcap(
     string: String,
@@ -654,452 +468,225 @@ public open class RichTextLabel : Control() {
     color: Color = Color(Color(1, 1, 1, 1)),
     outlineSize: Int = 0,
     outlineColor: Color = Color(Color(0, 0, 0, 0)),
-  ): Unit {
+  ) {
     TransferContext.writeArguments(STRING to string, OBJECT to font, LONG to size.toLong(), RECT2 to dropcapMargins, COLOR to color, LONG to outlineSize.toLong(), COLOR to outlineColor)
     TransferContext.callMethod(rawPtr, MethodBindings.pushDropcapPtr, NIL)
   }
 
-  /**
-   * Edits the selected column's expansion options. If [expand] is `true`, the column expands in proportion to its expansion ratio versus the other columns' ratios.
-   *
-   * For example, 2 columns with ratios 3 and 4 plus 70 pixels in available width would expand 30 and 40 pixels, respectively.
-   *
-   * If [expand] is `false`, the column will not contribute to the total ratio.
-   */
   public fun setTableColumnExpand(
     column: Int,
     expand: Boolean,
     ratio: Int,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(LONG to column.toLong(), BOOL to expand, LONG to ratio.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.setTableColumnExpandPtr, NIL)
   }
 
-  /**
-   * Sets color of a table cell. Separate colors for alternating rows can be specified.
-   */
-  public fun setCellRowBackgroundColor(oddRowBg: Color, evenRowBg: Color): Unit {
+  public fun setCellRowBackgroundColor(oddRowBg: Color, evenRowBg: Color) {
     TransferContext.writeArguments(COLOR to oddRowBg, COLOR to evenRowBg)
     TransferContext.callMethod(rawPtr, MethodBindings.setCellRowBackgroundColorPtr, NIL)
   }
 
-  /**
-   * Sets color of a table cell border.
-   */
-  public fun setCellBorderColor(color: Color): Unit {
+  public fun setCellBorderColor(color: Color) {
     TransferContext.writeArguments(COLOR to color)
     TransferContext.callMethod(rawPtr, MethodBindings.setCellBorderColorPtr, NIL)
   }
 
-  /**
-   * Sets minimum and maximum size overrides for a table cell.
-   */
-  public fun setCellSizeOverride(minSize: Vector2, maxSize: Vector2): Unit {
+  public fun setCellSizeOverride(minSize: Vector2, maxSize: Vector2) {
     TransferContext.writeArguments(VECTOR2 to minSize, VECTOR2 to maxSize)
     TransferContext.callMethod(rawPtr, MethodBindings.setCellSizeOverridePtr, NIL)
   }
 
-  /**
-   * Sets inner padding of a table cell.
-   */
-  public fun setCellPadding(padding: Rect2): Unit {
+  public fun setCellPadding(padding: Rect2) {
     TransferContext.writeArguments(RECT2 to padding)
     TransferContext.callMethod(rawPtr, MethodBindings.setCellPaddingPtr, NIL)
   }
 
-  /**
-   * Adds a `[cell]` tag to the tag stack. Must be inside a `[table]` tag. See [pushTable] for details.
-   */
-  public fun pushCell(): Unit {
+  public fun pushCell() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.pushCellPtr, NIL)
   }
 
-  /**
-   * Adds a `[fgcolor]` tag to the tag stack.
-   */
-  public fun pushFgcolor(fgcolor: Color): Unit {
+  public fun pushFgcolor(fgcolor: Color) {
     TransferContext.writeArguments(COLOR to fgcolor)
     TransferContext.callMethod(rawPtr, MethodBindings.pushFgcolorPtr, NIL)
   }
 
-  /**
-   * Adds a `[bgcolor]` tag to the tag stack.
-   */
-  public fun pushBgcolor(bgcolor: Color): Unit {
+  public fun pushBgcolor(bgcolor: Color) {
     TransferContext.writeArguments(COLOR to bgcolor)
     TransferContext.callMethod(rawPtr, MethodBindings.pushBgcolorPtr, NIL)
   }
 
-  /**
-   * Adds a custom effect tag to the tag stack. The effect does not need to be in [customEffects]. The environment is directly passed to the effect.
-   */
-  public fun pushCustomfx(effect: RichTextEffect, env: Dictionary<Any?, Any?>): Unit {
+  public fun pushCustomfx(effect: RichTextEffect, env: Dictionary<Any?, Any?>) {
     TransferContext.writeArguments(OBJECT to effect, DICTIONARY to env)
     TransferContext.callMethod(rawPtr, MethodBindings.pushCustomfxPtr, NIL)
   }
 
-  /**
-   * Terminates the current tag. Use after `push_*` methods to close BBCodes manually. Does not need to follow `add_*` methods.
-   */
-  public fun pop(): Unit {
+  public fun pop() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.popPtr, NIL)
   }
 
-  /**
-   * Clears the tag stack.
-   *
-   * **Note:** This method will not modify [text], but setting [text] to an empty string also clears the stack.
-   */
-  public fun clear(): Unit {
+  public fun clear() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.clearPtr, NIL)
   }
 
-  /**
-   * Returns the vertical scrollbar.
-   *
-   * **Warning:** This is a required internal node, removing and freeing it may cause a crash. If you wish to hide it or any of its children, use their [godot.CanvasItem.visible] property.
-   */
   public fun getVScrollBar(): VScrollBar? {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getVScrollBarPtr, OBJECT)
     return (TransferContext.readReturnValue(OBJECT, true) as VScrollBar?)
   }
 
-  /**
-   * Scrolls the window's top line to match [line].
-   */
-  public fun scrollToLine(line: Int): Unit {
+  public fun scrollToLine(line: Int) {
     TransferContext.writeArguments(LONG to line.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.scrollToLinePtr, NIL)
   }
 
-  /**
-   * Scrolls the window's top line to match first line of the [paragraph].
-   */
-  public fun scrollToParagraph(paragraph: Int): Unit {
+  public fun scrollToParagraph(paragraph: Int) {
     TransferContext.writeArguments(LONG to paragraph.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.scrollToParagraphPtr, NIL)
   }
 
-  /**
-   * Scrolls to the beginning of the current selection.
-   */
-  public fun scrollToSelection(): Unit {
+  public fun scrollToSelection() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.scrollToSelectionPtr, NIL)
   }
 
-  /**
-   * Returns the current selection first character index if a selection is active, `-1` otherwise. Does not include BBCodes.
-   */
   public fun getSelectionFrom(): Int {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getSelectionFromPtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Returns the current selection last character index if a selection is active, `-1` otherwise. Does not include BBCodes.
-   */
   public fun getSelectionTo(): Int {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getSelectionToPtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Select all the text.
-   *
-   * If [selectionEnabled] is `false`, no selection will occur.
-   */
-  public fun selectAll(): Unit {
+  public fun selectAll() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.selectAllPtr, NIL)
   }
 
-  /**
-   * Returns the current selection text. Does not include BBCodes.
-   */
   public fun getSelectedText(): String {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getSelectedTextPtr, STRING)
     return (TransferContext.readReturnValue(STRING, false) as String)
   }
 
-  /**
-   * Clears the current selection.
-   */
-  public fun deselect(): Unit {
+  public fun deselect() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.deselectPtr, NIL)
   }
 
-  /**
-   * The assignment version of [appendText]. Clears the tag stack and inserts the new content.
-   */
-  public fun parseBbcode(bbcode: String): Unit {
+  public fun parseBbcode(bbcode: String) {
     TransferContext.writeArguments(STRING to bbcode)
     TransferContext.callMethod(rawPtr, MethodBindings.parseBbcodePtr, NIL)
   }
 
-  /**
-   * Parses [bbcode] and adds tags to the tag stack as needed.
-   *
-   * **Note:** Using this method, you can't close a tag that was opened in a previous [appendText] call. This is done to improve performance, especially when updating large RichTextLabels since rebuilding the whole BBCode every time would be slower. If you absolutely need to close a tag in a future method call, append the [text] instead of using [appendText].
-   */
-  public fun appendText(bbcode: String): Unit {
+  public fun appendText(bbcode: String) {
     TransferContext.writeArguments(STRING to bbcode)
     TransferContext.callMethod(rawPtr, MethodBindings.appendTextPtr, NIL)
   }
 
-  /**
-   * If [threaded] is enabled, returns `true` if the background thread has finished text processing, otherwise always return `true`.
-   */
   public fun isReady(): Boolean {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.isReadyPtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Returns the line number of the character position provided.
-   *
-   * **Note:** If [threaded] is enabled, this method returns a value for the loaded part of the document. Use [isReady] or [finished] to determine whether document is fully loaded.
-   */
   public fun getCharacterLine(character: Int): Int {
     TransferContext.writeArguments(LONG to character.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getCharacterLinePtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Returns the paragraph number of the character position provided.
-   *
-   * **Note:** If [threaded] is enabled, this method returns a value for the loaded part of the document. Use [isReady] or [finished] to determine whether document is fully loaded.
-   */
   public fun getCharacterParagraph(character: Int): Int {
     TransferContext.writeArguments(LONG to character.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getCharacterParagraphPtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Returns the total number of characters from text tags. Does not include BBCodes.
-   */
   public fun getTotalCharacterCount(): Int {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getTotalCharacterCountPtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Returns the total number of lines in the text. Wrapped text is counted as multiple lines.
-   *
-   * **Note:** If [threaded] is enabled, this method returns a value for the loaded part of the document. Use [isReady] or [finished] to determine whether document is fully loaded.
-   */
   public fun getLineCount(): Int {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getLineCountPtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Returns the number of visible lines.
-   *
-   * **Note:** If [threaded] is enabled, this method returns a value for the loaded part of the document. Use [isReady] or [finished] to determine whether document is fully loaded.
-   */
   public fun getVisibleLineCount(): Int {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getVisibleLineCountPtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Returns the total number of paragraphs (newlines or `p` tags in the tag stack's text tags). Considers wrapped text as one paragraph.
-   */
   public fun getParagraphCount(): Int {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getParagraphCountPtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Returns the number of visible paragraphs. A paragraph is considered visible if at least one of its lines is visible.
-   *
-   * **Note:** If [threaded] is enabled, this method returns a value for the loaded part of the document. Use [isReady] or [finished] to determine whether document is fully loaded.
-   */
   public fun getVisibleParagraphCount(): Int {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getVisibleParagraphCountPtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Returns the height of the content.
-   *
-   * **Note:** If [threaded] is enabled, this method returns a value for the loaded part of the document. Use [isReady] or [finished] to determine whether document is fully loaded.
-   */
   public fun getContentHeight(): Int {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getContentHeightPtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Returns the width of the content.
-   *
-   * **Note:** If [threaded] is enabled, this method returns a value for the loaded part of the document. Use [isReady] or [finished] to determine whether document is fully loaded.
-   */
   public fun getContentWidth(): Int {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getContentWidthPtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Returns the vertical offset of the line found at the provided index.
-   *
-   * **Note:** If [threaded] is enabled, this method returns a value for the loaded part of the document. Use [isReady] or [finished] to determine whether document is fully loaded.
-   */
   public fun getLineOffset(line: Int): Float {
     TransferContext.writeArguments(LONG to line.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getLineOffsetPtr, DOUBLE)
     return (TransferContext.readReturnValue(DOUBLE, false) as Double).toFloat()
   }
 
-  /**
-   * Returns the vertical offset of the paragraph found at the provided index.
-   *
-   * **Note:** If [threaded] is enabled, this method returns a value for the loaded part of the document. Use [isReady] or [finished] to determine whether document is fully loaded.
-   */
   public fun getParagraphOffset(paragraph: Int): Float {
     TransferContext.writeArguments(LONG to paragraph.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getParagraphOffsetPtr, DOUBLE)
     return (TransferContext.readReturnValue(DOUBLE, false) as Double).toFloat()
   }
 
-  /**
-   * Parses BBCode parameter [expressions] into a dictionary.
-   */
   public fun parseExpressionsForValues(expressions: PackedStringArray): Dictionary<Any?, Any?> {
     TransferContext.writeArguments(PACKED_STRING_ARRAY to expressions)
     TransferContext.callMethod(rawPtr, MethodBindings.parseExpressionsForValuesPtr, DICTIONARY)
     return (TransferContext.readReturnValue(DICTIONARY, false) as Dictionary<Any?, Any?>)
   }
 
-  /**
-   * Installs a custom effect. [effect] should be a valid [godot.RichTextEffect].
-   */
-  public fun installEffect(effect: Any?): Unit {
+  public fun installEffect(effect: Any?) {
     TransferContext.writeArguments(ANY to effect)
     TransferContext.callMethod(rawPtr, MethodBindings.installEffectPtr, NIL)
   }
 
-  /**
-   * Returns the [godot.PopupMenu] of this [godot.RichTextLabel]. By default, this menu is displayed when right-clicking on the [godot.RichTextLabel].
-   *
-   * You can add custom menu items or remove standard ones. Make sure your IDs don't conflict with the standard ones (see [enum MenuItems]). For example:
-   *
-   * [codeblocks]
-   *
-   * [gdscript]
-   *
-   * func _ready():
-   *
-   *     var menu = get_menu()
-   *
-   *     # Remove "Select All" item.
-   *
-   *     menu.remove_item(MENU_SELECT_ALL)
-   *
-   *     # Add custom items.
-   *
-   *     menu.add_separator()
-   *
-   *     menu.add_item("Duplicate Text", MENU_MAX + 1)
-   *
-   *     # Connect callback.
-   *
-   *     menu.id_pressed.connect(_on_item_pressed)
-   *
-   *
-   *
-   * func _on_item_pressed(id):
-   *
-   *     if id == MENU_MAX + 1:
-   *
-   *         add_text("\n" + get_parsed_text())
-   *
-   * [/gdscript]
-   *
-   * [csharp]
-   *
-   * public override void _Ready()
-   *
-   * {
-   *
-   *     var menu = GetMenu();
-   *
-   *     // Remove "Select All" item.
-   *
-   *     menu.RemoveItem(RichTextLabel.MenuItems.SelectAll);
-   *
-   *     // Add custom items.
-   *
-   *     menu.AddSeparator();
-   *
-   *     menu.AddItem("Duplicate Text", RichTextLabel.MenuItems.Max + 1);
-   *
-   *     // Add event handler.
-   *
-   *     menu.IdPressed += OnItemPressed;
-   *
-   * }
-   *
-   *
-   *
-   * public void OnItemPressed(int id)
-   *
-   * {
-   *
-   *     if (id == TextEdit.MenuItems.Max + 1)
-   *
-   *     {
-   *
-   *         AddText("\n" + GetParsedText());
-   *
-   *     }
-   *
-   * }
-   *
-   * [/csharp]
-   *
-   * [/codeblocks]
-   *
-   * **Warning:** This is a required internal node, removing and freeing it may cause a crash. If you wish to hide it or any of its children, use their [godot.Window.visible] property.
-   */
   public fun getMenu(): PopupMenu? {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getMenuPtr, OBJECT)
     return (TransferContext.readReturnValue(OBJECT, true) as PopupMenu?)
   }
 
-  /**
-   * Returns whether the menu is visible. Use this instead of `get_menu().visible` to improve performance (so the creation of the menu is avoided).
-   */
   public fun isMenuVisible(): Boolean {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.isMenuVisiblePtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Executes a given action as defined in the [enum MenuItems] enum.
-   */
-  public fun menuOption(option: Int): Unit {
+  public fun menuOption(option: Int) {
     TransferContext.writeArguments(LONG to option.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.menuOptionPtr, NIL)
   }
@@ -1107,21 +694,9 @@ public open class RichTextLabel : Control() {
   public enum class ListType(
     id: Long,
   ) {
-    /**
-     * Each list item has a number marker.
-     */
     LIST_NUMBERS(0),
-    /**
-     * Each list item has a letter marker.
-     */
     LIST_LETTERS(1),
-    /**
-     * Each list item has a roman number marker.
-     */
     LIST_ROMAN(2),
-    /**
-     * Each list item has a filled circle marker.
-     */
     LIST_DOTS(3),
     ;
 
@@ -1131,24 +706,17 @@ public open class RichTextLabel : Control() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): ListType = entries.single {
+          it.id == `value`
+      }
     }
   }
 
   public enum class MenuItems(
     id: Long,
   ) {
-    /**
-     * Copies the selected text.
-     */
     MENU_COPY(0),
-    /**
-     * Selects the whole [godot.RichTextLabel] text.
-     */
     MENU_SELECT_ALL(1),
-    /**
-     * Represents the size of the [enum MenuItems] enum.
-     */
     MENU_MAX(2),
     ;
 
@@ -1158,7 +726,9 @@ public open class RichTextLabel : Control() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): MenuItems = entries.single {
+          it.id == `value`
+      }
     }
   }
 

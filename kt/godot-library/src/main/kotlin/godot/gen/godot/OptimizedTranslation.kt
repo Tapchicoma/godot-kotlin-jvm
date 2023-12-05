@@ -15,24 +15,15 @@ import godot.util.VoidPtr
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
-import kotlin.Unit
 
-/**
- * An optimized translation, used by default for CSV Translations.
- *
- * An optimized translation, used by default for CSV Translations. Uses real-time compressed translations, which results in very small dictionaries.
- */
 @GodotBaseType
 public open class OptimizedTranslation : Translation() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_OPTIMIZEDTRANSLATION, scriptIndex)
     return true
   }
 
-  /**
-   * Generates and sets an optimized translation from the given [godot.Translation] resource.
-   */
-  public fun generate(from: Translation): Unit {
+  public fun generate(from: Translation) {
     TransferContext.writeArguments(OBJECT to from)
     TransferContext.callMethod(rawPtr, MethodBindings.generatePtr, NIL)
   }

@@ -26,19 +26,8 @@ import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 
-/**
- * Casts light in a 2D environment.
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/2d/2d_lights_and_shadows.html]($DOCS_URL/tutorials/2d/2d_lights_and_shadows.html)
- *
- * Casts light in a 2D environment. A light is defined as a color, an energy value, a mode (see constants), and various other parameters (range and shadows-related).
- */
 @GodotBaseType
 public open class Light2D internal constructor() : Node2D() {
-  /**
-   * If `true`, Light2D will emit light.
-   */
   public var enabled: Boolean
     get() {
       TransferContext.writeArguments()
@@ -50,9 +39,6 @@ public open class Light2D internal constructor() : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setEnabledPtr, NIL)
     }
 
-  /**
-   * If `true`, Light2D will only appear when editing the scene.
-   */
   public var editorOnly: Boolean
     get() {
       TransferContext.writeArguments()
@@ -64,9 +50,6 @@ public open class Light2D internal constructor() : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setEditorOnlyPtr, NIL)
     }
 
-  /**
-   * The Light2D's [godot.core.Color].
-   */
   @CoreTypeLocalCopy
   public var color: Color
     get() {
@@ -79,9 +62,6 @@ public open class Light2D internal constructor() : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setColorPtr, NIL)
     }
 
-  /**
-   * The Light2D's energy value. The larger the value, the stronger the light.
-   */
   public var energy: Float
     get() {
       TransferContext.writeArguments()
@@ -93,9 +73,6 @@ public open class Light2D internal constructor() : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setEnergyPtr, NIL)
     }
 
-  /**
-   * The Light2D's blend mode. See [enum BlendMode] constants for values.
-   */
   public var blendMode: BlendMode
     get() {
       TransferContext.writeArguments()
@@ -107,9 +84,6 @@ public open class Light2D internal constructor() : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setBlendModePtr, NIL)
     }
 
-  /**
-   * Minimum `z` value of objects that are affected by the Light2D.
-   */
   public var rangeZMin: Int
     get() {
       TransferContext.writeArguments()
@@ -121,9 +95,6 @@ public open class Light2D internal constructor() : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setZRangeMinPtr, NIL)
     }
 
-  /**
-   * Maximum `z` value of objects that are affected by the Light2D.
-   */
   public var rangeZMax: Int
     get() {
       TransferContext.writeArguments()
@@ -135,9 +106,6 @@ public open class Light2D internal constructor() : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setZRangeMaxPtr, NIL)
     }
 
-  /**
-   * Minimum layer value of objects that are affected by the Light2D.
-   */
   public var rangeLayerMin: Int
     get() {
       TransferContext.writeArguments()
@@ -149,9 +117,6 @@ public open class Light2D internal constructor() : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setLayerRangeMinPtr, NIL)
     }
 
-  /**
-   * Maximum layer value of objects that are affected by the Light2D.
-   */
   public var rangeLayerMax: Int
     get() {
       TransferContext.writeArguments()
@@ -163,11 +128,6 @@ public open class Light2D internal constructor() : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setLayerRangeMaxPtr, NIL)
     }
 
-  /**
-   * The layer mask. Only objects with a matching [godot.CanvasItem.lightMask] will be affected by the Light2D. See also [shadowItemCullMask], which affects which objects can cast shadows.
-   *
-   * **Note:** [rangeItemCullMask] is ignored by [godot.DirectionalLight2D], which will always light a 2D node regardless of the 2D node's [godot.CanvasItem.lightMask].
-   */
   public var rangeItemCullMask: Int
     get() {
       TransferContext.writeArguments()
@@ -179,9 +139,6 @@ public open class Light2D internal constructor() : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setItemCullMaskPtr, NIL)
     }
 
-  /**
-   * If `true`, the Light2D will cast shadows.
-   */
   public var shadowEnabled: Boolean
     get() {
       TransferContext.writeArguments()
@@ -193,9 +150,6 @@ public open class Light2D internal constructor() : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setShadowEnabledPtr, NIL)
     }
 
-  /**
-   * [godot.core.Color] of shadows cast by the Light2D.
-   */
   @CoreTypeLocalCopy
   public var shadowColor: Color
     get() {
@@ -208,9 +162,6 @@ public open class Light2D internal constructor() : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setShadowColorPtr, NIL)
     }
 
-  /**
-   * Shadow filter type. See [enum ShadowFilter] for possible values.
-   */
   public var shadowFilter: ShadowFilter
     get() {
       TransferContext.writeArguments()
@@ -222,9 +173,6 @@ public open class Light2D internal constructor() : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setShadowFilterPtr, NIL)
     }
 
-  /**
-   * Smoothing value for shadows. Higher values will result in softer shadows, at the cost of visible streaks that can appear in shadow rendering. [shadowFilterSmooth] only has an effect if [shadowFilter] is [godot.SHADOW_FILTER_PCF5] or [godot.SHADOW_FILTER_PCF13].
-   */
   public var shadowFilterSmooth: Float
     get() {
       TransferContext.writeArguments()
@@ -236,9 +184,6 @@ public open class Light2D internal constructor() : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setShadowSmoothPtr, NIL)
     }
 
-  /**
-   * The shadow mask. Used with [godot.LightOccluder2D] to cast shadows. Only occluders with a matching [godot.CanvasItem.lightMask] will cast shadows. See also [rangeItemCullMask], which affects which objects can *receive* the light.
-   */
   public var shadowItemCullMask: Int
     get() {
       TransferContext.writeArguments()
@@ -250,14 +195,12 @@ public open class Light2D internal constructor() : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setItemShadowCullMaskPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_LIGHT2D, scriptIndex)
     return true
   }
 
   /**
-   * The Light2D's [godot.core.Color].
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -280,8 +223,6 @@ public open class Light2D internal constructor() : Node2D() {
 
 
   /**
-   * [godot.core.Color] of shadows cast by the Light2D.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -303,17 +244,11 @@ public open class Light2D internal constructor() : Node2D() {
   }
 
 
-  /**
-   * Sets the light's height, which is used in 2D normal mapping. See [godot.PointLight2D.height] and [godot.DirectionalLight2D.height].
-   */
-  public fun setHeight(height: Float): Unit {
+  public fun setHeight(height: Float) {
     TransferContext.writeArguments(DOUBLE to height.toDouble())
     TransferContext.callMethod(rawPtr, MethodBindings.setHeightPtr, NIL)
   }
 
-  /**
-   * Returns the light's height, which is used in 2D normal mapping. See [godot.PointLight2D.height] and [godot.DirectionalLight2D.height].
-   */
   public fun getHeight(): Float {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getHeightPtr, DOUBLE)
@@ -323,17 +258,8 @@ public open class Light2D internal constructor() : Node2D() {
   public enum class ShadowFilter(
     id: Long,
   ) {
-    /**
-     * No filter applies to the shadow map. This provides hard shadow edges and is the fastest to render. See [shadowFilter].
-     */
     SHADOW_FILTER_NONE(0),
-    /**
-     * Percentage closer filtering (5 samples) applies to the shadow map. This is slower compared to hard shadow rendering. See [shadowFilter].
-     */
     SHADOW_FILTER_PCF5(1),
-    /**
-     * Percentage closer filtering (13 samples) applies to the shadow map. This is the slowest shadow filtering mode, and should be used sparingly. See [shadowFilter].
-     */
     SHADOW_FILTER_PCF13(2),
     ;
 
@@ -343,24 +269,17 @@ public open class Light2D internal constructor() : Node2D() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): ShadowFilter = entries.single {
+          it.id == `value`
+      }
     }
   }
 
   public enum class BlendMode(
     id: Long,
   ) {
-    /**
-     * Adds the value of pixels corresponding to the Light2D to the values of pixels under it. This is the common behavior of a light.
-     */
     BLEND_MODE_ADD(0),
-    /**
-     * Subtracts the value of pixels corresponding to the Light2D to the values of pixels under it, resulting in inversed light effect.
-     */
     BLEND_MODE_SUB(1),
-    /**
-     * Mix the value of pixels corresponding to the Light2D to the values of pixels under it by linear interpolation.
-     */
     BLEND_MODE_MIX(2),
     ;
 
@@ -370,7 +289,9 @@ public open class Light2D internal constructor() : Node2D() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): BlendMode = entries.single {
+          it.id == `value`
+      }
     }
   }
 

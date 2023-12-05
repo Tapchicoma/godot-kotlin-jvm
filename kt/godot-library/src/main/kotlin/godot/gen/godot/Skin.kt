@@ -22,106 +22,69 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
-import kotlin.Unit
 
-/**
- *
- */
 @GodotBaseType
 public open class Skin : Resource() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_SKIN, scriptIndex)
     return true
   }
 
-  /**
-   *
-   */
-  public fun setBindCount(bindCount: Int): Unit {
+  public fun setBindCount(bindCount: Int) {
     TransferContext.writeArguments(LONG to bindCount.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.setBindCountPtr, NIL)
   }
 
-  /**
-   *
-   */
   public fun getBindCount(): Int {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getBindCountPtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   *
-   */
-  public fun addBind(bone: Int, pose: Transform3D): Unit {
+  public fun addBind(bone: Int, pose: Transform3D) {
     TransferContext.writeArguments(LONG to bone.toLong(), TRANSFORM3D to pose)
     TransferContext.callMethod(rawPtr, MethodBindings.addBindPtr, NIL)
   }
 
-  /**
-   *
-   */
-  public fun addNamedBind(name: String, pose: Transform3D): Unit {
+  public fun addNamedBind(name: String, pose: Transform3D) {
     TransferContext.writeArguments(STRING to name, TRANSFORM3D to pose)
     TransferContext.callMethod(rawPtr, MethodBindings.addNamedBindPtr, NIL)
   }
 
-  /**
-   *
-   */
-  public fun setBindPose(bindIndex: Int, pose: Transform3D): Unit {
+  public fun setBindPose(bindIndex: Int, pose: Transform3D) {
     TransferContext.writeArguments(LONG to bindIndex.toLong(), TRANSFORM3D to pose)
     TransferContext.callMethod(rawPtr, MethodBindings.setBindPosePtr, NIL)
   }
 
-  /**
-   *
-   */
   public fun getBindPose(bindIndex: Int): Transform3D {
     TransferContext.writeArguments(LONG to bindIndex.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getBindPosePtr, TRANSFORM3D)
     return (TransferContext.readReturnValue(TRANSFORM3D, false) as Transform3D)
   }
 
-  /**
-   *
-   */
-  public fun setBindName(bindIndex: Int, name: StringName): Unit {
+  public fun setBindName(bindIndex: Int, name: StringName) {
     TransferContext.writeArguments(LONG to bindIndex.toLong(), STRING_NAME to name)
     TransferContext.callMethod(rawPtr, MethodBindings.setBindNamePtr, NIL)
   }
 
-  /**
-   *
-   */
   public fun getBindName(bindIndex: Int): StringName {
     TransferContext.writeArguments(LONG to bindIndex.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getBindNamePtr, STRING_NAME)
     return (TransferContext.readReturnValue(STRING_NAME, false) as StringName)
   }
 
-  /**
-   *
-   */
-  public fun setBindBone(bindIndex: Int, bone: Int): Unit {
+  public fun setBindBone(bindIndex: Int, bone: Int) {
     TransferContext.writeArguments(LONG to bindIndex.toLong(), LONG to bone.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.setBindBonePtr, NIL)
   }
 
-  /**
-   *
-   */
   public fun getBindBone(bindIndex: Int): Int {
     TransferContext.writeArguments(LONG to bindIndex.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getBindBonePtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   *
-   */
-  public fun clearBinds(): Unit {
+  public fun clearBinds() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.clearBindsPtr, NIL)
   }

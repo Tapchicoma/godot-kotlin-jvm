@@ -21,26 +21,9 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
-import kotlin.Unit
 
-/**
- * A modification that uses FABRIK to manipulate a series of [godot.Bone2D] nodes to reach a target.
- *
- * This [godot.SkeletonModification2D] uses an algorithm called Forward And Backward Reaching Inverse Kinematics, or FABRIK, to rotate a bone chain so that it reaches a target.
- *
- * FABRIK works by knowing the positions and lengths of a series of bones, typically called a "bone chain". It first starts by running a forward pass, which places the final bone at the target's position. Then all other bones are moved towards the tip bone, so they stay at the defined bone length away. Then a backwards pass is performed, where the root/first bone in the FABRIK chain is placed back at the origin. Then all other bones are moved so they stay at the defined bone length away. This positions the bone chain so that it reaches the target when possible, but all of the bones stay the correct length away from each other.
- *
- * Because of how FABRIK works, it often gives more natural results than those seen in [godot.SkeletonModification2DCCDIK]. FABRIK also supports angle constraints, which are fully taken into account when solving.
- *
- * **Note:** The FABRIK modifier has `fabrik_joints`, which are the data objects that hold the data for each joint in the FABRIK chain. This is different from [godot.Bone2D] nodes! FABRIK joints hold the data needed for each [godot.Bone2D] in the bone chain used by FABRIK.
- *
- * To help control how the FABRIK joints move, a magnet vector can be passed, which can nudge the bones in a certain direction prior to solving, giving a level of control over the final result.
- */
 @GodotBaseType
 public open class SkeletonModification2DFABRIK : SkeletonModification2D() {
-  /**
-   * The NodePath to the node that is the target for the FABRIK modification. This node is what the FABRIK chain will attempt to rotate the bone chain to.
-   */
   public var targetNodepath: NodePath
     get() {
       TransferContext.writeArguments()
@@ -52,9 +35,6 @@ public open class SkeletonModification2DFABRIK : SkeletonModification2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTargetNodePtr, NIL)
     }
 
-  /**
-   * The number of FABRIK joints in the FABRIK modification.
-   */
   public var fabrikDataChainLength: Int
     get() {
       TransferContext.writeArguments()
@@ -66,75 +46,49 @@ public open class SkeletonModification2DFABRIK : SkeletonModification2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFabrikDataChainLengthPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_SKELETONMODIFICATION2DFABRIK, scriptIndex)
     return true
   }
 
-  /**
-   * Sets the [godot.Bone2D] node assigned to the FABRIK joint at [jointIdx].
-   */
-  public fun setFabrikJointBone2dNode(jointIdx: Int, bone2dNodepath: NodePath): Unit {
+  public fun setFabrikJointBone2dNode(jointIdx: Int, bone2dNodepath: NodePath) {
     TransferContext.writeArguments(LONG to jointIdx.toLong(), NODE_PATH to bone2dNodepath)
     TransferContext.callMethod(rawPtr, MethodBindings.setFabrikJointBone2dNodePtr, NIL)
   }
 
-  /**
-   * Returns the [godot.Bone2D] node assigned to the FABRIK joint at [jointIdx].
-   */
   public fun getFabrikJointBone2dNode(jointIdx: Int): NodePath {
     TransferContext.writeArguments(LONG to jointIdx.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getFabrikJointBone2dNodePtr, NODE_PATH)
     return (TransferContext.readReturnValue(NODE_PATH, false) as NodePath)
   }
 
-  /**
-   * Sets the bone index, [boneIdx], of the FABRIK joint at [jointIdx]. When possible, this will also update the `bone2d_node` of the FABRIK joint based on data provided by the linked skeleton.
-   */
-  public fun setFabrikJointBoneIndex(jointIdx: Int, boneIdx: Int): Unit {
+  public fun setFabrikJointBoneIndex(jointIdx: Int, boneIdx: Int) {
     TransferContext.writeArguments(LONG to jointIdx.toLong(), LONG to boneIdx.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.setFabrikJointBoneIndexPtr, NIL)
   }
 
-  /**
-   * Returns the index of the [godot.Bone2D] node assigned to the FABRIK joint at [jointIdx].
-   */
   public fun getFabrikJointBoneIndex(jointIdx: Int): Int {
     TransferContext.writeArguments(LONG to jointIdx.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getFabrikJointBoneIndexPtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Sets the magnet position vector for the joint at [jointIdx].
-   */
-  public fun setFabrikJointMagnetPosition(jointIdx: Int, magnetPosition: Vector2): Unit {
+  public fun setFabrikJointMagnetPosition(jointIdx: Int, magnetPosition: Vector2) {
     TransferContext.writeArguments(LONG to jointIdx.toLong(), VECTOR2 to magnetPosition)
     TransferContext.callMethod(rawPtr, MethodBindings.setFabrikJointMagnetPositionPtr, NIL)
   }
 
-  /**
-   * Returns the magnet position vector for the joint at [jointIdx].
-   */
   public fun getFabrikJointMagnetPosition(jointIdx: Int): Vector2 {
     TransferContext.writeArguments(LONG to jointIdx.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getFabrikJointMagnetPositionPtr, VECTOR2)
     return (TransferContext.readReturnValue(VECTOR2, false) as Vector2)
   }
 
-  /**
-   * Sets whether the joint at [jointIdx] will use the target node's rotation rather than letting FABRIK rotate the node.
-   *
-   * **Note:** This option only works for the tip/final joint in the chain. For all other nodes, this option will be ignored.
-   */
-  public fun setFabrikJointUseTargetRotation(jointIdx: Int, useTargetRotation: Boolean): Unit {
+  public fun setFabrikJointUseTargetRotation(jointIdx: Int, useTargetRotation: Boolean) {
     TransferContext.writeArguments(LONG to jointIdx.toLong(), BOOL to useTargetRotation)
     TransferContext.callMethod(rawPtr, MethodBindings.setFabrikJointUseTargetRotationPtr, NIL)
   }
 
-  /**
-   * Returns whether the joint is using the target's rotation rather than allowing FABRIK to rotate the joint. This option only applies to the tip/final joint in the chain.
-   */
   public fun getFabrikJointUseTargetRotation(jointIdx: Int): Boolean {
     TransferContext.writeArguments(LONG to jointIdx.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getFabrikJointUseTargetRotationPtr, BOOL)

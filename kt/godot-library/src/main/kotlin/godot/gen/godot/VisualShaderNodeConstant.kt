@@ -11,14 +11,9 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * A base type for the constants within the visual shader graph.
- *
- * This is an abstract class. See the derived types for descriptions of the possible values.
- */
 @GodotBaseType
 public open class VisualShaderNodeConstant internal constructor() : VisualShaderNode() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_VISUALSHADERNODECONSTANT, scriptIndex)
     return true
   }

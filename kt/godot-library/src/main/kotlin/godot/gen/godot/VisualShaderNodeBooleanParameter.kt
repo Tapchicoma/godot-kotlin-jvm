@@ -16,16 +16,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * A boolean parameter to be used within the visual shader graph.
- *
- * Translated to `uniform bool` in the shader language.
- */
 @GodotBaseType
 public open class VisualShaderNodeBooleanParameter : VisualShaderNodeParameter() {
-  /**
-   * Enables usage of the [defaultValue].
-   */
   public var defaultValueEnabled: Boolean
     get() {
       TransferContext.writeArguments()
@@ -37,9 +29,6 @@ public open class VisualShaderNodeBooleanParameter : VisualShaderNodeParameter()
       TransferContext.callMethod(rawPtr, MethodBindings.setDefaultValueEnabledPtr, NIL)
     }
 
-  /**
-   * A default value to be assigned within the shader.
-   */
   public var defaultValue: Boolean
     get() {
       TransferContext.writeArguments()
@@ -51,7 +40,7 @@ public open class VisualShaderNodeBooleanParameter : VisualShaderNodeParameter()
       TransferContext.callMethod(rawPtr, MethodBindings.setDefaultValuePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_VISUALSHADERNODEBOOLEANPARAMETER, scriptIndex)
     return true
   }

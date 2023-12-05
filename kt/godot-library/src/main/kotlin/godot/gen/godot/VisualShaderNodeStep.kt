@@ -17,18 +17,8 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
 
-/**
- * Calculates a Step function within the visual shader graph.
- *
- * Translates to `step(edge, x)` in the shader language.
- *
- * Returns `0.0` if `x` is smaller than `edge` and `1.0` otherwise.
- */
 @GodotBaseType
 public open class VisualShaderNodeStep : VisualShaderNode() {
-  /**
-   * A type of operands and returned value.
-   */
   public var opType: OpType
     get() {
       TransferContext.writeArguments()
@@ -40,7 +30,7 @@ public open class VisualShaderNodeStep : VisualShaderNode() {
       TransferContext.callMethod(rawPtr, MethodBindings.setOpTypePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_VISUALSHADERNODESTEP, scriptIndex)
     return true
   }
@@ -48,37 +38,13 @@ public open class VisualShaderNodeStep : VisualShaderNode() {
   public enum class OpType(
     id: Long,
   ) {
-    /**
-     * A floating-point scalar type.
-     */
     OP_TYPE_SCALAR(0),
-    /**
-     * A 2D vector type.
-     */
     OP_TYPE_VECTOR_2D(1),
-    /**
-     * The `x` port uses a 2D vector type, while the `edge` port uses a floating-point scalar type.
-     */
     OP_TYPE_VECTOR_2D_SCALAR(2),
-    /**
-     * A 3D vector type.
-     */
     OP_TYPE_VECTOR_3D(3),
-    /**
-     * The `x` port uses a 3D vector type, while the `edge` port uses a floating-point scalar type.
-     */
     OP_TYPE_VECTOR_3D_SCALAR(4),
-    /**
-     * A 4D vector type.
-     */
     OP_TYPE_VECTOR_4D(5),
-    /**
-     * The `a` and `b` ports use a 4D vector type. The `weight` port uses a scalar type.
-     */
     OP_TYPE_VECTOR_4D_SCALAR(6),
-    /**
-     * Represents the size of the [enum OpType] enum.
-     */
     OP_TYPE_MAX(7),
     ;
 
@@ -88,7 +54,9 @@ public open class VisualShaderNodeStep : VisualShaderNode() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): OpType = entries.single {
+          it.id == `value`
+      }
     }
   }
 

@@ -21,18 +21,8 @@ import kotlin.Int
 import kotlin.Suppress
 import kotlin.Unit
 
-/**
- * A node used to create a parallax scrolling background.
- *
- * A ParallaxBackground uses one or more [godot.ParallaxLayer] child nodes to create a parallax effect. Each [godot.ParallaxLayer] can move at a different speed using [godot.ParallaxLayer.motionOffset]. This creates an illusion of depth in a 2D game. If not used with a [godot.Camera2D], you must manually calculate the [scrollOffset].
- *
- * **Note:** Each [godot.ParallaxBackground] is drawn on one specific [godot.Viewport] and cannot be shared between multiple [godot.Viewport]s, see [godot.CanvasLayer.customViewport]. When using multiple [godot.Viewport]s, for example in a split-screen game, you need create an individual [godot.ParallaxBackground] for each [godot.Viewport] you want it to be drawn on.
- */
 @GodotBaseType
 public open class ParallaxBackground : CanvasLayer() {
-  /**
-   * The ParallaxBackground's scroll value. Calculated automatically when using a [godot.Camera2D], but can be used to manually manage scrolling when no camera is present.
-   */
   @CoreTypeLocalCopy
   public var scrollOffset: Vector2
     get() {
@@ -45,9 +35,6 @@ public open class ParallaxBackground : CanvasLayer() {
       TransferContext.callMethod(rawPtr, MethodBindings.setScrollOffsetPtr, NIL)
     }
 
-  /**
-   * The base position offset for all [godot.ParallaxLayer] children.
-   */
   @CoreTypeLocalCopy
   public var scrollBaseOffset: Vector2
     get() {
@@ -60,9 +47,6 @@ public open class ParallaxBackground : CanvasLayer() {
       TransferContext.callMethod(rawPtr, MethodBindings.setScrollBaseOffsetPtr, NIL)
     }
 
-  /**
-   * The base motion scale for all [godot.ParallaxLayer] children.
-   */
   @CoreTypeLocalCopy
   public var scrollBaseScale: Vector2
     get() {
@@ -75,9 +59,6 @@ public open class ParallaxBackground : CanvasLayer() {
       TransferContext.callMethod(rawPtr, MethodBindings.setScrollBaseScalePtr, NIL)
     }
 
-  /**
-   * Top-left limits for scrolling to begin. If the camera is outside of this limit, the background will stop scrolling. Must be lower than [scrollLimitEnd] to work.
-   */
   @CoreTypeLocalCopy
   public var scrollLimitBegin: Vector2
     get() {
@@ -90,9 +71,6 @@ public open class ParallaxBackground : CanvasLayer() {
       TransferContext.callMethod(rawPtr, MethodBindings.setLimitBeginPtr, NIL)
     }
 
-  /**
-   * Bottom-right limits for scrolling to end. If the camera is outside of this limit, the background will stop scrolling. Must be higher than [scrollLimitBegin] to work.
-   */
   @CoreTypeLocalCopy
   public var scrollLimitEnd: Vector2
     get() {
@@ -105,9 +83,6 @@ public open class ParallaxBackground : CanvasLayer() {
       TransferContext.callMethod(rawPtr, MethodBindings.setLimitEndPtr, NIL)
     }
 
-  /**
-   * If `true`, elements in [godot.ParallaxLayer] child aren't affected by the zoom level of the camera.
-   */
   public var scrollIgnoreCameraZoom: Boolean
     get() {
       TransferContext.writeArguments()
@@ -119,14 +94,12 @@ public open class ParallaxBackground : CanvasLayer() {
       TransferContext.callMethod(rawPtr, MethodBindings.setIgnoreCameraZoomPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_PARALLAXBACKGROUND, scriptIndex)
     return true
   }
 
   /**
-   * The ParallaxBackground's scroll value. Calculated automatically when using a [godot.Camera2D], but can be used to manually manage scrolling when no camera is present.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -149,8 +122,6 @@ public open class ParallaxBackground : CanvasLayer() {
 
 
   /**
-   * The base position offset for all [godot.ParallaxLayer] children.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -174,8 +145,6 @@ public open class ParallaxBackground : CanvasLayer() {
 
 
   /**
-   * The base motion scale for all [godot.ParallaxLayer] children.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -198,8 +167,6 @@ public open class ParallaxBackground : CanvasLayer() {
 
 
   /**
-   * Top-left limits for scrolling to begin. If the camera is outside of this limit, the background will stop scrolling. Must be lower than [scrollLimitEnd] to work.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -223,8 +190,6 @@ public open class ParallaxBackground : CanvasLayer() {
 
 
   /**
-   * Bottom-right limits for scrolling to end. If the camera is outside of this limit, the background will stop scrolling. Must be higher than [scrollLimitBegin] to work.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our

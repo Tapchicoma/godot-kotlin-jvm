@@ -25,20 +25,9 @@ import kotlin.Float
 import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
-import kotlin.Unit
 
-/**
- * A color interpolator resource which can be used to generate colors between user-defined color points.
- *
- * Given a set of colors, this resource will interpolate them in order. This means that if you have color 1, color 2 and color 3, the gradient will interpolate from color 1 to color 2 and from color 2 to color 3. The gradient will initially have 2 colors (black and white), one (black) at gradient lower offset 0 and the other (white) at the gradient higher offset 1.
- *
- * See also [godot.Curve] which supports more complex easing methods, but does not support colors.
- */
 @GodotBaseType
 public open class Gradient : Resource() {
-  /**
-   * The algorithm used to interpolate between points of the gradient. See [enum InterpolationMode] for available modes.
-   */
   public var interpolationMode: InterpolationMode
     get() {
       TransferContext.writeArguments()
@@ -50,11 +39,6 @@ public open class Gradient : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setInterpolationModePtr, NIL)
     }
 
-  /**
-   * The color space used to interpolate between points of the gradient. It does not affect the returned colors, which will always be in sRGB space. See [enum ColorSpace] for available modes.
-   *
-   * **Note:** This setting has no effect when [interpolationMode] is set to [GRADIENT_INTERPOLATE_CONSTANT].
-   */
   public var interpolationColorSpace: ColorSpace
     get() {
       TransferContext.writeArguments()
@@ -66,11 +50,6 @@ public open class Gradient : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setInterpolationColorSpacePtr, NIL)
     }
 
-  /**
-   * Gradient's offsets returned as a [godot.PackedFloat32Array].
-   *
-   * **Note:** This property returns a copy, modifying the return value does not update the gradient. To update the gradient use [setOffset] method (for updating offsets individually) or assign to this property directly (for bulk-updating all offsets at once).
-   */
   public var offsets: PackedFloat32Array
     get() {
       TransferContext.writeArguments()
@@ -82,11 +61,6 @@ public open class Gradient : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setOffsetsPtr, NIL)
     }
 
-  /**
-   * Gradient's colors returned as a [godot.PackedColorArray].
-   *
-   * **Note:** This property returns a copy, modifying the return value does not update the gradient. To update the gradient use [setColor] method (for updating colors individually) or assign to this property directly (for bulk-updating all colors at once).
-   */
   public var colors: PackedColorArray
     get() {
       TransferContext.writeArguments()
@@ -98,83 +72,54 @@ public open class Gradient : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setColorsPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_GRADIENT, scriptIndex)
     return true
   }
 
-  /**
-   * Adds the specified color to the end of the gradient, with the specified offset.
-   */
-  public fun addPoint(offset: Float, color: Color): Unit {
+  public fun addPoint(offset: Float, color: Color) {
     TransferContext.writeArguments(DOUBLE to offset.toDouble(), COLOR to color)
     TransferContext.callMethod(rawPtr, MethodBindings.addPointPtr, NIL)
   }
 
-  /**
-   * Removes the color at the index [point].
-   */
-  public fun removePoint(point: Int): Unit {
+  public fun removePoint(point: Int) {
     TransferContext.writeArguments(LONG to point.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.removePointPtr, NIL)
   }
 
-  /**
-   * Sets the offset for the gradient color at index [point].
-   */
-  public fun setOffset(point: Int, offset: Float): Unit {
+  public fun setOffset(point: Int, offset: Float) {
     TransferContext.writeArguments(LONG to point.toLong(), DOUBLE to offset.toDouble())
     TransferContext.callMethod(rawPtr, MethodBindings.setOffsetPtr, NIL)
   }
 
-  /**
-   * Returns the offset of the gradient color at index [point].
-   */
   public fun getOffset(point: Int): Float {
     TransferContext.writeArguments(LONG to point.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getOffsetPtr, DOUBLE)
     return (TransferContext.readReturnValue(DOUBLE, false) as Double).toFloat()
   }
 
-  /**
-   * Reverses/mirrors the gradient.
-   *
-   * **Note:** This method mirrors all points around the middle of the gradient, which may produce unexpected results when [interpolationMode] is set to [GRADIENT_INTERPOLATE_CONSTANT].
-   */
-  public fun reverse(): Unit {
+  public fun reverse() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.reversePtr, NIL)
   }
 
-  /**
-   * Sets the color of the gradient color at index [point].
-   */
-  public fun setColor(point: Int, color: Color): Unit {
+  public fun setColor(point: Int, color: Color) {
     TransferContext.writeArguments(LONG to point.toLong(), COLOR to color)
     TransferContext.callMethod(rawPtr, MethodBindings.setColorPtr, NIL)
   }
 
-  /**
-   * Returns the color of the gradient color at index [point].
-   */
   public fun getColor(point: Int): Color {
     TransferContext.writeArguments(LONG to point.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getColorPtr, COLOR)
     return (TransferContext.readReturnValue(COLOR, false) as Color)
   }
 
-  /**
-   * Returns the interpolated color specified by [offset].
-   */
   public fun sample(offset: Float): Color {
     TransferContext.writeArguments(DOUBLE to offset.toDouble())
     TransferContext.callMethod(rawPtr, MethodBindings.samplePtr, COLOR)
     return (TransferContext.readReturnValue(COLOR, false) as Color)
   }
 
-  /**
-   * Returns the number of colors in the gradient.
-   */
   public fun getPointCount(): Int {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getPointCountPtr, LONG)
@@ -184,17 +129,8 @@ public open class Gradient : Resource() {
   public enum class InterpolationMode(
     id: Long,
   ) {
-    /**
-     * Linear interpolation.
-     */
     GRADIENT_INTERPOLATE_LINEAR(0),
-    /**
-     * Constant interpolation, color changes abruptly at each point and stays uniform between. This might cause visible aliasing when used for a gradient texture in some cases.
-     */
     GRADIENT_INTERPOLATE_CONSTANT(1),
-    /**
-     * Cubic interpolation.
-     */
     GRADIENT_INTERPOLATE_CUBIC(2),
     ;
 
@@ -204,24 +140,17 @@ public open class Gradient : Resource() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): InterpolationMode = entries.single {
+          it.id == `value`
+      }
     }
   }
 
   public enum class ColorSpace(
     id: Long,
   ) {
-    /**
-     * sRGB color space.
-     */
     GRADIENT_COLOR_SPACE_SRGB(0),
-    /**
-     * Linear sRGB color space.
-     */
     GRADIENT_COLOR_SPACE_LINEAR_SRGB(1),
-    /**
-     * [godot.Oklab](https://bottosson.github.io/posts/oklab/) color space. This color space provides a smooth and uniform-looking transition between colors.
-     */
     GRADIENT_COLOR_SPACE_OKLAB(2),
     ;
 
@@ -231,7 +160,9 @@ public open class Gradient : Resource() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): ColorSpace = entries.single {
+          it.id == `value`
+      }
     }
   }
 

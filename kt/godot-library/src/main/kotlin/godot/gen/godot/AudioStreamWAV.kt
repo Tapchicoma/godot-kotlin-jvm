@@ -23,20 +23,8 @@ import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 
-/**
- * Stores audio data loaded from WAV files.
- *
- * AudioStreamWAV stores sound samples loaded from WAV files. To play the stored sound, use an [godot.AudioStreamPlayer] (for non-positional audio) or [godot.AudioStreamPlayer2D]/[godot.AudioStreamPlayer3D] (for positional audio). The sound can be looped.
- *
- * This class can also be used to store dynamically-generated PCM audio data. See also [godot.AudioStreamGenerator] for procedural audio generation.
- */
 @GodotBaseType
 public open class AudioStreamWAV : AudioStream() {
-  /**
-   * Contains the audio data in bytes.
-   *
-   * **Note:** This property expects signed PCM8 data. To convert unsigned PCM8 to signed PCM8, subtract 128 from each byte.
-   */
   public var `data`: PackedByteArray
     get() {
       TransferContext.writeArguments()
@@ -48,9 +36,6 @@ public open class AudioStreamWAV : AudioStream() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDataPtr, NIL)
     }
 
-  /**
-   * Audio format. See [enum Format] constants for values.
-   */
   public var format: Format
     get() {
       TransferContext.writeArguments()
@@ -62,9 +47,6 @@ public open class AudioStreamWAV : AudioStream() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFormatPtr, NIL)
     }
 
-  /**
-   * The loop mode. This information will be imported automatically from the WAV file if present. See [enum LoopMode] constants for values.
-   */
   public var loopMode: LoopMode
     get() {
       TransferContext.writeArguments()
@@ -76,9 +58,6 @@ public open class AudioStreamWAV : AudioStream() {
       TransferContext.callMethod(rawPtr, MethodBindings.setLoopModePtr, NIL)
     }
 
-  /**
-   * The loop start point (in number of samples, relative to the beginning of the sample). This information will be imported automatically from the WAV file if present.
-   */
   public var loopBegin: Int
     get() {
       TransferContext.writeArguments()
@@ -90,9 +69,6 @@ public open class AudioStreamWAV : AudioStream() {
       TransferContext.callMethod(rawPtr, MethodBindings.setLoopBeginPtr, NIL)
     }
 
-  /**
-   * The loop end point (in number of samples, relative to the beginning of the sample). This information will be imported automatically from the WAV file if present.
-   */
   public var loopEnd: Int
     get() {
       TransferContext.writeArguments()
@@ -104,13 +80,6 @@ public open class AudioStreamWAV : AudioStream() {
       TransferContext.callMethod(rawPtr, MethodBindings.setLoopEndPtr, NIL)
     }
 
-  /**
-   * The sample rate for mixing this audio. Higher values require more storage space, but result in better quality.
-   *
-   * In games, common sample rates in use are `11025`, `16000`, `22050`, `32000`, `44100`, and `48000`.
-   *
-   * According to the [godot.Nyquist-Shannon sampling theorem](https://en.wikipedia.org/wiki/Nyquist%E2%80%93Shannon_sampling_theorem), there is no quality difference to human hearing when going past 40,000 Hz (since most humans can only hear up to ~20,000 Hz, often less). If you are using lower-pitched sounds such as voices, lower sample rates such as `32000` or `22050` may be usable with no loss in quality.
-   */
   public var mixRate: Int
     get() {
       TransferContext.writeArguments()
@@ -122,9 +91,6 @@ public open class AudioStreamWAV : AudioStream() {
       TransferContext.callMethod(rawPtr, MethodBindings.setMixRatePtr, NIL)
     }
 
-  /**
-   * If `true`, audio is stereo.
-   */
   public var stereo: Boolean
     get() {
       TransferContext.writeArguments()
@@ -136,16 +102,11 @@ public open class AudioStreamWAV : AudioStream() {
       TransferContext.callMethod(rawPtr, MethodBindings.setStereoPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_AUDIOSTREAMWAV, scriptIndex)
     return true
   }
 
-  /**
-   * Saves the AudioStreamWAV as a WAV file to [path]. Samples with IMA ADPCM format can't be saved.
-   *
-   * **Note:** A `.wav` extension is automatically appended to [path] if it is missing.
-   */
   public fun saveToWav(path: String): GodotError {
     TransferContext.writeArguments(STRING to path)
     TransferContext.callMethod(rawPtr, MethodBindings.saveToWavPtr, LONG)
@@ -155,17 +116,8 @@ public open class AudioStreamWAV : AudioStream() {
   public enum class Format(
     id: Long,
   ) {
-    /**
-     * 8-bit audio codec.
-     */
     FORMAT_8_BITS(0),
-    /**
-     * 16-bit audio codec.
-     */
     FORMAT_16_BITS(1),
-    /**
-     * Audio is compressed using IMA ADPCM.
-     */
     FORMAT_IMA_ADPCM(2),
     ;
 
@@ -175,28 +127,18 @@ public open class AudioStreamWAV : AudioStream() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): Format = entries.single {
+          it.id == `value`
+      }
     }
   }
 
   public enum class LoopMode(
     id: Long,
   ) {
-    /**
-     * Audio does not loop.
-     */
     LOOP_DISABLED(0),
-    /**
-     * Audio loops the data between [loopBegin] and [loopEnd], playing forward only.
-     */
     LOOP_FORWARD(1),
-    /**
-     * Audio loops the data between [loopBegin] and [loopEnd], playing back and forth.
-     */
     LOOP_PINGPONG(2),
-    /**
-     * Audio loops the data between [loopBegin] and [loopEnd], playing backward only.
-     */
     LOOP_BACKWARD(3),
     ;
 
@@ -206,7 +148,9 @@ public open class AudioStreamWAV : AudioStream() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): LoopMode = entries.single {
+          it.id == `value`
+      }
     }
   }
 

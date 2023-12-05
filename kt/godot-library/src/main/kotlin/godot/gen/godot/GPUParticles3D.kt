@@ -9,7 +9,6 @@ package godot
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.core.AABB
 import godot.core.Color
 import godot.core.NodePath
 import godot.core.Transform3D
@@ -33,22 +32,11 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
+import godot.core.AABB as CoreAABB
+import godot.core.VariantType.AABB as VariantTypeAABB
 
-/**
- * 3D particle emitter.
- *
- * Tutorials:
- * [https://godotengine.org/asset-library/asset/678](https://godotengine.org/asset-library/asset/678)
- *
- * 3D particle node used to create a variety of particle systems and effects. [godot.GPUParticles3D] features an emitter that generates some number of particles at a given rate.
- *
- * Use the `process_material` property to add a [godot.ParticleProcessMaterial] to configure particle appearance and behavior. Alternatively, you can add a [godot.ShaderMaterial] which will be applied to all particles.
- */
 @GodotBaseType
 public open class GPUParticles3D : GeometryInstance3D() {
-  /**
-   * If `true`, particles are being emitted.
-   */
   public var emitting: Boolean
     get() {
       TransferContext.writeArguments()
@@ -60,9 +48,6 @@ public open class GPUParticles3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setEmittingPtr, NIL)
     }
 
-  /**
-   * Number of particles to emit.
-   */
   public var amount: Int
     get() {
       TransferContext.writeArguments()
@@ -74,9 +59,6 @@ public open class GPUParticles3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAmountPtr, NIL)
     }
 
-  /**
-   *
-   */
   public var subEmitter: NodePath
     get() {
       TransferContext.writeArguments()
@@ -88,9 +70,6 @@ public open class GPUParticles3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSubEmitterPtr, NIL)
     }
 
-  /**
-   * Amount of time each particle will exist.
-   */
   public var lifetime: Double
     get() {
       TransferContext.writeArguments()
@@ -102,9 +81,6 @@ public open class GPUParticles3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setLifetimePtr, NIL)
     }
 
-  /**
-   * If `true`, only `amount` particles will be emitted.
-   */
   public var oneShot: Boolean
     get() {
       TransferContext.writeArguments()
@@ -116,9 +92,6 @@ public open class GPUParticles3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setOneShotPtr, NIL)
     }
 
-  /**
-   * Amount of time to preprocess the particles before animation starts. Lets you start the animation some time after particles have started emitting.
-   */
   public var preprocess: Double
     get() {
       TransferContext.writeArguments()
@@ -130,9 +103,6 @@ public open class GPUParticles3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setPreProcessTimePtr, NIL)
     }
 
-  /**
-   * Speed scaling ratio. A value of `0` can be used to pause the particles.
-   */
   public var speedScale: Double
     get() {
       TransferContext.writeArguments()
@@ -144,9 +114,6 @@ public open class GPUParticles3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSpeedScalePtr, NIL)
     }
 
-  /**
-   * Time ratio between each emission. If `0`, particles are emitted continuously. If `1`, all particles are emitted simultaneously.
-   */
   public var explosiveness: Float
     get() {
       TransferContext.writeArguments()
@@ -158,9 +125,6 @@ public open class GPUParticles3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setExplosivenessRatioPtr, NIL)
     }
 
-  /**
-   * Emission randomness ratio.
-   */
   public var randomness: Float
     get() {
       TransferContext.writeArguments()
@@ -172,9 +136,6 @@ public open class GPUParticles3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRandomnessRatioPtr, NIL)
     }
 
-  /**
-   * The particle system's frame rate is fixed to a value. For example, changing the value to 2 will make the particles render at 2 frames per second. Note this does not slow down the simulation of the particle system itself.
-   */
   public var fixedFps: Int
     get() {
       TransferContext.writeArguments()
@@ -186,9 +147,6 @@ public open class GPUParticles3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFixedFpsPtr, NIL)
     }
 
-  /**
-   * Enables particle interpolation, which makes the particle movement smoother when their [fixedFps] is lower than the screen refresh rate.
-   */
   public var interpolate: Boolean
     get() {
       TransferContext.writeArguments()
@@ -200,9 +158,6 @@ public open class GPUParticles3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setInterpolatePtr, NIL)
     }
 
-  /**
-   * If `true`, results in fractional delta calculation which has a smoother particles display effect.
-   */
   public var fractDelta: Boolean
     get() {
       TransferContext.writeArguments()
@@ -214,9 +169,6 @@ public open class GPUParticles3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFractionalDeltaPtr, NIL)
     }
 
-  /**
-   *
-   */
   public var collisionBaseSize: Float
     get() {
       TransferContext.writeArguments()
@@ -228,27 +180,18 @@ public open class GPUParticles3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setCollisionBaseSizePtr, NIL)
     }
 
-  /**
-   * The [AABB] that determines the node's region which needs to be visible on screen for the particle system to be active.
-   *
-   * Grow the box if particles suddenly appear/disappear when the node enters/exits the screen. The [AABB] can be grown via code or with the **Particles → Generate AABB** editor tool.
-   */
   @CoreTypeLocalCopy
-  public var visibilityAabb: AABB
+  public var visibilityAabb: CoreAABB
     get() {
       TransferContext.writeArguments()
-      TransferContext.callMethod(rawPtr, MethodBindings.getVisibilityAabbPtr,
-          godot.core.VariantType.AABB)
-      return (TransferContext.readReturnValue(godot.core.VariantType.AABB, false) as AABB)
+      TransferContext.callMethod(rawPtr, MethodBindings.getVisibilityAabbPtr, VariantTypeAABB)
+      return (TransferContext.readReturnValue(VariantTypeAABB, false) as CoreAABB)
     }
     set(`value`) {
-      TransferContext.writeArguments(godot.core.VariantType.AABB to value)
+      TransferContext.writeArguments(VariantTypeAABB to value)
       TransferContext.callMethod(rawPtr, MethodBindings.setVisibilityAabbPtr, NIL)
     }
 
-  /**
-   * If `true`, particles use the parent node's coordinate space (known as local coordinates). This will cause particles to move and rotate along the [godot.GPUParticles3D] node (and its parents) when it is moved or rotated. If `false`, particles use global coordinates; they will not move or rotate along the [godot.GPUParticles3D] node (and its parents) when it is moved or rotated.
-   */
   public var localCoords: Boolean
     get() {
       TransferContext.writeArguments()
@@ -260,11 +203,6 @@ public open class GPUParticles3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setUseLocalCoordinatesPtr, NIL)
     }
 
-  /**
-   * Particle draw order. Uses [enum DrawOrder] values.
-   *
-   * **Note:** [DRAW_ORDER_INDEX] is the only option that supports motion vectors for effects like TAA. It is suggested to use this draw order if the particles are opaque to fix ghosting artifacts.
-   */
   public var drawOrder: DrawOrder
     get() {
       TransferContext.writeArguments()
@@ -276,9 +214,6 @@ public open class GPUParticles3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDrawOrderPtr, NIL)
     }
 
-  /**
-   *
-   */
   public var transformAlign: TransformAlign
     get() {
       TransferContext.writeArguments()
@@ -290,13 +225,6 @@ public open class GPUParticles3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTransformAlignPtr, NIL)
     }
 
-  /**
-   * If `true`, enables particle trails using a mesh skinning system. Designed to work with [godot.RibbonTrailMesh] and [godot.TubeTrailMesh].
-   *
-   * **Note:** [godot.BaseMaterial3D.useParticleTrails] must also be enabled on the particle mesh's material. Otherwise, setting [trailEnabled] to `true` will have no effect.
-   *
-   * **Note:** Unlike [godot.GPUParticles2D], the number of trail sections and subdivisions is set in the [godot.RibbonTrailMesh] or the [godot.TubeTrailMesh]'s properties.
-   */
   public var trailEnabled: Boolean
     get() {
       TransferContext.writeArguments()
@@ -308,9 +236,6 @@ public open class GPUParticles3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTrailEnabledPtr, NIL)
     }
 
-  /**
-   * The amount of time the particle's trail should represent (in seconds). Only effective if [trailEnabled] is `true`.
-   */
   public var trailLifetime: Double
     get() {
       TransferContext.writeArguments()
@@ -322,9 +247,6 @@ public open class GPUParticles3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTrailLifetimePtr, NIL)
     }
 
-  /**
-   * [godot.Material] for processing particles. Can be a [godot.ParticleProcessMaterial] or a [godot.ShaderMaterial].
-   */
   public var processMaterial: Material?
     get() {
       TransferContext.writeArguments()
@@ -336,9 +258,6 @@ public open class GPUParticles3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setProcessMaterialPtr, NIL)
     }
 
-  /**
-   * The number of draw passes when rendering particles.
-   */
   public var drawPasses: Int
     get() {
       TransferContext.writeArguments()
@@ -350,9 +269,6 @@ public open class GPUParticles3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDrawPassesPtr, NIL)
     }
 
-  /**
-   * [godot.Mesh] that is drawn for the first draw pass.
-   */
   public var drawPass1: Mesh?
     get() {
       TransferContext.writeArguments(LONG to 0L)
@@ -364,9 +280,6 @@ public open class GPUParticles3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDrawPassMeshPtr, NIL)
     }
 
-  /**
-   * [godot.Mesh] that is drawn for the second draw pass.
-   */
   public var drawPass2: Mesh?
     get() {
       TransferContext.writeArguments(LONG to 1L)
@@ -378,9 +291,6 @@ public open class GPUParticles3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDrawPassMeshPtr, NIL)
     }
 
-  /**
-   * [godot.Mesh] that is drawn for the third draw pass.
-   */
   public var drawPass3: Mesh?
     get() {
       TransferContext.writeArguments(LONG to 2L)
@@ -392,9 +302,6 @@ public open class GPUParticles3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDrawPassMeshPtr, NIL)
     }
 
-  /**
-   * [godot.Mesh] that is drawn for the fourth draw pass.
-   */
   public var drawPass4: Mesh?
     get() {
       TransferContext.writeArguments(LONG to 3L)
@@ -406,9 +313,6 @@ public open class GPUParticles3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDrawPassMeshPtr, NIL)
     }
 
-  /**
-   *
-   */
   public var drawSkin: Skin?
     get() {
       TransferContext.writeArguments()
@@ -420,16 +324,12 @@ public open class GPUParticles3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSkinPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_GPUPARTICLES3D, scriptIndex)
     return true
   }
 
   /**
-   * The [AABB] that determines the node's region which needs to be visible on screen for the particle system to be active.
-   *
-   * Grow the box if particles suddenly appear/disappear when the node enters/exits the screen. The [AABB] can be grown via code or with the **Particles → Generate AABB** editor tool.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -445,39 +345,30 @@ public open class GPUParticles3D : GeometryInstance3D() {
    * ``````
    */
   @CoreTypeHelper
-  public open fun visibilityAabbMutate(block: AABB.() -> Unit): AABB = visibilityAabb.apply{
+  public open fun visibilityAabbMutate(block: CoreAABB.() -> Unit): CoreAABB = visibilityAabb.apply{
       block(this)
       visibilityAabb = this
   }
 
 
-  /**
-   * Restarts the particle emission, clearing existing particles.
-   */
-  public fun restart(): Unit {
+  public fun restart() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.restartPtr, NIL)
   }
 
-  /**
-   * Returns the axis-aligned bounding box that contains all the particles that are active in the current frame.
-   */
-  public fun captureAabb(): AABB {
+  public fun captureAabb(): CoreAABB {
     TransferContext.writeArguments()
-    TransferContext.callMethod(rawPtr, MethodBindings.captureAabbPtr, godot.core.VariantType.AABB)
-    return (TransferContext.readReturnValue(godot.core.VariantType.AABB, false) as AABB)
+    TransferContext.callMethod(rawPtr, MethodBindings.captureAabbPtr, VariantTypeAABB)
+    return (TransferContext.readReturnValue(VariantTypeAABB, false) as CoreAABB)
   }
 
-  /**
-   * Emits a single particle. Whether [xform], [velocity], [color] and [custom] are applied depends on the value of [flags]. See [enum EmitFlags].
-   */
   public fun emitParticle(
     xform: Transform3D,
     velocity: Vector3,
     color: Color,
     custom: Color,
     flags: Long,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(TRANSFORM3D to xform, VECTOR3 to velocity, COLOR to color, COLOR to custom, LONG to flags)
     TransferContext.callMethod(rawPtr, MethodBindings.emitParticlePtr, NIL)
   }
@@ -485,21 +376,9 @@ public open class GPUParticles3D : GeometryInstance3D() {
   public enum class DrawOrder(
     id: Long,
   ) {
-    /**
-     * Particles are drawn in the order emitted.
-     */
     DRAW_ORDER_INDEX(0),
-    /**
-     * Particles are drawn in order of remaining lifetime.
-     */
     DRAW_ORDER_LIFETIME(1),
-    /**
-     *
-     */
     DRAW_ORDER_REVERSE_LIFETIME(2),
-    /**
-     * Particles are drawn in order of depth.
-     */
     DRAW_ORDER_VIEW_DEPTH(3),
     ;
 
@@ -509,32 +388,19 @@ public open class GPUParticles3D : GeometryInstance3D() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): DrawOrder = entries.single {
+          it.id == `value`
+      }
     }
   }
 
   public enum class EmitFlags(
     id: Long,
   ) {
-    /**
-     * Particle starts at the specified position.
-     */
     EMIT_FLAG_POSITION(1),
-    /**
-     * Particle starts with specified rotation and scale.
-     */
     EMIT_FLAG_ROTATION_SCALE(2),
-    /**
-     * Particle starts with the specified velocity vector, which defines the emission direction and speed.
-     */
     EMIT_FLAG_VELOCITY(4),
-    /**
-     * Particle starts with specified color.
-     */
     EMIT_FLAG_COLOR(8),
-    /**
-     * Particle starts with specified `CUSTOM` data.
-     */
     EMIT_FLAG_CUSTOM(16),
     ;
 
@@ -544,28 +410,18 @@ public open class GPUParticles3D : GeometryInstance3D() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): EmitFlags = entries.single {
+          it.id == `value`
+      }
     }
   }
 
   public enum class TransformAlign(
     id: Long,
   ) {
-    /**
-     *
-     */
     TRANSFORM_ALIGN_DISABLED(0),
-    /**
-     *
-     */
     TRANSFORM_ALIGN_Z_BILLBOARD(1),
-    /**
-     *
-     */
     TRANSFORM_ALIGN_Y_TO_VELOCITY(2),
-    /**
-     *
-     */
     TRANSFORM_ALIGN_Z_BILLBOARD_Y_TO_VELOCITY(3),
     ;
 
@@ -575,14 +431,13 @@ public open class GPUParticles3D : GeometryInstance3D() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): TransformAlign = entries.single {
+          it.id == `value`
+      }
     }
   }
 
   public companion object {
-    /**
-     * Maximum number of draw passes supported.
-     */
     public final const val MAX_DRAW_PASSES: Long = 4
   }
 

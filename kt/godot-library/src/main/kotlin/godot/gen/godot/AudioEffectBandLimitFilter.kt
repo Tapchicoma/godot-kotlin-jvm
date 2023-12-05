@@ -11,17 +11,9 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * Adds a band limit filter to the audio bus.
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/audio/audio_buses.html]($DOCS_URL/tutorials/audio/audio_buses.html)
- *
- * Limits the frequencies in a range around the [godot.AudioEffectFilter.cutoffHz] and allows frequencies outside of this range to pass.
- */
 @GodotBaseType
 public open class AudioEffectBandLimitFilter : AudioEffectFilter() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_AUDIOEFFECTBANDLIMITFILTER, scriptIndex)
     return true
   }

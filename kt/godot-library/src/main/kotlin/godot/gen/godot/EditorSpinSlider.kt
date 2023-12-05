@@ -20,36 +20,16 @@ import kotlin.Int
 import kotlin.String
 import kotlin.Suppress
 
-/**
- * Godot editor's control for editing numeric values.
- *
- * This [godot.Control] node is used in the editor's Inspector dock to allow editing of numeric values. Can be used with [godot.EditorInspectorPlugin] to recreate the same behavior.
- */
 @GodotBaseType
 public open class EditorSpinSlider internal constructor() : Range() {
-  /**
-   * Emitted when the spinner/slider is grabbed.
-   */
   public val grabbed: Signal0 by signal()
 
-  /**
-   * Emitted when the spinner/slider is ungrabbed.
-   */
   public val ungrabbed: Signal0 by signal()
 
-  /**
-   * Emitted when the value form gains focus.
-   */
   public val valueFocusEntered: Signal0 by signal()
 
-  /**
-   * Emitted when the value form loses focus.
-   */
   public val valueFocusExited: Signal0 by signal()
 
-  /**
-   * The text that displays to the left of the value.
-   */
   public var label: String
     get() {
       TransferContext.writeArguments()
@@ -61,9 +41,6 @@ public open class EditorSpinSlider internal constructor() : Range() {
       TransferContext.callMethod(rawPtr, MethodBindings.setLabelPtr, NIL)
     }
 
-  /**
-   * The suffix to display after the value (in a faded color). This should generally be a plural word. You may have to use an abbreviation if the suffix is too long to be displayed.
-   */
   public var suffix: String
     get() {
       TransferContext.writeArguments()
@@ -75,9 +52,6 @@ public open class EditorSpinSlider internal constructor() : Range() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSuffixPtr, NIL)
     }
 
-  /**
-   * If `true`, the slider can't be interacted with.
-   */
   public var readOnly: Boolean
     get() {
       TransferContext.writeArguments()
@@ -89,9 +63,6 @@ public open class EditorSpinSlider internal constructor() : Range() {
       TransferContext.callMethod(rawPtr, MethodBindings.setReadOnlyPtr, NIL)
     }
 
-  /**
-   * If `true`, the slider will not draw background.
-   */
   public var flat: Boolean
     get() {
       TransferContext.writeArguments()
@@ -103,9 +74,6 @@ public open class EditorSpinSlider internal constructor() : Range() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFlatPtr, NIL)
     }
 
-  /**
-   * If `true`, the slider is hidden.
-   */
   public var hideSlider: Boolean
     get() {
       TransferContext.writeArguments()
@@ -117,7 +85,7 @@ public open class EditorSpinSlider internal constructor() : Range() {
       TransferContext.callMethod(rawPtr, MethodBindings.setHideSliderPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_EDITORSPINSLIDER, scriptIndex)
     return true
   }

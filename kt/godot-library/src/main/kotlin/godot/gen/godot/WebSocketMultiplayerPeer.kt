@@ -96,7 +96,7 @@ public open class WebSocketMultiplayerPeer : MultiplayerPeer() {
       TransferContext.callMethod(rawPtr, MethodBindings.setMaxQueuedPacketsPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_WEBSOCKETMULTIPLAYERPEER, scriptIndex)
     return true
   }

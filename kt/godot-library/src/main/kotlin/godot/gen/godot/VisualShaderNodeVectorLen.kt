@@ -11,14 +11,9 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * Returns the length of a [godot.core.Vector3] within the visual shader graph.
- *
- * Translated to `length(p0)` in the shader language.
- */
 @GodotBaseType
 public open class VisualShaderNodeVectorLen : VisualShaderNodeVectorBase() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_VISUALSHADERNODEVECTORLEN, scriptIndex)
     return true
   }

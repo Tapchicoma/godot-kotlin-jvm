@@ -13,7 +13,7 @@ import kotlin.Suppress
 
 @GodotBaseType
 public open class ResourceFormatImporterSaver internal constructor() : ResourceFormatSaver() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_RESOURCEFORMATIMPORTERSAVER, scriptIndex)
     return true
   }

@@ -21,25 +21,13 @@ import kotlin.String
 import kotlin.Suppress
 import kotlin.jvm.JvmOverloads
 
-/**
- * A cryptographic key (RSA).
- *
- * The CryptoKey class represents a cryptographic key. Keys can be loaded and saved like any other [godot.Resource].
- *
- * They can be used to generate a self-signed [godot.X509Certificate] via [godot.Crypto.generateSelfSignedCertificate] and as private key in [godot.StreamPeerTLS.acceptStream] along with the appropriate certificate.
- */
 @GodotBaseType
 public open class CryptoKey : Resource() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_CRYPTOKEY, scriptIndex)
     return true
   }
 
-  /**
-   * Saves a key to the given [path]. If [publicOnly] is `true`, only the public key will be saved.
-   *
-   * **Note:** [path] should be a "*.pub" file if [publicOnly] is `true`, a "*.key" file otherwise.
-   */
   @JvmOverloads
   public fun save(path: String, publicOnly: Boolean = false): GodotError {
     TransferContext.writeArguments(STRING to path, BOOL to publicOnly)
@@ -47,11 +35,6 @@ public open class CryptoKey : Resource() {
     return GodotError.from(TransferContext.readReturnValue(LONG) as Long)
   }
 
-  /**
-   * Loads a key from [path]. If [publicOnly] is `true`, only the public key will be loaded.
-   *
-   * **Note:** [path] should be a "*.pub" file if [publicOnly] is `true`, a "*.key" file otherwise.
-   */
   @JvmOverloads
   public fun load(path: String, publicOnly: Boolean = false): GodotError {
     TransferContext.writeArguments(STRING to path, BOOL to publicOnly)
@@ -59,18 +42,12 @@ public open class CryptoKey : Resource() {
     return GodotError.from(TransferContext.readReturnValue(LONG) as Long)
   }
 
-  /**
-   * Returns `true` if this CryptoKey only has the public part, and not the private one.
-   */
   public fun isPublicOnly(): Boolean {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.isPublicOnlyPtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Returns a string containing the key in PEM format. If [publicOnly] is `true`, only the public key will be included.
-   */
   @JvmOverloads
   public fun saveToString(publicOnly: Boolean = false): String {
     TransferContext.writeArguments(BOOL to publicOnly)
@@ -78,9 +55,6 @@ public open class CryptoKey : Resource() {
     return (TransferContext.readReturnValue(STRING, false) as String)
   }
 
-  /**
-   * Loads a key from the given [stringKey]. If [publicOnly] is `true`, only the public key will be loaded.
-   */
   @JvmOverloads
   public fun loadFromString(stringKey: String, publicOnly: Boolean = false): GodotError {
     TransferContext.writeArguments(STRING to stringKey, BOOL to publicOnly)

@@ -23,30 +23,12 @@ import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 
-/**
- * Button for touch screen devices for gameplay use.
- *
- * TouchScreenButton allows you to create on-screen buttons for touch devices. It's intended for gameplay use, such as a unit you have to touch to move. Unlike [godot.Button], TouchScreenButton supports multitouch out of the box. Several TouchScreenButtons can be pressed at the same time with touch input.
- *
- * This node inherits from [godot.Node2D]. Unlike with [godot.Control] nodes, you cannot set anchors on it. If you want to create menus or user interfaces, you may want to use [godot.Button] nodes instead. To make button nodes react to touch events, you can enable the Emulate Mouse option in the Project Settings.
- *
- * You can configure TouchScreenButton to be visible only on touch devices, helping you develop your game both for desktop and mobile devices.
- */
 @GodotBaseType
 public open class TouchScreenButton : Node2D() {
-  /**
-   * Emitted when the button is pressed (down).
-   */
   public val pressed: Signal0 by signal()
 
-  /**
-   * Emitted when the button is released (up).
-   */
   public val released: Signal0 by signal()
 
-  /**
-   * The button's texture for the normal state.
-   */
   public var textureNormal: Texture2D?
     get() {
       TransferContext.writeArguments()
@@ -58,9 +40,6 @@ public open class TouchScreenButton : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTextureNormalPtr, NIL)
     }
 
-  /**
-   * The button's texture for the pressed state.
-   */
   public var texturePressed: Texture2D?
     get() {
       TransferContext.writeArguments()
@@ -72,9 +51,6 @@ public open class TouchScreenButton : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTexturePressedPtr, NIL)
     }
 
-  /**
-   * The button's bitmask.
-   */
   public var bitmask: BitMap?
     get() {
       TransferContext.writeArguments()
@@ -86,9 +62,6 @@ public open class TouchScreenButton : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setBitmaskPtr, NIL)
     }
 
-  /**
-   * The button's shape.
-   */
   public var shape: Shape2D?
     get() {
       TransferContext.writeArguments()
@@ -100,9 +73,6 @@ public open class TouchScreenButton : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setShapePtr, NIL)
     }
 
-  /**
-   * If `true`, the button's shape is centered in the provided texture. If no texture is used, this property has no effect.
-   */
   public var shapeCentered: Boolean
     get() {
       TransferContext.writeArguments()
@@ -114,9 +84,6 @@ public open class TouchScreenButton : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setShapeCenteredPtr, NIL)
     }
 
-  /**
-   * If `true`, the button's shape is visible in the editor.
-   */
   public var shapeVisible: Boolean
     get() {
       TransferContext.writeArguments()
@@ -128,11 +95,6 @@ public open class TouchScreenButton : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setShapeVisiblePtr, NIL)
     }
 
-  /**
-   * If `true`, the [pressed] and [released] signals are emitted whenever a pressed finger goes in and out of the button, even if the pressure started outside the active area of the button.
-   *
-   * **Note:** This is a "pass-by" (not "bypass") press mode.
-   */
   public var passbyPress: Boolean
     get() {
       TransferContext.writeArguments()
@@ -144,9 +106,6 @@ public open class TouchScreenButton : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setPassbyPressPtr, NIL)
     }
 
-  /**
-   * The button's action. Actions can be handled with [godot.InputEventAction].
-   */
   public var action: String
     get() {
       TransferContext.writeArguments()
@@ -158,9 +117,6 @@ public open class TouchScreenButton : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setActionPtr, NIL)
     }
 
-  /**
-   * The button's visibility mode. See [enum VisibilityMode] for possible values.
-   */
   public var visibilityMode: VisibilityMode
     get() {
       TransferContext.writeArguments()
@@ -172,14 +128,11 @@ public open class TouchScreenButton : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setVisibilityModePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_TOUCHSCREENBUTTON, scriptIndex)
     return true
   }
 
-  /**
-   * Returns `true` if this button is currently pressed.
-   */
   public fun isPressed(): Boolean {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.isPressedPtr, BOOL)
@@ -189,13 +142,7 @@ public open class TouchScreenButton : Node2D() {
   public enum class VisibilityMode(
     id: Long,
   ) {
-    /**
-     * Always visible.
-     */
     VISIBILITY_ALWAYS(0),
-    /**
-     * Visible on touch screens only.
-     */
     VISIBILITY_TOUCHSCREEN_ONLY(1),
     ;
 
@@ -205,7 +152,9 @@ public open class TouchScreenButton : Node2D() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): VisibilityMode = entries.single {
+          it.id == `value`
+      }
     }
   }
 

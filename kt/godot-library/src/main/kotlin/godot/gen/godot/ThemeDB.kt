@@ -22,48 +22,29 @@ import kotlin.Float
 import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
-import kotlin.Unit
 
-/**
- * A singleton that provides access to static information about [godot.Theme] resources used by the engine and by your project.
- *
- * This singleton provides access to static information about [godot.Theme] resources used by the engine and by your projects. You can fetch the default engine theme, as well as your project configured theme.
- *
- * [godot.ThemeDB] also contains fallback values for theme properties.
- */
 @GodotBaseType
 public object ThemeDB : Object() {
-  /**
-   * Emitted when one of the fallback values had been changed. Use it to refresh the look of controls that may rely on the fallback theme items.
-   */
   public val fallbackChanged: Signal0 by signal()
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     getSingleton(ENGINECLASS_THEMEDB)
     return false
   }
 
-  /**
-   * Returns a reference to the default engine [godot.Theme]. This theme resource is responsible for the out-of-the-box look of [godot.Control] nodes and cannot be overridden.
-   */
   public fun getDefaultTheme(): Theme? {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getDefaultThemePtr, OBJECT)
     return (TransferContext.readReturnValue(OBJECT, true) as Theme?)
   }
 
-  /**
-   * Returns a reference to the custom project [godot.Theme]. This theme resources allows to override the default engine theme for every control node in the project.
-   *
-   * To set the project theme, see [godot.ProjectSettings.gui/theme/custom].
-   */
   public fun getProjectTheme(): Theme? {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getProjectThemePtr, OBJECT)
     return (TransferContext.readReturnValue(OBJECT, true) as Theme?)
   }
 
-  public fun setFallbackBaseScale(baseScale: Float): Unit {
+  public fun setFallbackBaseScale(baseScale: Float) {
     TransferContext.writeArguments(DOUBLE to baseScale.toDouble())
     TransferContext.callMethod(rawPtr, MethodBindings.setFallbackBaseScalePtr, NIL)
   }
@@ -74,7 +55,7 @@ public object ThemeDB : Object() {
     return (TransferContext.readReturnValue(DOUBLE, false) as Double).toFloat()
   }
 
-  public fun setFallbackFont(font: Font): Unit {
+  public fun setFallbackFont(font: Font) {
     TransferContext.writeArguments(OBJECT to font)
     TransferContext.callMethod(rawPtr, MethodBindings.setFallbackFontPtr, NIL)
   }
@@ -85,7 +66,7 @@ public object ThemeDB : Object() {
     return (TransferContext.readReturnValue(OBJECT, true) as Font?)
   }
 
-  public fun setFallbackFontSize(fontSize: Int): Unit {
+  public fun setFallbackFontSize(fontSize: Int) {
     TransferContext.writeArguments(LONG to fontSize.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.setFallbackFontSizePtr, NIL)
   }
@@ -96,7 +77,7 @@ public object ThemeDB : Object() {
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  public fun setFallbackIcon(icon: Texture2D): Unit {
+  public fun setFallbackIcon(icon: Texture2D) {
     TransferContext.writeArguments(OBJECT to icon)
     TransferContext.callMethod(rawPtr, MethodBindings.setFallbackIconPtr, NIL)
   }
@@ -107,7 +88,7 @@ public object ThemeDB : Object() {
     return (TransferContext.readReturnValue(OBJECT, true) as Texture2D?)
   }
 
-  public fun setFallbackStylebox(stylebox: StyleBox): Unit {
+  public fun setFallbackStylebox(stylebox: StyleBox) {
     TransferContext.writeArguments(OBJECT to stylebox)
     TransferContext.callMethod(rawPtr, MethodBindings.setFallbackStyleboxPtr, NIL)
   }

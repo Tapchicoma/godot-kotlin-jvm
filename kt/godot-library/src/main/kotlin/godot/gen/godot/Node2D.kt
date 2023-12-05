@@ -29,19 +29,8 @@ import kotlin.Unit
 import kotlin.jvm.JvmName
 import kotlin.jvm.JvmOverloads
 
-/**
- * A 2D game object, inherited by all 2D-related nodes. Has a position, rotation, scale, and Z index.
- *
- * Tutorials:
- * [https://github.com/godotengine/godot-demo-projects/tree/master/2d](https://github.com/godotengine/godot-demo-projects/tree/master/2d)
- *
- * A 2D game object, with a transform (position, rotation, and scale). All 2D nodes, including physics objects and sprites, inherit from Node2D. Use Node2D as a parent node to move, scale and rotate children in a 2D project. Also gives control of the node's render order.
- */
 @GodotBaseType
 public open class Node2D : CanvasItem() {
-  /**
-   * Position, relative to the node's parent.
-   */
   @CoreTypeLocalCopy
   public var position: Vector2
     get() {
@@ -54,11 +43,6 @@ public open class Node2D : CanvasItem() {
       TransferContext.callMethod(rawPtr, MethodBindings.setPositionPtr, NIL)
     }
 
-  /**
-   * Rotation in radians, relative to the node's parent.
-   *
-   * **Note:** This property is edited in the inspector in degrees. If you want to use degrees in a script, use [rotationDegrees].
-   */
   public var rotation: Float
     get() {
       TransferContext.writeArguments()
@@ -70,9 +54,6 @@ public open class Node2D : CanvasItem() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRotationPtr, NIL)
     }
 
-  /**
-   * Helper property to access [rotation] in degrees instead of radians.
-   */
   public var rotationDegrees: Float
     get() {
       TransferContext.writeArguments()
@@ -84,11 +65,6 @@ public open class Node2D : CanvasItem() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRotationDegreesPtr, NIL)
     }
 
-  /**
-   * The node's scale. Unscaled value: `(1, 1)`.
-   *
-   * **Note:** Negative X scales in 2D are not decomposable from the transformation matrix. Due to the way scale is represented with transformation matrices in Godot, negative scales on the X axis will be changed to negative scales on the Y axis and a rotation of 180 degrees when decomposed.
-   */
   @CoreTypeLocalCopy
   public var scale: Vector2
     get() {
@@ -101,11 +77,6 @@ public open class Node2D : CanvasItem() {
       TransferContext.callMethod(rawPtr, MethodBindings.setScalePtr, NIL)
     }
 
-  /**
-   * Slants the node.
-   *
-   * **Note:** Skew is X axis only.
-   */
   public var skew: Float
     get() {
       TransferContext.writeArguments()
@@ -117,9 +88,6 @@ public open class Node2D : CanvasItem() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSkewPtr, NIL)
     }
 
-  /**
-   * Local [godot.core.Transform2D].
-   */
   @CoreTypeLocalCopy
   public var transform: Transform2D
     @JvmName("getTransform_prop")
@@ -130,9 +98,6 @@ public open class Node2D : CanvasItem() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTransformPtr, NIL)
     }
 
-  /**
-   * Global position.
-   */
   @CoreTypeLocalCopy
   public var globalPosition: Vector2
     get() {
@@ -145,9 +110,6 @@ public open class Node2D : CanvasItem() {
       TransferContext.callMethod(rawPtr, MethodBindings.setGlobalPositionPtr, NIL)
     }
 
-  /**
-   * Global rotation in radians.
-   */
   public var globalRotation: Float
     get() {
       TransferContext.writeArguments()
@@ -159,9 +121,6 @@ public open class Node2D : CanvasItem() {
       TransferContext.callMethod(rawPtr, MethodBindings.setGlobalRotationPtr, NIL)
     }
 
-  /**
-   * Helper property to access [globalRotation] in degrees instead of radians.
-   */
   public var globalRotationDegrees: Float
     get() {
       TransferContext.writeArguments()
@@ -173,9 +132,6 @@ public open class Node2D : CanvasItem() {
       TransferContext.callMethod(rawPtr, MethodBindings.setGlobalRotationDegreesPtr, NIL)
     }
 
-  /**
-   * Global scale.
-   */
   @CoreTypeLocalCopy
   public var globalScale: Vector2
     get() {
@@ -188,9 +144,6 @@ public open class Node2D : CanvasItem() {
       TransferContext.callMethod(rawPtr, MethodBindings.setGlobalScalePtr, NIL)
     }
 
-  /**
-   * Global skew in radians.
-   */
   public var globalSkew: Float
     get() {
       TransferContext.writeArguments()
@@ -202,9 +155,6 @@ public open class Node2D : CanvasItem() {
       TransferContext.callMethod(rawPtr, MethodBindings.setGlobalSkewPtr, NIL)
     }
 
-  /**
-   * Global [godot.core.Transform2D].
-   */
   @CoreTypeLocalCopy
   public var globalTransform: Transform2D
     @JvmName("getGlobalTransform_prop")
@@ -215,14 +165,12 @@ public open class Node2D : CanvasItem() {
       TransferContext.callMethod(rawPtr, MethodBindings.setGlobalTransformPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_NODE2D, scriptIndex)
     return true
   }
 
   /**
-   * Position, relative to the node's parent.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -245,10 +193,6 @@ public open class Node2D : CanvasItem() {
 
 
   /**
-   * The node's scale. Unscaled value: `(1, 1)`.
-   *
-   * **Note:** Negative X scales in 2D are not decomposable from the transformation matrix. Due to the way scale is represented with transformation matrices in Godot, negative scales on the X axis will be changed to negative scales on the Y axis and a rotation of 180 degrees when decomposed.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -271,8 +215,6 @@ public open class Node2D : CanvasItem() {
 
 
   /**
-   * Local [godot.core.Transform2D].
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -295,8 +237,6 @@ public open class Node2D : CanvasItem() {
 
 
   /**
-   * Global position.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -319,8 +259,6 @@ public open class Node2D : CanvasItem() {
 
 
   /**
-   * Global scale.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -343,8 +281,6 @@ public open class Node2D : CanvasItem() {
 
 
   /**
-   * Global [godot.core.Transform2D].
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -367,96 +303,61 @@ public open class Node2D : CanvasItem() {
   }
 
 
-  /**
-   * Applies a rotation to the node, in radians, starting from its current rotation.
-   */
-  public fun rotate(radians: Float): Unit {
+  public fun rotate(radians: Float) {
     TransferContext.writeArguments(DOUBLE to radians.toDouble())
     TransferContext.callMethod(rawPtr, MethodBindings.rotatePtr, NIL)
   }
 
-  /**
-   * Applies a local translation on the node's X axis based on the [godot.Node.Process]'s [delta]. If [scaled] is `false`, normalizes the movement.
-   */
   @JvmOverloads
-  public fun moveLocalX(delta: Float, scaled: Boolean = false): Unit {
+  public fun moveLocalX(delta: Float, scaled: Boolean = false) {
     TransferContext.writeArguments(DOUBLE to delta.toDouble(), BOOL to scaled)
     TransferContext.callMethod(rawPtr, MethodBindings.moveLocalXPtr, NIL)
   }
 
-  /**
-   * Applies a local translation on the node's Y axis based on the [godot.Node.Process]'s [delta]. If [scaled] is `false`, normalizes the movement.
-   */
   @JvmOverloads
-  public fun moveLocalY(delta: Float, scaled: Boolean = false): Unit {
+  public fun moveLocalY(delta: Float, scaled: Boolean = false) {
     TransferContext.writeArguments(DOUBLE to delta.toDouble(), BOOL to scaled)
     TransferContext.callMethod(rawPtr, MethodBindings.moveLocalYPtr, NIL)
   }
 
-  /**
-   * Translates the node by the given [offset] in local coordinates.
-   */
-  public fun translate(offset: Vector2): Unit {
+  public fun translate(offset: Vector2) {
     TransferContext.writeArguments(VECTOR2 to offset)
     TransferContext.callMethod(rawPtr, MethodBindings.translatePtr, NIL)
   }
 
-  /**
-   * Adds the [offset] vector to the node's global position.
-   */
-  public fun globalTranslate(offset: Vector2): Unit {
+  public fun globalTranslate(offset: Vector2) {
     TransferContext.writeArguments(VECTOR2 to offset)
     TransferContext.callMethod(rawPtr, MethodBindings.globalTranslatePtr, NIL)
   }
 
-  /**
-   * Multiplies the current scale by the [ratio] vector.
-   */
-  public fun applyScale(ratio: Vector2): Unit {
+  public fun applyScale(ratio: Vector2) {
     TransferContext.writeArguments(VECTOR2 to ratio)
     TransferContext.callMethod(rawPtr, MethodBindings.applyScalePtr, NIL)
   }
 
-  /**
-   * Rotates the node so it points towards the [point], which is expected to use global coordinates.
-   */
-  public fun lookAt(point: Vector2): Unit {
+  public fun lookAt(point: Vector2) {
     TransferContext.writeArguments(VECTOR2 to point)
     TransferContext.callMethod(rawPtr, MethodBindings.lookAtPtr, NIL)
   }
 
-  /**
-   * Returns the angle between the node and the [point] in radians.
-   *
-   * [godot.Illustration of the returned angle.](https://raw.githubusercontent.com/godotengine/godot-docs/4.1/img/node2d_get_angle_to.png)
-   */
   public fun getAngleTo(point: Vector2): Float {
     TransferContext.writeArguments(VECTOR2 to point)
     TransferContext.callMethod(rawPtr, MethodBindings.getAngleToPtr, DOUBLE)
     return (TransferContext.readReturnValue(DOUBLE, false) as Double).toFloat()
   }
 
-  /**
-   * Transforms the provided global position into a position in local coordinate space. The output will be local relative to the [godot.Node2D] it is called on. e.g. It is appropriate for determining the positions of child nodes, but it is not appropriate for determining its own position relative to its parent.
-   */
   public fun toLocal(globalPoint: Vector2): Vector2 {
     TransferContext.writeArguments(VECTOR2 to globalPoint)
     TransferContext.callMethod(rawPtr, MethodBindings.toLocalPtr, VECTOR2)
     return (TransferContext.readReturnValue(VECTOR2, false) as Vector2)
   }
 
-  /**
-   * Transforms the provided local position into a position in global coordinate space. The input is expected to be local relative to the [godot.Node2D] it is called on. e.g. Applying this method to the positions of child nodes will correctly transform their positions into the global coordinate space, but applying it to a node's own position will give an incorrect result, as it will incorporate the node's own transformation into its global position.
-   */
   public fun toGlobal(localPoint: Vector2): Vector2 {
     TransferContext.writeArguments(VECTOR2 to localPoint)
     TransferContext.callMethod(rawPtr, MethodBindings.toGlobalPtr, VECTOR2)
     return (TransferContext.readReturnValue(VECTOR2, false) as Vector2)
   }
 
-  /**
-   * Returns the [godot.core.Transform2D] relative to this node's parent.
-   */
   public fun getRelativeTransformToParent(parent: Node): Transform2D {
     TransferContext.writeArguments(OBJECT to parent)
     TransferContext.callMethod(rawPtr, MethodBindings.getRelativeTransformToParentPtr, TRANSFORM2D)

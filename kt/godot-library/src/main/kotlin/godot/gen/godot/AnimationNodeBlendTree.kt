@@ -29,26 +29,10 @@ import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmOverloads
 
-/**
- * A sub-tree of many type [godot.AnimationNode]s used for complex animations. Used by [godot.AnimationTree].
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/animation/animation_tree.html]($DOCS_URL/tutorials/animation/animation_tree.html)
- *
- * This animation node may contain a sub-tree of any other type animation nodes, such as [godot.AnimationNodeTransition], [godot.AnimationNodeBlend2], [godot.AnimationNodeBlend3], [godot.AnimationNodeOneShot], etc. This is one of the most commonly used animation node roots.
- *
- * An [godot.AnimationNodeOutput] node named `output` is created by default.
- */
 @GodotBaseType
 public open class AnimationNodeBlendTree : AnimationRootNode() {
-  /**
-   * Emitted when the input port information is changed.
-   */
   public val nodeChanged: Signal1<StringName> by signal("nodeName")
 
-  /**
-   * The global offset of all sub animation nodes.
-   */
   @CoreTypeLocalCopy
   public var graphOffset: Vector2
     get() {
@@ -61,14 +45,12 @@ public open class AnimationNodeBlendTree : AnimationRootNode() {
       TransferContext.callMethod(rawPtr, MethodBindings.setGraphOffsetPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_ANIMATIONNODEBLENDTREE, scriptIndex)
     return true
   }
 
   /**
-   * The global offset of all sub animation nodes.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -90,84 +72,57 @@ public open class AnimationNodeBlendTree : AnimationRootNode() {
   }
 
 
-  /**
-   * Adds an [godot.AnimationNode] at the given [position]. The [name] is used to identify the created sub animation node later.
-   */
   @JvmOverloads
   public fun addNode(
     name: StringName,
     node: AnimationNode,
     position: Vector2 = Vector2(0, 0),
-  ): Unit {
+  ) {
     TransferContext.writeArguments(STRING_NAME to name, OBJECT to node, VECTOR2 to position)
     TransferContext.callMethod(rawPtr, MethodBindings.addNodePtr, NIL)
   }
 
-  /**
-   * Returns the sub animation node with the specified [name].
-   */
   public fun getNode(name: StringName): AnimationNode? {
     TransferContext.writeArguments(STRING_NAME to name)
     TransferContext.callMethod(rawPtr, MethodBindings.getNodePtr, OBJECT)
     return (TransferContext.readReturnValue(OBJECT, true) as AnimationNode?)
   }
 
-  /**
-   * Removes a sub animation node.
-   */
-  public fun removeNode(name: StringName): Unit {
+  public fun removeNode(name: StringName) {
     TransferContext.writeArguments(STRING_NAME to name)
     TransferContext.callMethod(rawPtr, MethodBindings.removeNodePtr, NIL)
   }
 
-  /**
-   * Changes the name of a sub animation node.
-   */
-  public fun renameNode(name: StringName, newName: StringName): Unit {
+  public fun renameNode(name: StringName, newName: StringName) {
     TransferContext.writeArguments(STRING_NAME to name, STRING_NAME to newName)
     TransferContext.callMethod(rawPtr, MethodBindings.renameNodePtr, NIL)
   }
 
-  /**
-   * Returns `true` if a sub animation node with specified [name] exists.
-   */
   public fun hasNode(name: StringName): Boolean {
     TransferContext.writeArguments(STRING_NAME to name)
     TransferContext.callMethod(rawPtr, MethodBindings.hasNodePtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Connects the output of an [godot.AnimationNode] as input for another [godot.AnimationNode], at the input port specified by [inputIndex].
-   */
   public fun connectNode(
     inputNode: StringName,
     inputIndex: Int,
     outputNode: StringName,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(STRING_NAME to inputNode, LONG to inputIndex.toLong(), STRING_NAME to outputNode)
     TransferContext.callMethod(rawPtr, MethodBindings.connectNodePtr, NIL)
   }
 
-  /**
-   * Disconnects the animation node connected to the specified input.
-   */
-  public fun disconnectNode(inputNode: StringName, inputIndex: Int): Unit {
+  public fun disconnectNode(inputNode: StringName, inputIndex: Int) {
     TransferContext.writeArguments(STRING_NAME to inputNode, LONG to inputIndex.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.disconnectNodePtr, NIL)
   }
 
-  /**
-   * Modifies the position of a sub animation node.
-   */
-  public fun setNodePosition(name: StringName, position: Vector2): Unit {
+  public fun setNodePosition(name: StringName, position: Vector2) {
     TransferContext.writeArguments(STRING_NAME to name, VECTOR2 to position)
     TransferContext.callMethod(rawPtr, MethodBindings.setNodePositionPtr, NIL)
   }
 
-  /**
-   * Returns the position of the sub animation node with the specified [name].
-   */
   public fun getNodePosition(name: StringName): Vector2 {
     TransferContext.writeArguments(STRING_NAME to name)
     TransferContext.callMethod(rawPtr, MethodBindings.getNodePositionPtr, VECTOR2)
@@ -175,34 +130,16 @@ public open class AnimationNodeBlendTree : AnimationRootNode() {
   }
 
   public companion object {
-    /**
-     * The connection was successful.
-     */
     public final const val CONNECTION_OK: Long = 0
 
-    /**
-     * The input node is `null`.
-     */
     public final const val CONNECTION_ERROR_NO_INPUT: Long = 1
 
-    /**
-     * The specified input port is out of range.
-     */
     public final const val CONNECTION_ERROR_NO_INPUT_INDEX: Long = 2
 
-    /**
-     * The output node is `null`.
-     */
     public final const val CONNECTION_ERROR_NO_OUTPUT: Long = 3
 
-    /**
-     * Input and output nodes are the same.
-     */
     public final const val CONNECTION_ERROR_SAME_NODE: Long = 4
 
-    /**
-     * The specified connection already exists.
-     */
     public final const val CONNECTION_ERROR_CONNECTION_EXISTS: Long = 5
   }
 

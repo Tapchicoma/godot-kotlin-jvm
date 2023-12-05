@@ -20,16 +20,8 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
 
-/**
- * Class representing a capsule-shaped [godot.PrimitiveMesh].
- *
- * Class representing a capsule-shaped [godot.PrimitiveMesh].
- */
 @GodotBaseType
 public open class CapsuleMesh : PrimitiveMesh() {
-  /**
-   * Radius of the capsule mesh.
-   */
   public var radius: Float
     get() {
       TransferContext.writeArguments()
@@ -41,9 +33,6 @@ public open class CapsuleMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRadiusPtr, NIL)
     }
 
-  /**
-   * Total height of the capsule mesh (including the hemispherical ends).
-   */
   public var height: Float
     get() {
       TransferContext.writeArguments()
@@ -55,9 +44,6 @@ public open class CapsuleMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setHeightPtr, NIL)
     }
 
-  /**
-   * Number of radial segments on the capsule mesh.
-   */
   public var radialSegments: Int
     get() {
       TransferContext.writeArguments()
@@ -69,9 +55,6 @@ public open class CapsuleMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRadialSegmentsPtr, NIL)
     }
 
-  /**
-   * Number of rings along the height of the capsule.
-   */
   public var rings: Int
     get() {
       TransferContext.writeArguments()
@@ -83,7 +66,7 @@ public open class CapsuleMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRingsPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_CAPSULEMESH, scriptIndex)
     return true
   }

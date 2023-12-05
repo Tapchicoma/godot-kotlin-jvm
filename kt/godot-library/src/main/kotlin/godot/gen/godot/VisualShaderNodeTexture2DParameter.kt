@@ -11,14 +11,9 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * Provides a 2D texture parameter within the visual shader graph.
- *
- * Translated to `uniform sampler2D` in the shader language.
- */
 @GodotBaseType
 public open class VisualShaderNodeTexture2DParameter : VisualShaderNodeTextureParameter() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_VISUALSHADERNODETEXTURE2DPARAMETER, scriptIndex)
     return true
   }

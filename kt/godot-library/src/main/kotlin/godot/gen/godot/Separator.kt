@@ -11,14 +11,9 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * Abstract base class for separators.
- *
- * Abstract base class for separators, used for separating other controls. [godot.Separator]s are purely visual and normally drawn as a [godot.StyleBoxLine].
- */
 @GodotBaseType
 public open class Separator internal constructor() : Control() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_SEPARATOR, scriptIndex)
     return true
   }

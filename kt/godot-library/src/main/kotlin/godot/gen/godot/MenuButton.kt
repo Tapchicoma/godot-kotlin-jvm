@@ -20,25 +20,11 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
-import kotlin.Unit
 
-/**
- * A button that brings up a [godot.PopupMenu] when clicked.
- *
- * A button that brings up a [godot.PopupMenu] when clicked. To create new items inside this [godot.PopupMenu], use `get_popup().add_item("My Item Name")`. You can also create them directly from Godot editor's inspector.
- *
- * See also [godot.BaseButton] which contains common properties and methods associated with this node.
- */
 @GodotBaseType
 public open class MenuButton : Button() {
-  /**
-   * Emitted when the [godot.PopupMenu] of this MenuButton is about to show.
-   */
   public val aboutToPopup: Signal0 by signal()
 
-  /**
-   * If `true`, when the cursor hovers above another [godot.MenuButton] within the same parent which also has `switch_on_hover` enabled, it will close the current [godot.MenuButton] and open the other one.
-   */
   public var switchOnHover: Boolean
     get() {
       TransferContext.writeArguments()
@@ -50,9 +36,6 @@ public open class MenuButton : Button() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSwitchOnHoverPtr, NIL)
     }
 
-  /**
-   * The number of items currently in the list.
-   */
   public var itemCount: Int
     get() {
       TransferContext.writeArguments()
@@ -64,34 +47,23 @@ public open class MenuButton : Button() {
       TransferContext.callMethod(rawPtr, MethodBindings.setItemCountPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_MENUBUTTON, scriptIndex)
     return true
   }
 
-  /**
-   * Returns the [godot.PopupMenu] contained in this button.
-   *
-   * **Warning:** This is a required internal node, removing and freeing it may cause a crash. If you wish to hide it or any of its children, use their [godot.Window.visible] property.
-   */
   public fun getPopup(): PopupMenu? {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getPopupPtr, OBJECT)
     return (TransferContext.readReturnValue(OBJECT, true) as PopupMenu?)
   }
 
-  /**
-   * Adjusts popup position and sizing for the [godot.MenuButton], then shows the [godot.PopupMenu]. Prefer this over using `get_popup().popup()`.
-   */
-  public fun showPopup(): Unit {
+  public fun showPopup() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.showPopupPtr, NIL)
   }
 
-  /**
-   * If `true`, shortcuts are disabled and cannot be used to trigger the button.
-   */
-  public fun setDisableShortcuts(disabled: Boolean): Unit {
+  public fun setDisableShortcuts(disabled: Boolean) {
     TransferContext.writeArguments(BOOL to disabled)
     TransferContext.callMethod(rawPtr, MethodBindings.setDisableShortcutsPtr, NIL)
   }

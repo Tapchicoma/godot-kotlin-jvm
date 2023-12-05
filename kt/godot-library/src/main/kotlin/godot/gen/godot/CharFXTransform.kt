@@ -34,19 +34,8 @@ import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 
-/**
- * Controls how an individual character will be displayed in a [godot.RichTextEffect].
- *
- * Tutorials:
- * [https://github.com/Eoin-ONeill-Yokai/Godot-Rich-Text-Effect-Test-Project](https://github.com/Eoin-ONeill-Yokai/Godot-Rich-Text-Effect-Test-Project)
- *
- * By setting various properties on this object, you can control how individual characters will be displayed in a [godot.RichTextEffect].
- */
 @GodotBaseType
 public open class CharFXTransform : RefCounted() {
-  /**
-   * Absolute character range in the string, corresponding to the glyph. Setting this property won't affect drawing.
-   */
   @CoreTypeLocalCopy
   public var range: Vector2i
     get() {
@@ -59,11 +48,6 @@ public open class CharFXTransform : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRangePtr, NIL)
     }
 
-  /**
-   * The time elapsed since the [godot.RichTextLabel] was added to the scene tree (in seconds). Time stops when the [godot.RichTextLabel] is paused (see [godot.Node.processMode]). Resets when the text in the [godot.RichTextLabel] is changed.
-   *
-   * **Note:** Time still passes while the [godot.RichTextLabel] is hidden.
-   */
   public var elapsedTime: Double
     get() {
       TransferContext.writeArguments()
@@ -75,9 +59,6 @@ public open class CharFXTransform : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setElapsedTimePtr, NIL)
     }
 
-  /**
-   * If `true`, the character will be drawn. If `false`, the character will be hidden. Characters around hidden characters will reflow to take the space of hidden characters. If this is not desired, set their [color] to `Color(1, 1, 1, 0)` instead.
-   */
   public var visible: Boolean
     get() {
       TransferContext.writeArguments()
@@ -89,9 +70,6 @@ public open class CharFXTransform : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setVisibilityPtr, NIL)
     }
 
-  /**
-   * If `true`, FX transform is called for outline drawing. Setting this property won't affect drawing.
-   */
   public var outline: Boolean
     get() {
       TransferContext.writeArguments()
@@ -103,9 +81,6 @@ public open class CharFXTransform : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setOutlinePtr, NIL)
     }
 
-  /**
-   * The position offset the character will be drawn with (in pixels).
-   */
   @CoreTypeLocalCopy
   public var offset: Vector2
     get() {
@@ -118,9 +93,6 @@ public open class CharFXTransform : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setOffsetPtr, NIL)
     }
 
-  /**
-   * The color the character will be drawn with.
-   */
   @CoreTypeLocalCopy
   public var color: Color
     get() {
@@ -133,15 +105,6 @@ public open class CharFXTransform : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setColorPtr, NIL)
     }
 
-  /**
-   * Contains the arguments passed in the opening BBCode tag. By default, arguments are strings; if their contents match a type such as [bool], [int] or [float], they will be converted automatically. Color codes in the form `#rrggbb` or `#rgb` will be converted to an opaque [godot.core.Color]. String arguments may not contain spaces, even if they're quoted. If present, quotes will also be present in the final string.
-   *
-   * For example, the opening BBCode tag `[example foo=hello bar=true baz=42 color=#ffffff]` will map to the following [godot.core.Dictionary]:
-   *
-   * ```
-   * 			{"foo": "hello", "bar": true, "baz": 42, "color": Color(1, 1, 1, 1)}
-   * 			```
-   */
   public var env: Dictionary<Any?, Any?>
     get() {
       TransferContext.writeArguments()
@@ -153,9 +116,6 @@ public open class CharFXTransform : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setEnvironmentPtr, NIL)
     }
 
-  /**
-   * Font specific glyph index.
-   */
   public var glyphIndex: Long
     get() {
       TransferContext.writeArguments()
@@ -167,9 +127,6 @@ public open class CharFXTransform : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setGlyphIndexPtr, NIL)
     }
 
-  /**
-   * Number of glyphs in the grapheme cluster. This value is set in the first glyph of a cluster. Setting this property won't affect drawing.
-   */
   public var glyphCount: Int
     get() {
       TransferContext.writeArguments()
@@ -181,9 +138,6 @@ public open class CharFXTransform : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setGlyphCountPtr, NIL)
     }
 
-  /**
-   * Glyph flags. See [enum TextServer.GraphemeFlag] for more info. Setting this property won't affect drawing.
-   */
   public var glyphFlags: Int
     get() {
       TransferContext.writeArguments()
@@ -195,9 +149,6 @@ public open class CharFXTransform : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setGlyphFlagsPtr, NIL)
     }
 
-  /**
-   * The character offset of the glyph, relative to the current [godot.RichTextEffect] custom block. Setting this property won't affect drawing.
-   */
   public var relativeIndex: Int
     get() {
       TransferContext.writeArguments()
@@ -209,9 +160,6 @@ public open class CharFXTransform : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRelativeIndexPtr, NIL)
     }
 
-  /**
-   * Font resource used to render glyph.
-   */
   public var font: RID
     get() {
       TransferContext.writeArguments()
@@ -223,14 +171,12 @@ public open class CharFXTransform : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFontPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_CHARFXTRANSFORM, scriptIndex)
     return true
   }
 
   /**
-   * Absolute character range in the string, corresponding to the glyph. Setting this property won't affect drawing.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -253,8 +199,6 @@ public open class CharFXTransform : RefCounted() {
 
 
   /**
-   * The position offset the character will be drawn with (in pixels).
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -277,8 +221,6 @@ public open class CharFXTransform : RefCounted() {
 
 
   /**
-   * The color the character will be drawn with.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our

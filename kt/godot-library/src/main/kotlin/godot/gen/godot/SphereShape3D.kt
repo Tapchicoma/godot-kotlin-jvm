@@ -18,21 +18,8 @@ import kotlin.Float
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * A 3D sphere shape used for physics collision.
- *
- * Tutorials:
- * [https://godotengine.org/asset-library/asset/675](https://godotengine.org/asset-library/asset/675)
- *
- * A 3D sphere shape, intended for use in physics. Usually used to provide a shape for a [godot.CollisionShape3D].
- *
- * **Performance:** [godot.SphereShape3D] is fast to check collisions against. It is faster than [godot.BoxShape3D], [godot.CapsuleShape3D], and [godot.CylinderShape3D].
- */
 @GodotBaseType
 public open class SphereShape3D : Shape3D() {
-  /**
-   * The sphere's radius. The shape's diameter is double the radius.
-   */
   public var radius: Float
     get() {
       TransferContext.writeArguments()
@@ -44,7 +31,7 @@ public open class SphereShape3D : Shape3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRadiusPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_SPHERESHAPE3D, scriptIndex)
     return true
   }

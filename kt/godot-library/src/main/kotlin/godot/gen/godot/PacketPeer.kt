@@ -24,20 +24,8 @@ import kotlin.Long
 import kotlin.Suppress
 import kotlin.jvm.JvmOverloads
 
-/**
- * Abstraction and base class for packet-based protocols.
- *
- * PacketPeer is an abstraction and base class for packet-based protocols (such as UDP). It provides an API for sending and receiving packets both as raw data or variables. This makes it easy to transfer data over a protocol, without having to encode data as low-level bytes or having to worry about network ordering.
- *
- * **Note:** When exporting to Android, make sure to enable the `INTERNET` permission in the Android export preset before exporting the project or using one-click deploy. Otherwise, network communication of any kind will be blocked by Android.
- */
 @GodotBaseType
 public open class PacketPeer internal constructor() : RefCounted() {
-  /**
-   * Maximum buffer size allowed when encoding [Variant]s. Raise this value to support heavier memory allocations.
-   *
-   * The [putVar] method allocates memory on the stack, and the buffer used will grow automatically to the closest power of two to match the size of the [Variant]. If the [Variant] is bigger than `encode_buffer_max_size`, the method will error out with [ERR_OUT_OF_MEMORY].
-   */
   public var encodeBufferMaxSize: Int
     get() {
       TransferContext.writeArguments()
@@ -49,18 +37,11 @@ public open class PacketPeer internal constructor() : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setEncodeBufferMaxSizePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_PACKETPEER, scriptIndex)
     return true
   }
 
-  /**
-   * Gets a Variant. If [allowObjects] is `true`, decoding objects is allowed.
-   *
-   * Internally, this uses the same decoding mechanism as the [@GlobalScope.bytesToVar] method.
-   *
-   * **Warning:** Deserialized objects can contain code which gets executed. Do not use this option if the serialized object comes from untrusted sources to avoid potential security threats such as remote code execution.
-   */
   @JvmOverloads
   public fun getVar(allowObjects: Boolean = false): Any? {
     TransferContext.writeArguments(BOOL to allowObjects)
@@ -68,11 +49,6 @@ public open class PacketPeer internal constructor() : RefCounted() {
     return (TransferContext.readReturnValue(ANY, true) as Any?)
   }
 
-  /**
-   * Sends a [Variant] as a packet. If [fullObjects] is `true`, encoding objects is allowed (and can potentially include code).
-   *
-   * Internally, this uses the same encoding mechanism as the [@GlobalScope.varToBytes] method.
-   */
   @JvmOverloads
   public fun putVar(_var: Any?, fullObjects: Boolean = false): GodotError {
     TransferContext.writeArguments(ANY to _var, BOOL to fullObjects)
@@ -80,36 +56,24 @@ public open class PacketPeer internal constructor() : RefCounted() {
     return GodotError.from(TransferContext.readReturnValue(LONG) as Long)
   }
 
-  /**
-   * Gets a raw packet.
-   */
   public fun getPacket(): PackedByteArray {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getPacketPtr, PACKED_BYTE_ARRAY)
     return (TransferContext.readReturnValue(PACKED_BYTE_ARRAY, false) as PackedByteArray)
   }
 
-  /**
-   * Sends a raw packet.
-   */
   public fun putPacket(buffer: PackedByteArray): GodotError {
     TransferContext.writeArguments(PACKED_BYTE_ARRAY to buffer)
     TransferContext.callMethod(rawPtr, MethodBindings.putPacketPtr, LONG)
     return GodotError.from(TransferContext.readReturnValue(LONG) as Long)
   }
 
-  /**
-   * Returns the error state of the last packet received (via [getPacket] and [getVar]).
-   */
   public fun getPacketError(): GodotError {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getPacketErrorPtr, LONG)
     return GodotError.from(TransferContext.readReturnValue(LONG) as Long)
   }
 
-  /**
-   * Returns the number of packets currently available in the ring-buffer.
-   */
   public fun getAvailablePacketCount(): Int {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getAvailablePacketCountPtr, LONG)

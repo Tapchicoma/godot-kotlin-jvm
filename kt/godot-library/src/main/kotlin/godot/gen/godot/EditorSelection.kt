@@ -19,65 +19,37 @@ import godot.util.VoidPtr
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
-import kotlin.Unit
 
-/**
- * Manages the SceneTree selection in the editor.
- *
- * This object manages the SceneTree selection in the editor.
- *
- * **Note:** This class shouldn't be instantiated directly. Instead, access the singleton using [godot.EditorInterface.getSelection].
- */
 @GodotBaseType
 public open class EditorSelection internal constructor() : Object() {
-  /**
-   * Emitted when the selection changes.
-   */
   public val selectionChanged: Signal0 by signal()
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_EDITORSELECTION, scriptIndex)
     return true
   }
 
-  /**
-   * Clear the selection.
-   */
-  public fun clear(): Unit {
+  public fun clear() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.clearPtr, NIL)
   }
 
-  /**
-   * Adds a node to the selection.
-   *
-   * **Note:** The newly selected node will not be automatically edited in the inspector. If you want to edit a node, use [godot.EditorInterface.editNode].
-   */
-  public fun addNode(node: Node): Unit {
+  public fun addNode(node: Node) {
     TransferContext.writeArguments(OBJECT to node)
     TransferContext.callMethod(rawPtr, MethodBindings.addNodePtr, NIL)
   }
 
-  /**
-   * Removes a node from the selection.
-   */
-  public fun removeNode(node: Node): Unit {
+  public fun removeNode(node: Node) {
     TransferContext.writeArguments(OBJECT to node)
     TransferContext.callMethod(rawPtr, MethodBindings.removeNodePtr, NIL)
   }
 
-  /**
-   * Gets the list of selected nodes.
-   */
   public fun getSelectedNodes(): VariantArray<Node> {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getSelectedNodesPtr, ARRAY)
     return (TransferContext.readReturnValue(ARRAY, false) as VariantArray<Node>)
   }
 
-  /**
-   * Gets the list of selected nodes, optimized for transform operations (i.e. moving them, rotating, etc). This list avoids situations where a node is selected and also child/grandchild.
-   */
   public fun getTransformableSelectedNodes(): VariantArray<Node> {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getTransformableSelectedNodesPtr, ARRAY)

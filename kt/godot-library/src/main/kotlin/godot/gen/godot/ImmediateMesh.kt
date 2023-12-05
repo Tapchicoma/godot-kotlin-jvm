@@ -24,125 +24,62 @@ import godot.util.VoidPtr
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
-import kotlin.Unit
 import kotlin.jvm.JvmOverloads
 
-/**
- * Mesh optimized for creating geometry manually.
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/3d/procedural_geometry/immediatemesh.html]($DOCS_URL/tutorials/3d/procedural_geometry/immediatemesh.html)
- *
- * A mesh type optimized for creating geometry manually, similar to OpenGL 1.x immediate mode.
- *
- * Here's a sample on how to generate a triangular face:
- *
- * [codeblocks]
- *
- * [gdscript]
- *
- * var mesh = ImmediateMesh.new()
- *
- * mesh.surface_begin(Mesh.PRIMITIVE_TRIANGLES)
- *
- * mesh.surface_add_vertex(Vector3.LEFT)
- *
- * mesh.surface_add_vertex(Vector3.FORWARD)
- *
- * mesh.surface_add_vertex(Vector3.ZERO)
- *
- * mesh.surface_end()
- *
- * [/gdscript]
- *
- * [/codeblocks]
- *
- * **Note:** Generating complex geometries with [godot.ImmediateMesh] is highly inefficient. Instead, it is designed to generate simple geometry that changes often.
- */
 @GodotBaseType
 public open class ImmediateMesh : Mesh() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_IMMEDIATEMESH, scriptIndex)
     return true
   }
 
-  /**
-   * Begin a new surface.
-   */
   @JvmOverloads
-  public fun surfaceBegin(primitive: Mesh.PrimitiveType, material: Material? = null): Unit {
+  public fun surfaceBegin(primitive: Mesh.PrimitiveType, material: Material? = null) {
     TransferContext.writeArguments(LONG to primitive.id, OBJECT to material)
     TransferContext.callMethod(rawPtr, MethodBindings.surfaceBeginPtr, NIL)
   }
 
-  /**
-   * Set the color attribute that will be pushed with the next vertex.
-   */
-  public fun surfaceSetColor(color: Color): Unit {
+  public fun surfaceSetColor(color: Color) {
     TransferContext.writeArguments(COLOR to color)
     TransferContext.callMethod(rawPtr, MethodBindings.surfaceSetColorPtr, NIL)
   }
 
-  /**
-   * Set the normal attribute that will be pushed with the next vertex.
-   */
-  public fun surfaceSetNormal(normal: Vector3): Unit {
+  public fun surfaceSetNormal(normal: Vector3) {
     TransferContext.writeArguments(VECTOR3 to normal)
     TransferContext.callMethod(rawPtr, MethodBindings.surfaceSetNormalPtr, NIL)
   }
 
-  /**
-   * Set the tangent attribute that will be pushed with the next vertex.
-   */
-  public fun surfaceSetTangent(tangent: Plane): Unit {
+  public fun surfaceSetTangent(tangent: Plane) {
     TransferContext.writeArguments(PLANE to tangent)
     TransferContext.callMethod(rawPtr, MethodBindings.surfaceSetTangentPtr, NIL)
   }
 
-  /**
-   * Set the UV attribute that will be pushed with the next vertex.
-   */
-  public fun surfaceSetUv(uv: Vector2): Unit {
+  public fun surfaceSetUv(uv: Vector2) {
     TransferContext.writeArguments(VECTOR2 to uv)
     TransferContext.callMethod(rawPtr, MethodBindings.surfaceSetUvPtr, NIL)
   }
 
-  /**
-   * Set the UV2 attribute that will be pushed with the next vertex.
-   */
-  public fun surfaceSetUv2(uv2: Vector2): Unit {
+  public fun surfaceSetUv2(uv2: Vector2) {
     TransferContext.writeArguments(VECTOR2 to uv2)
     TransferContext.callMethod(rawPtr, MethodBindings.surfaceSetUv2Ptr, NIL)
   }
 
-  /**
-   * Add a 3D vertex using the current attributes previously set.
-   */
-  public fun surfaceAddVertex(vertex: Vector3): Unit {
+  public fun surfaceAddVertex(vertex: Vector3) {
     TransferContext.writeArguments(VECTOR3 to vertex)
     TransferContext.callMethod(rawPtr, MethodBindings.surfaceAddVertexPtr, NIL)
   }
 
-  /**
-   * Add a 2D vertex using the current attributes previously set.
-   */
-  public fun surfaceAddVertex2d(vertex: Vector2): Unit {
+  public fun surfaceAddVertex2d(vertex: Vector2) {
     TransferContext.writeArguments(VECTOR2 to vertex)
     TransferContext.callMethod(rawPtr, MethodBindings.surfaceAddVertex2dPtr, NIL)
   }
 
-  /**
-   * End and commit current surface. Note that surface being created will not be visible until this function is called.
-   */
-  public fun surfaceEnd(): Unit {
+  public fun surfaceEnd() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.surfaceEndPtr, NIL)
   }
 
-  /**
-   * Clear all surfaces.
-   */
-  public fun clearSurfaces(): Unit {
+  public fun clearSurfaces() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.clearSurfacesPtr, NIL)
   }

@@ -11,14 +11,9 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * Internal mesh type.
- *
- * Mesh type used internally for collision calculations.
- */
 @GodotBaseType
 public open class TriangleMesh : RefCounted() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_TRIANGLEMESH, scriptIndex)
     return true
   }

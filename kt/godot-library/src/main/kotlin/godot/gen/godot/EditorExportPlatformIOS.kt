@@ -13,7 +13,7 @@ import kotlin.Suppress
 
 @GodotBaseType
 public open class EditorExportPlatformIOS internal constructor() : EditorExportPlatform() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_EDITOREXPORTPLATFORMIOS, scriptIndex)
     return true
   }

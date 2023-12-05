@@ -30,29 +30,12 @@ import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 
-/**
- * General-purpose sprite node.
- *
- * Tutorials:
- * [https://godotengine.org/asset-library/asset/148](https://godotengine.org/asset-library/asset/148)
- *
- * A node that displays a 2D texture. The texture displayed can be a region from a larger atlas texture, or a frame from a sprite sheet animation.
- */
 @GodotBaseType
 public open class Sprite2D : Node2D() {
-  /**
-   * Emitted when the [frame] changes.
-   */
   public val frameChanged: Signal0 by signal()
 
-  /**
-   * Emitted when the [texture] changes.
-   */
   public val textureChanged: Signal0 by signal()
 
-  /**
-   * [godot.Texture2D] object to draw.
-   */
   public var texture: Texture2D?
     get() {
       TransferContext.writeArguments()
@@ -64,9 +47,6 @@ public open class Sprite2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTexturePtr, NIL)
     }
 
-  /**
-   * If `true`, texture is centered.
-   */
   public var centered: Boolean
     get() {
       TransferContext.writeArguments()
@@ -78,9 +58,6 @@ public open class Sprite2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setCenteredPtr, NIL)
     }
 
-  /**
-   * The texture's drawing offset.
-   */
   @CoreTypeLocalCopy
   public var offset: Vector2
     get() {
@@ -93,9 +70,6 @@ public open class Sprite2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setOffsetPtr, NIL)
     }
 
-  /**
-   * If `true`, texture is flipped horizontally.
-   */
   public var flipH: Boolean
     get() {
       TransferContext.writeArguments()
@@ -107,9 +81,6 @@ public open class Sprite2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFlipHPtr, NIL)
     }
 
-  /**
-   * If `true`, texture is flipped vertically.
-   */
   public var flipV: Boolean
     get() {
       TransferContext.writeArguments()
@@ -121,9 +92,6 @@ public open class Sprite2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFlipVPtr, NIL)
     }
 
-  /**
-   * The number of columns in the sprite sheet.
-   */
   public var hframes: Int
     get() {
       TransferContext.writeArguments()
@@ -135,9 +103,6 @@ public open class Sprite2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setHframesPtr, NIL)
     }
 
-  /**
-   * The number of rows in the sprite sheet.
-   */
   public var vframes: Int
     get() {
       TransferContext.writeArguments()
@@ -149,9 +114,6 @@ public open class Sprite2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setVframesPtr, NIL)
     }
 
-  /**
-   * Current frame to display from sprite sheet. [hframes] or [vframes] must be greater than 1.
-   */
   public var frame: Int
     get() {
       TransferContext.writeArguments()
@@ -163,9 +125,6 @@ public open class Sprite2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFramePtr, NIL)
     }
 
-  /**
-   * Coordinates of the frame to display from sprite sheet. This is as an alias for the [frame] property. [hframes] or [vframes] must be greater than 1.
-   */
   @CoreTypeLocalCopy
   public var frameCoords: Vector2i
     get() {
@@ -178,9 +137,6 @@ public open class Sprite2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFrameCoordsPtr, NIL)
     }
 
-  /**
-   * If `true`, texture is cut from a larger atlas texture. See [regionRect].
-   */
   public var regionEnabled: Boolean
     get() {
       TransferContext.writeArguments()
@@ -192,9 +148,6 @@ public open class Sprite2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRegionEnabledPtr, NIL)
     }
 
-  /**
-   * The region of the atlas texture to display. [regionEnabled] must be `true`.
-   */
   @CoreTypeLocalCopy
   public var regionRect: Rect2
     get() {
@@ -207,9 +160,6 @@ public open class Sprite2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRegionRectPtr, NIL)
     }
 
-  /**
-   * If `true`, the outermost pixels get blurred out. [regionEnabled] must be `true`.
-   */
   public var regionFilterClipEnabled: Boolean
     get() {
       TransferContext.writeArguments()
@@ -221,14 +171,12 @@ public open class Sprite2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRegionFilterClipEnabledPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_SPRITE2D, scriptIndex)
     return true
   }
 
   /**
-   * The texture's drawing offset.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -251,8 +199,6 @@ public open class Sprite2D : Node2D() {
 
 
   /**
-   * Coordinates of the frame to display from sprite sheet. This is as an alias for the [frame] property. [hframes] or [vframes] must be greater than 1.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -275,8 +221,6 @@ public open class Sprite2D : Node2D() {
 
 
   /**
-   * The region of the atlas texture to display. [regionEnabled] must be `true`.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -298,68 +242,12 @@ public open class Sprite2D : Node2D() {
   }
 
 
-  /**
-   * Returns `true`, if the pixel at the given position is opaque and `false` in other case.
-   *
-   * **Note:** It also returns `false`, if the sprite's texture is `null` or if the given position is invalid.
-   */
   public fun isPixelOpaque(pos: Vector2): Boolean {
     TransferContext.writeArguments(VECTOR2 to pos)
     TransferContext.callMethod(rawPtr, MethodBindings.isPixelOpaquePtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Returns a [godot.core.Rect2] representing the Sprite2D's boundary in local coordinates. Can be used to detect if the Sprite2D was clicked.
-   *
-   * **Example:**
-   *
-   * [codeblocks]
-   *
-   * [gdscript]
-   *
-   * func _input(event):
-   *
-   *     if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-   *
-   *         if get_rect().has_point(to_local(event.position)):
-   *
-   *             print("A click!")
-   *
-   * [/gdscript]
-   *
-   * [csharp]
-   *
-   * public override void _Input(InputEvent @event)
-   *
-   * {
-   *
-   *     if (@event is InputEventMouseButton inputEventMouse)
-   *
-   *     {
-   *
-   *         if (inputEventMouse.Pressed && inputEventMouse.ButtonIndex == MouseButton.Left)
-   *
-   *         {
-   *
-   *             if (GetRect().HasPoint(ToLocal(inputEventMouse.Position)))
-   *
-   *             {
-   *
-   *                 GD.Print("A click!");
-   *
-   *             }
-   *
-   *         }
-   *
-   *     }
-   *
-   * }
-   *
-   * [/csharp]
-   *
-   * [/codeblocks]
-   */
   public fun getRect(): Rect2 {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getRectPtr, RECT2)

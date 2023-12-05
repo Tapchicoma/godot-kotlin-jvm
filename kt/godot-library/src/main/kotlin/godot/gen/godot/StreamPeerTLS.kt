@@ -20,46 +20,26 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
-import kotlin.Unit
 import kotlin.jvm.JvmOverloads
 
-/**
- * A stream peer that handles TLS connections.
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/networking/ssl_certificates.html]($DOCS_URL/tutorials/networking/ssl_certificates.html)
- *
- * A stream peer that handles TLS connections. This object can be used to connect to a TLS server or accept a single TLS client connection.
- *
- * **Note:** When exporting to Android, make sure to enable the `INTERNET` permission in the Android export preset before exporting the project or using one-click deploy. Otherwise, network communication of any kind will be blocked by Android.
- */
 @GodotBaseType
 public open class StreamPeerTLS : StreamPeer() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_STREAMPEERTLS, scriptIndex)
     return true
   }
 
-  /**
-   * Poll the connection to check for incoming bytes. Call this right before [godot.StreamPeer.getAvailableBytes] for it to work properly.
-   */
-  public fun poll(): Unit {
+  public fun poll() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.pollPtr, NIL)
   }
 
-  /**
-   * Accepts a peer connection as a server using the given [serverOptions]. See [godot.TLSOptions.server].
-   */
   public fun acceptStream(stream: StreamPeer, serverOptions: TLSOptions): GodotError {
     TransferContext.writeArguments(OBJECT to stream, OBJECT to serverOptions)
     TransferContext.callMethod(rawPtr, MethodBindings.acceptStreamPtr, LONG)
     return GodotError.from(TransferContext.readReturnValue(LONG) as Long)
   }
 
-  /**
-   * Connects to a peer using an underlying [godot.StreamPeer] [stream] and verifying the remote certificate is correctly signed for the given [commonName]. You can pass the optional [clientOptions] parameter to customize the trusted certification authorities, or disable the common name verification. See [godot.TLSOptions.client] and [godot.TLSOptions.clientUnsafe].
-   */
   @JvmOverloads
   public fun connectToStream(
     stream: StreamPeer,
@@ -71,28 +51,19 @@ public open class StreamPeerTLS : StreamPeer() {
     return GodotError.from(TransferContext.readReturnValue(LONG) as Long)
   }
 
-  /**
-   * Returns the status of the connection. See [enum Status] for values.
-   */
   public fun getStatus(): Status {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getStatusPtr, LONG)
     return StreamPeerTLS.Status.from(TransferContext.readReturnValue(LONG) as Long)
   }
 
-  /**
-   * Returns the underlying [godot.StreamPeer] connection, used in [acceptStream] or [connectToStream].
-   */
   public fun getStream(): StreamPeer? {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getStreamPtr, OBJECT)
     return (TransferContext.readReturnValue(OBJECT, true) as StreamPeer?)
   }
 
-  /**
-   * Disconnects from host.
-   */
-  public fun disconnectFromStream(): Unit {
+  public fun disconnectFromStream() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.disconnectFromStreamPtr, NIL)
   }
@@ -100,25 +71,10 @@ public open class StreamPeerTLS : StreamPeer() {
   public enum class Status(
     id: Long,
   ) {
-    /**
-     * A status representing a [godot.StreamPeerTLS] that is disconnected.
-     */
     STATUS_DISCONNECTED(0),
-    /**
-     * A status representing a [godot.StreamPeerTLS] during handshaking.
-     */
     STATUS_HANDSHAKING(1),
-    /**
-     * A status representing a [godot.StreamPeerTLS] that is connected to a host.
-     */
     STATUS_CONNECTED(2),
-    /**
-     * A status representing a [godot.StreamPeerTLS] in error state.
-     */
     STATUS_ERROR(3),
-    /**
-     * An error status that shows a mismatch in the TLS certificate domain presented by the host and the domain requested for validation.
-     */
     STATUS_ERROR_HOSTNAME_MISMATCH(4),
     ;
 
@@ -128,7 +84,9 @@ public open class StreamPeerTLS : StreamPeer() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): Status = entries.single {
+          it.id == `value`
+      }
     }
   }
 

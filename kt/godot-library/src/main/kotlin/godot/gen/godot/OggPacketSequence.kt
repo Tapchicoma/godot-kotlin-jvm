@@ -59,7 +59,7 @@ public open class OggPacketSequence : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSamplingRatePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_OGGPACKETSEQUENCE, scriptIndex)
     return true
   }

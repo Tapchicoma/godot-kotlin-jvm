@@ -24,45 +24,44 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
-import kotlin.Unit
 import kotlin.jvm.JvmOverloads
 
 @GodotBaseType
 public open class ENetPacketPeer internal constructor() : PacketPeer() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_ENETPACKETPEER, scriptIndex)
     return true
   }
 
   @JvmOverloads
-  public fun peerDisconnect(`data`: Int = 0): Unit {
+  public fun peerDisconnect(`data`: Int = 0) {
     TransferContext.writeArguments(LONG to data.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.peerDisconnectPtr, NIL)
   }
 
   @JvmOverloads
-  public fun peerDisconnectLater(`data`: Int = 0): Unit {
+  public fun peerDisconnectLater(`data`: Int = 0) {
     TransferContext.writeArguments(LONG to data.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.peerDisconnectLaterPtr, NIL)
   }
 
   @JvmOverloads
-  public fun peerDisconnectNow(`data`: Int = 0): Unit {
+  public fun peerDisconnectNow(`data`: Int = 0) {
     TransferContext.writeArguments(LONG to data.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.peerDisconnectNowPtr, NIL)
   }
 
-  public fun ping(): Unit {
+  public fun ping() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.pingPtr, NIL)
   }
 
-  public fun pingInterval(pingInterval: Int): Unit {
+  public fun pingInterval(pingInterval: Int) {
     TransferContext.writeArguments(LONG to pingInterval.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.pingIntervalPtr, NIL)
   }
 
-  public fun reset(): Unit {
+  public fun reset() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.resetPtr, NIL)
   }
@@ -81,7 +80,7 @@ public open class ENetPacketPeer internal constructor() : PacketPeer() {
     interval: Int,
     acceleration: Int,
     deceleration: Int,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(LONG to interval.toLong(), LONG to acceleration.toLong(), LONG to deceleration.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.throttleConfigurePtr, NIL)
   }
@@ -90,7 +89,7 @@ public open class ENetPacketPeer internal constructor() : PacketPeer() {
     timeout: Int,
     timeoutMin: Int,
     timeoutMax: Int,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(LONG to timeout.toLong(), LONG to timeoutMin.toLong(), LONG to timeoutMax.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.setTimeoutPtr, NIL)
   }
@@ -152,7 +151,9 @@ public open class ENetPacketPeer internal constructor() : PacketPeer() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): PeerState = entries.single {
+          it.id == `value`
+      }
     }
   }
 
@@ -181,7 +182,9 @@ public open class ENetPacketPeer internal constructor() : PacketPeer() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): PeerStatistic = entries.single {
+          it.id == `value`
+      }
     }
   }
 

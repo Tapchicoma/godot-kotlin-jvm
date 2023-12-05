@@ -22,7 +22,6 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
-import kotlin.Unit
 
 @GodotBaseType
 public open class OpenXRActionMap : Resource() {
@@ -48,7 +47,7 @@ public open class OpenXRActionMap : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setInteractionProfilesPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_OPENXRACTIONMAP, scriptIndex)
     return true
   }
@@ -71,12 +70,12 @@ public open class OpenXRActionMap : Resource() {
     return (TransferContext.readReturnValue(OBJECT, true) as OpenXRActionSet?)
   }
 
-  public fun addActionSet(actionSet: OpenXRActionSet): Unit {
+  public fun addActionSet(actionSet: OpenXRActionSet) {
     TransferContext.writeArguments(OBJECT to actionSet)
     TransferContext.callMethod(rawPtr, MethodBindings.addActionSetPtr, NIL)
   }
 
-  public fun removeActionSet(actionSet: OpenXRActionSet): Unit {
+  public fun removeActionSet(actionSet: OpenXRActionSet) {
     TransferContext.writeArguments(OBJECT to actionSet)
     TransferContext.callMethod(rawPtr, MethodBindings.removeActionSetPtr, NIL)
   }
@@ -99,17 +98,17 @@ public open class OpenXRActionMap : Resource() {
     return (TransferContext.readReturnValue(OBJECT, true) as OpenXRInteractionProfile?)
   }
 
-  public fun addInteractionProfile(interactionProfile: OpenXRInteractionProfile): Unit {
+  public fun addInteractionProfile(interactionProfile: OpenXRInteractionProfile) {
     TransferContext.writeArguments(OBJECT to interactionProfile)
     TransferContext.callMethod(rawPtr, MethodBindings.addInteractionProfilePtr, NIL)
   }
 
-  public fun removeInteractionProfile(interactionProfile: OpenXRInteractionProfile): Unit {
+  public fun removeInteractionProfile(interactionProfile: OpenXRInteractionProfile) {
     TransferContext.writeArguments(OBJECT to interactionProfile)
     TransferContext.callMethod(rawPtr, MethodBindings.removeInteractionProfilePtr, NIL)
   }
 
-  public fun createDefaultActionSets(): Unit {
+  public fun createDefaultActionSets() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.createDefaultActionSetsPtr, NIL)
   }

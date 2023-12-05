@@ -22,138 +22,91 @@ import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 
-/**
- * A directory for the resource filesystem.
- *
- * A more generalized, low-level variation of the directory concept.
- */
 @GodotBaseType
 public open class EditorFileSystemDirectory internal constructor() : Object() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_EDITORFILESYSTEMDIRECTORY, scriptIndex)
     return true
   }
 
-  /**
-   * Returns the number of subdirectories in this directory.
-   */
   public fun getSubdirCount(): Int {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getSubdirCountPtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Returns the subdirectory at index [idx].
-   */
   public fun getSubdir(idx: Int): EditorFileSystemDirectory? {
     TransferContext.writeArguments(LONG to idx.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getSubdirPtr, OBJECT)
     return (TransferContext.readReturnValue(OBJECT, true) as EditorFileSystemDirectory?)
   }
 
-  /**
-   * Returns the number of files in this directory.
-   */
   public fun getFileCount(): Int {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getFileCountPtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Returns the name of the file at index [idx].
-   */
   public fun getFile(idx: Int): String {
     TransferContext.writeArguments(LONG to idx.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getFilePtr, STRING)
     return (TransferContext.readReturnValue(STRING, false) as String)
   }
 
-  /**
-   * Returns the path to the file at index [idx].
-   */
   public fun getFilePath(idx: Int): String {
     TransferContext.writeArguments(LONG to idx.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getFilePathPtr, STRING)
     return (TransferContext.readReturnValue(STRING, false) as String)
   }
 
-  /**
-   * Returns the resource type of the file at index [idx]. This returns a string such as `"Resource"` or `"GDScript"`, *not* a file extension such as `".gd"`.
-   */
   public fun getFileType(idx: Int): StringName {
     TransferContext.writeArguments(LONG to idx.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getFileTypePtr, STRING_NAME)
     return (TransferContext.readReturnValue(STRING_NAME, false) as StringName)
   }
 
-  /**
-   * Returns the name of the script class defined in the file at index [idx]. If the file doesn't define a script class using the `class_name` syntax, this will return an empty string.
-   */
   public fun getFileScriptClassName(idx: Int): String {
     TransferContext.writeArguments(LONG to idx.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getFileScriptClassNamePtr, STRING)
     return (TransferContext.readReturnValue(STRING, false) as String)
   }
 
-  /**
-   * Returns the base class of the script class defined in the file at index [idx]. If the file doesn't define a script class using the `class_name` syntax, this will return an empty string.
-   */
   public fun getFileScriptClassExtends(idx: Int): String {
     TransferContext.writeArguments(LONG to idx.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getFileScriptClassExtendsPtr, STRING)
     return (TransferContext.readReturnValue(STRING, false) as String)
   }
 
-  /**
-   * Returns `true` if the file at index [idx] imported properly.
-   */
   public fun getFileImportIsValid(idx: Int): Boolean {
     TransferContext.writeArguments(LONG to idx.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getFileImportIsValidPtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Returns the name of this directory.
-   */
   public fun getName(): String {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getNamePtr, STRING)
     return (TransferContext.readReturnValue(STRING, false) as String)
   }
 
-  /**
-   * Returns the path to this directory.
-   */
   public fun getPath(): String {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getPathPtr, STRING)
     return (TransferContext.readReturnValue(STRING, false) as String)
   }
 
-  /**
-   * Returns the parent directory for this directory or `null` if called on a directory at `res://` or `user://`.
-   */
   public fun getParent(): EditorFileSystemDirectory? {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getParentPtr, OBJECT)
     return (TransferContext.readReturnValue(OBJECT, true) as EditorFileSystemDirectory?)
   }
 
-  /**
-   * Returns the index of the file with name [name] or `-1` if not found.
-   */
   public fun findFileIndex(name: String): Int {
     TransferContext.writeArguments(STRING to name)
     TransferContext.callMethod(rawPtr, MethodBindings.findFileIndexPtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Returns the index of the directory with name [name] or `-1` if not found.
-   */
   public fun findDirIndex(name: String): Int {
     TransferContext.writeArguments(STRING to name)
     TransferContext.callMethod(rawPtr, MethodBindings.findDirIndexPtr, LONG)

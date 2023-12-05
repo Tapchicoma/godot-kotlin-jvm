@@ -22,7 +22,6 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
-import kotlin.Unit
 
 @GodotBaseType
 public open class OpenXRIPBinding : Resource() {
@@ -48,7 +47,7 @@ public open class OpenXRIPBinding : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setPathsPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_OPENXRIPBINDING, scriptIndex)
     return true
   }
@@ -65,12 +64,12 @@ public open class OpenXRIPBinding : Resource() {
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  public fun addPath(path: String): Unit {
+  public fun addPath(path: String) {
     TransferContext.writeArguments(STRING to path)
     TransferContext.callMethod(rawPtr, MethodBindings.addPathPtr, NIL)
   }
 
-  public fun removePath(path: String): Unit {
+  public fun removePath(path: String) {
     TransferContext.writeArguments(STRING to path)
     TransferContext.callMethod(rawPtr, MethodBindings.removePathPtr, NIL)
   }

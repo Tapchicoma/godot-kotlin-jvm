@@ -16,18 +16,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * A boolean constant to be used within the visual shader graph.
- *
- * Has only one output port and no inputs.
- *
- * Translated to `bool` in the shader language.
- */
 @GodotBaseType
 public open class VisualShaderNodeBooleanConstant : VisualShaderNodeConstant() {
-  /**
-   * A boolean constant which represents a state of this node.
-   */
   public var constant: Boolean
     get() {
       TransferContext.writeArguments()
@@ -39,7 +29,7 @@ public open class VisualShaderNodeBooleanConstant : VisualShaderNodeConstant() {
       TransferContext.callMethod(rawPtr, MethodBindings.setConstantPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_VISUALSHADERNODEBOOLEANCONSTANT, scriptIndex)
     return true
   }

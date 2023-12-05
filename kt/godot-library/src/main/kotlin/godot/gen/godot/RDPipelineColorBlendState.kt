@@ -25,16 +25,8 @@ import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 
-/**
- * Pipeline color blend state (used by [godot.RenderingDevice]).
- *
- * This object is used by [godot.RenderingDevice].
- */
 @GodotBaseType
 public open class RDPipelineColorBlendState : RefCounted() {
-  /**
-   * If `true`, performs the logic operation defined in [logicOp].
-   */
   public var enableLogicOp: Boolean
     get() {
       TransferContext.writeArguments()
@@ -46,9 +38,6 @@ public open class RDPipelineColorBlendState : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setEnableLogicOpPtr, NIL)
     }
 
-  /**
-   * The logic operation to perform for blending. Only effective if [enableLogicOp] is `true`.
-   */
   public var logicOp: RenderingDevice.LogicOperation
     get() {
       TransferContext.writeArguments()
@@ -60,9 +49,6 @@ public open class RDPipelineColorBlendState : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setLogicOpPtr, NIL)
     }
 
-  /**
-   * The constant color to blend with. See also [godot.RenderingDevice.drawListSetBlendConstants].
-   */
   @CoreTypeLocalCopy
   public var blendConstant: Color
     get() {
@@ -75,9 +61,6 @@ public open class RDPipelineColorBlendState : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setBlendConstantPtr, NIL)
     }
 
-  /**
-   * The attachments that are blended together.
-   */
   public var attachments: VariantArray<RDPipelineColorBlendStateAttachment>
     get() {
       TransferContext.writeArguments()
@@ -90,14 +73,12 @@ public open class RDPipelineColorBlendState : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAttachmentsPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_RDPIPELINECOLORBLENDSTATE, scriptIndex)
     return true
   }
 
   /**
-   * The constant color to blend with. See also [godot.RenderingDevice.drawListSetBlendConstants].
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our

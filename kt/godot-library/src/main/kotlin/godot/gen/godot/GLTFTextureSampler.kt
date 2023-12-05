@@ -63,7 +63,7 @@ public open class GLTFTextureSampler : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setWrapTPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_GLTFTEXTURESAMPLER, scriptIndex)
     return true
   }

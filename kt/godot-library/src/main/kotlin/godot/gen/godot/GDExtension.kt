@@ -20,57 +20,38 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
-import kotlin.Unit
 
-/**
- *
- */
 @GodotBaseType
 public open class GDExtension : Resource() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_GDEXTENSION, scriptIndex)
     return true
   }
 
-  /**
-   *
-   */
   public fun openLibrary(path: String, entrySymbol: String): GodotError {
     TransferContext.writeArguments(STRING to path, STRING to entrySymbol)
     TransferContext.callMethod(rawPtr, MethodBindings.openLibraryPtr, LONG)
     return GodotError.from(TransferContext.readReturnValue(LONG) as Long)
   }
 
-  /**
-   *
-   */
-  public fun closeLibrary(): Unit {
+  public fun closeLibrary() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.closeLibraryPtr, NIL)
   }
 
-  /**
-   *
-   */
   public fun isLibraryOpen(): Boolean {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.isLibraryOpenPtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   *
-   */
   public fun getMinimumLibraryInitializationLevel(): InitializationLevel {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getMinimumLibraryInitializationLevelPtr, LONG)
     return GDExtension.InitializationLevel.from(TransferContext.readReturnValue(LONG) as Long)
   }
 
-  /**
-   *
-   */
-  public fun initializeLibrary(level: InitializationLevel): Unit {
+  public fun initializeLibrary(level: InitializationLevel) {
     TransferContext.writeArguments(LONG to level.id)
     TransferContext.callMethod(rawPtr, MethodBindings.initializeLibraryPtr, NIL)
   }
@@ -78,21 +59,9 @@ public open class GDExtension : Resource() {
   public enum class InitializationLevel(
     id: Long,
   ) {
-    /**
-     *
-     */
     INITIALIZATION_LEVEL_CORE(0),
-    /**
-     *
-     */
     INITIALIZATION_LEVEL_SERVERS(1),
-    /**
-     *
-     */
     INITIALIZATION_LEVEL_SCENE(2),
-    /**
-     *
-     */
     INITIALIZATION_LEVEL_EDITOR(3),
     ;
 
@@ -102,7 +71,9 @@ public open class GDExtension : Resource() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): InitializationLevel = entries.single {
+          it.id == `value`
+      }
     }
   }
 

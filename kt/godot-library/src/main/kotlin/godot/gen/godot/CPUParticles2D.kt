@@ -33,21 +33,8 @@ import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 
-/**
- * CPU-based 2D particle emitter.
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/2d/particle_systems_2d.html]($DOCS_URL/tutorials/2d/particle_systems_2d.html)
- *
- * CPU-based 2D particle node used to create a variety of particle systems and effects.
- *
- * See also [godot.GPUParticles2D], which provides the same functionality with hardware acceleration, but may not run on older devices.
- */
 @GodotBaseType
 public open class CPUParticles2D : Node2D() {
-  /**
-   * If `true`, particles are being emitted.
-   */
   public var emitting: Boolean
     get() {
       TransferContext.writeArguments()
@@ -59,9 +46,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setEmittingPtr, NIL)
     }
 
-  /**
-   * Number of particles emitted in one emission cycle.
-   */
   public var amount: Int
     get() {
       TransferContext.writeArguments()
@@ -73,9 +57,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAmountPtr, NIL)
     }
 
-  /**
-   * Amount of time each particle will exist.
-   */
   public var lifetime: Double
     get() {
       TransferContext.writeArguments()
@@ -87,9 +68,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setLifetimePtr, NIL)
     }
 
-  /**
-   * If `true`, only one emission cycle occurs. If set `true` during a cycle, emission will stop at the cycle's end.
-   */
   public var oneShot: Boolean
     get() {
       TransferContext.writeArguments()
@@ -101,9 +79,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setOneShotPtr, NIL)
     }
 
-  /**
-   * Particle system starts as if it had already run for this many seconds.
-   */
   public var preprocess: Double
     get() {
       TransferContext.writeArguments()
@@ -115,9 +90,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setPreProcessTimePtr, NIL)
     }
 
-  /**
-   * Particle system's running speed scaling ratio. A value of `0` can be used to pause the particles.
-   */
   public var speedScale: Double
     get() {
       TransferContext.writeArguments()
@@ -129,9 +101,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSpeedScalePtr, NIL)
     }
 
-  /**
-   * How rapidly particles in an emission cycle are emitted. If greater than `0`, there will be a gap in emissions before the next cycle begins.
-   */
   public var explosiveness: Float
     get() {
       TransferContext.writeArguments()
@@ -143,9 +112,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setExplosivenessRatioPtr, NIL)
     }
 
-  /**
-   * Emission lifetime randomness ratio.
-   */
   public var randomness: Float
     get() {
       TransferContext.writeArguments()
@@ -157,9 +123,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRandomnessRatioPtr, NIL)
     }
 
-  /**
-   * Particle lifetime randomness ratio.
-   */
   public var lifetimeRandomness: Double
     get() {
       TransferContext.writeArguments()
@@ -171,9 +134,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setLifetimeRandomnessPtr, NIL)
     }
 
-  /**
-   * The particle system's frame rate is fixed to a value. For example, changing the value to 2 will make the particles render at 2 frames per second. Note this does not slow down the simulation of the particle system itself.
-   */
   public var fixedFps: Int
     get() {
       TransferContext.writeArguments()
@@ -185,9 +145,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFixedFpsPtr, NIL)
     }
 
-  /**
-   * If `true`, results in fractional delta calculation which has a smoother particles display effect.
-   */
   public var fractDelta: Boolean
     get() {
       TransferContext.writeArguments()
@@ -199,9 +156,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFractionalDeltaPtr, NIL)
     }
 
-  /**
-   * If `true`, particles use the parent node's coordinate space (known as local coordinates). This will cause particles to move and rotate along the [godot.CPUParticles2D] node (and its parents) when it is moved or rotated. If `false`, particles use global coordinates; they will not move or rotate along the [godot.CPUParticles2D] node (and its parents) when it is moved or rotated.
-   */
   public var localCoords: Boolean
     get() {
       TransferContext.writeArguments()
@@ -213,9 +167,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setUseLocalCoordinatesPtr, NIL)
     }
 
-  /**
-   * Particle draw order. Uses [enum DrawOrder] values.
-   */
   public var drawOrder: DrawOrder
     get() {
       TransferContext.writeArguments()
@@ -227,9 +178,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDrawOrderPtr, NIL)
     }
 
-  /**
-   * Particle texture. If `null`, particles will be squares.
-   */
   public var texture: Texture2D?
     get() {
       TransferContext.writeArguments()
@@ -241,9 +189,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTexturePtr, NIL)
     }
 
-  /**
-   * Particles will be emitted inside this region. See [enum EmissionShape] for possible values.
-   */
   public var emissionShape: EmissionShape
     get() {
       TransferContext.writeArguments()
@@ -255,9 +200,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setEmissionShapePtr, NIL)
     }
 
-  /**
-   * The sphere's radius if [emissionShape] is set to [EMISSION_SHAPE_SPHERE].
-   */
   public var emissionSphereRadius: Float
     get() {
       TransferContext.writeArguments()
@@ -269,9 +211,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setEmissionSphereRadiusPtr, NIL)
     }
 
-  /**
-   * The rectangle's extents if [emissionShape] is set to [EMISSION_SHAPE_RECTANGLE].
-   */
   @CoreTypeLocalCopy
   public var emissionRectExtents: Vector2
     get() {
@@ -284,9 +223,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setEmissionRectExtentsPtr, NIL)
     }
 
-  /**
-   * Sets the initial positions to spawn particles when using [EMISSION_SHAPE_POINTS] or [EMISSION_SHAPE_DIRECTED_POINTS].
-   */
   public var emissionPoints: PackedVector2Array
     get() {
       TransferContext.writeArguments()
@@ -298,9 +234,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setEmissionPointsPtr, NIL)
     }
 
-  /**
-   * Sets the direction the particles will be emitted in when using [EMISSION_SHAPE_DIRECTED_POINTS].
-   */
   public var emissionNormals: PackedVector2Array
     get() {
       TransferContext.writeArguments()
@@ -312,9 +245,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setEmissionNormalsPtr, NIL)
     }
 
-  /**
-   * Sets the [godot.core.Color]s to modulate particles by when using [EMISSION_SHAPE_POINTS] or [EMISSION_SHAPE_DIRECTED_POINTS].
-   */
   public var emissionColors: PackedColorArray
     get() {
       TransferContext.writeArguments()
@@ -326,9 +256,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setEmissionColorsPtr, NIL)
     }
 
-  /**
-   * Align Y axis of particle with the direction of its velocity.
-   */
   public var particleFlagAlignY: Boolean
     get() {
       TransferContext.writeArguments(LONG to 0L)
@@ -340,9 +267,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setParticleFlagPtr, NIL)
     }
 
-  /**
-   * Unit vector specifying the particles' emission direction.
-   */
   @CoreTypeLocalCopy
   public var direction: Vector2
     get() {
@@ -355,9 +279,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDirectionPtr, NIL)
     }
 
-  /**
-   * Each particle's initial direction range from `+spread` to `-spread` degrees.
-   */
   public var spread: Float
     get() {
       TransferContext.writeArguments()
@@ -369,9 +290,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSpreadPtr, NIL)
     }
 
-  /**
-   * Gravity applied to every particle.
-   */
   @CoreTypeLocalCopy
   public var gravity: Vector2
     get() {
@@ -384,9 +302,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setGravityPtr, NIL)
     }
 
-  /**
-   * Minimum equivalent of [initialVelocityMax].
-   */
   public var initialVelocityMin: Float
     get() {
       TransferContext.writeArguments(LONG to 0L)
@@ -398,9 +313,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setParamMinPtr, NIL)
     }
 
-  /**
-   * Maximum initial velocity magnitude for each particle. Direction comes from [direction] and [spread].
-   */
   public var initialVelocityMax: Float
     get() {
       TransferContext.writeArguments(LONG to 0L)
@@ -412,9 +324,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setParamMaxPtr, NIL)
     }
 
-  /**
-   * Minimum equivalent of [angularVelocityMax].
-   */
   public var angularVelocityMin: Float
     get() {
       TransferContext.writeArguments(LONG to 1L)
@@ -426,9 +335,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setParamMinPtr, NIL)
     }
 
-  /**
-   * Maximum initial angular velocity (rotation speed) applied to each particle in *degrees* per second.
-   */
   public var angularVelocityMax: Float
     get() {
       TransferContext.writeArguments(LONG to 1L)
@@ -440,9 +346,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setParamMaxPtr, NIL)
     }
 
-  /**
-   * Each particle's angular velocity will vary along this [godot.Curve].
-   */
   public var angularVelocityCurve: Curve?
     get() {
       TransferContext.writeArguments(LONG to 1L)
@@ -454,9 +357,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setParamCurvePtr, NIL)
     }
 
-  /**
-   * Minimum equivalent of [orbitVelocityMax].
-   */
   public var orbitVelocityMin: Float
     get() {
       TransferContext.writeArguments(LONG to 2L)
@@ -468,9 +368,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setParamMinPtr, NIL)
     }
 
-  /**
-   * Maximum orbital velocity applied to each particle. Makes the particles circle around origin. Specified in number of full rotations around origin per second.
-   */
   public var orbitVelocityMax: Float
     get() {
       TransferContext.writeArguments(LONG to 2L)
@@ -482,9 +379,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setParamMaxPtr, NIL)
     }
 
-  /**
-   * Each particle's orbital velocity will vary along this [godot.Curve].
-   */
   public var orbitVelocityCurve: Curve?
     get() {
       TransferContext.writeArguments(LONG to 2L)
@@ -496,9 +390,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setParamCurvePtr, NIL)
     }
 
-  /**
-   * Minimum equivalent of [linearAccelMax].
-   */
   public var linearAccelMin: Float
     get() {
       TransferContext.writeArguments(LONG to 3L)
@@ -510,9 +401,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setParamMinPtr, NIL)
     }
 
-  /**
-   * Maximum linear acceleration applied to each particle in the direction of motion.
-   */
   public var linearAccelMax: Float
     get() {
       TransferContext.writeArguments(LONG to 3L)
@@ -524,9 +412,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setParamMaxPtr, NIL)
     }
 
-  /**
-   * Each particle's linear acceleration will vary along this [godot.Curve].
-   */
   public var linearAccelCurve: Curve?
     get() {
       TransferContext.writeArguments(LONG to 3L)
@@ -538,9 +423,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setParamCurvePtr, NIL)
     }
 
-  /**
-   * Minimum equivalent of [radialAccelMax].
-   */
   public var radialAccelMin: Float
     get() {
       TransferContext.writeArguments(LONG to 4L)
@@ -552,9 +434,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setParamMinPtr, NIL)
     }
 
-  /**
-   * Maximum radial acceleration applied to each particle. Makes particle accelerate away from the origin or towards it if negative.
-   */
   public var radialAccelMax: Float
     get() {
       TransferContext.writeArguments(LONG to 4L)
@@ -566,9 +445,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setParamMaxPtr, NIL)
     }
 
-  /**
-   * Each particle's radial acceleration will vary along this [godot.Curve].
-   */
   public var radialAccelCurve: Curve?
     get() {
       TransferContext.writeArguments(LONG to 4L)
@@ -580,9 +456,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setParamCurvePtr, NIL)
     }
 
-  /**
-   * Minimum equivalent of [tangentialAccelMax].
-   */
   public var tangentialAccelMin: Float
     get() {
       TransferContext.writeArguments(LONG to 5L)
@@ -594,9 +467,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setParamMinPtr, NIL)
     }
 
-  /**
-   * Maximum tangential acceleration applied to each particle. Tangential acceleration is perpendicular to the particle's velocity giving the particles a swirling motion.
-   */
   public var tangentialAccelMax: Float
     get() {
       TransferContext.writeArguments(LONG to 5L)
@@ -608,9 +478,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setParamMaxPtr, NIL)
     }
 
-  /**
-   * Each particle's tangential acceleration will vary along this [godot.Curve].
-   */
   public var tangentialAccelCurve: Curve?
     get() {
       TransferContext.writeArguments(LONG to 5L)
@@ -622,9 +489,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setParamCurvePtr, NIL)
     }
 
-  /**
-   * Minimum equivalent of [dampingMax].
-   */
   public var dampingMin: Float
     get() {
       TransferContext.writeArguments(LONG to 6L)
@@ -636,9 +500,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setParamMinPtr, NIL)
     }
 
-  /**
-   * The maximum rate at which particles lose velocity. For example value of `100` means that the particle will go from `100` velocity to `0` in `1` second.
-   */
   public var dampingMax: Float
     get() {
       TransferContext.writeArguments(LONG to 6L)
@@ -650,9 +511,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setParamMaxPtr, NIL)
     }
 
-  /**
-   * Damping will vary along this [godot.Curve].
-   */
   public var dampingCurve: Curve?
     get() {
       TransferContext.writeArguments(LONG to 6L)
@@ -664,9 +522,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setParamCurvePtr, NIL)
     }
 
-  /**
-   * Minimum equivalent of [angleMax].
-   */
   public var angleMin: Float
     get() {
       TransferContext.writeArguments(LONG to 7L)
@@ -678,9 +533,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setParamMinPtr, NIL)
     }
 
-  /**
-   * Maximum initial rotation applied to each particle, in degrees.
-   */
   public var angleMax: Float
     get() {
       TransferContext.writeArguments(LONG to 7L)
@@ -692,9 +544,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setParamMaxPtr, NIL)
     }
 
-  /**
-   * Each particle's rotation will be animated along this [godot.Curve].
-   */
   public var angleCurve: Curve?
     get() {
       TransferContext.writeArguments(LONG to 7L)
@@ -706,9 +555,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setParamCurvePtr, NIL)
     }
 
-  /**
-   * Minimum equivalent of [scaleAmountMax].
-   */
   public var scaleAmountMin: Float
     get() {
       TransferContext.writeArguments(LONG to 8L)
@@ -720,9 +566,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setParamMinPtr, NIL)
     }
 
-  /**
-   * Maximum initial scale applied to each particle.
-   */
   public var scaleAmountMax: Float
     get() {
       TransferContext.writeArguments(LONG to 8L)
@@ -734,9 +577,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setParamMaxPtr, NIL)
     }
 
-  /**
-   * Each particle's scale will vary along this [godot.Curve].
-   */
   public var scaleAmountCurve: Curve?
     get() {
       TransferContext.writeArguments(LONG to 8L)
@@ -748,9 +588,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setParamCurvePtr, NIL)
     }
 
-  /**
-   * If `true`, the scale curve will be split into x and y components. See [scaleCurveX] and [scaleCurveY].
-   */
   public var splitScale: Boolean
     get() {
       TransferContext.writeArguments()
@@ -762,11 +599,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSplitScalePtr, NIL)
     }
 
-  /**
-   * Each particle's horizontal scale will vary along this [godot.Curve].
-   *
-   * [splitScale] must be enabled.
-   */
   public var scaleCurveX: Curve?
     get() {
       TransferContext.writeArguments()
@@ -778,11 +610,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setScaleCurveXPtr, NIL)
     }
 
-  /**
-   * Each particle's vertical scale will vary along this [godot.Curve].
-   *
-   * [splitScale] must be enabled.
-   */
   public var scaleCurveY: Curve?
     get() {
       TransferContext.writeArguments()
@@ -794,9 +621,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setScaleCurveYPtr, NIL)
     }
 
-  /**
-   * Each particle's initial color. If [texture] is defined, it will be multiplied by this color.
-   */
   @CoreTypeLocalCopy
   public var color: Color
     get() {
@@ -809,9 +633,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setColorPtr, NIL)
     }
 
-  /**
-   * Each particle's color will vary along this [godot.Gradient] (multiplied with [color]).
-   */
   public var colorRamp: Gradient?
     get() {
       TransferContext.writeArguments()
@@ -823,9 +644,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setColorRampPtr, NIL)
     }
 
-  /**
-   * Each particle's initial color will vary along this [godot.GradientTexture1D] (multiplied with [color]).
-   */
   public var colorInitialRamp: Gradient?
     get() {
       TransferContext.writeArguments()
@@ -837,9 +655,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setColorInitialRampPtr, NIL)
     }
 
-  /**
-   * Minimum equivalent of [hueVariationMax].
-   */
   public var hueVariationMin: Float
     get() {
       TransferContext.writeArguments(LONG to 9L)
@@ -851,9 +666,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setParamMinPtr, NIL)
     }
 
-  /**
-   * Maximum initial hue variation applied to each particle. It will shift the particle color's hue.
-   */
   public var hueVariationMax: Float
     get() {
       TransferContext.writeArguments(LONG to 9L)
@@ -865,9 +677,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setParamMaxPtr, NIL)
     }
 
-  /**
-   * Each particle's hue will vary along this [godot.Curve].
-   */
   public var hueVariationCurve: Curve?
     get() {
       TransferContext.writeArguments(LONG to 9L)
@@ -879,9 +688,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setParamCurvePtr, NIL)
     }
 
-  /**
-   * Minimum equivalent of [animSpeedMax].
-   */
   public var animSpeedMin: Float
     get() {
       TransferContext.writeArguments(LONG to 10L)
@@ -893,11 +699,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setParamMinPtr, NIL)
     }
 
-  /**
-   * Maximum particle animation speed. Animation speed of `1` means that the particles will make full `0` to `1` offset cycle during lifetime, `2` means `2` cycles etc.
-   *
-   * With animation speed greater than `1`, remember to enable [godot.CanvasItemMaterial.particlesAnimLoop] property if you want the animation to repeat.
-   */
   public var animSpeedMax: Float
     get() {
       TransferContext.writeArguments(LONG to 10L)
@@ -909,9 +710,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setParamMaxPtr, NIL)
     }
 
-  /**
-   * Each particle's animation speed will vary along this [godot.Curve].
-   */
   public var animSpeedCurve: Curve?
     get() {
       TransferContext.writeArguments(LONG to 10L)
@@ -923,9 +721,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setParamCurvePtr, NIL)
     }
 
-  /**
-   * Minimum equivalent of [animOffsetMax].
-   */
   public var animOffsetMin: Float
     get() {
       TransferContext.writeArguments(LONG to 11L)
@@ -937,9 +732,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setParamMinPtr, NIL)
     }
 
-  /**
-   * Maximum animation offset that corresponds to frame index in the texture. `0` is the first frame, `1` is the last one. See [godot.CanvasItemMaterial.particlesAnimation].
-   */
   public var animOffsetMax: Float
     get() {
       TransferContext.writeArguments(LONG to 11L)
@@ -951,9 +743,6 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setParamMaxPtr, NIL)
     }
 
-  /**
-   * Each particle's animation offset will vary along this [godot.Curve].
-   */
   public var animOffsetCurve: Curve?
     get() {
       TransferContext.writeArguments(LONG to 11L)
@@ -965,14 +754,12 @@ public open class CPUParticles2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setParamCurvePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_CPUPARTICLES2D, scriptIndex)
     return true
   }
 
   /**
-   * The rectangle's extents if [emissionShape] is set to [EMISSION_SHAPE_RECTANGLE].
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -996,8 +783,6 @@ public open class CPUParticles2D : Node2D() {
 
 
   /**
-   * Unit vector specifying the particles' emission direction.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -1020,8 +805,6 @@ public open class CPUParticles2D : Node2D() {
 
 
   /**
-   * Gravity applied to every particle.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -1044,8 +827,6 @@ public open class CPUParticles2D : Node2D() {
 
 
   /**
-   * Each particle's initial color. If [texture] is defined, it will be multiplied by this color.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -1067,18 +848,12 @@ public open class CPUParticles2D : Node2D() {
   }
 
 
-  /**
-   * Restarts the particle emitter.
-   */
-  public fun restart(): Unit {
+  public fun restart() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.restartPtr, NIL)
   }
 
-  /**
-   * Sets this node's properties to match a given [godot.GPUParticles2D] node with an assigned [godot.ParticleProcessMaterial].
-   */
-  public fun convertFromParticles(particles: Node): Unit {
+  public fun convertFromParticles(particles: Node) {
     TransferContext.writeArguments(OBJECT to particles)
     TransferContext.callMethod(rawPtr, MethodBindings.convertFromParticlesPtr, NIL)
   }
@@ -1086,13 +861,7 @@ public open class CPUParticles2D : Node2D() {
   public enum class DrawOrder(
     id: Long,
   ) {
-    /**
-     * Particles are drawn in the order emitted.
-     */
     DRAW_ORDER_INDEX(0),
-    /**
-     * Particles are drawn in order of remaining lifetime.
-     */
     DRAW_ORDER_LIFETIME(1),
     ;
 
@@ -1102,64 +871,27 @@ public open class CPUParticles2D : Node2D() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): DrawOrder = entries.single {
+          it.id == `value`
+      }
     }
   }
 
   public enum class Parameter(
     id: Long,
   ) {
-    /**
-     * Use with [setParamMin], [setParamMax], and [setParamCurve] to set initial velocity properties.
-     */
     PARAM_INITIAL_LINEAR_VELOCITY(0),
-    /**
-     * Use with [setParamMin], [setParamMax], and [setParamCurve] to set angular velocity properties.
-     */
     PARAM_ANGULAR_VELOCITY(1),
-    /**
-     * Use with [setParamMin], [setParamMax], and [setParamCurve] to set orbital velocity properties.
-     */
     PARAM_ORBIT_VELOCITY(2),
-    /**
-     * Use with [setParamMin], [setParamMax], and [setParamCurve] to set linear acceleration properties.
-     */
     PARAM_LINEAR_ACCEL(3),
-    /**
-     * Use with [setParamMin], [setParamMax], and [setParamCurve] to set radial acceleration properties.
-     */
     PARAM_RADIAL_ACCEL(4),
-    /**
-     * Use with [setParamMin], [setParamMax], and [setParamCurve] to set tangential acceleration properties.
-     */
     PARAM_TANGENTIAL_ACCEL(5),
-    /**
-     * Use with [setParamMin], [setParamMax], and [setParamCurve] to set damping properties.
-     */
     PARAM_DAMPING(6),
-    /**
-     * Use with [setParamMin], [setParamMax], and [setParamCurve] to set angle properties.
-     */
     PARAM_ANGLE(7),
-    /**
-     * Use with [setParamMin], [setParamMax], and [setParamCurve] to set scale properties.
-     */
     PARAM_SCALE(8),
-    /**
-     * Use with [setParamMin], [setParamMax], and [setParamCurve] to set hue variation properties.
-     */
     PARAM_HUE_VARIATION(9),
-    /**
-     * Use with [setParamMin], [setParamMax], and [setParamCurve] to set animation speed properties.
-     */
     PARAM_ANIM_SPEED(10),
-    /**
-     * Use with [setParamMin], [setParamMax], and [setParamCurve] to set animation offset properties.
-     */
     PARAM_ANIM_OFFSET(11),
-    /**
-     * Represents the size of the [enum Parameter] enum.
-     */
     PARAM_MAX(12),
     ;
 
@@ -1169,28 +901,18 @@ public open class CPUParticles2D : Node2D() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): Parameter = entries.single {
+          it.id == `value`
+      }
     }
   }
 
   public enum class ParticleFlags(
     id: Long,
   ) {
-    /**
-     * Use with [setParticleFlag] to set [particleFlagAlignY].
-     */
     PARTICLE_FLAG_ALIGN_Y_TO_VELOCITY(0),
-    /**
-     * Present for consistency with 3D particle nodes, not used in 2D.
-     */
     PARTICLE_FLAG_ROTATE_Y(1),
-    /**
-     * Present for consistency with 3D particle nodes, not used in 2D.
-     */
     PARTICLE_FLAG_DISABLE_Z(2),
-    /**
-     * Represents the size of the [enum ParticleFlags] enum.
-     */
     PARTICLE_FLAG_MAX(3),
     ;
 
@@ -1200,40 +922,21 @@ public open class CPUParticles2D : Node2D() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): ParticleFlags = entries.single {
+          it.id == `value`
+      }
     }
   }
 
   public enum class EmissionShape(
     id: Long,
   ) {
-    /**
-     * All particles will be emitted from a single point.
-     */
     EMISSION_SHAPE_POINT(0),
-    /**
-     * Particles will be emitted in the volume of a sphere flattened to two dimensions.
-     */
     EMISSION_SHAPE_SPHERE(1),
-    /**
-     * Particles will be emitted on the surface of a sphere flattened to two dimensions.
-     */
     EMISSION_SHAPE_SPHERE_SURFACE(2),
-    /**
-     * Particles will be emitted in the area of a rectangle.
-     */
     EMISSION_SHAPE_RECTANGLE(3),
-    /**
-     * Particles will be emitted at a position chosen randomly among [emissionPoints]. Particle color will be modulated by [emissionColors].
-     */
     EMISSION_SHAPE_POINTS(4),
-    /**
-     * Particles will be emitted at a position chosen randomly among [emissionPoints]. Particle velocity and rotation will be set based on [emissionNormals]. Particle color will be modulated by [emissionColors].
-     */
     EMISSION_SHAPE_DIRECTED_POINTS(5),
-    /**
-     * Represents the size of the [enum EmissionShape] enum.
-     */
     EMISSION_SHAPE_MAX(6),
     ;
 
@@ -1243,7 +946,9 @@ public open class CPUParticles2D : Node2D() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): EmissionShape = entries.single {
+          it.id == `value`
+      }
     }
   }
 

@@ -11,14 +11,9 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * A visual shader node that modifies the texture UV using polar coordinates.
- *
- * UV polar coord node will transform UV values into polar coordinates, with specified scale, zoom strength and repeat parameters. It can be used to create various swirl distortions.
- */
 @GodotBaseType
 public open class VisualShaderNodeUVPolarCoord : VisualShaderNode() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_VISUALSHADERNODEUVPOLARCOORD, scriptIndex)
     return true
   }

@@ -18,16 +18,8 @@ import kotlin.Float
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * A scalar floating-point constant to be used within the visual shader graph.
- *
- * Translated to `float` in the shader language.
- */
 @GodotBaseType
 public open class VisualShaderNodeFloatConstant : VisualShaderNodeConstant() {
-  /**
-   * A floating-point constant which represents a state of this node.
-   */
   public var constant: Float
     get() {
       TransferContext.writeArguments()
@@ -39,7 +31,7 @@ public open class VisualShaderNodeFloatConstant : VisualShaderNodeConstant() {
       TransferContext.callMethod(rawPtr, MethodBindings.setConstantPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_VISUALSHADERNODEFLOATCONSTANT, scriptIndex)
     return true
   }

@@ -30,25 +30,8 @@ import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 
-/**
- * 2D Obstacle used in navigation to constrain avoidance controlled agents outside or inside an area.
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/navigation/navigation_using_navigationobstacles.html]($DOCS_URL/tutorials/navigation/navigation_using_navigationobstacles.html)
- *
- * 2D Obstacle used in navigation to constrain avoidance controlled agents outside or inside an area. The obstacle needs a navigation map and outline vertices defined to work correctly.
- *
- * If the obstacle's vertices are winded in clockwise order, avoidance agents will be pushed in by the obstacle, otherwise, avoidance agents will be pushed out. Outlines must not cross or overlap.
- *
- * Obstacles are **not** a replacement for a (re)baked navigation mesh. Obstacles **don't** change the resulting path from the pathfinding, obstacles only affect the navigation avoidance agent movement by altering the suggested velocity of the avoidance agent.
- *
- * Obstacles using vertices can warp to a new position but should not moved every frame as each move requires a rebuild of the avoidance map.
- */
 @GodotBaseType
 public open class NavigationObstacle2D : Node2D() {
-  /**
-   * If `true` the obstacle affects avoidance using agents.
-   */
   public var avoidanceEnabled: Boolean
     get() {
       TransferContext.writeArguments()
@@ -60,9 +43,6 @@ public open class NavigationObstacle2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAvoidanceEnabledPtr, NIL)
     }
 
-  /**
-   * Sets the wanted velocity for the obstacle so other agent's can better predict the obstacle if it is moved with a velocity regularly (every frame) instead of warped to a new position. Does only affect avoidance for the obstacles [radius]. Does nothing for the obstacles static vertices.
-   */
   @CoreTypeLocalCopy
   public var velocity: Vector2
     get() {
@@ -75,9 +55,6 @@ public open class NavigationObstacle2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setVelocityPtr, NIL)
     }
 
-  /**
-   * Sets the avoidance radius for the obstacle.
-   */
   public var radius: Float
     get() {
       TransferContext.writeArguments()
@@ -89,9 +66,6 @@ public open class NavigationObstacle2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRadiusPtr, NIL)
     }
 
-  /**
-   * The outline vertices of the obstacle. If the vertices are winded in clockwise order agents will be pushed in by the obstacle, else they will be pushed out. Outlines can not be crossed or overlap. Should the vertices using obstacle be warped to a new position agent's can not predict this movement and may get trapped inside the obstacle.
-   */
   public var vertices: PackedVector2Array
     get() {
       TransferContext.writeArguments()
@@ -103,9 +77,6 @@ public open class NavigationObstacle2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setVerticesPtr, NIL)
     }
 
-  /**
-   * A bitfield determining the avoidance layers for this obstacle. Agent's with a matching bit on the their avoidance mask will avoid this obstacle.
-   */
   public var avoidanceLayers: Long
     get() {
       TransferContext.writeArguments()
@@ -117,14 +88,12 @@ public open class NavigationObstacle2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAvoidanceLayersPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_NAVIGATIONOBSTACLE2D, scriptIndex)
     return true
   }
 
   /**
-   * Sets the wanted velocity for the obstacle so other agent's can better predict the obstacle if it is moved with a velocity regularly (every frame) instead of warped to a new position. Does only affect avoidance for the obstacles [radius]. Does nothing for the obstacles static vertices.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -146,43 +115,28 @@ public open class NavigationObstacle2D : Node2D() {
   }
 
 
-  /**
-   * Returns the [RID] of this obstacle on the [godot.NavigationServer2D].
-   */
   public fun getRid(): RID {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getRidPtr, _RID)
     return (TransferContext.readReturnValue(_RID, false) as RID)
   }
 
-  /**
-   * Sets the [RID] of the navigation map this NavigationObstacle node should use and also updates the `obstacle` on the NavigationServer.
-   */
-  public fun setNavigationMap(navigationMap: RID): Unit {
+  public fun setNavigationMap(navigationMap: RID) {
     TransferContext.writeArguments(_RID to navigationMap)
     TransferContext.callMethod(rawPtr, MethodBindings.setNavigationMapPtr, NIL)
   }
 
-  /**
-   * Returns the [RID] of the navigation map for this NavigationObstacle node. This function returns always the map set on the NavigationObstacle node and not the map of the abstract obstacle on the NavigationServer. If the obstacle map is changed directly with the NavigationServer API the NavigationObstacle node will not be aware of the map change. Use [setNavigationMap] to change the navigation map for the NavigationObstacle and also update the obstacle on the NavigationServer.
-   */
   public fun getNavigationMap(): RID {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getNavigationMapPtr, _RID)
     return (TransferContext.readReturnValue(_RID, false) as RID)
   }
 
-  /**
-   * Based on [value], enables or disables the specified layer in the [avoidanceLayers] bitmask, given a [layerNumber] between 1 and 32.
-   */
-  public fun setAvoidanceLayerValue(layerNumber: Int, `value`: Boolean): Unit {
+  public fun setAvoidanceLayerValue(layerNumber: Int, `value`: Boolean) {
     TransferContext.writeArguments(LONG to layerNumber.toLong(), BOOL to value)
     TransferContext.callMethod(rawPtr, MethodBindings.setAvoidanceLayerValuePtr, NIL)
   }
 
-  /**
-   * Returns whether or not the specified layer of the [avoidanceLayers] bitmask is enabled, given a [layerNumber] between 1 and 32.
-   */
   public fun getAvoidanceLayerValue(layerNumber: Int): Boolean {
     TransferContext.writeArguments(LONG to layerNumber.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getAvoidanceLayerValuePtr, BOOL)

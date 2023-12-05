@@ -14,7 +14,7 @@ import kotlin.Suppress
 @GodotBaseType
 public open class EditorSceneFormatImporterFBX internal constructor() : EditorSceneFormatImporter()
     {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_EDITORSCENEFORMATIMPORTERFBX, scriptIndex)
     return true
   }

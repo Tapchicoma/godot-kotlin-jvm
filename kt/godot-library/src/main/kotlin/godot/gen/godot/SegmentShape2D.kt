@@ -20,16 +20,8 @@ import kotlin.Int
 import kotlin.Suppress
 import kotlin.Unit
 
-/**
- * A 2D line segment shape used for physics collision.
- *
- * A 2D line segment shape, intended for use in physics. Usually used to provide a shape for a [godot.CollisionShape2D].
- */
 @GodotBaseType
 public open class SegmentShape2D : Shape2D() {
-  /**
-   * The segment's first point position.
-   */
   @CoreTypeLocalCopy
   public var a: Vector2
     get() {
@@ -42,9 +34,6 @@ public open class SegmentShape2D : Shape2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAPtr, NIL)
     }
 
-  /**
-   * The segment's second point position.
-   */
   @CoreTypeLocalCopy
   public var b: Vector2
     get() {
@@ -57,14 +46,12 @@ public open class SegmentShape2D : Shape2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setBPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_SEGMENTSHAPE2D, scriptIndex)
     return true
   }
 
   /**
-   * The segment's first point position.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -87,8 +74,6 @@ public open class SegmentShape2D : Shape2D() {
 
 
   /**
-   * The segment's second point position.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our

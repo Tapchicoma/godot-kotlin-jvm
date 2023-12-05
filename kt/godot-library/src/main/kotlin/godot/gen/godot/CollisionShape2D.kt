@@ -25,19 +25,8 @@ import kotlin.Int
 import kotlin.Suppress
 import kotlin.Unit
 
-/**
- * A node that provides a [godot.Shape2D] to a [godot.CollisionObject2D] parent.
- *
- * Tutorials:
- * [https://godotengine.org/asset-library/asset/113](https://godotengine.org/asset-library/asset/113)
- *
- * A node that provides a [godot.Shape2D] to a [godot.CollisionObject2D] parent and allows to edit it. This can give a detection shape to an [godot.Area2D] or turn a [godot.PhysicsBody2D] into a solid object.
- */
 @GodotBaseType
 public open class CollisionShape2D : Node2D() {
-  /**
-   * The actual shape owned by this collision shape.
-   */
   public var shape: Shape2D?
     get() {
       TransferContext.writeArguments()
@@ -49,9 +38,6 @@ public open class CollisionShape2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setShapePtr, NIL)
     }
 
-  /**
-   * A disabled collision shape has no effect in the world. This property should be changed with [godot.Object.setDeferred].
-   */
   public var disabled: Boolean
     get() {
       TransferContext.writeArguments()
@@ -63,11 +49,6 @@ public open class CollisionShape2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDisabledPtr, NIL)
     }
 
-  /**
-   * Sets whether this collision shape should only detect collision on one side (top or bottom).
-   *
-   * **Note:** This property has no effect if this [godot.CollisionShape2D] is a child of an [godot.Area2D] node.
-   */
   public var oneWayCollision: Boolean
     get() {
       TransferContext.writeArguments()
@@ -79,9 +60,6 @@ public open class CollisionShape2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setOneWayCollisionPtr, NIL)
     }
 
-  /**
-   * The margin used for one-way collision (in pixels). Higher values will make the shape thicker, and work better for colliders that enter the shape at a high velocity.
-   */
   public var oneWayCollisionMargin: Float
     get() {
       TransferContext.writeArguments()
@@ -93,11 +71,6 @@ public open class CollisionShape2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setOneWayCollisionMarginPtr, NIL)
     }
 
-  /**
-   * The collision shape debug color.
-   *
-   * **Note:** The default value is [godot.ProjectSettings.debug/shapes/collision/shapeColor]. The `Color(0, 0, 0, 1)` value documented here is a placeholder, and not the actual default debug color.
-   */
   @CoreTypeLocalCopy
   public var debugColor: Color
     get() {
@@ -110,16 +83,12 @@ public open class CollisionShape2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDebugColorPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_COLLISIONSHAPE2D, scriptIndex)
     return true
   }
 
   /**
-   * The collision shape debug color.
-   *
-   * **Note:** The default value is [godot.ProjectSettings.debug/shapes/collision/shapeColor]. The `Color(0, 0, 0, 1)` value documented here is a placeholder, and not the actual default debug color.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our

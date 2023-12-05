@@ -32,19 +32,8 @@ import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmOverloads
 
-/**
- * A 2D line.
- *
- * Tutorials:
- * [https://godotengine.org/asset-library/asset/583](https://godotengine.org/asset-library/asset/583)
- *
- * A line through several points in 2D space.
- */
 @GodotBaseType
 public open class Line2D : Node2D() {
-  /**
-   * The points that form the lines. The line is drawn between every point set in this array. Points are interpreted as local vectors.
-   */
   public var points: PackedVector2Array
     get() {
       TransferContext.writeArguments()
@@ -56,9 +45,6 @@ public open class Line2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setPointsPtr, NIL)
     }
 
-  /**
-   * The line's width.
-   */
   public var width: Float
     get() {
       TransferContext.writeArguments()
@@ -70,9 +56,6 @@ public open class Line2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setWidthPtr, NIL)
     }
 
-  /**
-   * The line's width varies with the curve. The original width is simply multiply by the value of the Curve.
-   */
   public var widthCurve: Curve?
     get() {
       TransferContext.writeArguments()
@@ -84,9 +67,6 @@ public open class Line2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setCurvePtr, NIL)
     }
 
-  /**
-   * The line's color. Will not be used if a gradient is set.
-   */
   @CoreTypeLocalCopy
   public var defaultColor: Color
     get() {
@@ -99,9 +79,6 @@ public open class Line2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDefaultColorPtr, NIL)
     }
 
-  /**
-   * The gradient is drawn through the whole line from start to finish. The default color will not be used if a gradient is set.
-   */
   public var gradient: Gradient?
     get() {
       TransferContext.writeArguments()
@@ -113,9 +90,6 @@ public open class Line2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setGradientPtr, NIL)
     }
 
-  /**
-   * The texture used for the line's texture. Uses `texture_mode` for drawing style.
-   */
   public var texture: Texture2D?
     get() {
       TransferContext.writeArguments()
@@ -127,9 +101,6 @@ public open class Line2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTexturePtr, NIL)
     }
 
-  /**
-   * The style to render the `texture` on the line. Use [enum LineTextureMode] constants.
-   */
   public var textureMode: LineTextureMode
     get() {
       TransferContext.writeArguments()
@@ -141,9 +112,6 @@ public open class Line2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTextureModePtr, NIL)
     }
 
-  /**
-   * The style for the points between the start and the end.
-   */
   public var jointMode: LineJointMode
     get() {
       TransferContext.writeArguments()
@@ -155,9 +123,6 @@ public open class Line2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setJointModePtr, NIL)
     }
 
-  /**
-   * Controls the style of the line's first point. Use [enum LineCapMode] constants.
-   */
   public var beginCapMode: LineCapMode
     get() {
       TransferContext.writeArguments()
@@ -169,9 +134,6 @@ public open class Line2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setBeginCapModePtr, NIL)
     }
 
-  /**
-   * Controls the style of the line's last point. Use [enum LineCapMode] constants.
-   */
   public var endCapMode: LineCapMode
     get() {
       TransferContext.writeArguments()
@@ -183,9 +145,6 @@ public open class Line2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setEndCapModePtr, NIL)
     }
 
-  /**
-   * The direction difference in radians between vector points. This value is only used if [jointMode] is set to [LINE_JOINT_SHARP].
-   */
   public var sharpLimit: Float
     get() {
       TransferContext.writeArguments()
@@ -197,11 +156,6 @@ public open class Line2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSharpLimitPtr, NIL)
     }
 
-  /**
-   * The smoothness of the rounded joints and caps. Higher values result in smoother corners, but are more demanding to render and update. This is only used if a cap or joint is set as round.
-   *
-   * **Note:** The default value is tuned for lines with the default [width]. For thin lines, this value should be reduced to a number between `2` and `4` to improve performance.
-   */
   public var roundPrecision: Int
     get() {
       TransferContext.writeArguments()
@@ -213,11 +167,6 @@ public open class Line2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRoundPrecisionPtr, NIL)
     }
 
-  /**
-   * If `true`, the line's border will be anti-aliased.
-   *
-   * **Note:** Line2D is not accelerated by batching when being anti-aliased.
-   */
   public var antialiased: Boolean
     get() {
       TransferContext.writeArguments()
@@ -229,14 +178,12 @@ public open class Line2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAntialiasedPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_LINE2D, scriptIndex)
     return true
   }
 
   /**
-   * The line's color. Will not be used if a gradient is set.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -258,55 +205,35 @@ public open class Line2D : Node2D() {
   }
 
 
-  /**
-   * Overwrites the position of the point at index [index] with the supplied [position].
-   */
-  public fun setPointPosition(index: Int, position: Vector2): Unit {
+  public fun setPointPosition(index: Int, position: Vector2) {
     TransferContext.writeArguments(LONG to index.toLong(), VECTOR2 to position)
     TransferContext.callMethod(rawPtr, MethodBindings.setPointPositionPtr, NIL)
   }
 
-  /**
-   * Returns the position of the point at index [index].
-   */
   public fun getPointPosition(index: Int): Vector2 {
     TransferContext.writeArguments(LONG to index.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getPointPositionPtr, VECTOR2)
     return (TransferContext.readReturnValue(VECTOR2, false) as Vector2)
   }
 
-  /**
-   * Returns the number of points in the line.
-   */
   public fun getPointCount(): Int {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getPointCountPtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Adds a point with the specified [position] relative to the line's own position. Appends the new point at the end of the point list.
-   *
-   * If [index] is given, the new point is inserted before the existing point identified by index [index]. Every existing point starting from [index] is shifted further down the list of points. The index must be greater than or equal to `0` and must not exceed the number of existing points in the line. See [getPointCount].
-   */
   @JvmOverloads
-  public fun addPoint(position: Vector2, index: Int = -1): Unit {
+  public fun addPoint(position: Vector2, index: Int = -1) {
     TransferContext.writeArguments(VECTOR2 to position, LONG to index.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.addPointPtr, NIL)
   }
 
-  /**
-   * Removes the point at index [index] from the line.
-   */
-  public fun removePoint(index: Int): Unit {
+  public fun removePoint(index: Int) {
     TransferContext.writeArguments(LONG to index.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.removePointPtr, NIL)
   }
 
-  /**
-   * Removes all points from the line.
-   */
-  public fun clearPoints(): Unit {
+  public fun clearPoints() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.clearPointsPtr, NIL)
   }
@@ -314,17 +241,8 @@ public open class Line2D : Node2D() {
   public enum class LineJointMode(
     id: Long,
   ) {
-    /**
-     * The line's joints will be pointy. If `sharp_limit` is greater than the rotation of a joint, it becomes a bevel joint instead.
-     */
     LINE_JOINT_SHARP(0),
-    /**
-     * The line's joints will be bevelled/chamfered.
-     */
     LINE_JOINT_BEVEL(1),
-    /**
-     * The line's joints will be rounded.
-     */
     LINE_JOINT_ROUND(2),
     ;
 
@@ -334,24 +252,17 @@ public open class Line2D : Node2D() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): LineJointMode = entries.single {
+          it.id == `value`
+      }
     }
   }
 
   public enum class LineCapMode(
     id: Long,
   ) {
-    /**
-     * Don't draw a line cap.
-     */
     LINE_CAP_NONE(0),
-    /**
-     * Draws the line cap as a box.
-     */
     LINE_CAP_BOX(1),
-    /**
-     * Draws the line cap as a circle.
-     */
     LINE_CAP_ROUND(2),
     ;
 
@@ -361,24 +272,17 @@ public open class Line2D : Node2D() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): LineCapMode = entries.single {
+          it.id == `value`
+      }
     }
   }
 
   public enum class LineTextureMode(
     id: Long,
   ) {
-    /**
-     * Takes the left pixels of the texture and renders it over the whole line.
-     */
     LINE_TEXTURE_NONE(0),
-    /**
-     * Tiles the texture over the line. [godot.CanvasItem.textureRepeat] of the [godot.Line2D] node must be [godot.CanvasItem.TEXTURE_REPEAT_ENABLED] or [godot.CanvasItem.TEXTURE_REPEAT_MIRROR] for it to work properly.
-     */
     LINE_TEXTURE_TILE(1),
-    /**
-     * Stretches the texture across the line. [godot.CanvasItem.textureRepeat] of the [godot.Line2D] node must be [godot.CanvasItem.TEXTURE_REPEAT_DISABLED] for best results.
-     */
     LINE_TEXTURE_STRETCH(2),
     ;
 
@@ -388,7 +292,9 @@ public open class Line2D : Node2D() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): LineTextureMode = entries.single {
+          it.id == `value`
+      }
     }
   }
 

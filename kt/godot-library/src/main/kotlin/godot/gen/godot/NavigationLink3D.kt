@@ -26,19 +26,8 @@ import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 
-/**
- * A link between two positions on [godot.NavigationRegion3D]s that agents can be routed through.
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/navigation/navigation_using_navigationlinks.html]($DOCS_URL/tutorials/navigation/navigation_using_navigationlinks.html)
- *
- * A link between two positions on [godot.NavigationRegion3D]s that agents can be routed through. These positions can be on the same [godot.NavigationRegion3D] or on two different ones. Links are useful to express navigation methods other than traveling along the surface of the navigation mesh, such as ziplines, teleporters, or gaps that can be jumped across.
- */
 @GodotBaseType
 public open class NavigationLink3D : Node3D() {
-  /**
-   * Whether this link is currently active. If `false`, [godot.NavigationServer3D.mapGetPath] will ignore this link.
-   */
   public var enabled: Boolean
     get() {
       TransferContext.writeArguments()
@@ -50,9 +39,6 @@ public open class NavigationLink3D : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setEnabledPtr, NIL)
     }
 
-  /**
-   * Whether this link can be traveled in both directions or only from [startPosition] to [endPosition].
-   */
   public var bidirectional: Boolean
     get() {
       TransferContext.writeArguments()
@@ -64,9 +50,6 @@ public open class NavigationLink3D : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setBidirectionalPtr, NIL)
     }
 
-  /**
-   * A bitfield determining all navigation layers the link belongs to. These navigation layers will be checked when requesting a path with [godot.NavigationServer3D.mapGetPath].
-   */
   public var navigationLayers: Long
     get() {
       TransferContext.writeArguments()
@@ -78,13 +61,6 @@ public open class NavigationLink3D : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setNavigationLayersPtr, NIL)
     }
 
-  /**
-   * Starting position of the link.
-   *
-   * This position will search out the nearest polygon in the navigation mesh to attach to.
-   *
-   * The distance the link will search is controlled by [godot.NavigationServer3D.mapSetLinkConnectionRadius].
-   */
   @CoreTypeLocalCopy
   public var startPosition: Vector3
     get() {
@@ -97,13 +73,6 @@ public open class NavigationLink3D : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setStartPositionPtr, NIL)
     }
 
-  /**
-   * Ending position of the link.
-   *
-   * This position will search out the nearest polygon in the navigation mesh to attach to.
-   *
-   * The distance the link will search is controlled by [godot.NavigationServer3D.mapSetLinkConnectionRadius].
-   */
   @CoreTypeLocalCopy
   public var endPosition: Vector3
     get() {
@@ -116,9 +85,6 @@ public open class NavigationLink3D : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setEndPositionPtr, NIL)
     }
 
-  /**
-   * When pathfinding enters this link from another regions navigation mesh the [enterCost] value is added to the path distance for determining the shortest path.
-   */
   public var enterCost: Float
     get() {
       TransferContext.writeArguments()
@@ -130,9 +96,6 @@ public open class NavigationLink3D : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setEnterCostPtr, NIL)
     }
 
-  /**
-   * When pathfinding moves along the link the traveled distance is multiplied with [travelCost] for determining the shortest path.
-   */
   public var travelCost: Float
     get() {
       TransferContext.writeArguments()
@@ -144,18 +107,12 @@ public open class NavigationLink3D : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTravelCostPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_NAVIGATIONLINK3D, scriptIndex)
     return true
   }
 
   /**
-   * Starting position of the link.
-   *
-   * This position will search out the nearest polygon in the navigation mesh to attach to.
-   *
-   * The distance the link will search is controlled by [godot.NavigationServer3D.mapSetLinkConnectionRadius].
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -178,12 +135,6 @@ public open class NavigationLink3D : Node3D() {
 
 
   /**
-   * Ending position of the link.
-   *
-   * This position will search out the nearest polygon in the navigation mesh to attach to.
-   *
-   * The distance the link will search is controlled by [godot.NavigationServer3D.mapSetLinkConnectionRadius].
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -205,51 +156,33 @@ public open class NavigationLink3D : Node3D() {
   }
 
 
-  /**
-   * Based on [value], enables or disables the specified layer in the [navigationLayers] bitmask, given a [layerNumber] between 1 and 32.
-   */
-  public fun setNavigationLayerValue(layerNumber: Int, `value`: Boolean): Unit {
+  public fun setNavigationLayerValue(layerNumber: Int, `value`: Boolean) {
     TransferContext.writeArguments(LONG to layerNumber.toLong(), BOOL to value)
     TransferContext.callMethod(rawPtr, MethodBindings.setNavigationLayerValuePtr, NIL)
   }
 
-  /**
-   * Returns whether or not the specified layer of the [navigationLayers] bitmask is enabled, given a [layerNumber] between 1 and 32.
-   */
   public fun getNavigationLayerValue(layerNumber: Int): Boolean {
     TransferContext.writeArguments(LONG to layerNumber.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getNavigationLayerValuePtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Sets the [startPosition] that is relative to the link from a global [position].
-   */
-  public fun setGlobalStartPosition(position: Vector3): Unit {
+  public fun setGlobalStartPosition(position: Vector3) {
     TransferContext.writeArguments(VECTOR3 to position)
     TransferContext.callMethod(rawPtr, MethodBindings.setGlobalStartPositionPtr, NIL)
   }
 
-  /**
-   * Returns the [startPosition] that is relative to the link as a global position.
-   */
   public fun getGlobalStartPosition(): Vector3 {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getGlobalStartPositionPtr, VECTOR3)
     return (TransferContext.readReturnValue(VECTOR3, false) as Vector3)
   }
 
-  /**
-   * Sets the [endPosition] that is relative to the link from a global [position].
-   */
-  public fun setGlobalEndPosition(position: Vector3): Unit {
+  public fun setGlobalEndPosition(position: Vector3) {
     TransferContext.writeArguments(VECTOR3 to position)
     TransferContext.callMethod(rawPtr, MethodBindings.setGlobalEndPositionPtr, NIL)
   }
 
-  /**
-   * Returns the [endPosition] that is relative to the link as a global position.
-   */
   public fun getGlobalEndPosition(): Vector3 {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getGlobalEndPositionPtr, VECTOR3)

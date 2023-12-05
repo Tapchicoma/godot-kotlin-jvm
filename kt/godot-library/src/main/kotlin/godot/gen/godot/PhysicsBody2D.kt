@@ -24,35 +24,15 @@ import kotlin.Boolean
 import kotlin.Float
 import kotlin.Int
 import kotlin.Suppress
-import kotlin.Unit
 import kotlin.jvm.JvmOverloads
 
-/**
- * Abstract base class for 2D game objects affected by physics.
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/physics/physics_introduction.html]($DOCS_URL/tutorials/physics/physics_introduction.html)
- *
- * [godot.PhysicsBody2D] is an abstract base class for 2D game objects affected by physics. All 2D physics bodies inherit from it.
- */
 @GodotBaseType
 public open class PhysicsBody2D internal constructor() : CollisionObject2D() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_PHYSICSBODY2D, scriptIndex)
     return true
   }
 
-  /**
-   * Moves the body along the vector [motion]. In order to be frame rate independent in [godot.Node.PhysicsProcess] or [godot.Node.Process], [motion] should be computed using `delta`.
-   *
-   * Returns a [godot.KinematicCollision2D], which contains information about the collision when stopped, or when touching another body along the motion.
-   *
-   * If [testOnly] is `true`, the body does not move but the would-be collision information is given.
-   *
-   * [safeMargin] is the extra margin used for collision recovery (see [godot.CharacterBody2D.safeMargin] for more details).
-   *
-   * If [recoveryAsCollision] is `true`, any depenetration from the recovery phase is also reported as a collision; this is used e.g. by [godot.CharacterBody2D] for improving floor detection during floor snapping.
-   */
   @JvmOverloads
   public fun moveAndCollide(
     motion: Vector2,
@@ -65,17 +45,6 @@ public open class PhysicsBody2D internal constructor() : CollisionObject2D() {
     return (TransferContext.readReturnValue(OBJECT, true) as KinematicCollision2D?)
   }
 
-  /**
-   * Checks for collisions without moving the body. In order to be frame rate independent in [godot.Node.PhysicsProcess] or [godot.Node.Process], [motion] should be computed using `delta`.
-   *
-   * Virtually sets the node's position, scale and rotation to that of the given [godot.core.Transform2D], then tries to move the body along the vector [motion]. Returns `true` if a collision would stop the body from moving along the whole path.
-   *
-   * [collision] is an optional object of type [godot.KinematicCollision2D], which contains additional information about the collision when stopped, or when touching another body along the motion.
-   *
-   * [safeMargin] is the extra margin used for collision recovery (see [godot.CharacterBody2D.safeMargin] for more details).
-   *
-   * If [recoveryAsCollision] is `true`, any depenetration from the recovery phase is also reported as a collision; this is useful for checking whether the body would *touch* any other bodies.
-   */
   @JvmOverloads
   public fun testMove(
     from: Transform2D,
@@ -89,27 +58,18 @@ public open class PhysicsBody2D internal constructor() : CollisionObject2D() {
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Returns an array of nodes that were added as collision exceptions for this body.
-   */
   public fun getCollisionExceptions(): VariantArray<PhysicsBody2D> {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getCollisionExceptionsPtr, ARRAY)
     return (TransferContext.readReturnValue(ARRAY, false) as VariantArray<PhysicsBody2D>)
   }
 
-  /**
-   * Adds a body to the list of bodies that this body can't collide with.
-   */
-  public fun addCollisionExceptionWith(body: Node): Unit {
+  public fun addCollisionExceptionWith(body: Node) {
     TransferContext.writeArguments(OBJECT to body)
     TransferContext.callMethod(rawPtr, MethodBindings.addCollisionExceptionWithPtr, NIL)
   }
 
-  /**
-   * Removes a body from the list of bodies that this body can't collide with.
-   */
-  public fun removeCollisionExceptionWith(body: Node): Unit {
+  public fun removeCollisionExceptionWith(body: Node) {
     TransferContext.writeArguments(OBJECT to body)
     TransferContext.callMethod(rawPtr, MethodBindings.removeCollisionExceptionWithPtr, NIL)
   }

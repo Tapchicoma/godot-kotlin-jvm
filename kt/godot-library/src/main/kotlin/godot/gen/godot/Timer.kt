@@ -21,31 +21,12 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
-import kotlin.Unit
 import kotlin.jvm.JvmOverloads
 
-/**
- * A countdown timer.
- *
- * Tutorials:
- * [https://godotengine.org/asset-library/asset/515](https://godotengine.org/asset-library/asset/515)
- *
- * Counts down a specified interval and emits a signal on reaching 0. Can be set to repeat or "one-shot" mode.
- *
- * **Note:** Timers are affected by [godot.Engine.timeScale], a higher scale means quicker timeouts, and vice versa.
- *
- * **Note:** To create a one-shot timer without instantiating a node, use [godot.SceneTree.createTimer].
- */
 @GodotBaseType
 public open class Timer : Node() {
-  /**
-   * Emitted when the timer reaches 0.
-   */
   public val timeout: Signal0 by signal()
 
-  /**
-   * Processing callback. See [enum TimerProcessCallback].
-   */
   public var processCallback: TimerProcessCallback
     get() {
       TransferContext.writeArguments()
@@ -57,11 +38,6 @@ public open class Timer : Node() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTimerProcessCallbackPtr, NIL)
     }
 
-  /**
-   * The wait time in seconds.
-   *
-   * **Note:** Timers can only emit once per rendered frame at most (or once per physics frame if [processCallback] is [TIMER_PROCESS_PHYSICS]). This means very low wait times (lower than 0.05 seconds) will behave in significantly different ways depending on the rendered framerate. For very low wait times, it is recommended to use a process loop in a script instead of using a Timer node. Timers are affected by [godot.Engine.timeScale], a higher scale means quicker timeouts, and vice versa.
-   */
   public var waitTime: Double
     get() {
       TransferContext.writeArguments()
@@ -73,9 +49,6 @@ public open class Timer : Node() {
       TransferContext.callMethod(rawPtr, MethodBindings.setWaitTimePtr, NIL)
     }
 
-  /**
-   * If `true`, the timer will stop when reaching 0. If `false`, it will restart.
-   */
   public var oneShot: Boolean
     get() {
       TransferContext.writeArguments()
@@ -87,11 +60,6 @@ public open class Timer : Node() {
       TransferContext.callMethod(rawPtr, MethodBindings.setOneShotPtr, NIL)
     }
 
-  /**
-   * If `true`, the timer will automatically start when entering the scene tree.
-   *
-   * **Note:** This property is automatically set to `false` after the timer enters the scene tree and starts.
-   */
   public var autostart: Boolean
     get() {
       TransferContext.writeArguments()
@@ -103,9 +71,6 @@ public open class Timer : Node() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAutostartPtr, NIL)
     }
 
-  /**
-   * If `true`, the timer is paused and will not process until it is unpaused again, even if [start] is called.
-   */
   public var paused: Boolean
     get() {
       TransferContext.writeArguments()
@@ -117,11 +82,6 @@ public open class Timer : Node() {
       TransferContext.callMethod(rawPtr, MethodBindings.setPausedPtr, NIL)
     }
 
-  /**
-   * The timer's remaining time in seconds. Returns 0 if the timer is inactive.
-   *
-   * **Note:** This value is read-only and cannot be set. It is based on [waitTime], which can be set using [start].
-   */
   public val timeLeft: Double
     get() {
       TransferContext.writeArguments()
@@ -129,33 +89,22 @@ public open class Timer : Node() {
       return (TransferContext.readReturnValue(DOUBLE, false) as Double)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_TIMER, scriptIndex)
     return true
   }
 
-  /**
-   * Starts the timer. Sets [waitTime] to [timeSec] if `time_sec > 0`. This also resets the remaining time to [waitTime].
-   *
-   * **Note:** This method will not resume a paused timer. See [paused].
-   */
   @JvmOverloads
-  public fun start(timeSec: Double = -1.0): Unit {
+  public fun start(timeSec: Double = -1.0) {
     TransferContext.writeArguments(DOUBLE to timeSec)
     TransferContext.callMethod(rawPtr, MethodBindings.startPtr, NIL)
   }
 
-  /**
-   * Stops the timer.
-   */
-  public fun stop(): Unit {
+  public fun stop() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.stopPtr, NIL)
   }
 
-  /**
-   * Returns `true` if the timer is stopped.
-   */
   public fun isStopped(): Boolean {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.isStoppedPtr, BOOL)
@@ -165,13 +114,7 @@ public open class Timer : Node() {
   public enum class TimerProcessCallback(
     id: Long,
   ) {
-    /**
-     * Update the timer during physics frames (see [godot.Node.NOTIFICATION_INTERNAL_PHYSICS_PROCESS]).
-     */
     TIMER_PROCESS_PHYSICS(0),
-    /**
-     * Update the timer during process frames (see [godot.Node.NOTIFICATION_INTERNAL_PROCESS]).
-     */
     TIMER_PROCESS_IDLE(1),
     ;
 
@@ -181,7 +124,9 @@ public open class Timer : Node() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): TimerProcessCallback = entries.single {
+          it.id == `value`
+      }
     }
   }
 

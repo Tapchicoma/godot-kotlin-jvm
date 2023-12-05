@@ -33,20 +33,8 @@ import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
 
-/**
- * Generate an [godot.PrimitiveMesh] from the text.
- *
- * Generate an [godot.PrimitiveMesh] from the text.
- *
- * TextMesh can be generated only when using dynamic fonts with vector glyph contours. Bitmap fonts (including bitmap data in the TrueType/OpenType containers, like color emoji fonts) are not supported.
- *
- * The UV layout is arranged in 4 horizontal strips, top to bottom: 40% of the height for the front face, 40% for the back face, 10% for the outer edges and 10% for the inner edges.
- */
 @GodotBaseType
 public open class TextMesh : PrimitiveMesh() {
-  /**
-   * The text to generate mesh from.
-   */
   public var text: String
     get() {
       TransferContext.writeArguments()
@@ -58,9 +46,6 @@ public open class TextMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTextPtr, NIL)
     }
 
-  /**
-   * Font configuration used to display text.
-   */
   public var font: Font?
     get() {
       TransferContext.writeArguments()
@@ -72,9 +57,6 @@ public open class TextMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFontPtr, NIL)
     }
 
-  /**
-   * Font size of the [godot.TextMesh]'s text.
-   */
   public var fontSize: Int
     get() {
       TransferContext.writeArguments()
@@ -86,9 +68,6 @@ public open class TextMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFontSizePtr, NIL)
     }
 
-  /**
-   * Controls the text's horizontal alignment. Supports left, center, right, and fill, or justify. Set it to one of the [enum HorizontalAlignment] constants.
-   */
   public var horizontalAlignment: HorizontalAlignment
     get() {
       TransferContext.writeArguments()
@@ -100,9 +79,6 @@ public open class TextMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setHorizontalAlignmentPtr, NIL)
     }
 
-  /**
-   * Controls the text's vertical alignment. Supports top, center, bottom. Set it to one of the [enum VerticalAlignment] constants.
-   */
   public var verticalAlignment: VerticalAlignment
     get() {
       TransferContext.writeArguments()
@@ -114,9 +90,6 @@ public open class TextMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setVerticalAlignmentPtr, NIL)
     }
 
-  /**
-   * If `true`, all the text displays as UPPERCASE.
-   */
   public var uppercase: Boolean
     get() {
       TransferContext.writeArguments()
@@ -128,9 +101,6 @@ public open class TextMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setUppercasePtr, NIL)
     }
 
-  /**
-   * Vertical space between lines in multiline [godot.TextMesh].
-   */
   public var lineSpacing: Float
     get() {
       TransferContext.writeArguments()
@@ -142,9 +112,6 @@ public open class TextMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setLineSpacingPtr, NIL)
     }
 
-  /**
-   * If set to something other than [godot.TextServer.AUTOWRAP_OFF], the text gets wrapped inside the node's bounding rectangle. If you resize the node, it will change its height automatically to show all the text. To see how each mode behaves, see [enum TextServer.AutowrapMode].
-   */
   public var autowrapMode: TextServer.AutowrapMode
     get() {
       TransferContext.writeArguments()
@@ -156,9 +123,6 @@ public open class TextMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAutowrapModePtr, NIL)
     }
 
-  /**
-   * Line fill alignment rules. For more info see [enum TextServer.JustificationFlag].
-   */
   public var justificationFlags: TextServer.JustificationFlag
     get() {
       TransferContext.writeArguments()
@@ -170,9 +134,6 @@ public open class TextMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setJustificationFlagsPtr, NIL)
     }
 
-  /**
-   * The size of one pixel's width on the text to scale it in 3D.
-   */
   public var pixelSize: Float
     get() {
       TransferContext.writeArguments()
@@ -184,9 +145,6 @@ public open class TextMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setPixelSizePtr, NIL)
     }
 
-  /**
-   * Step (in pixels) used to approximate Bézier curves.
-   */
   public var curveStep: Float
     get() {
       TransferContext.writeArguments()
@@ -198,9 +156,6 @@ public open class TextMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setCurveStepPtr, NIL)
     }
 
-  /**
-   * Depths of the mesh, if set to `0.0` only front surface, is generated, and UV layout is changed to use full texture for the front face only.
-   */
   public var depth: Float
     get() {
       TransferContext.writeArguments()
@@ -212,9 +167,6 @@ public open class TextMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDepthPtr, NIL)
     }
 
-  /**
-   * Text width (in pixels), used for fill alignment.
-   */
   public var width: Float
     get() {
       TransferContext.writeArguments()
@@ -226,9 +178,6 @@ public open class TextMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setWidthPtr, NIL)
     }
 
-  /**
-   * The text drawing offset (in pixels).
-   */
   @CoreTypeLocalCopy
   public var offset: Vector2
     get() {
@@ -241,9 +190,6 @@ public open class TextMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setOffsetPtr, NIL)
     }
 
-  /**
-   * Base text writing direction.
-   */
   public var textDirection: TextServer.Direction
     get() {
       TransferContext.writeArguments()
@@ -255,9 +201,6 @@ public open class TextMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTextDirectionPtr, NIL)
     }
 
-  /**
-   * Language code used for text shaping algorithms, if left empty current locale is used instead.
-   */
   public var language: String
     get() {
       TransferContext.writeArguments()
@@ -269,9 +212,6 @@ public open class TextMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setLanguagePtr, NIL)
     }
 
-  /**
-   * Set BiDi algorithm override for the structured text.
-   */
   public var structuredTextBidiOverride: TextServer.StructuredTextParser
     get() {
       TransferContext.writeArguments()
@@ -283,9 +223,6 @@ public open class TextMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setStructuredTextBidiOverridePtr, NIL)
     }
 
-  /**
-   * Set additional options for BiDi override.
-   */
   public var structuredTextBidiOverrideOptions: VariantArray<Any?>
     get() {
       TransferContext.writeArguments()
@@ -299,14 +236,12 @@ public open class TextMesh : PrimitiveMesh() {
           NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_TEXTMESH, scriptIndex)
     return true
   }
 
   /**
-   * The text drawing offset (in pixels).
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our

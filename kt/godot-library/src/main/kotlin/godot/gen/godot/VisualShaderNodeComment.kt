@@ -17,16 +17,8 @@ import kotlin.Int
 import kotlin.String
 import kotlin.Suppress
 
-/**
- * A comment node to be placed on visual shader graph.
- *
- * A resizable rectangular area with changeable [title] and [description] used for better organizing of other visual shader nodes.
- */
 @GodotBaseType
 public open class VisualShaderNodeComment : VisualShaderNodeResizableBase() {
-  /**
-   * A title of the node.
-   */
   public var title: String
     get() {
       TransferContext.writeArguments()
@@ -38,9 +30,6 @@ public open class VisualShaderNodeComment : VisualShaderNodeResizableBase() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTitlePtr, NIL)
     }
 
-  /**
-   * An additional description which placed below the title.
-   */
   public var description: String
     get() {
       TransferContext.writeArguments()
@@ -52,7 +41,7 @@ public open class VisualShaderNodeComment : VisualShaderNodeResizableBase() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDescriptionPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_VISUALSHADERNODECOMMENT, scriptIndex)
     return true
   }

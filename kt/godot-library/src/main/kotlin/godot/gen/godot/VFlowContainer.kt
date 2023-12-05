@@ -11,17 +11,9 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * A container that arranges its child controls vertically and wraps them around at the borders.
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/ui/gui_containers.html]($DOCS_URL/tutorials/ui/gui_containers.html)
- *
- * A variant of [godot.FlowContainer] that can only arrange its child controls vertically, wrapping them around at the borders. This is similar to how text in a book wraps around when no more words can fit on a line, except vertically.
- */
 @GodotBaseType
 public open class VFlowContainer : FlowContainer() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_VFLOWCONTAINER, scriptIndex)
     return true
   }

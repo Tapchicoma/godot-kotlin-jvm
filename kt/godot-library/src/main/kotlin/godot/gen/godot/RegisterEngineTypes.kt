@@ -4,9 +4,8 @@ package godot
 import godot.core.TypeManager
 import godot.core.VariantType.OBJECT
 import godot.core.variantMapper
-import kotlin.Unit
 
-public fun registerEngineTypes(): Unit {
+public fun registerEngineTypes() {
   TypeManager.registerEngineType("Performance", Performance::class) { Performance }
   TypeManager.registerSingleton("Performance")
   TypeManager.registerEngineType("TextServerManager", TextServerManager::class) { TextServerManager
@@ -1246,7 +1245,7 @@ public fun registerEngineTypes(): Unit {
   TypeManager.registerEngineType("ZIPReader", ZIPReader::class, ::ZIPReader)
 }
 
-public fun registerVariantMapping(): Unit {
+public fun registerVariantMapping() {
   variantMapper[Performance::class] = OBJECT
   variantMapper[TextServerManager::class] = OBJECT
   variantMapper[PhysicsServer2DManager::class] = OBJECT
@@ -2099,7 +2098,7 @@ public fun registerVariantMapping(): Unit {
   variantMapper[ZIPReader::class] = OBJECT
 }
 
-public fun registerEngineTypeMethods(): Unit {
+public fun registerEngineTypeMethods() {
   Performance.MethodBindings
   TextServerManager.MethodBindings
   PhysicsServer2DManager.MethodBindings

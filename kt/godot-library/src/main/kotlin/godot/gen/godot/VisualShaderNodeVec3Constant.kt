@@ -20,16 +20,8 @@ import kotlin.Int
 import kotlin.Suppress
 import kotlin.Unit
 
-/**
- * A [godot.core.Vector3] constant to be used within the visual shader graph.
- *
- * A constant [godot.core.Vector3], which can be used as an input node.
- */
 @GodotBaseType
 public open class VisualShaderNodeVec3Constant : VisualShaderNodeConstant() {
-  /**
-   * A [godot.core.Vector3] constant which represents the state of this node.
-   */
   @CoreTypeLocalCopy
   public var constant: Vector3
     get() {
@@ -42,14 +34,12 @@ public open class VisualShaderNodeVec3Constant : VisualShaderNodeConstant() {
       TransferContext.callMethod(rawPtr, MethodBindings.setConstantPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_VISUALSHADERNODEVEC3CONSTANT, scriptIndex)
     return true
   }
 
   /**
-   * A [godot.core.Vector3] constant which represents the state of this node.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our

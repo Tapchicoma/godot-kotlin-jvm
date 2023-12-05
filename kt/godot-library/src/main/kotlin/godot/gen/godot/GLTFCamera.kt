@@ -80,7 +80,7 @@ public open class GLTFCamera : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDepthNearPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_GLTFCAMERA, scriptIndex)
     return true
   }

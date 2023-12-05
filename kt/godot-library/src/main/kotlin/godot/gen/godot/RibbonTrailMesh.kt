@@ -21,21 +21,8 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
 
-/**
- * Represents a straight ribbon-shaped [godot.PrimitiveMesh] with variable width.
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/3d/particles/index.html]($DOCS_URL/tutorials/3d/particles/index.html)
- *
- * [godot.RibbonTrailMesh] represents a straight ribbon-shaped mesh with variable width. The ribbon is composed of a number of flat or cross-shaped sections, each with the same [sectionLength] and number of [sectionSegments]. A [curve] is sampled along the total length of the ribbon, meaning that the curve determines the size of the ribbon along its length.
- *
- * This primitive mesh is usually used for particle trails.
- */
 @GodotBaseType
 public open class RibbonTrailMesh : PrimitiveMesh() {
-  /**
-   * Determines the shape of the ribbon.
-   */
   public var shape: Shape
     get() {
       TransferContext.writeArguments()
@@ -47,9 +34,6 @@ public open class RibbonTrailMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setShapePtr, NIL)
     }
 
-  /**
-   * The baseline size of the ribbon. The size of a particular section segment is obtained by multiplying this size by the value of the [curve] at the given distance.
-   */
   public var size: Float
     get() {
       TransferContext.writeArguments()
@@ -61,9 +45,6 @@ public open class RibbonTrailMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSizePtr, NIL)
     }
 
-  /**
-   * The total number of sections on the ribbon.
-   */
   public var sections: Int
     get() {
       TransferContext.writeArguments()
@@ -75,9 +56,6 @@ public open class RibbonTrailMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSectionsPtr, NIL)
     }
 
-  /**
-   * The length of a section of the ribbon.
-   */
   public var sectionLength: Float
     get() {
       TransferContext.writeArguments()
@@ -89,9 +67,6 @@ public open class RibbonTrailMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSectionLengthPtr, NIL)
     }
 
-  /**
-   * The number of segments in a section. The [curve] is sampled on each segment to determine its size. Higher values result in a more detailed ribbon at the cost of performance.
-   */
   public var sectionSegments: Int
     get() {
       TransferContext.writeArguments()
@@ -103,9 +78,6 @@ public open class RibbonTrailMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSectionSegmentsPtr, NIL)
     }
 
-  /**
-   * Determines the size of the ribbon along its length. The size of a particular section segment is obtained by multiplying the baseline [size] by the value of this curve at the given distance. For values smaller than `0`, the faces will be inverted.
-   */
   public var curve: Curve?
     get() {
       TransferContext.writeArguments()
@@ -117,7 +89,7 @@ public open class RibbonTrailMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setCurvePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_RIBBONTRAILMESH, scriptIndex)
     return true
   }
@@ -125,13 +97,7 @@ public open class RibbonTrailMesh : PrimitiveMesh() {
   public enum class Shape(
     id: Long,
   ) {
-    /**
-     * Gives the mesh a single flat face.
-     */
     SHAPE_FLAT(0),
-    /**
-     * Gives the mesh two perpendicular flat faces, making a cross shape.
-     */
     SHAPE_CROSS(1),
     ;
 
@@ -141,7 +107,9 @@ public open class RibbonTrailMesh : PrimitiveMesh() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): Shape = entries.single {
+          it.id == `value`
+      }
     }
   }
 

@@ -19,59 +19,10 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * One-shot timer.
- *
- * A one-shot timer managed by the scene tree, which emits [timeout] on completion. See also [godot.SceneTree.createTimer].
- *
- * As opposed to [godot.Timer], it does not require the instantiation of a node. Commonly used to create a one-shot delay timer as in the following example:
- *
- * [codeblocks]
- *
- * [gdscript]
- *
- * func some_function():
- *
- *     print("Timer started.")
- *
- *     await get_tree().create_timer(1.0).timeout
- *
- *     print("Timer ended.")
- *
- * [/gdscript]
- *
- * [csharp]
- *
- * public async Task SomeFunction()
- *
- * {
- *
- *     GD.Print("Timer started.");
- *
- *     await ToSignal(GetTree().CreateTimer(1.0f), SceneTreeTimer.SignalName.Timeout);
- *
- *     GD.Print("Timer ended.");
- *
- * }
- *
- * [/csharp]
- *
- * [/codeblocks]
- *
- * The timer will be dereferenced after its time elapses. To preserve the timer, you can keep a reference to it. See [godot.RefCounted].
- *
- * **Note:** The timer is processed after all of the nodes in the current frame, i.e. node's [godot.Node.Process] method would be called before the timer (or [godot.Node.PhysicsProcess] if `process_in_physics` in [godot.SceneTree.createTimer] has been set to `true`).
- */
 @GodotBaseType
 public open class SceneTreeTimer internal constructor() : RefCounted() {
-  /**
-   * Emitted when the timer reaches 0.
-   */
   public val timeout: Signal0 by signal()
 
-  /**
-   * The time remaining (in seconds).
-   */
   public var timeLeft: Double
     get() {
       TransferContext.writeArguments()
@@ -83,7 +34,7 @@ public open class SceneTreeTimer internal constructor() : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTimeLeftPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_SCENETREETIMER, scriptIndex)
     return true
   }

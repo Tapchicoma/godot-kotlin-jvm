@@ -61,29 +61,29 @@ public sealed interface KeyModifierMask {
   public infix fun ushr(bits: Int): KeyModifierMask = KeyModifierMaskValue(flag ushr bits)
 
   public companion object {
-    public val KEY_CODE_MASK: KeyModifierMask = KeyModifierMaskValue(8388607)
+    public val KEY_CODE_MASK: KeyModifierMask = KeyModifierMaskValue(8_388_607)
 
-    public val KEY_MODIFIER_MASK: KeyModifierMask = KeyModifierMaskValue(532676608)
+    public val KEY_MODIFIER_MASK: KeyModifierMask = KeyModifierMaskValue(532_676_608)
 
-    public val KEY_MASK_CMD_OR_CTRL: KeyModifierMask = KeyModifierMaskValue(16777216)
+    public val KEY_MASK_CMD_OR_CTRL: KeyModifierMask = KeyModifierMaskValue(16_777_216)
 
-    public val KEY_MASK_SHIFT: KeyModifierMask = KeyModifierMaskValue(33554432)
+    public val KEY_MASK_SHIFT: KeyModifierMask = KeyModifierMaskValue(33_554_432)
 
-    public val KEY_MASK_ALT: KeyModifierMask = KeyModifierMaskValue(67108864)
+    public val KEY_MASK_ALT: KeyModifierMask = KeyModifierMaskValue(67_108_864)
 
-    public val KEY_MASK_META: KeyModifierMask = KeyModifierMaskValue(134217728)
+    public val KEY_MASK_META: KeyModifierMask = KeyModifierMaskValue(134_217_728)
 
-    public val KEY_MASK_CTRL: KeyModifierMask = KeyModifierMaskValue(268435456)
+    public val KEY_MASK_CTRL: KeyModifierMask = KeyModifierMaskValue(268_435_456)
 
-    public val KEY_MASK_KPAD: KeyModifierMask = KeyModifierMaskValue(536870912)
+    public val KEY_MASK_KPAD: KeyModifierMask = KeyModifierMaskValue(536_870_912)
 
-    public val KEY_MASK_GROUP_SWITCH: KeyModifierMask = KeyModifierMaskValue(1073741824)
+    public val KEY_MASK_GROUP_SWITCH: KeyModifierMask = KeyModifierMaskValue(1_073_741_824)
   }
 }
 
 @JvmInline
 internal value class KeyModifierMaskValue internal constructor(
-  public override val flag: Long,
+  override val flag: Long,
 ) : KeyModifierMask
 
 public infix fun Long.or(other: KeyModifierMask): Long = this.or(other.flag)

@@ -22,19 +22,8 @@ import kotlin.Long
 import kotlin.Suppress
 import kotlin.jvm.JvmName
 
-/**
- * Represents a mouse button being pressed or released.
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/inputs/mouse_and_input_coordinates.html]($DOCS_URL/tutorials/inputs/mouse_and_input_coordinates.html)
- *
- * Stores information about mouse click events. See [godot.Node.Input].
- */
 @GodotBaseType
 public open class InputEventMouseButton : InputEventMouse() {
-  /**
-   * The amount (or delta) of the event. When used for high-precision scroll events, this indicates the scroll amount (vertical or horizontal). This is only supported on some platforms; the reported sensitivity varies depending on the platform. May be `0` if not supported.
-   */
   public var factor: Float
     get() {
       TransferContext.writeArguments()
@@ -46,9 +35,6 @@ public open class InputEventMouseButton : InputEventMouse() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFactorPtr, NIL)
     }
 
-  /**
-   * The mouse button identifier, one of the [enum MouseButton] button or button wheel constants.
-   */
   public var buttonIndex: MouseButton
     get() {
       TransferContext.writeArguments()
@@ -60,9 +46,6 @@ public open class InputEventMouseButton : InputEventMouse() {
       TransferContext.callMethod(rawPtr, MethodBindings.setButtonIndexPtr, NIL)
     }
 
-  /**
-   * If `true`, the mouse button event has been canceled.
-   */
   public var canceled: Boolean
     @JvmName("isCanceled_prop")
     @Suppress("INAPPLICABLE_JVM_NAME")
@@ -72,9 +55,6 @@ public open class InputEventMouseButton : InputEventMouse() {
       TransferContext.callMethod(rawPtr, MethodBindings.setCanceledPtr, NIL)
     }
 
-  /**
-   * If `true`, the mouse button's state is pressed. If `false`, the mouse button's state is released.
-   */
   public var pressed: Boolean
     @JvmName("isPressed_prop")
     @Suppress("INAPPLICABLE_JVM_NAME")
@@ -84,9 +64,6 @@ public open class InputEventMouseButton : InputEventMouse() {
       TransferContext.callMethod(rawPtr, MethodBindings.setPressedPtr, NIL)
     }
 
-  /**
-   * If `true`, the mouse button's state is a double-click.
-   */
   public var doubleClick: Boolean
     get() {
       TransferContext.writeArguments()
@@ -98,7 +75,7 @@ public open class InputEventMouseButton : InputEventMouse() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDoubleClickPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_INPUTEVENTMOUSEBUTTON, scriptIndex)
     return true
   }

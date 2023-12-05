@@ -176,7 +176,7 @@ public open class GridMap : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setBakeNavigationPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_GRIDMAP, scriptIndex)
     return true
   }
@@ -203,7 +203,7 @@ public open class GridMap : Node3D() {
   }
 
 
-  public fun setCollisionMaskValue(layerNumber: Int, `value`: Boolean): Unit {
+  public fun setCollisionMaskValue(layerNumber: Int, `value`: Boolean) {
     TransferContext.writeArguments(LONG to layerNumber.toLong(), BOOL to value)
     TransferContext.callMethod(rawPtr, MethodBindings.setCollisionMaskValuePtr, NIL)
   }
@@ -214,7 +214,7 @@ public open class GridMap : Node3D() {
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  public fun setCollisionLayerValue(layerNumber: Int, `value`: Boolean): Unit {
+  public fun setCollisionLayerValue(layerNumber: Int, `value`: Boolean) {
     TransferContext.writeArguments(LONG to layerNumber.toLong(), BOOL to value)
     TransferContext.callMethod(rawPtr, MethodBindings.setCollisionLayerValuePtr, NIL)
   }
@@ -225,7 +225,7 @@ public open class GridMap : Node3D() {
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  public fun setNavigationMap(navigationMap: RID): Unit {
+  public fun setNavigationMap(navigationMap: RID) {
     TransferContext.writeArguments(_RID to navigationMap)
     TransferContext.callMethod(rawPtr, MethodBindings.setNavigationMapPtr, NIL)
   }
@@ -241,7 +241,7 @@ public open class GridMap : Node3D() {
     position: Vector3i,
     item: Int,
     orientation: Int = 0,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(VECTOR3I to position, LONG to item.toLong(), LONG to orientation.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.setCellItemPtr, NIL)
   }
@@ -288,12 +288,12 @@ public open class GridMap : Node3D() {
     return (TransferContext.readReturnValue(VECTOR3, false) as Vector3)
   }
 
-  public fun resourceChanged(resource: Resource): Unit {
+  public fun resourceChanged(resource: Resource) {
     TransferContext.writeArguments(OBJECT to resource)
     TransferContext.callMethod(rawPtr, MethodBindings.resourceChangedPtr, NIL)
   }
 
-  public fun clear(): Unit {
+  public fun clear() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.clearPtr, NIL)
   }
@@ -328,14 +328,13 @@ public open class GridMap : Node3D() {
     return (TransferContext.readReturnValue(_RID, false) as RID)
   }
 
-  public fun clearBakedMeshes(): Unit {
+  public fun clearBakedMeshes() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.clearBakedMeshesPtr, NIL)
   }
 
   @JvmOverloads
-  public fun makeBakedMeshes(genLightmapUv: Boolean = false, lightmapUvTexelSize: Float = 0.1f):
-      Unit {
+  public fun makeBakedMeshes(genLightmapUv: Boolean = false, lightmapUvTexelSize: Float = 0.1f) {
     TransferContext.writeArguments(BOOL to genLightmapUv, DOUBLE to lightmapUvTexelSize.toDouble())
     TransferContext.callMethod(rawPtr, MethodBindings.makeBakedMeshesPtr, NIL)
   }

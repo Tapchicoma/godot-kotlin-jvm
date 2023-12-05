@@ -18,19 +18,8 @@ import kotlin.Float
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * Adds a panner audio effect to an audio bus. Pans sound left or right.
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/audio/audio_buses.html]($DOCS_URL/tutorials/audio/audio_buses.html)
- *
- * Determines how much of an audio signal is sent to the left and right buses.
- */
 @GodotBaseType
 public open class AudioEffectPanner : AudioEffect() {
-  /**
-   * Pan position. Value can range from -1 (fully left) to 1 (fully right).
-   */
   public var pan: Float
     get() {
       TransferContext.writeArguments()
@@ -42,7 +31,7 @@ public open class AudioEffectPanner : AudioEffect() {
       TransferContext.callMethod(rawPtr, MethodBindings.setPanPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_AUDIOEFFECTPANNER, scriptIndex)
     return true
   }

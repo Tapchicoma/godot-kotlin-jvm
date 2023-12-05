@@ -20,19 +20,8 @@ import kotlin.Int
 import kotlin.Suppress
 import kotlin.Unit
 
-/**
- * Represents a panning touch gesture.
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/inputs/inputevent.html]($DOCS_URL/tutorials/inputs/inputevent.html)
- *
- * Stores information about pan gestures. A pan gesture is performed when the user swipes the touch screen with two fingers. It's typically used for panning/scrolling.
- */
 @GodotBaseType
 public open class InputEventPanGesture : InputEventGesture() {
-  /**
-   * Panning amount since last pan event.
-   */
   @CoreTypeLocalCopy
   public var delta: Vector2
     get() {
@@ -45,14 +34,12 @@ public open class InputEventPanGesture : InputEventGesture() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDeltaPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_INPUTEVENTPANGESTURE, scriptIndex)
     return true
   }
 
   /**
-   * Panning amount since last pan event.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our

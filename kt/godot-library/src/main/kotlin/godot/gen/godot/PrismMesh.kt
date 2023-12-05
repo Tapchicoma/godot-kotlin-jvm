@@ -25,16 +25,8 @@ import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 
-/**
- * Class representing a prism-shaped [godot.PrimitiveMesh].
- *
- * Class representing a prism-shaped [godot.PrimitiveMesh].
- */
 @GodotBaseType
 public open class PrismMesh : PrimitiveMesh() {
-  /**
-   * Displacement of the upper edge along the X axis. 0.0 positions edge straight above the bottom-left edge.
-   */
   public var leftToRight: Float
     get() {
       TransferContext.writeArguments()
@@ -46,9 +38,6 @@ public open class PrismMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setLeftToRightPtr, NIL)
     }
 
-  /**
-   * Size of the prism.
-   */
   @CoreTypeLocalCopy
   public var size: Vector3
     get() {
@@ -61,9 +50,6 @@ public open class PrismMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSizePtr, NIL)
     }
 
-  /**
-   * Number of added edge loops along the X axis.
-   */
   public var subdivideWidth: Int
     get() {
       TransferContext.writeArguments()
@@ -75,9 +61,6 @@ public open class PrismMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSubdivideWidthPtr, NIL)
     }
 
-  /**
-   * Number of added edge loops along the Y axis.
-   */
   public var subdivideHeight: Int
     get() {
       TransferContext.writeArguments()
@@ -89,9 +72,6 @@ public open class PrismMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSubdivideHeightPtr, NIL)
     }
 
-  /**
-   * Number of added edge loops along the Z axis.
-   */
   public var subdivideDepth: Int
     get() {
       TransferContext.writeArguments()
@@ -103,14 +83,12 @@ public open class PrismMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSubdivideDepthPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_PRISMMESH, scriptIndex)
     return true
   }
 
   /**
-   * Size of the prism.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our

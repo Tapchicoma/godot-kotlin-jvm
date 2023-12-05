@@ -20,18 +20,9 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
-import kotlin.Unit
 
-/**
- * A horizontal menu bar that creates a [godot.MenuButton] for each [godot.PopupMenu] child.
- *
- * A horizontal menu bar that creates a [godot.MenuButton] for each [godot.PopupMenu] child. New items are created by adding [godot.PopupMenu]s to this node.
- */
 @GodotBaseType
 public open class MenuBar : Control() {
-  /**
-   * Flat [godot.MenuBar] don't display item decoration.
-   */
   public var flat: Boolean
     get() {
       TransferContext.writeArguments()
@@ -43,9 +34,6 @@ public open class MenuBar : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFlatPtr, NIL)
     }
 
-  /**
-   * Position in the global menu to insert first [godot.MenuBar] item at.
-   */
   public var startIndex: Int
     get() {
       TransferContext.writeArguments()
@@ -57,9 +45,6 @@ public open class MenuBar : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setStartIndexPtr, NIL)
     }
 
-  /**
-   * If `true`, when the cursor hovers above menu item, it will close the current [godot.PopupMenu] and open the other one.
-   */
   public var switchOnHover: Boolean
     get() {
       TransferContext.writeArguments()
@@ -71,9 +56,6 @@ public open class MenuBar : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSwitchOnHoverPtr, NIL)
     }
 
-  /**
-   * If `true`, [godot.MenuBar] will use system global menu when supported.
-   */
   public var preferGlobalMenu: Boolean
     get() {
       TransferContext.writeArguments()
@@ -85,9 +67,6 @@ public open class MenuBar : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setPreferGlobalMenuPtr, NIL)
     }
 
-  /**
-   * Base text writing direction.
-   */
   public var textDirection: Control.TextDirection
     get() {
       TransferContext.writeArguments()
@@ -99,9 +78,6 @@ public open class MenuBar : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTextDirectionPtr, NIL)
     }
 
-  /**
-   * Language code used for line-breaking and text shaping algorithms, if left empty current locale is used instead.
-   */
   public var language: String
     get() {
       TransferContext.writeArguments()
@@ -113,108 +89,72 @@ public open class MenuBar : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setLanguagePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_MENUBAR, scriptIndex)
     return true
   }
 
-  /**
-   * If `true`, shortcuts are disabled and cannot be used to trigger the button.
-   */
-  public fun setDisableShortcuts(disabled: Boolean): Unit {
+  public fun setDisableShortcuts(disabled: Boolean) {
     TransferContext.writeArguments(BOOL to disabled)
     TransferContext.callMethod(rawPtr, MethodBindings.setDisableShortcutsPtr, NIL)
   }
 
-  /**
-   * Returns `true`, if system global menu is supported and used by this [godot.MenuBar].
-   */
   public fun isNativeMenu(): Boolean {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.isNativeMenuPtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Returns number of menu items.
-   */
   public fun getMenuCount(): Int {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getMenuCountPtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Sets menu item title.
-   */
-  public fun setMenuTitle(menu: Int, title: String): Unit {
+  public fun setMenuTitle(menu: Int, title: String) {
     TransferContext.writeArguments(LONG to menu.toLong(), STRING to title)
     TransferContext.callMethod(rawPtr, MethodBindings.setMenuTitlePtr, NIL)
   }
 
-  /**
-   * Returns menu item title.
-   */
   public fun getMenuTitle(menu: Int): String {
     TransferContext.writeArguments(LONG to menu.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getMenuTitlePtr, STRING)
     return (TransferContext.readReturnValue(STRING, false) as String)
   }
 
-  /**
-   * Sets menu item tooltip.
-   */
-  public fun setMenuTooltip(menu: Int, tooltip: String): Unit {
+  public fun setMenuTooltip(menu: Int, tooltip: String) {
     TransferContext.writeArguments(LONG to menu.toLong(), STRING to tooltip)
     TransferContext.callMethod(rawPtr, MethodBindings.setMenuTooltipPtr, NIL)
   }
 
-  /**
-   * Returns menu item tooltip.
-   */
   public fun getMenuTooltip(menu: Int): String {
     TransferContext.writeArguments(LONG to menu.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getMenuTooltipPtr, STRING)
     return (TransferContext.readReturnValue(STRING, false) as String)
   }
 
-  /**
-   * If `true`, menu item is disabled.
-   */
-  public fun setMenuDisabled(menu: Int, disabled: Boolean): Unit {
+  public fun setMenuDisabled(menu: Int, disabled: Boolean) {
     TransferContext.writeArguments(LONG to menu.toLong(), BOOL to disabled)
     TransferContext.callMethod(rawPtr, MethodBindings.setMenuDisabledPtr, NIL)
   }
 
-  /**
-   * Returns `true`, if menu item is disabled.
-   */
   public fun isMenuDisabled(menu: Int): Boolean {
     TransferContext.writeArguments(LONG to menu.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.isMenuDisabledPtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * If `true`, menu item is hidden.
-   */
-  public fun setMenuHidden(menu: Int, hidden: Boolean): Unit {
+  public fun setMenuHidden(menu: Int, hidden: Boolean) {
     TransferContext.writeArguments(LONG to menu.toLong(), BOOL to hidden)
     TransferContext.callMethod(rawPtr, MethodBindings.setMenuHiddenPtr, NIL)
   }
 
-  /**
-   * Returns `true`, if menu item is hidden.
-   */
   public fun isMenuHidden(menu: Int): Boolean {
     TransferContext.writeArguments(LONG to menu.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.isMenuHiddenPtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Returns [godot.PopupMenu] associated with menu item.
-   */
   public fun getMenuPopup(menu: Int): PopupMenu? {
     TransferContext.writeArguments(LONG to menu.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getMenuPopupPtr, OBJECT)

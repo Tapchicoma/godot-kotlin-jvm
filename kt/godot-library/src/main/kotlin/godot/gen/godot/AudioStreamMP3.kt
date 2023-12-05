@@ -90,7 +90,7 @@ public open class AudioStreamMP3 : AudioStream() {
       TransferContext.callMethod(rawPtr, MethodBindings.setLoopOffsetPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_AUDIOSTREAMMP3, scriptIndex)
     return true
   }

@@ -20,21 +20,8 @@ import kotlin.Int
 import kotlin.Suppress
 import kotlin.Unit
 
-/**
- * A 2D rectangle shape used for physics collision.
- *
- * Tutorials:
- * [https://godotengine.org/asset-library/asset/113](https://godotengine.org/asset-library/asset/113)
- *
- * A 2D rectangle shape, intended for use in physics. Usually used to provide a shape for a [godot.CollisionShape2D].
- *
- * **Performance:** [godot.RectangleShape2D] is fast to check collisions against. It is faster than [godot.CapsuleShape2D], but slower than [godot.CircleShape2D].
- */
 @GodotBaseType
 public open class RectangleShape2D : Shape2D() {
-  /**
-   * The rectangle's width and height.
-   */
   @CoreTypeLocalCopy
   public var size: Vector2
     get() {
@@ -47,14 +34,12 @@ public open class RectangleShape2D : Shape2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSizePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_RECTANGLESHAPE2D, scriptIndex)
     return true
   }
 
   /**
-   * The rectangle's width and height.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our

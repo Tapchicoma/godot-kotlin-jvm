@@ -15,27 +15,13 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * 6-sided texture typically used in 3D rendering.
- *
- * A cubemap is made of 6 textures organized in layers. They are typically used for faking reflections in 3D rendering (see [godot.ReflectionProbe]). It can be used to make an object look as if it's reflecting its surroundings. This usually delivers much better performance than other reflection methods.
- *
- * This resource is typically used as a uniform in custom shaders. Few core Godot methods make use of [godot.Cubemap] resources.
- *
- * To create such a texture file yourself, reimport your image files using the Godot Editor import presets.
- *
- * **Note:** Godot doesn't support using cubemaps in a [godot.PanoramaSkyMaterial]. You can use [this tool](https://danilw.github.io/GLSL-howto/cubemap_to_panorama_js/cubemap_to_panorama.html) to convert a cubemap to an equirectangular sky map.
- */
 @GodotBaseType
 public open class Cubemap : ImageTextureLayered() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_CUBEMAP, scriptIndex)
     return true
   }
 
-  /**
-   * Creates a placeholder version of this resource ([godot.PlaceholderCubemap]).
-   */
   public fun createPlaceholder(): Resource? {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.createPlaceholderPtr, OBJECT)

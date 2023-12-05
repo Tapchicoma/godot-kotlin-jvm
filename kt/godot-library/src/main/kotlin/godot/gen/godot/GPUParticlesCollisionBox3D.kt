@@ -20,20 +20,8 @@ import kotlin.Int
 import kotlin.Suppress
 import kotlin.Unit
 
-/**
- * Box-shaped 3D particle collision shape affecting [godot.GPUParticles3D] nodes.
- *
- * Box-shaped 3D particle collision shape affecting [godot.GPUParticles3D] nodes.
- *
- * **Note:** [godot.ParticleProcessMaterial.collisionMode] must be [godot.ParticleProcessMaterial.COLLISION_RIGID] or [godot.ParticleProcessMaterial.COLLISION_HIDE_ON_CONTACT] on the [godot.GPUParticles3D]'s process material for collision to work.
- *
- * **Note:** Particle collision only affects [godot.GPUParticles3D], not [godot.CPUParticles3D].
- */
 @GodotBaseType
 public open class GPUParticlesCollisionBox3D : GPUParticlesCollision3D() {
-  /**
-   * The collision box's size in 3D units.
-   */
   @CoreTypeLocalCopy
   public var size: Vector3
     get() {
@@ -46,14 +34,12 @@ public open class GPUParticlesCollisionBox3D : GPUParticlesCollision3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSizePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_GPUPARTICLESCOLLISIONBOX3D, scriptIndex)
     return true
   }
 
   /**
-   * The collision box's size in 3D units.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our

@@ -28,16 +28,8 @@ import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmOverloads
 
-/**
- * Provides parameters for [godot.PhysicsDirectSpaceState2D.intersectRay].
- *
- * By changing various properties of this object, such as the ray position, you can configure the parameters for [godot.PhysicsDirectSpaceState2D.intersectRay].
- */
 @GodotBaseType
 public open class PhysicsRayQueryParameters2D : RefCounted() {
-  /**
-   * The starting point of the ray being queried for, in global coordinates.
-   */
   @CoreTypeLocalCopy
   public var from: Vector2
     get() {
@@ -50,9 +42,6 @@ public open class PhysicsRayQueryParameters2D : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFromPtr, NIL)
     }
 
-  /**
-   * The ending point of the ray being queried for, in global coordinates.
-   */
   @CoreTypeLocalCopy
   public var to: Vector2
     get() {
@@ -65,9 +54,6 @@ public open class PhysicsRayQueryParameters2D : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setToPtr, NIL)
     }
 
-  /**
-   * The physics layers the query will detect (as a bitmask). By default, all collision layers are detected. See [godot.Collision layers and masks]($DOCS_URL/tutorials/physics/physics_introduction.html#collision-layers-and-masks) in the documentation for more information.
-   */
   public var collisionMask: Long
     get() {
       TransferContext.writeArguments()
@@ -79,9 +65,6 @@ public open class PhysicsRayQueryParameters2D : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setCollisionMaskPtr, NIL)
     }
 
-  /**
-   * The list of object [RID]s that will be excluded from collisions. Use [godot.CollisionObject2D.getRid] to get the [RID] associated with a [godot.CollisionObject2D]-derived node.
-   */
   public var exclude: VariantArray<RID>
     get() {
       TransferContext.writeArguments()
@@ -93,9 +76,6 @@ public open class PhysicsRayQueryParameters2D : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setExcludePtr, NIL)
     }
 
-  /**
-   * If `true`, the query will take [godot.PhysicsBody2D]s into account.
-   */
   public var collideWithBodies: Boolean
     get() {
       TransferContext.writeArguments()
@@ -107,9 +87,6 @@ public open class PhysicsRayQueryParameters2D : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setCollideWithBodiesPtr, NIL)
     }
 
-  /**
-   * If `true`, the query will take [godot.Area2D]s into account.
-   */
   public var collideWithAreas: Boolean
     get() {
       TransferContext.writeArguments()
@@ -121,9 +98,6 @@ public open class PhysicsRayQueryParameters2D : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setCollideWithAreasPtr, NIL)
     }
 
-  /**
-   * If `true`, the query will detect a hit when starting inside shapes. In this case the collision normal will be `Vector2(0, 0)`. Does not affect concave polygon shapes.
-   */
   public var hitFromInside: Boolean
     get() {
       TransferContext.writeArguments()
@@ -135,14 +109,12 @@ public open class PhysicsRayQueryParameters2D : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setHitFromInsidePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_PHYSICSRAYQUERYPARAMETERS2D, scriptIndex)
     return true
   }
 
   /**
-   * The starting point of the ray being queried for, in global coordinates.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -165,8 +137,6 @@ public open class PhysicsRayQueryParameters2D : RefCounted() {
 
 
   /**
-   * The ending point of the ray being queried for, in global coordinates.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -189,14 +159,6 @@ public open class PhysicsRayQueryParameters2D : RefCounted() {
 
 
   public companion object {
-    /**
-     * Returns a new, pre-configured [godot.PhysicsRayQueryParameters2D] object. Use it to quickly create query parameters using the most common options.
-     *
-     * ```
-     * 				var query = PhysicsRayQueryParameters2D.create(global_position, global_position + Vector2(0, 100))
-     * 				var collision = get_world_2d().direct_space_state.intersect_ray(query)
-     * 				```
-     */
     @JvmOverloads
     public fun create(
       from: Vector2,

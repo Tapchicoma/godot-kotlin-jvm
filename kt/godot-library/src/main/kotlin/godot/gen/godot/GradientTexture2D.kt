@@ -25,16 +25,8 @@ import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmName
 
-/**
- * Gradient-filled 2D texture.
- *
- * The texture uses a [godot.Gradient] to fill the texture data in 2D space. The gradient is filled according to the specified [fill] and [repeat] types using colors obtained from the gradient. The texture does not necessarily represent an exact copy of the gradient, but instead an interpolation of samples obtained from the gradient at fixed steps (see [width] and [height]). See also [godot.GradientTexture1D], [godot.CurveTexture] and [godot.CurveXYZTexture].
- */
 @GodotBaseType
 public open class GradientTexture2D : Texture2D() {
-  /**
-   * The [godot.Gradient] used to fill the texture.
-   */
   public var gradient: Gradient?
     get() {
       TransferContext.writeArguments()
@@ -46,9 +38,6 @@ public open class GradientTexture2D : Texture2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setGradientPtr, NIL)
     }
 
-  /**
-   * The number of horizontal color samples that will be obtained from the [godot.Gradient], which also represents the texture's width.
-   */
   public var width: Int
     @JvmName("getWidth_prop")
     @Suppress("INAPPLICABLE_JVM_NAME")
@@ -58,9 +47,6 @@ public open class GradientTexture2D : Texture2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setWidthPtr, NIL)
     }
 
-  /**
-   * The number of vertical color samples that will be obtained from the [godot.Gradient], which also represents the texture's height.
-   */
   public var height: Int
     @JvmName("getHeight_prop")
     @Suppress("INAPPLICABLE_JVM_NAME")
@@ -70,9 +56,6 @@ public open class GradientTexture2D : Texture2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setHeightPtr, NIL)
     }
 
-  /**
-   * If `true`, the generated texture will support high dynamic range ([godot.Image.FORMAT_RGBAF] format). This allows for glow effects to work if [godot.Environment.glowEnabled] is `true`. If `false`, the generated texture will use low dynamic range; overbright colors will be clamped ([godot.Image.FORMAT_RGBA8] format).
-   */
   public var useHdr: Boolean
     get() {
       TransferContext.writeArguments()
@@ -84,9 +67,6 @@ public open class GradientTexture2D : Texture2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setUseHdrPtr, NIL)
     }
 
-  /**
-   * The gradient fill type, one of the [enum Fill] values. The texture is filled by interpolating colors starting from [fillFrom] to [fillTo] offsets.
-   */
   public var fill: Fill
     get() {
       TransferContext.writeArguments()
@@ -98,9 +78,6 @@ public open class GradientTexture2D : Texture2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFillPtr, NIL)
     }
 
-  /**
-   * The initial offset used to fill the texture specified in UV coordinates.
-   */
   @CoreTypeLocalCopy
   public var fillFrom: Vector2
     get() {
@@ -113,9 +90,6 @@ public open class GradientTexture2D : Texture2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFillFromPtr, NIL)
     }
 
-  /**
-   * The final offset used to fill the texture specified in UV coordinates.
-   */
   @CoreTypeLocalCopy
   public var fillTo: Vector2
     get() {
@@ -128,9 +102,6 @@ public open class GradientTexture2D : Texture2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFillToPtr, NIL)
     }
 
-  /**
-   * The gradient repeat type, one of the [enum Repeat] values. The texture is filled starting from [fillFrom] to [fillTo] offsets by default, but the gradient fill can be repeated to cover the entire texture.
-   */
   public var repeat: Repeat
     get() {
       TransferContext.writeArguments()
@@ -142,14 +113,12 @@ public open class GradientTexture2D : Texture2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRepeatPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_GRADIENTTEXTURE2D, scriptIndex)
     return true
   }
 
   /**
-   * The initial offset used to fill the texture specified in UV coordinates.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -172,8 +141,6 @@ public open class GradientTexture2D : Texture2D() {
 
 
   /**
-   * The final offset used to fill the texture specified in UV coordinates.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -198,17 +165,8 @@ public open class GradientTexture2D : Texture2D() {
   public enum class Fill(
     id: Long,
   ) {
-    /**
-     * The colors are linearly interpolated in a straight line.
-     */
     FILL_LINEAR(0),
-    /**
-     * The colors are linearly interpolated in a circular pattern.
-     */
     FILL_RADIAL(1),
-    /**
-     * The colors are linearly interpolated in a square pattern.
-     */
     FILL_SQUARE(2),
     ;
 
@@ -218,24 +176,17 @@ public open class GradientTexture2D : Texture2D() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): Fill = entries.single {
+          it.id == `value`
+      }
     }
   }
 
   public enum class Repeat(
     id: Long,
   ) {
-    /**
-     * The gradient fill is restricted to the range defined by [fillFrom] to [fillTo] offsets.
-     */
     REPEAT_NONE(0),
-    /**
-     * The texture is filled starting from [fillFrom] to [fillTo] offsets, repeating the same pattern in both directions.
-     */
     REPEAT(1),
-    /**
-     * The texture is filled starting from [fillFrom] to [fillTo] offsets, mirroring the pattern in both directions.
-     */
     REPEAT_MIRROR(2),
     ;
 
@@ -245,7 +196,9 @@ public open class GradientTexture2D : Texture2D() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): Repeat = entries.single {
+          it.id == `value`
+      }
     }
   }
 

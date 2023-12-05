@@ -23,19 +23,8 @@ import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 
-/**
- * Base input event type for mouse events.
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/inputs/inputevent.html]($DOCS_URL/tutorials/inputs/inputevent.html)
- *
- * Stores general information about mouse events.
- */
 @GodotBaseType
 public open class InputEventMouse internal constructor() : InputEventWithModifiers() {
-  /**
-   * The mouse button mask identifier, one of or a bitwise combination of the [enum MouseButton] button masks.
-   */
   public var buttonMask: MouseButtonMask
     get() {
       TransferContext.writeArguments()
@@ -47,11 +36,6 @@ public open class InputEventMouse internal constructor() : InputEventWithModifie
       TransferContext.callMethod(rawPtr, MethodBindings.setButtonMaskPtr, NIL)
     }
 
-  /**
-   * When received in [godot.Node.Input] or [godot.Node.UnhandledInput], returns the mouse's position in the [godot.Viewport] this [godot.Node] is in using the coordinate system of this [godot.Viewport].
-   *
-   * When received in [godot.Control.GuiInput], returns the mouse's position in the [godot.Control] using the local coordinate system of the [godot.Control].
-   */
   @CoreTypeLocalCopy
   public var position: Vector2
     get() {
@@ -64,11 +48,6 @@ public open class InputEventMouse internal constructor() : InputEventWithModifie
       TransferContext.callMethod(rawPtr, MethodBindings.setPositionPtr, NIL)
     }
 
-  /**
-   * When received in [godot.Node.Input] or [godot.Node.UnhandledInput], returns the mouse's position in the root [godot.Viewport] using the coordinate system of the root [godot.Viewport].
-   *
-   * When received in [godot.Control.GuiInput], returns the mouse's position in the [godot.CanvasLayer] that the [godot.Control] is in using the coordinate system of the [godot.CanvasLayer].
-   */
   @CoreTypeLocalCopy
   public var globalPosition: Vector2
     get() {
@@ -81,16 +60,12 @@ public open class InputEventMouse internal constructor() : InputEventWithModifie
       TransferContext.callMethod(rawPtr, MethodBindings.setGlobalPositionPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_INPUTEVENTMOUSE, scriptIndex)
     return true
   }
 
   /**
-   * When received in [godot.Node.Input] or [godot.Node.UnhandledInput], returns the mouse's position in the [godot.Viewport] this [godot.Node] is in using the coordinate system of this [godot.Viewport].
-   *
-   * When received in [godot.Control.GuiInput], returns the mouse's position in the [godot.Control] using the local coordinate system of the [godot.Control].
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -113,10 +88,6 @@ public open class InputEventMouse internal constructor() : InputEventWithModifie
 
 
   /**
-   * When received in [godot.Node.Input] or [godot.Node.UnhandledInput], returns the mouse's position in the root [godot.Viewport] using the coordinate system of the root [godot.Viewport].
-   *
-   * When received in [godot.Control.GuiInput], returns the mouse's position in the [godot.CanvasLayer] that the [godot.Control] is in using the coordinate system of the [godot.CanvasLayer].
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our

@@ -21,77 +21,8 @@ import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 
-/**
- * A themed button that can contain text and an icon.
- *
- * Tutorials:
- * [https://godotengine.org/asset-library/asset/677](https://godotengine.org/asset-library/asset/677)
- *
- * [godot.Button] is the standard themed button. It can contain text and an icon, and it will display them according to the current [godot.Theme].
- *
- * **Example of creating a button and assigning an action when pressed by code:**
- *
- * [codeblocks]
- *
- * [gdscript]
- *
- * func _ready():
- *
- *     var button = Button.new()
- *
- *     button.text = "Click me"
- *
- *     button.pressed.connect(self._button_pressed)
- *
- *     add_child(button)
- *
- *
- *
- * func _button_pressed():
- *
- *     print("Hello world!")
- *
- * [/gdscript]
- *
- * [csharp]
- *
- * public override void _Ready()
- *
- * {
- *
- *     var button = new Button();
- *
- *     button.Text = "Click me";
- *
- *     button.Pressed += ButtonPressed;
- *
- *     AddChild(button);
- *
- * }
- *
- *
- *
- * private void ButtonPressed()
- *
- * {
- *
- *     GD.Print("Hello world!");
- *
- * }
- *
- * [/csharp]
- *
- * [/codeblocks]
- *
- * See also [godot.BaseButton] which contains common properties and methods associated with this node.
- *
- * **Note:** Buttons do not interpret touch input and therefore don't support multitouch, since mouse emulation can only press one button at a given time. Use [godot.TouchScreenButton] for buttons that trigger gameplay movement or actions.
- */
 @GodotBaseType
 public open class Button : BaseButton() {
-  /**
-   * The button's text that will be displayed inside the button's area.
-   */
   public var text: String
     get() {
       TransferContext.writeArguments()
@@ -103,11 +34,6 @@ public open class Button : BaseButton() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTextPtr, NIL)
     }
 
-  /**
-   * Button's icon, if text is present the icon will be placed before the text.
-   *
-   * To edit margin and spacing of the icon, use [theme_item h_separation] theme property and `content_margin_*` properties of the used [godot.StyleBox]es.
-   */
   public var icon: Texture2D?
     get() {
       TransferContext.writeArguments()
@@ -119,9 +45,6 @@ public open class Button : BaseButton() {
       TransferContext.callMethod(rawPtr, MethodBindings.setButtonIconPtr, NIL)
     }
 
-  /**
-   * Flat buttons don't display decoration.
-   */
   public var flat: Boolean
     get() {
       TransferContext.writeArguments()
@@ -133,9 +56,6 @@ public open class Button : BaseButton() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFlatPtr, NIL)
     }
 
-  /**
-   * Text alignment policy for the button's text, use one of the [enum HorizontalAlignment] constants.
-   */
   public var alignment: HorizontalAlignment
     get() {
       TransferContext.writeArguments()
@@ -147,9 +67,6 @@ public open class Button : BaseButton() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTextAlignmentPtr, NIL)
     }
 
-  /**
-   * Sets the clipping behavior when the text exceeds the node's bounding rectangle. See [enum TextServer.OverrunBehavior] for a description of all modes.
-   */
   public var textOverrunBehavior: TextServer.OverrunBehavior
     get() {
       TransferContext.writeArguments()
@@ -161,9 +78,6 @@ public open class Button : BaseButton() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTextOverrunBehaviorPtr, NIL)
     }
 
-  /**
-   * When this property is enabled, text that is too large to fit the button is clipped, when disabled the Button will always be wide enough to hold the text.
-   */
   public var clipText: Boolean
     get() {
       TransferContext.writeArguments()
@@ -175,9 +89,6 @@ public open class Button : BaseButton() {
       TransferContext.callMethod(rawPtr, MethodBindings.setClipTextPtr, NIL)
     }
 
-  /**
-   * Specifies if the icon should be aligned horizontally to the left, right, or center of a button. Uses the same [enum HorizontalAlignment] constants as the text alignment. If centered horizontally and vertically, text will draw on top of the icon.
-   */
   public var iconAlignment: HorizontalAlignment
     get() {
       TransferContext.writeArguments()
@@ -189,9 +100,6 @@ public open class Button : BaseButton() {
       TransferContext.callMethod(rawPtr, MethodBindings.setIconAlignmentPtr, NIL)
     }
 
-  /**
-   * Specifies if the icon should be aligned vertically to the top, bottom, or center of a button. Uses the same [enum VerticalAlignment] constants as the text alignment. If centered horizontally and vertically, text will draw on top of the icon.
-   */
   public var verticalIconAlignment: VerticalAlignment
     get() {
       TransferContext.writeArguments()
@@ -203,9 +111,6 @@ public open class Button : BaseButton() {
       TransferContext.callMethod(rawPtr, MethodBindings.setVerticalIconAlignmentPtr, NIL)
     }
 
-  /**
-   * When enabled, the button's icon will expand/shrink to fit the button's size while keeping its aspect. See also [theme_item icon_max_width].
-   */
   public var expandIcon: Boolean
     get() {
       TransferContext.writeArguments()
@@ -217,9 +122,6 @@ public open class Button : BaseButton() {
       TransferContext.callMethod(rawPtr, MethodBindings.setExpandIconPtr, NIL)
     }
 
-  /**
-   * Base text writing direction.
-   */
   public var textDirection: Control.TextDirection
     get() {
       TransferContext.writeArguments()
@@ -231,9 +133,6 @@ public open class Button : BaseButton() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTextDirectionPtr, NIL)
     }
 
-  /**
-   * Language code used for line-breaking and text shaping algorithms, if left empty current locale is used instead.
-   */
   public var language: String
     get() {
       TransferContext.writeArguments()
@@ -245,7 +144,7 @@ public open class Button : BaseButton() {
       TransferContext.callMethod(rawPtr, MethodBindings.setLanguagePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_BUTTON, scriptIndex)
     return true
   }

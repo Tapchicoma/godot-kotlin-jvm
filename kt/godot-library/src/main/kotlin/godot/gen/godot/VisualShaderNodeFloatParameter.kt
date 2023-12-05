@@ -21,16 +21,8 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
 
-/**
- * A scalar float parameter to be used within the visual shader graph.
- *
- * Translated to `uniform float` in the shader language.
- */
 @GodotBaseType
 public open class VisualShaderNodeFloatParameter : VisualShaderNodeParameter() {
-  /**
-   * A hint applied to the uniform, which controls the values it can take when set through the Inspector.
-   */
   public var hint: Hint
     get() {
       TransferContext.writeArguments()
@@ -42,9 +34,6 @@ public open class VisualShaderNodeFloatParameter : VisualShaderNodeParameter() {
       TransferContext.callMethod(rawPtr, MethodBindings.setHintPtr, NIL)
     }
 
-  /**
-   * Maximum value for range hints. Used if [hint] is set to [HINT_RANGE] or [HINT_RANGE_STEP].
-   */
   public var min: Float
     get() {
       TransferContext.writeArguments()
@@ -56,9 +45,6 @@ public open class VisualShaderNodeFloatParameter : VisualShaderNodeParameter() {
       TransferContext.callMethod(rawPtr, MethodBindings.setMinPtr, NIL)
     }
 
-  /**
-   * Minimum value for range hints. Used if [hint] is set to [HINT_RANGE] or [HINT_RANGE_STEP].
-   */
   public var max: Float
     get() {
       TransferContext.writeArguments()
@@ -70,9 +56,6 @@ public open class VisualShaderNodeFloatParameter : VisualShaderNodeParameter() {
       TransferContext.callMethod(rawPtr, MethodBindings.setMaxPtr, NIL)
     }
 
-  /**
-   * Step (increment) value for the range hint with step. Used if [hint] is set to [HINT_RANGE_STEP].
-   */
   public var step: Float
     get() {
       TransferContext.writeArguments()
@@ -84,9 +67,6 @@ public open class VisualShaderNodeFloatParameter : VisualShaderNodeParameter() {
       TransferContext.callMethod(rawPtr, MethodBindings.setStepPtr, NIL)
     }
 
-  /**
-   * Enables usage of the [defaultValue].
-   */
   public var defaultValueEnabled: Boolean
     get() {
       TransferContext.writeArguments()
@@ -98,9 +78,6 @@ public open class VisualShaderNodeFloatParameter : VisualShaderNodeParameter() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDefaultValueEnabledPtr, NIL)
     }
 
-  /**
-   * A default value to be assigned within the shader.
-   */
   public var defaultValue: Float
     get() {
       TransferContext.writeArguments()
@@ -112,7 +89,7 @@ public open class VisualShaderNodeFloatParameter : VisualShaderNodeParameter() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDefaultValuePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_VISUALSHADERNODEFLOATPARAMETER, scriptIndex)
     return true
   }
@@ -120,21 +97,9 @@ public open class VisualShaderNodeFloatParameter : VisualShaderNodeParameter() {
   public enum class Hint(
     id: Long,
   ) {
-    /**
-     * No hint used.
-     */
     HINT_NONE(0),
-    /**
-     * A range hint for scalar value, which limits possible input values between [min] and [max]. Translated to `hint_range(min, max)` in shader code.
-     */
     HINT_RANGE(1),
-    /**
-     * A range hint for scalar value with step, which limits possible input values between [min] and [max], with a step (increment) of [step]). Translated to `hint_range(min, max, step)` in shader code.
-     */
     HINT_RANGE_STEP(2),
-    /**
-     * Represents the size of the [enum Hint] enum.
-     */
     HINT_MAX(3),
     ;
 
@@ -144,7 +109,9 @@ public open class VisualShaderNodeFloatParameter : VisualShaderNodeParameter() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): Hint = entries.single {
+          it.id == `value`
+      }
     }
   }
 

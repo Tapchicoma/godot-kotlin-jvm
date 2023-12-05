@@ -32,16 +32,8 @@ import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 
-/**
- * 2D sprite node in 3D environment.
- *
- * A node that displays 2D texture information in a 3D environment. See also [godot.Sprite3D] where many other properties are defined.
- */
 @GodotBaseType
 public open class SpriteBase3D internal constructor() : GeometryInstance3D() {
-  /**
-   * If `true`, texture will be centered.
-   */
   public var centered: Boolean
     get() {
       TransferContext.writeArguments()
@@ -53,9 +45,6 @@ public open class SpriteBase3D internal constructor() : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setCenteredPtr, NIL)
     }
 
-  /**
-   * The texture's drawing offset.
-   */
   @CoreTypeLocalCopy
   public var offset: Vector2
     get() {
@@ -68,9 +57,6 @@ public open class SpriteBase3D internal constructor() : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setOffsetPtr, NIL)
     }
 
-  /**
-   * If `true`, texture is flipped horizontally.
-   */
   public var flipH: Boolean
     get() {
       TransferContext.writeArguments()
@@ -82,9 +68,6 @@ public open class SpriteBase3D internal constructor() : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFlipHPtr, NIL)
     }
 
-  /**
-   * If `true`, texture is flipped vertically.
-   */
   public var flipV: Boolean
     get() {
       TransferContext.writeArguments()
@@ -96,11 +79,6 @@ public open class SpriteBase3D internal constructor() : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFlipVPtr, NIL)
     }
 
-  /**
-   * A color value used to *multiply* the texture's colors. Can be used for mood-coloring or to simulate the color of light.
-   *
-   * **Note:** If a [godot.GeometryInstance3D.materialOverride] is defined on the [godot.SpriteBase3D], the material override must be configured to take vertex colors into account for albedo. Otherwise, the color defined in [modulate] will be ignored. For a [godot.BaseMaterial3D], [godot.BaseMaterial3D.vertexColorUseAsAlbedo] must be `true`. For a [godot.ShaderMaterial], `ALBEDO *= COLOR.rgb;` must be inserted in the shader's `fragment()` function.
-   */
   @CoreTypeLocalCopy
   public var modulate: Color
     get() {
@@ -113,9 +91,6 @@ public open class SpriteBase3D internal constructor() : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setModulatePtr, NIL)
     }
 
-  /**
-   * The size of one pixel's width on the sprite to scale it in 3D.
-   */
   public var pixelSize: Float
     get() {
       TransferContext.writeArguments()
@@ -127,9 +102,6 @@ public open class SpriteBase3D internal constructor() : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setPixelSizePtr, NIL)
     }
 
-  /**
-   * The direction in which the front of the texture faces.
-   */
   public var axis: Vector3.Axis
     get() {
       TransferContext.writeArguments()
@@ -141,9 +113,6 @@ public open class SpriteBase3D internal constructor() : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAxisPtr, NIL)
     }
 
-  /**
-   * The billboard mode to use for the sprite. See [enum BaseMaterial3D.BillboardMode] for possible values.
-   */
   public var billboard: BaseMaterial3D.BillboardMode
     get() {
       TransferContext.writeArguments()
@@ -155,9 +124,6 @@ public open class SpriteBase3D internal constructor() : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setBillboardModePtr, NIL)
     }
 
-  /**
-   * If `true`, the texture's transparency and the opacity are used to make those parts of the sprite invisible.
-   */
   public var transparent: Boolean
     get() {
       TransferContext.writeArguments(LONG to 0L)
@@ -169,9 +135,6 @@ public open class SpriteBase3D internal constructor() : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDrawFlagPtr, NIL)
     }
 
-  /**
-   * If `true`, the [godot.Light3D] in the [godot.Environment] has effects on the sprite.
-   */
   public var shaded: Boolean
     get() {
       TransferContext.writeArguments(LONG to 1L)
@@ -183,9 +146,6 @@ public open class SpriteBase3D internal constructor() : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDrawFlagPtr, NIL)
     }
 
-  /**
-   * If `true`, texture can be seen from the back as well, if `false`, it is invisible when looking at it from behind.
-   */
   public var doubleSided: Boolean
     get() {
       TransferContext.writeArguments(LONG to 2L)
@@ -197,9 +157,6 @@ public open class SpriteBase3D internal constructor() : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDrawFlagPtr, NIL)
     }
 
-  /**
-   * If `true`, depth testing is disabled and the object will be drawn in render order.
-   */
   public var noDepthTest: Boolean
     get() {
       TransferContext.writeArguments(LONG to 3L)
@@ -211,9 +168,6 @@ public open class SpriteBase3D internal constructor() : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDrawFlagPtr, NIL)
     }
 
-  /**
-   * If `true`, the label is rendered at the same size regardless of distance.
-   */
   public var fixedSize: Boolean
     get() {
       TransferContext.writeArguments(LONG to 4L)
@@ -225,9 +179,6 @@ public open class SpriteBase3D internal constructor() : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDrawFlagPtr, NIL)
     }
 
-  /**
-   * The alpha cutting mode to use for the sprite. See [enum AlphaCutMode] for possible values.
-   */
   public var alphaCut: AlphaCutMode
     get() {
       TransferContext.writeArguments()
@@ -239,9 +190,6 @@ public open class SpriteBase3D internal constructor() : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAlphaCutModePtr, NIL)
     }
 
-  /**
-   * Threshold at which the alpha scissor will discard values.
-   */
   public var alphaScissorThreshold: Float
     get() {
       TransferContext.writeArguments()
@@ -253,9 +201,6 @@ public open class SpriteBase3D internal constructor() : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAlphaScissorThresholdPtr, NIL)
     }
 
-  /**
-   * The hashing scale for Alpha Hash. Recommended values between `0` and `2`.
-   */
   public var alphaHashScale: Float
     get() {
       TransferContext.writeArguments()
@@ -267,9 +212,6 @@ public open class SpriteBase3D internal constructor() : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAlphaHashScalePtr, NIL)
     }
 
-  /**
-   * The type of alpha antialiasing to apply. See [enum BaseMaterial3D.AlphaAntiAliasing].
-   */
   public var alphaAntialiasingMode: BaseMaterial3D.AlphaAntiAliasing
     get() {
       TransferContext.writeArguments()
@@ -281,9 +223,6 @@ public open class SpriteBase3D internal constructor() : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAlphaAntialiasingPtr, NIL)
     }
 
-  /**
-   * Threshold at which antialiasing will be applied on the alpha channel.
-   */
   public var alphaAntialiasingEdge: Float
     get() {
       TransferContext.writeArguments()
@@ -295,9 +234,6 @@ public open class SpriteBase3D internal constructor() : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAlphaAntialiasingEdgePtr, NIL)
     }
 
-  /**
-   * Filter flags for the texture. See [enum BaseMaterial3D.TextureFilter] for options.
-   */
   public var textureFilter: BaseMaterial3D.TextureFilter
     get() {
       TransferContext.writeArguments()
@@ -309,13 +245,6 @@ public open class SpriteBase3D internal constructor() : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTextureFilterPtr, NIL)
     }
 
-  /**
-   * Sets the render priority for the sprite. Higher priority objects will be sorted in front of lower priority objects.
-   *
-   * **Note:** This only applies if [alphaCut] is set to [ALPHA_CUT_DISABLED] (default value).
-   *
-   * **Note:** This only applies to sorting of transparent objects. This will not impact how transparent objects are sorted relative to opaque objects. This is because opaque objects are not sorted, while transparent objects are sorted from back to front (subject to priority).
-   */
   public var renderPriority: Int
     get() {
       TransferContext.writeArguments()
@@ -327,14 +256,12 @@ public open class SpriteBase3D internal constructor() : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRenderPriorityPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_SPRITEBASE3D, scriptIndex)
     return true
   }
 
   /**
-   * The texture's drawing offset.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -357,10 +284,6 @@ public open class SpriteBase3D internal constructor() : GeometryInstance3D() {
 
 
   /**
-   * A color value used to *multiply* the texture's colors. Can be used for mood-coloring or to simulate the color of light.
-   *
-   * **Note:** If a [godot.GeometryInstance3D.materialOverride] is defined on the [godot.SpriteBase3D], the material override must be configured to take vertex colors into account for albedo. Otherwise, the color defined in [modulate] will be ignored. For a [godot.BaseMaterial3D], [godot.BaseMaterial3D.vertexColorUseAsAlbedo] must be `true`. For a [godot.ShaderMaterial], `ALBEDO *= COLOR.rgb;` must be inserted in the shader's `fragment()` function.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -382,18 +305,12 @@ public open class SpriteBase3D internal constructor() : GeometryInstance3D() {
   }
 
 
-  /**
-   * Returns the rectangle representing this sprite.
-   */
   public fun getItemRect(): Rect2 {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getItemRectPtr, RECT2)
     return (TransferContext.readReturnValue(RECT2, false) as Rect2)
   }
 
-  /**
-   * Returns a [godot.TriangleMesh] with the sprite's vertices following its current configuration (such as its [axis] and [pixelSize]).
-   */
   public fun generateTriangleMesh(): TriangleMesh? {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.generateTriangleMeshPtr, OBJECT)
@@ -403,29 +320,11 @@ public open class SpriteBase3D internal constructor() : GeometryInstance3D() {
   public enum class DrawFlags(
     id: Long,
   ) {
-    /**
-     * If set, the texture's transparency and the opacity are used to make those parts of the sprite invisible.
-     */
     FLAG_TRANSPARENT(0),
-    /**
-     * If set, lights in the environment affect the sprite.
-     */
     FLAG_SHADED(1),
-    /**
-     * If set, texture can be seen from the back as well. If not, the texture is invisible when looking at it from behind.
-     */
     FLAG_DOUBLE_SIDED(2),
-    /**
-     * Disables the depth test, so this object is drawn on top of all others. However, objects drawn after it in the draw order may cover it.
-     */
     FLAG_DISABLE_DEPTH_TEST(3),
-    /**
-     * Label is scaled by depth so that it always appears the same size on screen.
-     */
     FLAG_FIXED_SIZE(4),
-    /**
-     * Represents the size of the [enum DrawFlags] enum.
-     */
     FLAG_MAX(5),
     ;
 
@@ -435,28 +334,18 @@ public open class SpriteBase3D internal constructor() : GeometryInstance3D() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): DrawFlags = entries.single {
+          it.id == `value`
+      }
     }
   }
 
   public enum class AlphaCutMode(
     id: Long,
   ) {
-    /**
-     * This mode performs standard alpha blending. It can display translucent areas, but transparency sorting issues may be visible when multiple transparent materials are overlapping.
-     */
     ALPHA_CUT_DISABLED(0),
-    /**
-     * This mode only allows fully transparent or fully opaque pixels. Harsh edges will be visible unless some form of screen-space antialiasing is enabled (see [godot.ProjectSettings.rendering/antiAliasing/quality/screenSpaceAa]). On the bright side, this mode doesn't suffer from transparency sorting issues when multiple transparent materials are overlapping. This mode is also known as *alpha testing* or *1-bit transparency*.
-     */
     ALPHA_CUT_DISCARD(1),
-    /**
-     * This mode draws fully opaque pixels in the depth prepass. This is slower than [ALPHA_CUT_DISABLED] or [ALPHA_CUT_DISCARD], but it allows displaying translucent areas and smooth edges while using proper sorting.
-     */
     ALPHA_CUT_OPAQUE_PREPASS(2),
-    /**
-     * This mode draws cuts off all values below a spatially-deterministic threshold, the rest will remain opaque.
-     */
     ALPHA_CUT_HASH(3),
     ;
 
@@ -466,7 +355,9 @@ public open class SpriteBase3D internal constructor() : GeometryInstance3D() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): AlphaCutMode = entries.single {
+          it.id == `value`
+      }
     }
   }
 

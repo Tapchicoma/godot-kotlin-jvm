@@ -20,7 +20,6 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
-import kotlin.Unit
 
 @GodotBaseType
 public open class WebRTCDataChannel internal constructor() : PacketPeer() {
@@ -35,7 +34,7 @@ public open class WebRTCDataChannel internal constructor() : PacketPeer() {
       TransferContext.callMethod(rawPtr, MethodBindings.setWriteModePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_WEBRTCDATACHANNEL, scriptIndex)
     return true
   }
@@ -46,7 +45,7 @@ public open class WebRTCDataChannel internal constructor() : PacketPeer() {
     return GodotError.from(TransferContext.readReturnValue(LONG) as Long)
   }
 
-  public fun close(): Unit {
+  public fun close() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.closePtr, NIL)
   }
@@ -124,7 +123,9 @@ public open class WebRTCDataChannel internal constructor() : PacketPeer() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): WriteMode = entries.single {
+          it.id == `value`
+      }
     }
   }
 
@@ -143,7 +144,9 @@ public open class WebRTCDataChannel internal constructor() : PacketPeer() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): ChannelState = entries.single {
+          it.id == `value`
+      }
     }
   }
 

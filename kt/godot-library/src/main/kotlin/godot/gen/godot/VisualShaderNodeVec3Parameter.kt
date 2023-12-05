@@ -21,16 +21,8 @@ import kotlin.Int
 import kotlin.Suppress
 import kotlin.Unit
 
-/**
- * A [godot.core.Vector3] parameter to be used within the visual shader graph.
- *
- * Translated to `uniform vec3` in the shader language.
- */
 @GodotBaseType
 public open class VisualShaderNodeVec3Parameter : VisualShaderNodeParameter() {
-  /**
-   * Enables usage of the [defaultValue].
-   */
   public var defaultValueEnabled: Boolean
     get() {
       TransferContext.writeArguments()
@@ -42,9 +34,6 @@ public open class VisualShaderNodeVec3Parameter : VisualShaderNodeParameter() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDefaultValueEnabledPtr, NIL)
     }
 
-  /**
-   * A default value to be assigned within the shader.
-   */
   @CoreTypeLocalCopy
   public var defaultValue: Vector3
     get() {
@@ -57,14 +46,12 @@ public open class VisualShaderNodeVec3Parameter : VisualShaderNodeParameter() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDefaultValuePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_VISUALSHADERNODEVEC3PARAMETER, scriptIndex)
     return true
   }
 
   /**
-   * A default value to be assigned within the shader.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our

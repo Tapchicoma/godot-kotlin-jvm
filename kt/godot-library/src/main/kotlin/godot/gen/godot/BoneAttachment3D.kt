@@ -21,18 +21,9 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
-import kotlin.Unit
 
-/**
- * А node that dynamically copies or overrides the 3D transform of a bone in its parent [godot.Skeleton3D].
- *
- * This node selects a bone in a [godot.Skeleton3D] and attaches to it. This means that the [godot.BoneAttachment3D] node will either dynamically copy or override the 3D transform of the selected bone.
- */
 @GodotBaseType
 public open class BoneAttachment3D : Node3D() {
-  /**
-   * The name of the attached bone.
-   */
   public var boneName: String
     get() {
       TransferContext.writeArguments()
@@ -44,9 +35,6 @@ public open class BoneAttachment3D : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setBoneNamePtr, NIL)
     }
 
-  /**
-   * The index of the attached bone.
-   */
   public var boneIdx: Int
     get() {
       TransferContext.writeArguments()
@@ -58,9 +46,6 @@ public open class BoneAttachment3D : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setBoneIdxPtr, NIL)
     }
 
-  /**
-   * Whether the BoneAttachment3D node will override the bone pose of the bone it is attached to. When set to `true`, the BoneAttachment3D node can change the pose of the bone. When set to `false`, the BoneAttachment3D will always be set to the bone's transform.
-   */
   public var overridePose: Boolean
     get() {
       TransferContext.writeArguments()
@@ -72,47 +57,32 @@ public open class BoneAttachment3D : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setOverridePosePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_BONEATTACHMENT3D, scriptIndex)
     return true
   }
 
-  /**
-   * A function that is called automatically when the [godot.Skeleton3D] the BoneAttachment3D node is using has a bone that has changed its pose. This function is where the BoneAttachment3D node updates its position so it is correctly bound when it is *not* set to override the bone pose.
-   */
-  public fun onBonePoseUpdate(boneIndex: Int): Unit {
+  public fun onBonePoseUpdate(boneIndex: Int) {
     TransferContext.writeArguments(LONG to boneIndex.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.onBonePoseUpdatePtr, NIL)
   }
 
-  /**
-   * Sets whether the BoneAttachment3D node will use an external [godot.Skeleton3D] node rather than attempting to use its parent node as the [godot.Skeleton3D]. When set to `true`, the BoneAttachment3D node will use the external [godot.Skeleton3D] node set in [setExternalSkeleton].
-   */
-  public fun setUseExternalSkeleton(useExternalSkeleton: Boolean): Unit {
+  public fun setUseExternalSkeleton(useExternalSkeleton: Boolean) {
     TransferContext.writeArguments(BOOL to useExternalSkeleton)
     TransferContext.callMethod(rawPtr, MethodBindings.setUseExternalSkeletonPtr, NIL)
   }
 
-  /**
-   * Returns whether the BoneAttachment3D node is using an external [godot.Skeleton3D] rather than attempting to use its parent node as the [godot.Skeleton3D].
-   */
   public fun getUseExternalSkeleton(): Boolean {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getUseExternalSkeletonPtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Sets the [godot.core.NodePath] to the external skeleton that the BoneAttachment3D node should use. See [setUseExternalSkeleton] to enable the external [godot.Skeleton3D] node.
-   */
-  public fun setExternalSkeleton(externalSkeleton: NodePath): Unit {
+  public fun setExternalSkeleton(externalSkeleton: NodePath) {
     TransferContext.writeArguments(NODE_PATH to externalSkeleton)
     TransferContext.callMethod(rawPtr, MethodBindings.setExternalSkeletonPtr, NIL)
   }
 
-  /**
-   * Returns the [godot.core.NodePath] to the external [godot.Skeleton3D] node, if one has been set.
-   */
   public fun getExternalSkeleton(): NodePath {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getExternalSkeletonPtr, NODE_PATH)

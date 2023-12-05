@@ -27,7 +27,6 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
-import kotlin.Unit
 import kotlin.jvm.JvmOverloads
 
 @GodotBaseType
@@ -104,28 +103,28 @@ public open class MultiplayerSynchronizer : Node() {
       TransferContext.callMethod(rawPtr, MethodBindings.setVisibilityPublicPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_MULTIPLAYERSYNCHRONIZER, scriptIndex)
     return true
   }
 
   @JvmOverloads
-  public fun updateVisibility(forPeer: Int = 0): Unit {
+  public fun updateVisibility(forPeer: Int = 0) {
     TransferContext.writeArguments(LONG to forPeer.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.updateVisibilityPtr, NIL)
   }
 
-  public fun addVisibilityFilter(filter: Callable): Unit {
+  public fun addVisibilityFilter(filter: Callable) {
     TransferContext.writeArguments(CALLABLE to filter)
     TransferContext.callMethod(rawPtr, MethodBindings.addVisibilityFilterPtr, NIL)
   }
 
-  public fun removeVisibilityFilter(filter: Callable): Unit {
+  public fun removeVisibilityFilter(filter: Callable) {
     TransferContext.writeArguments(CALLABLE to filter)
     TransferContext.callMethod(rawPtr, MethodBindings.removeVisibilityFilterPtr, NIL)
   }
 
-  public fun setVisibilityFor(peer: Int, visible: Boolean): Unit {
+  public fun setVisibilityFor(peer: Int, visible: Boolean) {
     TransferContext.writeArguments(LONG to peer.toLong(), BOOL to visible)
     TransferContext.callMethod(rawPtr, MethodBindings.setVisibilityForPtr, NIL)
   }
@@ -150,7 +149,9 @@ public open class MultiplayerSynchronizer : Node() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): VisibilityUpdateMode = entries.single {
+          it.id == `value`
+      }
     }
   }
 

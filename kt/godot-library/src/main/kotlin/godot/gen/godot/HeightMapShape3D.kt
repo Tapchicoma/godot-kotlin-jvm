@@ -19,18 +19,8 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
 
-/**
- * A 3D height map shape used for physics collision.
- *
- * A 3D heightmap shape, intended for use in physics. Usually used to provide a shape for a [godot.CollisionShape3D]. This is useful for terrain, but it is limited as overhangs (such as caves) cannot be stored. Holes in a [godot.HeightMapShape3D] are created by assigning very low values to points in the desired area.
- *
- * **Performance:** [godot.HeightMapShape3D] is faster to check collisions against than [godot.ConcavePolygonShape3D], but it is significantly slower than primitive shapes like [godot.BoxShape3D].
- */
 @GodotBaseType
 public open class HeightMapShape3D : Shape3D() {
-  /**
-   * Number of vertices in the width of the height map. Changing this will resize the [mapData].
-   */
   public var mapWidth: Int
     get() {
       TransferContext.writeArguments()
@@ -42,9 +32,6 @@ public open class HeightMapShape3D : Shape3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setMapWidthPtr, NIL)
     }
 
-  /**
-   * Number of vertices in the depth of the height map. Changing this will resize the [mapData].
-   */
   public var mapDepth: Int
     get() {
       TransferContext.writeArguments()
@@ -56,9 +43,6 @@ public open class HeightMapShape3D : Shape3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setMapDepthPtr, NIL)
     }
 
-  /**
-   * Height map data, pool array must be of [mapWidth] * [mapDepth] size.
-   */
   public var mapData: PackedFloat32Array
     get() {
       TransferContext.writeArguments()
@@ -70,7 +54,7 @@ public open class HeightMapShape3D : Shape3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setMapDataPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_HEIGHTMAPSHAPE3D, scriptIndex)
     return true
   }

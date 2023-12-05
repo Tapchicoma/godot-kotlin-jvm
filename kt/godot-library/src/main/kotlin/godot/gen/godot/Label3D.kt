@@ -35,16 +35,8 @@ import kotlin.String
 import kotlin.Suppress
 import kotlin.Unit
 
-/**
- * A node for displaying plain text in 3D space.
- *
- * A node for displaying plain text in 3D space. By adjusting various properties of this node, you can configure things such as the text's appearance and whether it always faces the camera.
- */
 @GodotBaseType
 public open class Label3D : GeometryInstance3D() {
-  /**
-   * The size of one pixel's width on the label to scale it in 3D. To make the font look more detailed when up close, increase [fontSize] while decreasing [pixelSize] at the same time.
-   */
   public var pixelSize: Float
     get() {
       TransferContext.writeArguments()
@@ -56,9 +48,6 @@ public open class Label3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setPixelSizePtr, NIL)
     }
 
-  /**
-   * The text drawing offset (in pixels).
-   */
   @CoreTypeLocalCopy
   public var offset: Vector2
     get() {
@@ -71,9 +60,6 @@ public open class Label3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setOffsetPtr, NIL)
     }
 
-  /**
-   * The billboard mode to use for the label. See [enum BaseMaterial3D.BillboardMode] for possible values.
-   */
   public var billboard: BaseMaterial3D.BillboardMode
     get() {
       TransferContext.writeArguments()
@@ -85,9 +71,6 @@ public open class Label3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setBillboardModePtr, NIL)
     }
 
-  /**
-   * If `true`, the [godot.Light3D] in the [godot.Environment] has effects on the label.
-   */
   public var shaded: Boolean
     get() {
       TransferContext.writeArguments(LONG to 0L)
@@ -99,9 +82,6 @@ public open class Label3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDrawFlagPtr, NIL)
     }
 
-  /**
-   * If `true`, text can be seen from the back as well, if `false`, it is invisible when looking at it from behind.
-   */
   public var doubleSided: Boolean
     get() {
       TransferContext.writeArguments(LONG to 1L)
@@ -113,9 +93,6 @@ public open class Label3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDrawFlagPtr, NIL)
     }
 
-  /**
-   * If `true`, depth testing is disabled and the object will be drawn in render order.
-   */
   public var noDepthTest: Boolean
     get() {
       TransferContext.writeArguments(LONG to 2L)
@@ -127,9 +104,6 @@ public open class Label3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDrawFlagPtr, NIL)
     }
 
-  /**
-   * If `true`, the label is rendered at the same size regardless of distance.
-   */
   public var fixedSize: Boolean
     get() {
       TransferContext.writeArguments(LONG to 3L)
@@ -141,9 +115,6 @@ public open class Label3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDrawFlagPtr, NIL)
     }
 
-  /**
-   * The alpha cutting mode to use for the sprite. See [enum AlphaCutMode] for possible values.
-   */
   public var alphaCut: AlphaCutMode
     get() {
       TransferContext.writeArguments()
@@ -155,9 +126,6 @@ public open class Label3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAlphaCutModePtr, NIL)
     }
 
-  /**
-   * Threshold at which the alpha scissor will discard values.
-   */
   public var alphaScissorThreshold: Float
     get() {
       TransferContext.writeArguments()
@@ -169,9 +137,6 @@ public open class Label3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAlphaScissorThresholdPtr, NIL)
     }
 
-  /**
-   * The hashing scale for Alpha Hash. Recommended values between `0` and `2`.
-   */
   public var alphaHashScale: Float
     get() {
       TransferContext.writeArguments()
@@ -183,9 +148,6 @@ public open class Label3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAlphaHashScalePtr, NIL)
     }
 
-  /**
-   * The type of alpha antialiasing to apply. See [enum BaseMaterial3D.AlphaAntiAliasing].
-   */
   public var alphaAntialiasingMode: BaseMaterial3D.AlphaAntiAliasing
     get() {
       TransferContext.writeArguments()
@@ -197,9 +159,6 @@ public open class Label3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAlphaAntialiasingPtr, NIL)
     }
 
-  /**
-   * Threshold at which antialiasing will be applied on the alpha channel.
-   */
   public var alphaAntialiasingEdge: Float
     get() {
       TransferContext.writeArguments()
@@ -211,9 +170,6 @@ public open class Label3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAlphaAntialiasingEdgePtr, NIL)
     }
 
-  /**
-   * Filter flags for the texture. See [enum BaseMaterial3D.TextureFilter] for options.
-   */
   public var textureFilter: BaseMaterial3D.TextureFilter
     get() {
       TransferContext.writeArguments()
@@ -225,13 +181,6 @@ public open class Label3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTextureFilterPtr, NIL)
     }
 
-  /**
-   * Sets the render priority for the text. Higher priority objects will be sorted in front of lower priority objects.
-   *
-   * **Note:** This only applies if [alphaCut] is set to [ALPHA_CUT_DISABLED] (default value).
-   *
-   * **Note:** This only applies to sorting of transparent objects. This will not impact how transparent objects are sorted relative to opaque objects. This is because opaque objects are not sorted, while transparent objects are sorted from back to front (subject to priority).
-   */
   public var renderPriority: Int
     get() {
       TransferContext.writeArguments()
@@ -243,13 +192,6 @@ public open class Label3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRenderPriorityPtr, NIL)
     }
 
-  /**
-   * Sets the render priority for the text outline. Higher priority objects will be sorted in front of lower priority objects.
-   *
-   * **Note:** This only applies if [alphaCut] is set to [ALPHA_CUT_DISABLED] (default value).
-   *
-   * **Note:** This only applies to sorting of transparent objects. This will not impact how transparent objects are sorted relative to opaque objects. This is because opaque objects are not sorted, while transparent objects are sorted from back to front (subject to priority).
-   */
   public var outlineRenderPriority: Int
     get() {
       TransferContext.writeArguments()
@@ -261,9 +203,6 @@ public open class Label3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setOutlineRenderPriorityPtr, NIL)
     }
 
-  /**
-   * Text [godot.core.Color] of the [godot.Label3D].
-   */
   @CoreTypeLocalCopy
   public var modulate: Color
     get() {
@@ -276,9 +215,6 @@ public open class Label3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setModulatePtr, NIL)
     }
 
-  /**
-   * The tint of text outline.
-   */
   @CoreTypeLocalCopy
   public var outlineModulate: Color
     get() {
@@ -291,9 +227,6 @@ public open class Label3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setOutlineModulatePtr, NIL)
     }
 
-  /**
-   * The text to display on screen.
-   */
   public var text: String
     get() {
       TransferContext.writeArguments()
@@ -305,9 +238,6 @@ public open class Label3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTextPtr, NIL)
     }
 
-  /**
-   * Font configuration used to display text.
-   */
   public var font: Font?
     get() {
       TransferContext.writeArguments()
@@ -319,11 +249,6 @@ public open class Label3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFontPtr, NIL)
     }
 
-  /**
-   * Font size of the [godot.Label3D]'s text. To make the font look more detailed when up close, increase [fontSize] while decreasing [pixelSize] at the same time.
-   *
-   * Higher font sizes require more time to render new characters, which can cause stuttering during gameplay.
-   */
   public var fontSize: Int
     get() {
       TransferContext.writeArguments()
@@ -335,9 +260,6 @@ public open class Label3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFontSizePtr, NIL)
     }
 
-  /**
-   * Text outline size.
-   */
   public var outlineSize: Int
     get() {
       TransferContext.writeArguments()
@@ -349,9 +271,6 @@ public open class Label3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setOutlineSizePtr, NIL)
     }
 
-  /**
-   * Controls the text's horizontal alignment. Supports left, center, right, and fill, or justify. Set it to one of the [enum HorizontalAlignment] constants.
-   */
   public var horizontalAlignment: HorizontalAlignment
     get() {
       TransferContext.writeArguments()
@@ -363,9 +282,6 @@ public open class Label3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setHorizontalAlignmentPtr, NIL)
     }
 
-  /**
-   * Controls the text's vertical alignment. Supports top, center, bottom. Set it to one of the [enum VerticalAlignment] constants.
-   */
   public var verticalAlignment: VerticalAlignment
     get() {
       TransferContext.writeArguments()
@@ -377,9 +293,6 @@ public open class Label3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setVerticalAlignmentPtr, NIL)
     }
 
-  /**
-   * If `true`, all the text displays as UPPERCASE.
-   */
   public var uppercase: Boolean
     get() {
       TransferContext.writeArguments()
@@ -391,9 +304,6 @@ public open class Label3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setUppercasePtr, NIL)
     }
 
-  /**
-   * Vertical space between lines in multiline [godot.Label3D].
-   */
   public var lineSpacing: Float
     get() {
       TransferContext.writeArguments()
@@ -405,9 +315,6 @@ public open class Label3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setLineSpacingPtr, NIL)
     }
 
-  /**
-   * If set to something other than [godot.TextServer.AUTOWRAP_OFF], the text gets wrapped inside the node's bounding rectangle. If you resize the node, it will change its height automatically to show all the text. To see how each mode behaves, see [enum TextServer.AutowrapMode].
-   */
   public var autowrapMode: TextServer.AutowrapMode
     get() {
       TransferContext.writeArguments()
@@ -419,9 +326,6 @@ public open class Label3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAutowrapModePtr, NIL)
     }
 
-  /**
-   * Line fill alignment rules. For more info see [enum TextServer.JustificationFlag].
-   */
   public var justificationFlags: TextServer.JustificationFlag
     get() {
       TransferContext.writeArguments()
@@ -433,9 +337,6 @@ public open class Label3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setJustificationFlagsPtr, NIL)
     }
 
-  /**
-   * Text width (in pixels), used for autowrap and fill alignment.
-   */
   public var width: Float
     get() {
       TransferContext.writeArguments()
@@ -447,9 +348,6 @@ public open class Label3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setWidthPtr, NIL)
     }
 
-  /**
-   * Base text writing direction.
-   */
   public var textDirection: TextServer.Direction
     get() {
       TransferContext.writeArguments()
@@ -461,9 +359,6 @@ public open class Label3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTextDirectionPtr, NIL)
     }
 
-  /**
-   * Language code used for line-breaking and text shaping algorithms, if left empty current locale is used instead.
-   */
   public var language: String
     get() {
       TransferContext.writeArguments()
@@ -475,9 +370,6 @@ public open class Label3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setLanguagePtr, NIL)
     }
 
-  /**
-   * Set BiDi algorithm override for the structured text.
-   */
   public var structuredTextBidiOverride: TextServer.StructuredTextParser
     get() {
       TransferContext.writeArguments()
@@ -489,9 +381,6 @@ public open class Label3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setStructuredTextBidiOverridePtr, NIL)
     }
 
-  /**
-   * Set additional options for BiDi override.
-   */
   public var structuredTextBidiOverrideOptions: VariantArray<Any?>
     get() {
       TransferContext.writeArguments()
@@ -505,14 +394,12 @@ public open class Label3D : GeometryInstance3D() {
           NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_LABEL3D, scriptIndex)
     return true
   }
 
   /**
-   * The text drawing offset (in pixels).
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -535,8 +422,6 @@ public open class Label3D : GeometryInstance3D() {
 
 
   /**
-   * Text [godot.core.Color] of the [godot.Label3D].
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -559,8 +444,6 @@ public open class Label3D : GeometryInstance3D() {
 
 
   /**
-   * The tint of text outline.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -582,9 +465,6 @@ public open class Label3D : GeometryInstance3D() {
   }
 
 
-  /**
-   * Returns a [godot.TriangleMesh] with the label's vertices following its current configuration (such as its [pixelSize]).
-   */
   public fun generateTriangleMesh(): TriangleMesh? {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.generateTriangleMeshPtr, OBJECT)
@@ -594,25 +474,10 @@ public open class Label3D : GeometryInstance3D() {
   public enum class DrawFlags(
     id: Long,
   ) {
-    /**
-     * If set, lights in the environment affect the label.
-     */
     FLAG_SHADED(0),
-    /**
-     * If set, text can be seen from the back as well. If not, the text is invisible when looking at it from behind.
-     */
     FLAG_DOUBLE_SIDED(1),
-    /**
-     * Disables the depth test, so this object is drawn on top of all others. However, objects drawn after it in the draw order may cover it.
-     */
     FLAG_DISABLE_DEPTH_TEST(2),
-    /**
-     * Label is scaled by depth so that it always appears the same size on screen.
-     */
     FLAG_FIXED_SIZE(3),
-    /**
-     * Represents the size of the [enum DrawFlags] enum.
-     */
     FLAG_MAX(4),
     ;
 
@@ -622,34 +487,18 @@ public open class Label3D : GeometryInstance3D() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): DrawFlags = entries.single {
+          it.id == `value`
+      }
     }
   }
 
   public enum class AlphaCutMode(
     id: Long,
   ) {
-    /**
-     * This mode performs standard alpha blending. It can display translucent areas, but transparency sorting issues may be visible when multiple transparent materials are overlapping. [godot.GeometryInstance3D.castShadow] has no effect when this transparency mode is used; the [godot.Label3D] will never cast shadows.
-     */
     ALPHA_CUT_DISABLED(0),
-    /**
-     * This mode only allows fully transparent or fully opaque pixels. Harsh edges will be visible unless some form of screen-space antialiasing is enabled (see [godot.ProjectSettings.rendering/antiAliasing/quality/screenSpaceAa]). This mode is also known as *alpha testing* or *1-bit transparency*.
-     *
-     * **Note:** This mode might have issues with anti-aliased fonts and outlines, try adjusting [alphaScissorThreshold] or using MSDF font.
-     *
-     * **Note:** When using text with overlapping glyphs (e.g., cursive scripts), this mode might have transparency sorting issues between the main text and the outline.
-     */
     ALPHA_CUT_DISCARD(1),
-    /**
-     * This mode draws fully opaque pixels in the depth prepass. This is slower than [ALPHA_CUT_DISABLED] or [ALPHA_CUT_DISCARD], but it allows displaying translucent areas and smooth edges while using proper sorting.
-     *
-     * **Note:** When using text with overlapping glyphs (e.g., cursive scripts), this mode might have transparency sorting issues between the main text and the outline.
-     */
     ALPHA_CUT_OPAQUE_PREPASS(2),
-    /**
-     * This mode draws cuts off all values below a spatially-deterministic threshold, the rest will remain opaque.
-     */
     ALPHA_CUT_HASH(3),
     ;
 
@@ -659,7 +508,9 @@ public open class Label3D : GeometryInstance3D() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): AlphaCutMode = entries.single {
+          it.id == `value`
+      }
     }
   }
 

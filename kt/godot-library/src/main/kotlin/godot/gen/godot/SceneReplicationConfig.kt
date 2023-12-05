@@ -21,12 +21,11 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
-import kotlin.Unit
 import kotlin.jvm.JvmOverloads
 
 @GodotBaseType
 public open class SceneReplicationConfig : Resource() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_SCENEREPLICATIONCONFIG, scriptIndex)
     return true
   }
@@ -38,7 +37,7 @@ public open class SceneReplicationConfig : Resource() {
   }
 
   @JvmOverloads
-  public fun addProperty(path: NodePath, index: Int = -1): Unit {
+  public fun addProperty(path: NodePath, index: Int = -1) {
     TransferContext.writeArguments(NODE_PATH to path, LONG to index.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.addPropertyPtr, NIL)
   }
@@ -49,7 +48,7 @@ public open class SceneReplicationConfig : Resource() {
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  public fun removeProperty(path: NodePath): Unit {
+  public fun removeProperty(path: NodePath) {
     TransferContext.writeArguments(NODE_PATH to path)
     TransferContext.callMethod(rawPtr, MethodBindings.removePropertyPtr, NIL)
   }
@@ -66,7 +65,7 @@ public open class SceneReplicationConfig : Resource() {
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  public fun propertySetSpawn(path: NodePath, enabled: Boolean): Unit {
+  public fun propertySetSpawn(path: NodePath, enabled: Boolean) {
     TransferContext.writeArguments(NODE_PATH to path, BOOL to enabled)
     TransferContext.callMethod(rawPtr, MethodBindings.propertySetSpawnPtr, NIL)
   }
@@ -77,7 +76,7 @@ public open class SceneReplicationConfig : Resource() {
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  public fun propertySetSync(path: NodePath, enabled: Boolean): Unit {
+  public fun propertySetSync(path: NodePath, enabled: Boolean) {
     TransferContext.writeArguments(NODE_PATH to path, BOOL to enabled)
     TransferContext.callMethod(rawPtr, MethodBindings.propertySetSyncPtr, NIL)
   }
@@ -88,7 +87,7 @@ public open class SceneReplicationConfig : Resource() {
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  public fun propertySetWatch(path: NodePath, enabled: Boolean): Unit {
+  public fun propertySetWatch(path: NodePath, enabled: Boolean) {
     TransferContext.writeArguments(NODE_PATH to path, BOOL to enabled)
     TransferContext.callMethod(rawPtr, MethodBindings.propertySetWatchPtr, NIL)
   }

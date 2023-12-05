@@ -22,100 +22,58 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
 import kotlin.Suppress
-import kotlin.Unit
 
-/**
- * Godot editor's script editor.
- *
- * Godot editor's script editor.
- *
- * **Note:** This class shouldn't be instantiated directly. Instead, access the singleton using [godot.EditorInterface.getScriptEditor].
- */
 @GodotBaseType
 public open class ScriptEditor internal constructor() : PanelContainer() {
-  /**
-   * Emitted when user changed active script. Argument is a freshly activated [godot.Script].
-   */
   public val editorScriptChanged: Signal1<Script> by signal("script")
 
-  /**
-   * Emitted when editor is about to close the active script. Argument is a [godot.Script] that is going to be closed.
-   */
   public val scriptClose: Signal1<Script> by signal("script")
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_SCRIPTEDITOR, scriptIndex)
     return true
   }
 
-  /**
-   * Returns the [godot.ScriptEditorBase] object that the user is currently editing.
-   */
   public fun getCurrentEditor(): ScriptEditorBase? {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getCurrentEditorPtr, OBJECT)
     return (TransferContext.readReturnValue(OBJECT, true) as ScriptEditorBase?)
   }
 
-  /**
-   * Returns an array with all [godot.ScriptEditorBase] objects which are currently open in editor.
-   */
   public fun getOpenScriptEditors(): VariantArray<ScriptEditorBase> {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getOpenScriptEditorsPtr, ARRAY)
     return (TransferContext.readReturnValue(ARRAY, false) as VariantArray<ScriptEditorBase>)
   }
 
-  /**
-   * Registers the [godot.EditorSyntaxHighlighter] to the editor, the [godot.EditorSyntaxHighlighter] will be available on all open scripts.
-   *
-   * **Note:** Does not apply to scripts that are already opened.
-   */
-  public fun registerSyntaxHighlighter(syntaxHighlighter: EditorSyntaxHighlighter): Unit {
+  public fun registerSyntaxHighlighter(syntaxHighlighter: EditorSyntaxHighlighter) {
     TransferContext.writeArguments(OBJECT to syntaxHighlighter)
     TransferContext.callMethod(rawPtr, MethodBindings.registerSyntaxHighlighterPtr, NIL)
   }
 
-  /**
-   * Unregisters the [godot.EditorSyntaxHighlighter] from the editor.
-   *
-   * **Note:** The [godot.EditorSyntaxHighlighter] will still be applied to scripts that are already opened.
-   */
-  public fun unregisterSyntaxHighlighter(syntaxHighlighter: EditorSyntaxHighlighter): Unit {
+  public fun unregisterSyntaxHighlighter(syntaxHighlighter: EditorSyntaxHighlighter) {
     TransferContext.writeArguments(OBJECT to syntaxHighlighter)
     TransferContext.callMethod(rawPtr, MethodBindings.unregisterSyntaxHighlighterPtr, NIL)
   }
 
-  /**
-   * Goes to the specified line in the current script.
-   */
-  public fun gotoLine(lineNumber: Int): Unit {
+  public fun gotoLine(lineNumber: Int) {
     TransferContext.writeArguments(LONG to lineNumber.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.gotoLinePtr, NIL)
   }
 
-  /**
-   * Returns a [godot.Script] that is currently active in editor.
-   */
   public fun getCurrentScript(): Script? {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getCurrentScriptPtr, OBJECT)
     return (TransferContext.readReturnValue(OBJECT, true) as Script?)
   }
 
-  /**
-   * Returns an array with all [godot.Script] objects which are currently open in editor.
-   */
   public fun getOpenScripts(): VariantArray<Script> {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getOpenScriptsPtr, ARRAY)
     return (TransferContext.readReturnValue(ARRAY, false) as VariantArray<Script>)
   }
 
-  /**
-   * Opens the script create dialog. The script will extend [baseName]. The file extension can be omitted from [basePath]. It will be added based on the selected scripting language.
-   */
-  public fun openScriptCreateDialog(baseName: String, basePath: String): Unit {
+  public fun openScriptCreateDialog(baseName: String, basePath: String) {
     TransferContext.writeArguments(STRING to baseName, STRING to basePath)
     TransferContext.callMethod(rawPtr, MethodBindings.openScriptCreateDialogPtr, NIL)
   }

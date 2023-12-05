@@ -25,24 +25,8 @@ import kotlin.Long
 import kotlin.Suppress
 import kotlin.jvm.JvmName
 
-/**
- * A font loaded from a system font. Falls back to a default theme font if not implemented on the host OS.
- *
- * [godot.SystemFont] loads a font from a system font with the first matching name from [fontNames].
- *
- * It will attempt to match font style, but it's not guaranteed.
- *
- * The returned font might be part of a font collection or be a variable font with OpenType "weight", "width" and/or "italic" features set.
- *
- * You can create [godot.FontVariation] of the system font for fine control over its features.
- *
- * **Note:** This class is implemented on iOS, Linux, macOS and Windows, on other platforms it will fallback to default theme font.
- */
 @GodotBaseType
 public open class SystemFont : Font() {
-  /**
-   * Array of font family names to search, first matching font found is used.
-   */
   public var fontNames: PackedStringArray
     get() {
       TransferContext.writeArguments()
@@ -54,9 +38,6 @@ public open class SystemFont : Font() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFontNamesPtr, NIL)
     }
 
-  /**
-   * If set to `true`, italic or oblique font is preferred.
-   */
   public var fontItalic: Boolean
     get() {
       TransferContext.writeArguments()
@@ -68,9 +49,6 @@ public open class SystemFont : Font() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFontItalicPtr, NIL)
     }
 
-  /**
-   * Preferred weight (boldness) of the font. A value in the `100...999` range, normal font weight is `400`, bold font weight is `700`.
-   */
   public var fontWeight: Int
     @JvmName("getFontWeight_prop")
     @Suppress("INAPPLICABLE_JVM_NAME")
@@ -80,9 +58,6 @@ public open class SystemFont : Font() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFontWeightPtr, NIL)
     }
 
-  /**
-   * Preferred font stretch amount, compared to a normal width. A percentage value between `50%` and `200%`.
-   */
   public var fontStretch: Int
     @JvmName("getFontStretch_prop")
     @Suppress("INAPPLICABLE_JVM_NAME")
@@ -92,9 +67,6 @@ public open class SystemFont : Font() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFontStretchPtr, NIL)
     }
 
-  /**
-   * Font anti-aliasing mode.
-   */
   public var antialiasing: TextServer.FontAntialiasing
     get() {
       TransferContext.writeArguments()
@@ -106,9 +78,6 @@ public open class SystemFont : Font() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAntialiasingPtr, NIL)
     }
 
-  /**
-   * If set to `true`, generate mipmaps for the font textures.
-   */
   public var generateMipmaps: Boolean
     get() {
       TransferContext.writeArguments()
@@ -120,9 +89,6 @@ public open class SystemFont : Font() {
       TransferContext.callMethod(rawPtr, MethodBindings.setGenerateMipmapsPtr, NIL)
     }
 
-  /**
-   * If set to `true`, system fonts can be automatically used as fallbacks.
-   */
   public var allowSystemFallback: Boolean
     get() {
       TransferContext.writeArguments()
@@ -134,9 +100,6 @@ public open class SystemFont : Font() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAllowSystemFallbackPtr, NIL)
     }
 
-  /**
-   * If set to `true`, auto-hinting is supported and preferred over font built-in hinting.
-   */
   public var forceAutohinter: Boolean
     get() {
       TransferContext.writeArguments()
@@ -148,9 +111,6 @@ public open class SystemFont : Font() {
       TransferContext.callMethod(rawPtr, MethodBindings.setForceAutohinterPtr, NIL)
     }
 
-  /**
-   * Font hinting mode.
-   */
   public var hinting: TextServer.Hinting
     get() {
       TransferContext.writeArguments()
@@ -162,9 +122,6 @@ public open class SystemFont : Font() {
       TransferContext.callMethod(rawPtr, MethodBindings.setHintingPtr, NIL)
     }
 
-  /**
-   * Font glyph subpixel positioning mode. Subpixel positioning provides shaper text and better kerning for smaller font sizes, at the cost of memory usage and font rasterization speed. Use [godot.TextServer.SUBPIXEL_POSITIONING_AUTO] to automatically enable it based on the font size.
-   */
   public var subpixelPositioning: TextServer.SubpixelPositioning
     get() {
       TransferContext.writeArguments()
@@ -176,9 +133,6 @@ public open class SystemFont : Font() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSubpixelPositioningPtr, NIL)
     }
 
-  /**
-   * If set to `true`, glyphs of all sizes are rendered using single multichannel signed distance field generated from the dynamic font vector data.
-   */
   public var multichannelSignedDistanceField: Boolean
     get() {
       TransferContext.writeArguments()
@@ -190,9 +144,6 @@ public open class SystemFont : Font() {
       TransferContext.callMethod(rawPtr, MethodBindings.setMultichannelSignedDistanceFieldPtr, NIL)
     }
 
-  /**
-   * The width of the range around the shape between the minimum and maximum representable signed distance. If using font outlines, [msdfPixelRange] must be set to at least *twice* the size of the largest font outline. The default [msdfPixelRange] value of `16` allows outline sizes up to `8` to look correct.
-   */
   public var msdfPixelRange: Int
     get() {
       TransferContext.writeArguments()
@@ -204,9 +155,6 @@ public open class SystemFont : Font() {
       TransferContext.callMethod(rawPtr, MethodBindings.setMsdfPixelRangePtr, NIL)
     }
 
-  /**
-   * Source font size used to generate MSDF textures. Higher values allow for more precision, but are slower to render and require more memory. Only increase this value if you notice a visible lack of precision in glyph rendering.
-   */
   public var msdfSize: Int
     get() {
       TransferContext.writeArguments()
@@ -218,9 +166,6 @@ public open class SystemFont : Font() {
       TransferContext.callMethod(rawPtr, MethodBindings.setMsdfSizePtr, NIL)
     }
 
-  /**
-   * Font oversampling factor, if set to `0.0` global oversampling factor is used instead.
-   */
   public var oversampling: Float
     get() {
       TransferContext.writeArguments()
@@ -232,9 +177,6 @@ public open class SystemFont : Font() {
       TransferContext.callMethod(rawPtr, MethodBindings.setOversamplingPtr, NIL)
     }
 
-  /**
-   * Array of fallback [godot.Font]s.
-   */
   public var fallbacks: VariantArray<Font>
     @JvmName("getFallbacks_prop")
     @Suppress("INAPPLICABLE_JVM_NAME")
@@ -245,7 +187,7 @@ public open class SystemFont : Font() {
       super.setFallbacks(value)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_SYSTEMFONT, scriptIndex)
     return true
   }

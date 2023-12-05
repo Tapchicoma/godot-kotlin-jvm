@@ -27,29 +27,11 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
-import kotlin.Unit
 
-/**
- * A control used for video playback.
- *
- * A control used for playback of [godot.VideoStream] resources.
- *
- * Supported video formats are [godot.Ogg Theora](https://www.theora.org/) (`.ogv`, [godot.VideoStreamTheora]) and any format exposed via a GDExtension plugin.
- *
- * **Note:** Due to a bug, VideoStreamPlayer does not support localization remapping yet.
- *
- * **Warning:** On Web, video playback *will* perform poorly due to missing architecture-specific assembly optimizations.
- */
 @GodotBaseType
 public open class VideoStreamPlayer : Control() {
-  /**
-   * Emitted when playback is finished.
-   */
   public val finished: Signal0 by signal()
 
-  /**
-   * The embedded audio track to play.
-   */
   public var audioTrack: Int
     get() {
       TransferContext.writeArguments()
@@ -61,9 +43,6 @@ public open class VideoStreamPlayer : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAudioTrackPtr, NIL)
     }
 
-  /**
-   * The assigned video stream. See description for supported formats.
-   */
   public var stream: VideoStream?
     get() {
       TransferContext.writeArguments()
@@ -75,9 +54,6 @@ public open class VideoStreamPlayer : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setStreamPtr, NIL)
     }
 
-  /**
-   * Audio volume in dB.
-   */
   public var volumeDb: Float
     get() {
       TransferContext.writeArguments()
@@ -89,9 +65,6 @@ public open class VideoStreamPlayer : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setVolumeDbPtr, NIL)
     }
 
-  /**
-   * Audio volume as a linear value.
-   */
   public var volume: Float
     get() {
       TransferContext.writeArguments()
@@ -103,9 +76,6 @@ public open class VideoStreamPlayer : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setVolumePtr, NIL)
     }
 
-  /**
-   * If `true`, playback starts when the scene loads.
-   */
   public var autoplay: Boolean
     get() {
       TransferContext.writeArguments()
@@ -117,9 +87,6 @@ public open class VideoStreamPlayer : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAutoplayPtr, NIL)
     }
 
-  /**
-   * If `true`, the video is paused.
-   */
   public var paused: Boolean
     get() {
       TransferContext.writeArguments()
@@ -131,9 +98,6 @@ public open class VideoStreamPlayer : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setPausedPtr, NIL)
     }
 
-  /**
-   * If `true`, the video scales to the control size. Otherwise, the control minimum size will be automatically adjusted to match the video stream's dimensions.
-   */
   public var expand: Boolean
     get() {
       TransferContext.writeArguments()
@@ -145,9 +109,6 @@ public open class VideoStreamPlayer : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setExpandPtr, NIL)
     }
 
-  /**
-   * Amount of time in milliseconds to store in buffer while playing.
-   */
   public var bufferingMsec: Int
     get() {
       TransferContext.writeArguments()
@@ -159,11 +120,6 @@ public open class VideoStreamPlayer : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setBufferingMsecPtr, NIL)
     }
 
-  /**
-   * The current position of the stream, in seconds.
-   *
-   * **Note:** Changing this value won't have any effect as seeking is not implemented yet, except in video formats implemented by a GDExtension add-on.
-   */
   public var streamPosition: Double
     get() {
       TransferContext.writeArguments()
@@ -175,9 +131,6 @@ public open class VideoStreamPlayer : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setStreamPositionPtr, NIL)
     }
 
-  /**
-   * Audio bus to use for sound playback.
-   */
   public var bus: StringName
     get() {
       TransferContext.writeArguments()
@@ -189,52 +142,33 @@ public open class VideoStreamPlayer : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setBusPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_VIDEOSTREAMPLAYER, scriptIndex)
     return true
   }
 
-  /**
-   * Starts the video playback from the beginning. If the video is paused, this will not unpause the video.
-   */
-  public fun play(): Unit {
+  public fun play() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.playPtr, NIL)
   }
 
-  /**
-   * Stops the video playback and sets the stream position to 0.
-   *
-   * **Note:** Although the stream position will be set to 0, the first frame of the video stream won't become the current frame.
-   */
-  public fun stop(): Unit {
+  public fun stop() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.stopPtr, NIL)
   }
 
-  /**
-   * Returns `true` if the video is playing.
-   *
-   * **Note:** The video is still considered playing if paused during playback.
-   */
   public fun isPlaying(): Boolean {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.isPlayingPtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Returns the video stream's name, or `"<No Stream>"` if no video stream is assigned.
-   */
   public fun getStreamName(): String {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getStreamNamePtr, STRING)
     return (TransferContext.readReturnValue(STRING, false) as String)
   }
 
-  /**
-   * Returns the current frame as a [godot.Texture2D].
-   */
   public fun getVideoTexture(): Texture2D? {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getVideoTexturePtr, OBJECT)

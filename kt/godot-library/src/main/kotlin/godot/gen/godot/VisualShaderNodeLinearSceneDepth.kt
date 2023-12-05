@@ -11,14 +11,9 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * A visual shader node that returns the depth value of the DEPTH_TEXTURE node in a linear space.
- *
- * This node can be used in fragment shaders.
- */
 @GodotBaseType
 public open class VisualShaderNodeLinearSceneDepth : VisualShaderNode() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_VISUALSHADERNODELINEARSCENEDEPTH, scriptIndex)
     return true
   }

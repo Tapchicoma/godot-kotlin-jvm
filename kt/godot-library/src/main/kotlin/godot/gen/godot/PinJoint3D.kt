@@ -19,31 +19,19 @@ import kotlin.Float
 import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
-import kotlin.Unit
 
-/**
- * A physics joint that attaches two 3D physics bodies at a single point, allowing them to freely rotate.
- *
- * A physics joint that attaches two 3D physics bodies at a single point, allowing them to freely rotate. For example, a [godot.RigidBody3D] can be attached to a [godot.StaticBody3D] to create a pendulum or a seesaw.
- */
 @GodotBaseType
 public open class PinJoint3D : Joint3D() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_PINJOINT3D, scriptIndex)
     return true
   }
 
-  /**
-   * Sets the value of the specified parameter.
-   */
-  public fun setParam(`param`: Param, `value`: Float): Unit {
+  public fun setParam(`param`: Param, `value`: Float) {
     TransferContext.writeArguments(LONG to param.id, DOUBLE to value.toDouble())
     TransferContext.callMethod(rawPtr, MethodBindings.setParamPtr, NIL)
   }
 
-  /**
-   * Returns the value of the specified parameter.
-   */
   public fun getParam(`param`: Param): Float {
     TransferContext.writeArguments(LONG to param.id)
     TransferContext.callMethod(rawPtr, MethodBindings.getParamPtr, DOUBLE)
@@ -53,17 +41,8 @@ public open class PinJoint3D : Joint3D() {
   public enum class Param(
     id: Long,
   ) {
-    /**
-     * The force with which the pinned objects stay in positional relation to each other. The higher, the stronger.
-     */
     PARAM_BIAS(0),
-    /**
-     * The force with which the pinned objects stay in velocity relation to each other. The higher, the stronger.
-     */
     PARAM_DAMPING(1),
-    /**
-     * If above 0, this value is the maximum value for an impulse that this Joint3D produces.
-     */
     PARAM_IMPULSE_CLAMP(2),
     ;
 
@@ -73,7 +52,9 @@ public open class PinJoint3D : Joint3D() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): Param = entries.single {
+          it.id == `value`
+      }
     }
   }
 

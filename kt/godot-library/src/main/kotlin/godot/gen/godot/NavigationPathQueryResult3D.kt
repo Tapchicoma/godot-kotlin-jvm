@@ -24,21 +24,9 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
-import kotlin.Unit
 
-/**
- * Represents the result of a 3D pathfinding query.
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/navigation/navigation_using_navigationpathqueryobjects.html]($DOCS_URL/tutorials/navigation/navigation_using_navigationpathqueryobjects.html)
- *
- * This class stores the result of a 3D navigation path query from the [godot.NavigationServer3D].
- */
 @GodotBaseType
 public open class NavigationPathQueryResult3D : RefCounted() {
-  /**
-   * The resulting path array from the navigation query. All path array positions are in global coordinates. Without customized query parameters this is the same path as returned by [godot.NavigationServer3D.mapGetPath].
-   */
   public var path: PackedVector3Array
     get() {
       TransferContext.writeArguments()
@@ -50,9 +38,6 @@ public open class NavigationPathQueryResult3D : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setPathPtr, NIL)
     }
 
-  /**
-   * The type of navigation primitive (region or link) that each point of the path goes through.
-   */
   public var pathTypes: PackedInt32Array
     get() {
       TransferContext.writeArguments()
@@ -64,9 +49,6 @@ public open class NavigationPathQueryResult3D : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setPathTypesPtr, NIL)
     }
 
-  /**
-   * The [RID]s of the regions and links that each point of the path goes through.
-   */
   public var pathRids: VariantArray<RID>
     get() {
       TransferContext.writeArguments()
@@ -78,9 +60,6 @@ public open class NavigationPathQueryResult3D : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setPathRidsPtr, NIL)
     }
 
-  /**
-   * The `ObjectID`s of the [godot.Object]s which manage the regions and links each point of the path goes through.
-   */
   public var pathOwnerIds: PackedInt64Array
     get() {
       TransferContext.writeArguments()
@@ -92,15 +71,12 @@ public open class NavigationPathQueryResult3D : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setPathOwnerIdsPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_NAVIGATIONPATHQUERYRESULT3D, scriptIndex)
     return true
   }
 
-  /**
-   * Reset the result object to its initial state. This is useful to reuse the object across multiple queries.
-   */
-  public fun reset(): Unit {
+  public fun reset() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.resetPtr, NIL)
   }
@@ -108,13 +84,7 @@ public open class NavigationPathQueryResult3D : RefCounted() {
   public enum class PathSegmentType(
     id: Long,
   ) {
-    /**
-     * This segment of the path goes through a region.
-     */
     PATH_SEGMENT_TYPE_REGION(0),
-    /**
-     * This segment of the path goes through a link.
-     */
     PATH_SEGMENT_TYPE_LINK(1),
     ;
 
@@ -124,7 +94,9 @@ public open class NavigationPathQueryResult3D : RefCounted() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): PathSegmentType = entries.single {
+          it.id == `value`
+      }
     }
   }
 

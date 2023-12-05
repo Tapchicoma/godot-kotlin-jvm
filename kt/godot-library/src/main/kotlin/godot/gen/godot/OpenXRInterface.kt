@@ -25,7 +25,6 @@ import kotlin.Float
 import kotlin.Int
 import kotlin.String
 import kotlin.Suppress
-import kotlin.Unit
 
 @GodotBaseType
 public open class OpenXRInterface : XRInterface() {
@@ -61,7 +60,7 @@ public open class OpenXRInterface : XRInterface() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRenderTargetSizeMultiplierPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_OPENXRINTERFACE, scriptIndex)
     return true
   }
@@ -72,7 +71,7 @@ public open class OpenXRInterface : XRInterface() {
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  public fun setActionSetActive(name: String, active: Boolean): Unit {
+  public fun setActionSetActive(name: String, active: Boolean) {
     TransferContext.writeArguments(STRING to name, BOOL to active)
     TransferContext.callMethod(rawPtr, MethodBindings.setActionSetActivePtr, NIL)
   }

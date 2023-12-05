@@ -138,7 +138,7 @@ public open class GLTFSkin : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setGodotSkinPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_GLTFSKIN, scriptIndex)
     return true
   }

@@ -22,21 +22,8 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
 
-/**
- * Represents a straight tube-shaped [godot.PrimitiveMesh] with variable width.
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/3d/particles/index.html]($DOCS_URL/tutorials/3d/particles/index.html)
- *
- * [godot.TubeTrailMesh] represents a straight tube-shaped mesh with variable width. The tube is composed of a number of cylindrical sections, each with the same [sectionLength] and number of [sectionRings]. A [curve] is sampled along the total length of the tube, meaning that the curve determines the radius of the tube along its length.
- *
- * This primitive mesh is usually used for particle trails.
- */
 @GodotBaseType
 public open class TubeTrailMesh : PrimitiveMesh() {
-  /**
-   * The baseline radius of the tube. The radius of a particular section ring is obtained by multiplying this radius by the value of the [curve] at the given distance.
-   */
   public var radius: Float
     get() {
       TransferContext.writeArguments()
@@ -48,9 +35,6 @@ public open class TubeTrailMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRadiusPtr, NIL)
     }
 
-  /**
-   * The number of sides on the tube. For example, a value of `5` means the tube will be pentagonal. Higher values result in a more detailed tube at the cost of performance.
-   */
   public var radialSteps: Int
     get() {
       TransferContext.writeArguments()
@@ -62,9 +46,6 @@ public open class TubeTrailMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRadialStepsPtr, NIL)
     }
 
-  /**
-   * The total number of sections on the tube.
-   */
   public var sections: Int
     get() {
       TransferContext.writeArguments()
@@ -76,9 +57,6 @@ public open class TubeTrailMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSectionsPtr, NIL)
     }
 
-  /**
-   * The length of a section of the tube.
-   */
   public var sectionLength: Float
     get() {
       TransferContext.writeArguments()
@@ -90,9 +68,6 @@ public open class TubeTrailMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSectionLengthPtr, NIL)
     }
 
-  /**
-   * The number of rings in a section. The [curve] is sampled on each ring to determine its radius. Higher values result in a more detailed tube at the cost of performance.
-   */
   public var sectionRings: Int
     get() {
       TransferContext.writeArguments()
@@ -104,9 +79,6 @@ public open class TubeTrailMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSectionRingsPtr, NIL)
     }
 
-  /**
-   * If `true`, generates a cap at the top of the tube. This can be set to `false` to speed up generation and rendering when the cap is never seen by the camera.
-   */
   public var capTop: Boolean
     get() {
       TransferContext.writeArguments()
@@ -118,9 +90,6 @@ public open class TubeTrailMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setCapTopPtr, NIL)
     }
 
-  /**
-   * If `true`, generates a cap at the bottom of the tube. This can be set to `false` to speed up generation and rendering when the cap is never seen by the camera.
-   */
   public var capBottom: Boolean
     get() {
       TransferContext.writeArguments()
@@ -132,9 +101,6 @@ public open class TubeTrailMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setCapBottomPtr, NIL)
     }
 
-  /**
-   * Determines the radius of the tube along its length. The radius of a particular section ring is obtained by multiplying the baseline [radius] by the value of this curve at the given distance. For values smaller than `0`, the faces will be inverted.
-   */
   public var curve: Curve?
     get() {
       TransferContext.writeArguments()
@@ -146,7 +112,7 @@ public open class TubeTrailMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setCurvePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_TUBETRAILMESH, scriptIndex)
     return true
   }

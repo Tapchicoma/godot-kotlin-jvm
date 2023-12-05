@@ -17,18 +17,9 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
-import kotlin.Unit
 
-/**
- * Texture format (used by [godot.RenderingDevice]).
- *
- * This object is used by [godot.RenderingDevice].
- */
 @GodotBaseType
 public open class RDTextureFormat : RefCounted() {
-  /**
-   * The texture's pixel data format.
-   */
   public var format: RenderingDevice.DataFormat
     get() {
       TransferContext.writeArguments()
@@ -40,9 +31,6 @@ public open class RDTextureFormat : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFormatPtr, NIL)
     }
 
-  /**
-   * The texture's width (in pixels).
-   */
   public var width: Long
     get() {
       TransferContext.writeArguments()
@@ -54,9 +42,6 @@ public open class RDTextureFormat : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setWidthPtr, NIL)
     }
 
-  /**
-   * The texture's height (in pixels).
-   */
   public var height: Long
     get() {
       TransferContext.writeArguments()
@@ -68,9 +53,6 @@ public open class RDTextureFormat : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setHeightPtr, NIL)
     }
 
-  /**
-   * The texture's depth (in pixels). This is always `1` for 2D textures.
-   */
   public var depth: Long
     get() {
       TransferContext.writeArguments()
@@ -82,9 +64,6 @@ public open class RDTextureFormat : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDepthPtr, NIL)
     }
 
-  /**
-   * The number of layers in the texture. Only relevant for 2D texture arrays.
-   */
   public var arrayLayers: Long
     get() {
       TransferContext.writeArguments()
@@ -96,9 +75,6 @@ public open class RDTextureFormat : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setArrayLayersPtr, NIL)
     }
 
-  /**
-   * The number of mipmaps available in the texture.
-   */
   public var mipmaps: Long
     get() {
       TransferContext.writeArguments()
@@ -110,9 +86,6 @@ public open class RDTextureFormat : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setMipmapsPtr, NIL)
     }
 
-  /**
-   * The texture type.
-   */
   public var textureType: RenderingDevice.TextureType
     get() {
       TransferContext.writeArguments()
@@ -124,9 +97,6 @@ public open class RDTextureFormat : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTextureTypePtr, NIL)
     }
 
-  /**
-   * The number of samples used when sampling the texture.
-   */
   public var samples: RenderingDevice.TextureSamples
     get() {
       TransferContext.writeArguments()
@@ -138,9 +108,6 @@ public open class RDTextureFormat : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSamplesPtr, NIL)
     }
 
-  /**
-   * The texture's usage bits, which determine what can be done using the texture.
-   */
   public var usageBits: RenderingDevice.TextureUsageBits
     get() {
       TransferContext.writeArguments()
@@ -152,23 +119,17 @@ public open class RDTextureFormat : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setUsageBitsPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_RDTEXTUREFORMAT, scriptIndex)
     return true
   }
 
-  /**
-   *
-   */
-  public fun addShareableFormat(format: RenderingDevice.DataFormat): Unit {
+  public fun addShareableFormat(format: RenderingDevice.DataFormat) {
     TransferContext.writeArguments(LONG to format.id)
     TransferContext.callMethod(rawPtr, MethodBindings.addShareableFormatPtr, NIL)
   }
 
-  /**
-   *
-   */
-  public fun removeShareableFormat(format: RenderingDevice.DataFormat): Unit {
+  public fun removeShareableFormat(format: RenderingDevice.DataFormat) {
     TransferContext.writeArguments(LONG to format.id)
     TransferContext.callMethod(rawPtr, MethodBindings.removeShareableFormatPtr, NIL)
   }

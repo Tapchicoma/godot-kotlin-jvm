@@ -20,92 +20,40 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.NotImplementedError
 import kotlin.Suppress
-import kotlin.Unit
 
-/**
- * Base class for syntax highlighters. Provides syntax highlighting data to a [godot.TextEdit].
- *
- * Base class for syntax highlighters. Provides syntax highlighting data to a [godot.TextEdit]. The associated [godot.TextEdit] will call into the [godot.SyntaxHighlighter] on an as-needed basis.
- *
- * **Note:** A [godot.SyntaxHighlighter] instance should not be used across multiple [godot.TextEdit] nodes.
- */
 @GodotBaseType
 public open class SyntaxHighlighter : Resource() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_SYNTAXHIGHLIGHTER, scriptIndex)
     return true
   }
 
-  /**
-   * Virtual method which can be overridden to return syntax highlighting data.
-   *
-   * See [getLineSyntaxHighlighting] for more details.
-   */
   public open fun _getLineSyntaxHighlighting(line: Int): Dictionary<Any?, Any?> {
     throw NotImplementedError("_get_line_syntax_highlighting is not implemented for SyntaxHighlighter")
   }
 
-  /**
-   * Virtual method which can be overridden to clear any local caches.
-   */
-  public open fun _clearHighlightingCache(): Unit {
+  public open fun _clearHighlightingCache() {
   }
 
-  /**
-   * Virtual method which can be overridden to update any local caches.
-   */
-  public open fun _updateCache(): Unit {
+  public open fun _updateCache() {
   }
 
-  /**
-   * Returns syntax highlighting data for a single line. If the line is not cached, calls [_getLineSyntaxHighlighting] to calculate the data.
-   *
-   * The return [godot.core.Dictionary] is column number to [godot.core.Dictionary]. The column number notes the start of a region, the region will end if another region is found, or at the end of the line. The nested [godot.core.Dictionary] contains the data for that region, currently only the key "color" is supported.
-   *
-   * **Example return:**
-   *
-   * ```
-   * 				var color_map = {
-   * 				    0: {
-   * 				        "color": Color(1, 0, 0)
-   * 				    },
-   * 				    5: {
-   * 				        "color": Color(0, 1, 0)
-   * 				    }
-   * 				}
-   * 				```
-   *
-   * This will color columns 0-4 red, and columns 5-eol in green.
-   */
   public fun getLineSyntaxHighlighting(line: Int): Dictionary<Any?, Any?> {
     TransferContext.writeArguments(LONG to line.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getLineSyntaxHighlightingPtr, DICTIONARY)
     return (TransferContext.readReturnValue(DICTIONARY, false) as Dictionary<Any?, Any?>)
   }
 
-  /**
-   * Clears then updates the [godot.SyntaxHighlighter] caches. Override [_updateCache] for a callback.
-   *
-   * **Note:** This is called automatically when the associated [godot.TextEdit] node, updates its own cache.
-   */
-  public fun updateCache(): Unit {
+  public fun updateCache() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.updateCachePtr, NIL)
   }
 
-  /**
-   * Clears all cached syntax highlighting data.
-   *
-   * Then calls overridable method [_clearHighlightingCache].
-   */
-  public fun clearHighlightingCache(): Unit {
+  public fun clearHighlightingCache() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.clearHighlightingCachePtr, NIL)
   }
 
-  /**
-   * Returns the associated [godot.TextEdit] node.
-   */
   public fun getTextEdit(): TextEdit? {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getTextEditPtr, OBJECT)

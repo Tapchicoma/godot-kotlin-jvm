@@ -17,16 +17,8 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
 
-/**
- * Abstract base class for [godot.Viewport]-based input events.
- *
- * InputEventFromWindow represents events specifically received by windows. This includes mouse events, keyboard events in focused windows or touch screen actions.
- */
 @GodotBaseType
 public open class InputEventFromWindow internal constructor() : InputEvent() {
-  /**
-   * The ID of a [godot.Window] that received this event.
-   */
   public var windowId: Long
     get() {
       TransferContext.writeArguments()
@@ -38,7 +30,7 @@ public open class InputEventFromWindow internal constructor() : InputEvent() {
       TransferContext.callMethod(rawPtr, MethodBindings.setWindowIdPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_INPUTEVENTFROMWINDOW, scriptIndex)
     return true
   }

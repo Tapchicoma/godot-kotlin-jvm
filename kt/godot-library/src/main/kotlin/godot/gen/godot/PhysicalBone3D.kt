@@ -29,16 +29,8 @@ import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmOverloads
 
-/**
- * A physics body used to make bones in a [godot.Skeleton3D] react to physics.
- *
- * The [godot.PhysicalBone3D] node is a physics body that can be used to make bones in a [godot.Skeleton3D] react to physics.
- */
 @GodotBaseType
 public open class PhysicalBone3D : PhysicsBody3D() {
-  /**
-   * Sets the joint type. See [enum JointType] for possible values.
-   */
   public var jointType: JointType
     get() {
       TransferContext.writeArguments()
@@ -50,9 +42,6 @@ public open class PhysicalBone3D : PhysicsBody3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setJointTypePtr, NIL)
     }
 
-  /**
-   * Sets the joint's transform.
-   */
   @CoreTypeLocalCopy
   public var jointOffset: Transform3D
     get() {
@@ -65,9 +54,6 @@ public open class PhysicalBone3D : PhysicsBody3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setJointOffsetPtr, NIL)
     }
 
-  /**
-   * Sets the joint's rotation in radians.
-   */
   @CoreTypeLocalCopy
   public var jointRotation: Vector3
     get() {
@@ -80,9 +66,6 @@ public open class PhysicalBone3D : PhysicsBody3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setJointRotationPtr, NIL)
     }
 
-  /**
-   * Sets the body's transform.
-   */
   @CoreTypeLocalCopy
   public var bodyOffset: Transform3D
     get() {
@@ -95,9 +78,6 @@ public open class PhysicalBone3D : PhysicsBody3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setBodyOffsetPtr, NIL)
     }
 
-  /**
-   * The body's mass.
-   */
   public var mass: Float
     get() {
       TransferContext.writeArguments()
@@ -109,9 +89,6 @@ public open class PhysicalBone3D : PhysicsBody3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setMassPtr, NIL)
     }
 
-  /**
-   * The body's friction, from `0` (frictionless) to `1` (max friction).
-   */
   public var friction: Float
     get() {
       TransferContext.writeArguments()
@@ -123,9 +100,6 @@ public open class PhysicalBone3D : PhysicsBody3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFrictionPtr, NIL)
     }
 
-  /**
-   * The body's bounciness. Values range from `0` (no bounce) to `1` (full bounciness).
-   */
   public var bounce: Float
     get() {
       TransferContext.writeArguments()
@@ -137,9 +111,6 @@ public open class PhysicalBone3D : PhysicsBody3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setBouncePtr, NIL)
     }
 
-  /**
-   * This is multiplied by the global 3D gravity setting found in **Project > Project Settings > Physics > 3d** to produce the body's gravity. For example, a value of 1 will be normal gravity, 2 will apply double gravity, and 0.5 will apply half gravity to this object.
-   */
   public var gravityScale: Float
     get() {
       TransferContext.writeArguments()
@@ -151,9 +122,6 @@ public open class PhysicalBone3D : PhysicsBody3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setGravityScalePtr, NIL)
     }
 
-  /**
-   * If `true`, internal force integration will be disabled (like gravity or air friction) for this body. Other than collision response, the body will only move as determined by the [_integrateForces] function, if defined.
-   */
   public var customIntegrator: Boolean
     get() {
       TransferContext.writeArguments()
@@ -165,9 +133,6 @@ public open class PhysicalBone3D : PhysicsBody3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setUseCustomIntegratorPtr, NIL)
     }
 
-  /**
-   * Defines how [linearDamp] is applied. See [enum DampMode] for possible values.
-   */
   public var linearDampMode: DampMode
     get() {
       TransferContext.writeArguments()
@@ -179,11 +144,6 @@ public open class PhysicalBone3D : PhysicsBody3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setLinearDampModePtr, NIL)
     }
 
-  /**
-   * Damps the body's movement. By default, the body will use the **Default Linear Damp** in **Project > Project Settings > Physics > 3d** or any value override set by an [godot.Area3D] the body is in. Depending on [linearDampMode], you can set [linearDamp] to be added to or to replace the body's damping value.
-   *
-   * See [godot.ProjectSettings.physics/3d/defaultLinearDamp] for more details about damping.
-   */
   public var linearDamp: Float
     get() {
       TransferContext.writeArguments()
@@ -195,9 +155,6 @@ public open class PhysicalBone3D : PhysicsBody3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setLinearDampPtr, NIL)
     }
 
-  /**
-   * Defines how [angularDamp] is applied. See [enum DampMode] for possible values.
-   */
   public var angularDampMode: DampMode
     get() {
       TransferContext.writeArguments()
@@ -209,11 +166,6 @@ public open class PhysicalBone3D : PhysicsBody3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAngularDampModePtr, NIL)
     }
 
-  /**
-   * Damps the body's rotation. By default, the body will use the **Default Angular Damp** in **Project > Project Settings > Physics > 3d** or any value override set by an [godot.Area3D] the body is in. Depending on [angularDampMode], you can set [angularDamp] to be added to or to replace the body's damping value.
-   *
-   * See [godot.ProjectSettings.physics/3d/defaultAngularDamp] for more details about damping.
-   */
   public var angularDamp: Float
     get() {
       TransferContext.writeArguments()
@@ -225,9 +177,6 @@ public open class PhysicalBone3D : PhysicsBody3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAngularDampPtr, NIL)
     }
 
-  /**
-   * The body's linear velocity in units per second. Can be used sporadically, but **don't set this every frame**, because physics may run in another thread and runs at a different granularity. Use [_integrateForces] as your process loop for precise control of the body state.
-   */
   @CoreTypeLocalCopy
   public var linearVelocity: Vector3
     get() {
@@ -240,9 +189,6 @@ public open class PhysicalBone3D : PhysicsBody3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setLinearVelocityPtr, NIL)
     }
 
-  /**
-   * The PhysicalBone3D's rotational velocity in *radians* per second.
-   */
   @CoreTypeLocalCopy
   public var angularVelocity: Vector3
     get() {
@@ -255,9 +201,6 @@ public open class PhysicalBone3D : PhysicsBody3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAngularVelocityPtr, NIL)
     }
 
-  /**
-   * If `true`, the body is deactivated when there is no movement, so it will not take part in the simulation until it is awakened by an external force.
-   */
   public var canSleep: Boolean
     get() {
       TransferContext.writeArguments()
@@ -269,14 +212,12 @@ public open class PhysicalBone3D : PhysicsBody3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setCanSleepPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_PHYSICALBONE3D, scriptIndex)
     return true
   }
 
   /**
-   * Sets the joint's transform.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -299,8 +240,6 @@ public open class PhysicalBone3D : PhysicsBody3D() {
 
 
   /**
-   * Sets the joint's rotation in radians.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -323,8 +262,6 @@ public open class PhysicalBone3D : PhysicsBody3D() {
 
 
   /**
-   * Sets the body's transform.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -347,8 +284,6 @@ public open class PhysicalBone3D : PhysicsBody3D() {
 
 
   /**
-   * The body's linear velocity in units per second. Can be used sporadically, but **don't set this every frame**, because physics may run in another thread and runs at a different granularity. Use [_integrateForces] as your process loop for precise control of the body state.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -371,8 +306,6 @@ public open class PhysicalBone3D : PhysicsBody3D() {
 
 
   /**
-   * The PhysicalBone3D's rotational velocity in *radians* per second.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -394,50 +327,32 @@ public open class PhysicalBone3D : PhysicsBody3D() {
   }
 
 
-  /**
-   * Called during physics processing, allowing you to read and safely modify the simulation state for the object. By default, it works in addition to the usual physics behavior, but the [customIntegrator] property allows you to disable the default behavior and do fully custom force integration for a body.
-   */
-  public open fun _integrateForces(state: PhysicsDirectBodyState3D): Unit {
+  public open fun _integrateForces(state: PhysicsDirectBodyState3D) {
   }
 
-  /**
-   *
-   */
-  public fun applyCentralImpulse(impulse: Vector3): Unit {
+  public fun applyCentralImpulse(impulse: Vector3) {
     TransferContext.writeArguments(VECTOR3 to impulse)
     TransferContext.callMethod(rawPtr, MethodBindings.applyCentralImpulsePtr, NIL)
   }
 
-  /**
-   *
-   */
   @JvmOverloads
-  public fun applyImpulse(impulse: Vector3, position: Vector3 = Vector3(0, 0, 0)): Unit {
+  public fun applyImpulse(impulse: Vector3, position: Vector3 = Vector3(0, 0, 0)) {
     TransferContext.writeArguments(VECTOR3 to impulse, VECTOR3 to position)
     TransferContext.callMethod(rawPtr, MethodBindings.applyImpulsePtr, NIL)
   }
 
-  /**
-   *
-   */
   public fun getSimulatePhysics(): Boolean {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getSimulatePhysicsPtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   *
-   */
   public fun isSimulatingPhysics(): Boolean {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.isSimulatingPhysicsPtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   *
-   */
   public fun getBoneId(): Int {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getBoneIdPtr, LONG)
@@ -447,13 +362,7 @@ public open class PhysicalBone3D : PhysicsBody3D() {
   public enum class DampMode(
     id: Long,
   ) {
-    /**
-     * In this mode, the body's damping value is added to any value set in areas or the default value.
-     */
     DAMP_MODE_COMBINE(0),
-    /**
-     * In this mode, the body's damping value replaces any value set in areas or the default value.
-     */
     DAMP_MODE_REPLACE(1),
     ;
 
@@ -463,36 +372,20 @@ public open class PhysicalBone3D : PhysicsBody3D() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): DampMode = entries.single {
+          it.id == `value`
+      }
     }
   }
 
   public enum class JointType(
     id: Long,
   ) {
-    /**
-     *
-     */
     JOINT_TYPE_NONE(0),
-    /**
-     *
-     */
     JOINT_TYPE_PIN(1),
-    /**
-     *
-     */
     JOINT_TYPE_CONE(2),
-    /**
-     *
-     */
     JOINT_TYPE_HINGE(3),
-    /**
-     *
-     */
     JOINT_TYPE_SLIDER(4),
-    /**
-     *
-     */
     JOINT_TYPE_6DOF(5),
     ;
 
@@ -502,7 +395,9 @@ public open class PhysicalBone3D : PhysicsBody3D() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): JointType = entries.single {
+          it.id == `value`
+      }
     }
   }
 

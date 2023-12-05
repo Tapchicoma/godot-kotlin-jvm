@@ -23,33 +23,12 @@ import kotlin.Int
 import kotlin.Suppress
 import kotlin.Unit
 
-/**
- * Detects when the node extents are visible on screen.
- *
- * Tutorials:
- * [https://godotengine.org/asset-library/asset/515](https://godotengine.org/asset-library/asset/515)
- *
- * The VisibleOnScreenNotifier2D detects when it is visible on the screen. It also notifies when its bounding rectangle enters or exits the screen or a viewport.
- *
- * If you want nodes to be disabled automatically when they exit the screen, use [godot.VisibleOnScreenEnabler2D] instead.
- *
- * **Note:** VisibleOnScreenNotifier2D uses the render culling code to determine whether it's visible on screen, which also means that its [godot.CanvasItem.visible] must be `true` to work correctly.
- */
 @GodotBaseType
 public open class VisibleOnScreenNotifier2D : Node2D() {
-  /**
-   * Emitted when the VisibleOnScreenNotifier2D enters the screen.
-   */
   public val screenEntered: Signal0 by signal()
 
-  /**
-   * Emitted when the VisibleOnScreenNotifier2D exits the screen.
-   */
   public val screenExited: Signal0 by signal()
 
-  /**
-   * The VisibleOnScreenNotifier2D's bounding rectangle.
-   */
   @CoreTypeLocalCopy
   public var rect: Rect2
     get() {
@@ -62,14 +41,12 @@ public open class VisibleOnScreenNotifier2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRectPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_VISIBLEONSCREENNOTIFIER2D, scriptIndex)
     return true
   }
 
   /**
-   * The VisibleOnScreenNotifier2D's bounding rectangle.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -91,11 +68,6 @@ public open class VisibleOnScreenNotifier2D : Node2D() {
   }
 
 
-  /**
-   * If `true`, the bounding rectangle is on the screen.
-   *
-   * **Note:** It takes one frame for the node's visibility to be assessed once added to the scene tree, so this method will return `false` right after it is instantiated, even if it will be on screen in the draw pass.
-   */
   public fun isOnScreen(): Boolean {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.isOnScreenPtr, BOOL)

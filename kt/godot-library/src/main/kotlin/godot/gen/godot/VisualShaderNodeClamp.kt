@@ -17,16 +17,8 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
 
-/**
- * Clamps a value within the visual shader graph.
- *
- * Constrains a value to lie between `min` and `max` values.
- */
 @GodotBaseType
 public open class VisualShaderNodeClamp : VisualShaderNode() {
-  /**
-   * A type of operands and returned value.
-   */
   public var opType: OpType
     get() {
       TransferContext.writeArguments()
@@ -38,7 +30,7 @@ public open class VisualShaderNodeClamp : VisualShaderNode() {
       TransferContext.callMethod(rawPtr, MethodBindings.setOpTypePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_VISUALSHADERNODECLAMP, scriptIndex)
     return true
   }
@@ -46,33 +38,12 @@ public open class VisualShaderNodeClamp : VisualShaderNode() {
   public enum class OpType(
     id: Long,
   ) {
-    /**
-     * A floating-point scalar.
-     */
     OP_TYPE_FLOAT(0),
-    /**
-     * An integer scalar.
-     */
     OP_TYPE_INT(1),
-    /**
-     * An unsigned integer scalar.
-     */
     OP_TYPE_UINT(2),
-    /**
-     * A 2D vector type.
-     */
     OP_TYPE_VECTOR_2D(3),
-    /**
-     * A 3D vector type.
-     */
     OP_TYPE_VECTOR_3D(4),
-    /**
-     * A 4D vector type.
-     */
     OP_TYPE_VECTOR_4D(5),
-    /**
-     * Represents the size of the [enum OpType] enum.
-     */
     OP_TYPE_MAX(6),
     ;
 
@@ -82,7 +53,9 @@ public open class VisualShaderNodeClamp : VisualShaderNode() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): OpType = entries.single {
+          it.id == `value`
+      }
     }
   }
 

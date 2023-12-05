@@ -16,16 +16,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * A visual shader helper node for multiplying position and rotation of particles.
- *
- * This node helps to multiply a position input vector by rotation using specific axis. Intended to work with emitters.
- */
 @GodotBaseType
 public open class VisualShaderNodeParticleMultiplyByAxisAngle : VisualShaderNode() {
-  /**
-   * If `true`, the angle will be interpreted in degrees instead of radians.
-   */
   public var degreesMode: Boolean
     get() {
       TransferContext.writeArguments()
@@ -37,7 +29,7 @@ public open class VisualShaderNodeParticleMultiplyByAxisAngle : VisualShaderNode
       TransferContext.callMethod(rawPtr, MethodBindings.setDegreesModePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_VISUALSHADERNODEPARTICLEMULTIPLYBYAXISANGLE, scriptIndex)
     return true
   }

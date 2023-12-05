@@ -25,12 +25,11 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
-import kotlin.Unit
 import kotlin.jvm.JvmOverloads
 
 @GodotBaseType
 public open class GLTFDocument : Resource() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_GLTFDOCUMENT, scriptIndex)
     return true
   }
@@ -97,12 +96,12 @@ public open class GLTFDocument : Resource() {
   public companion object {
     @JvmOverloads
     public fun registerGltfDocumentExtension(extension: GLTFDocumentExtension,
-        firstPriority: Boolean = false): Unit {
+        firstPriority: Boolean = false) {
       TransferContext.writeArguments(OBJECT to extension, BOOL to firstPriority)
       TransferContext.callMethod(0, MethodBindings.registerGltfDocumentExtensionPtr, NIL)
     }
 
-    public fun unregisterGltfDocumentExtension(extension: GLTFDocumentExtension): Unit {
+    public fun unregisterGltfDocumentExtension(extension: GLTFDocumentExtension) {
       TransferContext.writeArguments(OBJECT to extension)
       TransferContext.callMethod(0, MethodBindings.unregisterGltfDocumentExtensionPtr, NIL)
     }

@@ -21,30 +21,13 @@ import kotlin.Boolean
 import kotlin.Double
 import kotlin.Int
 import kotlin.Suppress
-import kotlin.Unit
 
-/**
- * Abstract base class for controls that represent a number within a range.
- *
- * Range is an abstract base class for controls that represent a number within a range, using a configured [step] and [page] size. See e.g. [godot.ScrollBar] and [godot.Slider] for examples of higher-level nodes using Range.
- */
 @GodotBaseType
 public open class Range : Control() {
-  /**
-   * Emitted when [value] changes. When used on a [godot.Slider], this is called continuously while dragging (potentially every frame). If you are performing an expensive operation in a function connected to [valueChanged], consider using a *debouncing* [godot.Timer] to call the function less often.
-   *
-   * **Note:** Unlike signals such as [godot.LineEdit.textChanged], [valueChanged] is also emitted when [value] is set directly via code.
-   */
   public val valueChanged: Signal1<Double> by signal("value")
 
-  /**
-   * Emitted when [minValue], [maxValue], [page], or [step] change.
-   */
   public val changed: Signal0 by signal()
 
-  /**
-   * Minimum value. Range is clamped if [value] is less than [minValue].
-   */
   public var minValue: Double
     get() {
       TransferContext.writeArguments()
@@ -56,9 +39,6 @@ public open class Range : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setMinPtr, NIL)
     }
 
-  /**
-   * Maximum value. Range is clamped if [value] is greater than [maxValue].
-   */
   public var maxValue: Double
     get() {
       TransferContext.writeArguments()
@@ -70,9 +50,6 @@ public open class Range : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setMaxPtr, NIL)
     }
 
-  /**
-   * If greater than 0, [value] will always be rounded to a multiple of this property's value. If [rounded] is also `true`, [value] will first be rounded to a multiple of this property's value, then rounded to the nearest integer.
-   */
   public var step: Double
     get() {
       TransferContext.writeArguments()
@@ -84,9 +61,6 @@ public open class Range : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setStepPtr, NIL)
     }
 
-  /**
-   * Page size. Used mainly for [godot.ScrollBar]. ScrollBar's length is its size multiplied by [page] over the difference between [minValue] and [maxValue].
-   */
   public var page: Double
     get() {
       TransferContext.writeArguments()
@@ -98,9 +72,6 @@ public open class Range : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setPagePtr, NIL)
     }
 
-  /**
-   * Range's current value. Changing this property (even via code) will trigger [valueChanged] signal. Use [setValueNoSignal] if you want to avoid it.
-   */
   public var `value`: Double
     get() {
       TransferContext.writeArguments()
@@ -112,9 +83,6 @@ public open class Range : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setValuePtr, NIL)
     }
 
-  /**
-   * The value mapped between 0 and 1.
-   */
   public var ratio: Double
     get() {
       TransferContext.writeArguments()
@@ -126,9 +94,6 @@ public open class Range : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAsRatioPtr, NIL)
     }
 
-  /**
-   * If `true`, and [minValue] is greater than 0, [value] will be represented exponentially rather than linearly.
-   */
   public var expEdit: Boolean
     get() {
       TransferContext.writeArguments()
@@ -140,9 +105,6 @@ public open class Range : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setExpRatioPtr, NIL)
     }
 
-  /**
-   * If `true`, [value] will always be rounded to the nearest integer.
-   */
   public var rounded: Boolean
     get() {
       TransferContext.writeArguments()
@@ -154,9 +116,6 @@ public open class Range : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setUseRoundedValuesPtr, NIL)
     }
 
-  /**
-   * If `true`, [value] may be greater than [maxValue].
-   */
   public var allowGreater: Boolean
     get() {
       TransferContext.writeArguments()
@@ -168,9 +127,6 @@ public open class Range : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAllowGreaterPtr, NIL)
     }
 
-  /**
-   * If `true`, [value] may be less than [minValue].
-   */
   public var allowLesser: Boolean
     get() {
       TransferContext.writeArguments()
@@ -182,37 +138,25 @@ public open class Range : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAllowLesserPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_RANGE, scriptIndex)
     return true
   }
 
-  /**
-   * Called when the [godot.Range]'s value is changed (following the same conditions as [valueChanged]).
-   */
-  public open fun _valueChanged(newValue: Double): Unit {
+  public open fun _valueChanged(newValue: Double) {
   }
 
-  /**
-   * Sets the [godot.Range]'s current value to the specified [value], without emitting the [valueChanged] signal.
-   */
-  public fun setValueNoSignal(`value`: Double): Unit {
+  public fun setValueNoSignal(`value`: Double) {
     TransferContext.writeArguments(DOUBLE to value)
     TransferContext.callMethod(rawPtr, MethodBindings.setValueNoSignalPtr, NIL)
   }
 
-  /**
-   * Binds two [godot.Range]s together along with any ranges previously grouped with either of them. When any of range's member variables change, it will share the new value with all other ranges in its group.
-   */
-  public fun share(with: Node): Unit {
+  public fun share(with: Node) {
     TransferContext.writeArguments(OBJECT to with)
     TransferContext.callMethod(rawPtr, MethodBindings.sharePtr, NIL)
   }
 
-  /**
-   * Stops the [godot.Range] from sharing its member variables with any other.
-   */
-  public fun unshare(): Unit {
+  public fun unshare() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.unsharePtr, NIL)
   }

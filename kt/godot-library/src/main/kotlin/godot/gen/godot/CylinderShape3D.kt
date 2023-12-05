@@ -18,23 +18,8 @@ import kotlin.Float
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * A 3D cylinder shape used for physics collision.
- *
- * Tutorials:
- * [https://godotengine.org/asset-library/asset/676](https://godotengine.org/asset-library/asset/676)
- *
- * A 3D cylinder shape, intended for use in physics. Usually used to provide a shape for a [godot.CollisionShape3D].
- *
- * **Note:** There are several known bugs with cylinder collision shapes. Using [godot.CapsuleShape3D] or [godot.BoxShape3D] instead is recommended.
- *
- * **Performance:** [godot.CylinderShape3D] is fast to check collisions against, but it is slower than [godot.CapsuleShape3D], [godot.BoxShape3D], and [godot.SphereShape3D].
- */
 @GodotBaseType
 public open class CylinderShape3D : Shape3D() {
-  /**
-   * The cylinder's height.
-   */
   public var height: Float
     get() {
       TransferContext.writeArguments()
@@ -46,9 +31,6 @@ public open class CylinderShape3D : Shape3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setHeightPtr, NIL)
     }
 
-  /**
-   * The cylinder's radius.
-   */
   public var radius: Float
     get() {
       TransferContext.writeArguments()
@@ -60,7 +42,7 @@ public open class CylinderShape3D : Shape3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRadiusPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_CYLINDERSHAPE3D, scriptIndex)
     return true
   }

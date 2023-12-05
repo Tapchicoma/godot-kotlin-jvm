@@ -20,16 +20,8 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
 
-/**
- * Class representing a torus [godot.PrimitiveMesh].
- *
- * Class representing a torus [godot.PrimitiveMesh].
- */
 @GodotBaseType
 public open class TorusMesh : PrimitiveMesh() {
-  /**
-   * The inner radius of the torus.
-   */
   public var innerRadius: Float
     get() {
       TransferContext.writeArguments()
@@ -41,9 +33,6 @@ public open class TorusMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setInnerRadiusPtr, NIL)
     }
 
-  /**
-   * The outer radius of the torus.
-   */
   public var outerRadius: Float
     get() {
       TransferContext.writeArguments()
@@ -55,9 +44,6 @@ public open class TorusMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setOuterRadiusPtr, NIL)
     }
 
-  /**
-   * The number of slices the torus is constructed of.
-   */
   public var rings: Int
     get() {
       TransferContext.writeArguments()
@@ -69,9 +55,6 @@ public open class TorusMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRingsPtr, NIL)
     }
 
-  /**
-   * The number of edges each ring of the torus is constructed of.
-   */
   public var ringSegments: Int
     get() {
       TransferContext.writeArguments()
@@ -83,7 +66,7 @@ public open class TorusMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRingSegmentsPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_TORUSMESH, scriptIndex)
     return true
   }

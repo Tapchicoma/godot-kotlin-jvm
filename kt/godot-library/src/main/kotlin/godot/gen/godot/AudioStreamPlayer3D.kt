@@ -25,33 +25,12 @@ import kotlin.Float
 import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
-import kotlin.Unit
 import kotlin.jvm.JvmOverloads
 
-/**
- * Plays positional sound in 3D space.
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/audio/audio_streams.html]($DOCS_URL/tutorials/audio/audio_streams.html)
- *
- * Plays audio with positional sound effects, based on the relative position of the audio listener. Positional effects include distance attenuation, directionality, and the Doppler effect. For greater realism, a low-pass filter is applied to distant sounds. This can be disabled by setting [attenuationFilterCutoffHz] to `20500`.
- *
- * By default, audio is heard from the camera position. This can be changed by adding an [godot.AudioListener3D] node to the scene and enabling it by calling [godot.AudioListener3D.makeCurrent] on it.
- *
- * See also [godot.AudioStreamPlayer] to play a sound non-positionally.
- *
- * **Note:** Hiding an [godot.AudioStreamPlayer3D] node does not disable its audio output. To temporarily disable an [godot.AudioStreamPlayer3D]'s audio output, set [volumeDb] to a very low value like `-100` (which isn't audible to human hearing).
- */
 @GodotBaseType
 public open class AudioStreamPlayer3D : Node3D() {
-  /**
-   * Emitted when the audio stops playing.
-   */
   public val finished: Signal0 by signal()
 
-  /**
-   * The [godot.AudioStream] resource to be played.
-   */
   public var stream: AudioStream?
     get() {
       TransferContext.writeArguments()
@@ -63,9 +42,6 @@ public open class AudioStreamPlayer3D : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setStreamPtr, NIL)
     }
 
-  /**
-   * Decides if audio should get quieter with distance linearly, quadratically, logarithmically, or not be affected by distance, effectively disabling attenuation.
-   */
   public var attenuationModel: AttenuationModel
     get() {
       TransferContext.writeArguments()
@@ -77,9 +53,6 @@ public open class AudioStreamPlayer3D : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAttenuationModelPtr, NIL)
     }
 
-  /**
-   * The base sound level before attenuation, in decibels.
-   */
   public var volumeDb: Float
     get() {
       TransferContext.writeArguments()
@@ -91,9 +64,6 @@ public open class AudioStreamPlayer3D : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setVolumeDbPtr, NIL)
     }
 
-  /**
-   * The factor for the attenuation effect. Higher values make the sound audible over a larger distance.
-   */
   public var unitSize: Float
     get() {
       TransferContext.writeArguments()
@@ -105,9 +75,6 @@ public open class AudioStreamPlayer3D : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setUnitSizePtr, NIL)
     }
 
-  /**
-   * Sets the absolute maximum of the sound level, in decibels.
-   */
   public var maxDb: Float
     get() {
       TransferContext.writeArguments()
@@ -119,9 +86,6 @@ public open class AudioStreamPlayer3D : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setMaxDbPtr, NIL)
     }
 
-  /**
-   * The pitch and the tempo of the audio, as a multiplier of the audio sample's sample rate.
-   */
   public var pitchScale: Float
     get() {
       TransferContext.writeArguments()
@@ -133,9 +97,6 @@ public open class AudioStreamPlayer3D : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setPitchScalePtr, NIL)
     }
 
-  /**
-   * If `true`, audio is playing or is queued to be played (see [play]).
-   */
   public val playing: Boolean
     get() {
       TransferContext.writeArguments()
@@ -143,9 +104,6 @@ public open class AudioStreamPlayer3D : Node3D() {
       return (TransferContext.readReturnValue(BOOL, false) as Boolean)
     }
 
-  /**
-   * If `true`, audio plays when the AudioStreamPlayer3D node is added to scene tree.
-   */
   public var autoplay: Boolean
     get() {
       TransferContext.writeArguments()
@@ -157,9 +115,6 @@ public open class AudioStreamPlayer3D : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAutoplayPtr, NIL)
     }
 
-  /**
-   * If `true`, the playback is paused. You can resume it by setting [streamPaused] to `false`.
-   */
   public var streamPaused: Boolean
     get() {
       TransferContext.writeArguments()
@@ -171,9 +126,6 @@ public open class AudioStreamPlayer3D : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setStreamPausedPtr, NIL)
     }
 
-  /**
-   * The distance past which the sound can no longer be heard at all. Only has an effect if set to a value greater than `0.0`. [maxDistance] works in tandem with [unitSize]. However, unlike [unitSize] whose behavior depends on the [attenuationModel], [maxDistance] always works in a linear fashion. This can be used to prevent the [godot.AudioStreamPlayer3D] from requiring audio mixing when the listener is far away, which saves CPU resources.
-   */
   public var maxDistance: Float
     get() {
       TransferContext.writeArguments()
@@ -185,9 +137,6 @@ public open class AudioStreamPlayer3D : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setMaxDistancePtr, NIL)
     }
 
-  /**
-   * The maximum number of sounds this node can play at the same time. Playing additional sounds after this value is reached will cut off the oldest sounds.
-   */
   public var maxPolyphony: Int
     get() {
       TransferContext.writeArguments()
@@ -199,9 +148,6 @@ public open class AudioStreamPlayer3D : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setMaxPolyphonyPtr, NIL)
     }
 
-  /**
-   * Scales the panning strength for this node by multiplying the base [godot.ProjectSettings.audio/general/3dPanningStrength] with this factor. Higher values will pan audio from left to right more dramatically than lower values.
-   */
   public var panningStrength: Float
     get() {
       TransferContext.writeArguments()
@@ -213,11 +159,6 @@ public open class AudioStreamPlayer3D : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setPanningStrengthPtr, NIL)
     }
 
-  /**
-   * The bus on which this audio is playing.
-   *
-   * **Note:** When setting this property, keep in mind that no validation is performed to see if the given name matches an existing bus. This is because audio bus layouts might be loaded after this property is set. If this given name can't be resolved at runtime, it will fall back to `"Master"`.
-   */
   public var bus: StringName
     get() {
       TransferContext.writeArguments()
@@ -229,9 +170,6 @@ public open class AudioStreamPlayer3D : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setBusPtr, NIL)
     }
 
-  /**
-   * Determines which [godot.Area3D] layers affect the sound for reverb and audio bus effects. Areas can be used to redirect [godot.AudioStream]s so that they play in a certain audio bus. An example of how you might use this is making a "water" area so that sounds played in the water are redirected through an audio bus to make them sound like they are being played underwater.
-   */
   public var areaMask: Long
     get() {
       TransferContext.writeArguments()
@@ -243,9 +181,6 @@ public open class AudioStreamPlayer3D : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAreaMaskPtr, NIL)
     }
 
-  /**
-   * If `true`, the audio should be attenuated according to the direction of the sound.
-   */
   public var emissionAngleEnabled: Boolean
     get() {
       TransferContext.writeArguments()
@@ -257,9 +192,6 @@ public open class AudioStreamPlayer3D : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setEmissionAngleEnabledPtr, NIL)
     }
 
-  /**
-   * The angle in which the audio reaches a listener unattenuated.
-   */
   public var emissionAngleDegrees: Float
     get() {
       TransferContext.writeArguments()
@@ -271,9 +203,6 @@ public open class AudioStreamPlayer3D : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setEmissionAnglePtr, NIL)
     }
 
-  /**
-   * Attenuation factor used if listener is outside of [emissionAngleDegrees] and [emissionAngleEnabled] is set, in decibels.
-   */
   public var emissionAngleFilterAttenuationDb: Float
     get() {
       TransferContext.writeArguments()
@@ -286,9 +215,6 @@ public open class AudioStreamPlayer3D : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setEmissionAngleFilterAttenuationDbPtr, NIL)
     }
 
-  /**
-   * The cutoff frequency of the attenuation low-pass filter, in Hz. A sound above this frequency is attenuated more than a sound below this frequency. To disable this effect, set this to `20500` as this frequency is above the human hearing limit.
-   */
   public var attenuationFilterCutoffHz: Float
     get() {
       TransferContext.writeArguments()
@@ -300,9 +226,6 @@ public open class AudioStreamPlayer3D : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAttenuationFilterCutoffHzPtr, NIL)
     }
 
-  /**
-   * Amount how much the filter affects the loudness, in decibels.
-   */
   public var attenuationFilterDb: Float
     get() {
       TransferContext.writeArguments()
@@ -314,9 +237,6 @@ public open class AudioStreamPlayer3D : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAttenuationFilterDbPtr, NIL)
     }
 
-  /**
-   * Decides in which step the Doppler effect should be calculated.
-   */
   public var dopplerTracking: DopplerTracking
     get() {
       TransferContext.writeArguments()
@@ -328,57 +248,39 @@ public open class AudioStreamPlayer3D : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDopplerTrackingPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_AUDIOSTREAMPLAYER3D, scriptIndex)
     return true
   }
 
-  /**
-   * Queues the audio to play on the next physics frame, from the given position [fromPosition], in seconds.
-   */
   @JvmOverloads
-  public fun play(fromPosition: Float = 0.0f): Unit {
+  public fun play(fromPosition: Float = 0.0f) {
     TransferContext.writeArguments(DOUBLE to fromPosition.toDouble())
     TransferContext.callMethod(rawPtr, MethodBindings.playPtr, NIL)
   }
 
-  /**
-   * Sets the position from which audio will be played, in seconds.
-   */
-  public fun seek(toPosition: Float): Unit {
+  public fun seek(toPosition: Float) {
     TransferContext.writeArguments(DOUBLE to toPosition.toDouble())
     TransferContext.callMethod(rawPtr, MethodBindings.seekPtr, NIL)
   }
 
-  /**
-   * Stops the audio.
-   */
-  public fun stop(): Unit {
+  public fun stop() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.stopPtr, NIL)
   }
 
-  /**
-   * Returns the position in the [godot.AudioStream].
-   */
   public fun getPlaybackPosition(): Float {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getPlaybackPositionPtr, DOUBLE)
     return (TransferContext.readReturnValue(DOUBLE, false) as Double).toFloat()
   }
 
-  /**
-   * Returns whether the [godot.AudioStreamPlayer] can return the [godot.AudioStreamPlayback] object or not.
-   */
   public fun hasStreamPlayback(): Boolean {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.hasStreamPlaybackPtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Returns the [godot.AudioStreamPlayback] object associated with this [godot.AudioStreamPlayer3D].
-   */
   public fun getStreamPlayback(): AudioStreamPlayback? {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getStreamPlaybackPtr, OBJECT)
@@ -388,21 +290,9 @@ public open class AudioStreamPlayer3D : Node3D() {
   public enum class AttenuationModel(
     id: Long,
   ) {
-    /**
-     * Attenuation of loudness according to linear distance.
-     */
     ATTENUATION_INVERSE_DISTANCE(0),
-    /**
-     * Attenuation of loudness according to squared distance.
-     */
     ATTENUATION_INVERSE_SQUARE_DISTANCE(1),
-    /**
-     * Attenuation of loudness according to logarithmic distance.
-     */
     ATTENUATION_LOGARITHMIC(2),
-    /**
-     * No attenuation of loudness according to distance. The sound will still be heard positionally, unlike an [godot.AudioStreamPlayer]. [ATTENUATION_DISABLED] can be combined with a [maxDistance] value greater than `0.0` to achieve linear attenuation clamped to a sphere of a defined size.
-     */
     ATTENUATION_DISABLED(3),
     ;
 
@@ -412,24 +302,17 @@ public open class AudioStreamPlayer3D : Node3D() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): AttenuationModel = entries.single {
+          it.id == `value`
+      }
     }
   }
 
   public enum class DopplerTracking(
     id: Long,
   ) {
-    /**
-     * Disables doppler tracking.
-     */
     DOPPLER_TRACKING_DISABLED(0),
-    /**
-     * Executes doppler tracking during process frames (see [godot.Node.NOTIFICATION_INTERNAL_PROCESS]).
-     */
     DOPPLER_TRACKING_IDLE_STEP(1),
-    /**
-     * Executes doppler tracking during physics frames (see [godot.Node.NOTIFICATION_INTERNAL_PHYSICS_PROCESS]).
-     */
     DOPPLER_TRACKING_PHYSICS_STEP(2),
     ;
 
@@ -439,7 +322,9 @@ public open class AudioStreamPlayer3D : Node3D() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): DopplerTracking = entries.single {
+          it.id == `value`
+      }
     }
   }
 

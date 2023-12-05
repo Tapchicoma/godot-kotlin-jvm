@@ -26,21 +26,8 @@ import kotlin.Int
 import kotlin.Suppress
 import kotlin.Unit
 
-/**
- * Editor-only helper for setting up root motion in [godot.AnimationTree].
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/animation/animation_tree.html#root-motion]($DOCS_URL/tutorials/animation/animation_tree.html#root-motion)
- *
- * *Root motion* refers to an animation technique where a mesh's skeleton is used to give impulse to a character. When working with 3D animations, a popular technique is for animators to use the root skeleton bone to give motion to the rest of the skeleton. This allows animating characters in a way where steps actually match the floor below. It also allows precise interaction with objects during cinematics. See also [godot.AnimationTree].
- *
- * **Note:** [godot.RootMotionView] is only visible in the editor. It will be hidden automatically in the running project.
- */
 @GodotBaseType
 public open class RootMotionView : VisualInstance3D() {
-  /**
-   * Path to an [godot.AnimationTree] node to use as a basis for root motion.
-   */
   public var animationPath: NodePath
     get() {
       TransferContext.writeArguments()
@@ -52,9 +39,6 @@ public open class RootMotionView : VisualInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAnimationPathPtr, NIL)
     }
 
-  /**
-   * The grid's color.
-   */
   @CoreTypeLocalCopy
   public var color: Color
     get() {
@@ -67,9 +51,6 @@ public open class RootMotionView : VisualInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setColorPtr, NIL)
     }
 
-  /**
-   * The grid's cell size in 3D units.
-   */
   public var cellSize: Float
     get() {
       TransferContext.writeArguments()
@@ -81,9 +62,6 @@ public open class RootMotionView : VisualInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setCellSizePtr, NIL)
     }
 
-  /**
-   * The grid's radius in 3D units. The grid's opacity will fade gradually as the distance from the origin increases until this [radius] is reached.
-   */
   public var radius: Float
     get() {
       TransferContext.writeArguments()
@@ -95,9 +73,6 @@ public open class RootMotionView : VisualInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRadiusPtr, NIL)
     }
 
-  /**
-   * If `true`, the grid's points will all be on the same Y coordinate (*local* Y = 0). If `false`, the points' original Y coordinate is preserved.
-   */
   public var zeroY: Boolean
     get() {
       TransferContext.writeArguments()
@@ -109,14 +84,12 @@ public open class RootMotionView : VisualInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setZeroYPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_ROOTMOTIONVIEW, scriptIndex)
     return true
   }
 
   /**
-   * The grid's color.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our

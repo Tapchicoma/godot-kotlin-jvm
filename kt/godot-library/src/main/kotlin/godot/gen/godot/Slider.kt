@@ -21,26 +21,12 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
 
-/**
- * Abstract base class for sliders.
- *
- * Abstract base class for sliders, used to adjust a value by moving a grabber along a horizontal or vertical axis. Sliders are [godot.Range]-based controls.
- */
 @GodotBaseType
 public open class Slider internal constructor() : Range() {
-  /**
-   * Emitted when dragging is started.
-   */
   public val dragStarted: Signal0 by signal()
 
-  /**
-   * Emitted when dragging stops. If [valueChanged] is true, [godot.Range.value] is different from the value when you started the dragging.
-   */
   public val dragEnded: Signal1<Boolean> by signal("valueChanged")
 
-  /**
-   * If `true`, the slider can be interacted with. If `false`, the value can be changed only by code.
-   */
   public var editable: Boolean
     get() {
       TransferContext.writeArguments()
@@ -52,9 +38,6 @@ public open class Slider internal constructor() : Range() {
       TransferContext.callMethod(rawPtr, MethodBindings.setEditablePtr, NIL)
     }
 
-  /**
-   * If `true`, the value can be changed using the mouse wheel.
-   */
   public var scrollable: Boolean
     get() {
       TransferContext.writeArguments()
@@ -66,9 +49,6 @@ public open class Slider internal constructor() : Range() {
       TransferContext.callMethod(rawPtr, MethodBindings.setScrollablePtr, NIL)
     }
 
-  /**
-   * Number of ticks displayed on the slider, including border ticks. Ticks are uniformly-distributed value markers.
-   */
   public var tickCount: Int
     get() {
       TransferContext.writeArguments()
@@ -80,9 +60,6 @@ public open class Slider internal constructor() : Range() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTicksPtr, NIL)
     }
 
-  /**
-   * If `true`, the slider will display ticks for minimum and maximum values.
-   */
   public var ticksOnBorders: Boolean
     get() {
       TransferContext.writeArguments()
@@ -94,7 +71,7 @@ public open class Slider internal constructor() : Range() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTicksOnBordersPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_SLIDER, scriptIndex)
     return true
   }

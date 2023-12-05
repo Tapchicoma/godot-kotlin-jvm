@@ -20,16 +20,8 @@ import kotlin.Int
 import kotlin.Suppress
 import kotlin.Unit
 
-/**
- * A 3D world boundary (half-space) shape used for physics collision.
- *
- * A 3D world boundary shape, intended for use in physics. [godot.WorldBoundaryShape3D] works like an infinite plane that forces all physics bodies to stay above it. The [plane]'s normal determines which direction is considered as "above" and in the editor, the line over the plane represents this direction. It can for example be used for endless flat floors.
- */
 @GodotBaseType
 public open class WorldBoundaryShape3D : Shape3D() {
-  /**
-   * The [godot.core.Plane] used by the [godot.WorldBoundaryShape3D] for collision.
-   */
   @CoreTypeLocalCopy
   public var plane: Plane
     get() {
@@ -42,14 +34,12 @@ public open class WorldBoundaryShape3D : Shape3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setPlanePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_WORLDBOUNDARYSHAPE3D, scriptIndex)
     return true
   }
 
   /**
-   * The [godot.core.Plane] used by the [godot.WorldBoundaryShape3D] for collision.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our

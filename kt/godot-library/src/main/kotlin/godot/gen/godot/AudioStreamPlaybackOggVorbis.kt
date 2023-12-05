@@ -13,7 +13,7 @@ import kotlin.Suppress
 
 @GodotBaseType
 public open class AudioStreamPlaybackOggVorbis : AudioStreamPlaybackResampled() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_AUDIOSTREAMPLAYBACKOGGVORBIS, scriptIndex)
     return true
   }

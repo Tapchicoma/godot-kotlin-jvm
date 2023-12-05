@@ -19,16 +19,8 @@ import kotlin.Float
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * A 3D ray shape used for physics collision that tries to separate itself from any collider.
- *
- * A 3D ray shape, intended for use in physics. Usually used to provide a shape for a [godot.CollisionShape3D]. When a [godot.SeparationRayShape3D] collides with an object, it tries to separate itself from it by moving its endpoint to the collision point. It can for example be used for spears falling from the sky.
- */
 @GodotBaseType
 public open class SeparationRayShape3D : Shape3D() {
-  /**
-   * The ray's length.
-   */
   public var length: Float
     get() {
       TransferContext.writeArguments()
@@ -40,11 +32,6 @@ public open class SeparationRayShape3D : Shape3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setLengthPtr, NIL)
     }
 
-  /**
-   * If `false` (default), the shape always separates and returns a normal along its own direction.
-   *
-   * If `true`, the shape can return the correct normal and separate in any direction, allowing sliding motion on slopes.
-   */
   public var slideOnSlope: Boolean
     get() {
       TransferContext.writeArguments()
@@ -56,7 +43,7 @@ public open class SeparationRayShape3D : Shape3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSlideOnSlopePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_SEPARATIONRAYSHAPE3D, scriptIndex)
     return true
   }

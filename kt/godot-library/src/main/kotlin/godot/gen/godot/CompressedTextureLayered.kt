@@ -19,16 +19,8 @@ import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 
-/**
- * Base class for texture arrays that can optionally be compressed.
- *
- * Base class for [godot.CompressedTexture2DArray] and [godot.CompressedTexture3D]. Cannot be used directly, but contains all the functions necessary for accessing the derived resource types. See also [godot.TextureLayered].
- */
 @GodotBaseType
 public open class CompressedTextureLayered internal constructor() : TextureLayered() {
-  /**
-   * The path the texture should be loaded from.
-   */
   public val loadPath: String
     get() {
       TransferContext.writeArguments()
@@ -36,14 +28,11 @@ public open class CompressedTextureLayered internal constructor() : TextureLayer
       return (TransferContext.readReturnValue(STRING, false) as String)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_COMPRESSEDTEXTURELAYERED, scriptIndex)
     return true
   }
 
-  /**
-   * Loads the texture at [path].
-   */
   public fun load(path: String): GodotError {
     TransferContext.writeArguments(STRING to path)
     TransferContext.callMethod(rawPtr, MethodBindings.loadPtr, LONG)

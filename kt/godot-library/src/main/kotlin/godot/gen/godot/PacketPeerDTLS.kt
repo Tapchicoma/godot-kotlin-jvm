@@ -20,36 +20,20 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
-import kotlin.Unit
 import kotlin.jvm.JvmOverloads
 
-/**
- * DTLS packet peer.
- *
- * This class represents a DTLS peer connection. It can be used to connect to a DTLS server, and is returned by [godot.DTLSServer.takeConnection].
- *
- * **Note:** When exporting to Android, make sure to enable the `INTERNET` permission in the Android export preset before exporting the project or using one-click deploy. Otherwise, network communication of any kind will be blocked by Android.
- *
- * **Warning:** TLS certificate revocation and certificate pinning are currently not supported. Revoked certificates are accepted as long as they are otherwise valid. If this is a concern, you may want to use automatically managed certificates with a short validity period.
- */
 @GodotBaseType
 public open class PacketPeerDTLS : PacketPeer() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_PACKETPEERDTLS, scriptIndex)
     return true
   }
 
-  /**
-   * Poll the connection to check for incoming packets. Call this frequently to update the status and keep the connection working.
-   */
-  public fun poll(): Unit {
+  public fun poll() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.pollPtr, NIL)
   }
 
-  /**
-   * Connects a [packetPeer] beginning the DTLS handshake using the underlying [godot.PacketPeerUDP] which must be connected (see [godot.PacketPeerUDP.connectToHost]). You can optionally specify the [clientOptions] to be used while verifying the TLS connections. See [godot.TLSOptions.client] and [godot.TLSOptions.clientUnsafe].
-   */
   @JvmOverloads
   public fun connectToPeer(
     packetPeer: PacketPeerUDP,
@@ -61,19 +45,13 @@ public open class PacketPeerDTLS : PacketPeer() {
     return GodotError.from(TransferContext.readReturnValue(LONG) as Long)
   }
 
-  /**
-   * Returns the status of the connection. See [enum Status] for values.
-   */
   public fun getStatus(): Status {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getStatusPtr, LONG)
     return PacketPeerDTLS.Status.from(TransferContext.readReturnValue(LONG) as Long)
   }
 
-  /**
-   * Disconnects this peer, terminating the DTLS session.
-   */
-  public fun disconnectFromPeer(): Unit {
+  public fun disconnectFromPeer() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.disconnectFromPeerPtr, NIL)
   }
@@ -81,25 +59,10 @@ public open class PacketPeerDTLS : PacketPeer() {
   public enum class Status(
     id: Long,
   ) {
-    /**
-     * A status representing a [godot.PacketPeerDTLS] that is disconnected.
-     */
     STATUS_DISCONNECTED(0),
-    /**
-     * A status representing a [godot.PacketPeerDTLS] that is currently performing the handshake with a remote peer.
-     */
     STATUS_HANDSHAKING(1),
-    /**
-     * A status representing a [godot.PacketPeerDTLS] that is connected to a remote peer.
-     */
     STATUS_CONNECTED(2),
-    /**
-     * A status representing a [godot.PacketPeerDTLS] in a generic error state.
-     */
     STATUS_ERROR(3),
-    /**
-     * An error status that shows a mismatch in the DTLS certificate domain presented by the host and the domain requested for validation.
-     */
     STATUS_ERROR_HOSTNAME_MISMATCH(4),
     ;
 
@@ -109,7 +72,9 @@ public open class PacketPeerDTLS : PacketPeer() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): Status = entries.single {
+          it.id == `value`
+      }
     }
   }
 

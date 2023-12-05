@@ -20,19 +20,8 @@ import kotlin.Int
 import kotlin.Suppress
 import kotlin.Unit
 
-/**
- * A control that displays a solid color rectangle.
- *
- * Tutorials:
- * [https://godotengine.org/asset-library/asset/515](https://godotengine.org/asset-library/asset/515)
- *
- * Displays a rectangle filled with a solid [color]. If you need to display the border alone, consider using a [godot.Panel] instead.
- */
 @GodotBaseType
 public open class ColorRect : Control() {
-  /**
-   * The fill color of the rectangle.
-   */
   @CoreTypeLocalCopy
   public var color: Color
     get() {
@@ -45,14 +34,12 @@ public open class ColorRect : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setColorPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_COLORRECT, scriptIndex)
     return true
   }
 
   /**
-   * The fill color of the rectangle.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our

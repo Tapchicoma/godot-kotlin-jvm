@@ -16,16 +16,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * A 2D texture uniform array to be used within the visual shader graph.
- *
- * Translated to `uniform sampler2DArray` in the shader language.
- */
 @GodotBaseType
 public open class VisualShaderNodeTexture2DArray : VisualShaderNodeSample3D() {
-  /**
-   * A source texture array. Used if [godot.VisualShaderNodeSample3D.source] is set to [godot.VisualShaderNodeSample3D.SOURCE_TEXTURE].
-   */
   public var textureArray: Texture2DArray?
     get() {
       TransferContext.writeArguments()
@@ -37,7 +29,7 @@ public open class VisualShaderNodeTexture2DArray : VisualShaderNodeSample3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTextureArrayPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_VISUALSHADERNODETEXTURE2DARRAY, scriptIndex)
     return true
   }

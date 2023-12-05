@@ -13,7 +13,7 @@ import kotlin.Suppress
 
 @GodotBaseType
 public open class FramebufferCacheRD internal constructor() : Object() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_FRAMEBUFFERCACHERD, scriptIndex)
     return true
   }

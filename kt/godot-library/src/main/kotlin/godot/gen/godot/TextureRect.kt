@@ -19,19 +19,8 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
 
-/**
- * A control that displays a texture.
- *
- * Tutorials:
- * [https://godotengine.org/asset-library/asset/676](https://godotengine.org/asset-library/asset/676)
- *
- * A control that displays a texture, for example an icon inside a GUI. The texture's placement can be controlled with the [stretchMode] property. It can scale, tile, or stay centered inside its bounding rectangle.
- */
 @GodotBaseType
 public open class TextureRect : Control() {
-  /**
-   * The node's [godot.Texture2D] resource.
-   */
   public var texture: Texture2D?
     get() {
       TransferContext.writeArguments()
@@ -43,11 +32,6 @@ public open class TextureRect : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTexturePtr, NIL)
     }
 
-  /**
-   * Defines how minimum size is determined based on the texture's size. See [enum ExpandMode] for options.
-   *
-   * **Note:** Using [EXPAND_FIT_WIDTH], [EXPAND_FIT_WIDTH_PROPORTIONAL], [EXPAND_FIT_HEIGHT] or [EXPAND_FIT_HEIGHT_PROPORTIONAL] may result in unstable behavior in some containers. This functionality is being re-evaluated and will change in the future.
-   */
   public var expandMode: ExpandMode
     get() {
       TransferContext.writeArguments()
@@ -59,9 +43,6 @@ public open class TextureRect : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setExpandModePtr, NIL)
     }
 
-  /**
-   * Controls the texture's behavior when resizing the node's bounding rectangle. See [enum StretchMode].
-   */
   public var stretchMode: StretchMode
     get() {
       TransferContext.writeArguments()
@@ -73,9 +54,6 @@ public open class TextureRect : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setStretchModePtr, NIL)
     }
 
-  /**
-   * If `true`, texture is flipped horizontally.
-   */
   public var flipH: Boolean
     get() {
       TransferContext.writeArguments()
@@ -87,9 +65,6 @@ public open class TextureRect : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFlipHPtr, NIL)
     }
 
-  /**
-   * If `true`, texture is flipped vertically.
-   */
   public var flipV: Boolean
     get() {
       TransferContext.writeArguments()
@@ -101,7 +76,7 @@ public open class TextureRect : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFlipVPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_TEXTURERECT, scriptIndex)
     return true
   }
@@ -109,29 +84,11 @@ public open class TextureRect : Control() {
   public enum class ExpandMode(
     id: Long,
   ) {
-    /**
-     * The minimum size will be equal to texture size, i.e. [godot.TextureRect] can't be smaller than the texture.
-     */
     EXPAND_KEEP_SIZE(0),
-    /**
-     * The size of the texture won't be considered for minimum size calculation, so the [godot.TextureRect] can be shrunk down past the texture size.
-     */
     EXPAND_IGNORE_SIZE(1),
-    /**
-     * The height of the texture will be ignored. Minimum width will be equal to the current height. Useful for horizontal layouts, e.g. inside [godot.HBoxContainer].
-     */
     EXPAND_FIT_WIDTH(2),
-    /**
-     * Same as [EXPAND_FIT_WIDTH], but keeps texture's aspect ratio.
-     */
     EXPAND_FIT_WIDTH_PROPORTIONAL(3),
-    /**
-     * The width of the texture will be ignored. Minimum height will be equal to the current width. Useful for vertical layouts, e.g. inside [godot.VBoxContainer].
-     */
     EXPAND_FIT_HEIGHT(4),
-    /**
-     * Same as [EXPAND_FIT_HEIGHT], but keeps texture's aspect ratio.
-     */
     EXPAND_FIT_HEIGHT_PROPORTIONAL(5),
     ;
 
@@ -141,40 +98,21 @@ public open class TextureRect : Control() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): ExpandMode = entries.single {
+          it.id == `value`
+      }
     }
   }
 
   public enum class StretchMode(
     id: Long,
   ) {
-    /**
-     * Scale to fit the node's bounding rectangle.
-     */
     STRETCH_SCALE(0),
-    /**
-     * Tile inside the node's bounding rectangle.
-     */
     STRETCH_TILE(1),
-    /**
-     * The texture keeps its original size and stays in the bounding rectangle's top-left corner.
-     */
     STRETCH_KEEP(2),
-    /**
-     * The texture keeps its original size and stays centered in the node's bounding rectangle.
-     */
     STRETCH_KEEP_CENTERED(3),
-    /**
-     * Scale the texture to fit the node's bounding rectangle, but maintain the texture's aspect ratio.
-     */
     STRETCH_KEEP_ASPECT(4),
-    /**
-     * Scale the texture to fit the node's bounding rectangle, center it and maintain its aspect ratio.
-     */
     STRETCH_KEEP_ASPECT_CENTERED(5),
-    /**
-     * Scale the texture so that the shorter side fits the bounding rectangle. The other side clips to the node's limits.
-     */
     STRETCH_KEEP_ASPECT_COVERED(6),
     ;
 
@@ -184,7 +122,9 @@ public open class TextureRect : Control() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): StretchMode = entries.single {
+          it.id == `value`
+      }
     }
   }
 

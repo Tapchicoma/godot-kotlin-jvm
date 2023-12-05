@@ -18,23 +18,10 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * Node that instances a [godot.MultiMesh] in 2D.
- *
- * [godot.MultiMeshInstance2D] is a specialized node to instance a [godot.MultiMesh] resource in 2D.
- *
- * Usage is the same as [godot.MultiMeshInstance3D].
- */
 @GodotBaseType
 public open class MultiMeshInstance2D : Node2D() {
-  /**
-   * Emitted when the [texture] is changed.
-   */
   public val textureChanged: Signal0 by signal()
 
-  /**
-   * The [godot.MultiMesh] that will be drawn by the [godot.MultiMeshInstance2D].
-   */
   public var multimesh: MultiMesh?
     get() {
       TransferContext.writeArguments()
@@ -46,9 +33,6 @@ public open class MultiMeshInstance2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setMultimeshPtr, NIL)
     }
 
-  /**
-   * The [godot.Texture2D] that will be used if using the default [godot.CanvasItemMaterial]. Can be accessed as `TEXTURE` in CanvasItem shader.
-   */
   public var texture: Texture2D?
     get() {
       TransferContext.writeArguments()
@@ -60,7 +44,7 @@ public open class MultiMeshInstance2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTexturePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_MULTIMESHINSTANCE2D, scriptIndex)
     return true
   }

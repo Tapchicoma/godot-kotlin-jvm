@@ -20,48 +20,30 @@ import kotlin.Float
 import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
-import kotlin.Unit
 
-/**
- * A physics joint that restricts the rotation of a 3D physics body around an axis relative to another physics body.
- *
- * A physics joint that restricts the rotation of a 3D physics body around an axis relative to another physics body. For example, Body A can be a [godot.StaticBody3D] representing a door hinge that a [godot.RigidBody3D] rotates around.
- */
 @GodotBaseType
 public open class HingeJoint3D : Joint3D() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_HINGEJOINT3D, scriptIndex)
     return true
   }
 
-  /**
-   * Sets the value of the specified parameter.
-   */
-  public fun setParam(`param`: Param, `value`: Float): Unit {
+  public fun setParam(`param`: Param, `value`: Float) {
     TransferContext.writeArguments(LONG to param.id, DOUBLE to value.toDouble())
     TransferContext.callMethod(rawPtr, MethodBindings.setParamPtr, NIL)
   }
 
-  /**
-   * Returns the value of the specified parameter.
-   */
   public fun getParam(`param`: Param): Float {
     TransferContext.writeArguments(LONG to param.id)
     TransferContext.callMethod(rawPtr, MethodBindings.getParamPtr, DOUBLE)
     return (TransferContext.readReturnValue(DOUBLE, false) as Double).toFloat()
   }
 
-  /**
-   * If `true`, enables the specified flag.
-   */
-  public fun setFlag(flag: Flag, enabled: Boolean): Unit {
+  public fun setFlag(flag: Flag, enabled: Boolean) {
     TransferContext.writeArguments(LONG to flag.id, BOOL to enabled)
     TransferContext.callMethod(rawPtr, MethodBindings.setFlagPtr, NIL)
   }
 
-  /**
-   * Returns the value of the specified flag.
-   */
   public fun getFlag(flag: Flag): Boolean {
     TransferContext.writeArguments(LONG to flag.id)
     TransferContext.callMethod(rawPtr, MethodBindings.getFlagPtr, BOOL)
@@ -71,41 +53,14 @@ public open class HingeJoint3D : Joint3D() {
   public enum class Param(
     id: Long,
   ) {
-    /**
-     * The speed with which the two bodies get pulled together when they move in different directions.
-     */
     PARAM_BIAS(0),
-    /**
-     * The maximum rotation. Only active if [angularLimit/enable] is `true`.
-     */
     PARAM_LIMIT_UPPER(1),
-    /**
-     * The minimum rotation. Only active if [angularLimit/enable] is `true`.
-     */
     PARAM_LIMIT_LOWER(2),
-    /**
-     * The speed with which the rotation across the axis perpendicular to the hinge gets corrected.
-     */
     PARAM_LIMIT_BIAS(3),
-    /**
-     *
-     */
     PARAM_LIMIT_SOFTNESS(4),
-    /**
-     * The lower this value, the more the rotation gets slowed down.
-     */
     PARAM_LIMIT_RELAXATION(5),
-    /**
-     * Target speed for the motor.
-     */
     PARAM_MOTOR_TARGET_VELOCITY(6),
-    /**
-     * Maximum acceleration for the motor.
-     */
     PARAM_MOTOR_MAX_IMPULSE(7),
-    /**
-     * Represents the size of the [enum Param] enum.
-     */
     PARAM_MAX(8),
     ;
 
@@ -115,24 +70,17 @@ public open class HingeJoint3D : Joint3D() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): Param = entries.single {
+          it.id == `value`
+      }
     }
   }
 
   public enum class Flag(
     id: Long,
   ) {
-    /**
-     * If `true`, the hinges maximum and minimum rotation, defined by [angularLimit/lower] and [angularLimit/upper] has effects.
-     */
     FLAG_USE_LIMIT(0),
-    /**
-     * When activated, a motor turns the hinge.
-     */
     FLAG_ENABLE_MOTOR(1),
-    /**
-     * Represents the size of the [enum Flag] enum.
-     */
     FLAG_MAX(2),
     ;
 
@@ -142,7 +90,9 @@ public open class HingeJoint3D : Joint3D() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): Flag = entries.single {
+          it.id == `value`
+      }
     }
   }
 

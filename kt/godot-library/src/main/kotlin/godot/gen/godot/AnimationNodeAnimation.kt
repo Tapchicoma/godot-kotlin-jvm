@@ -19,19 +19,8 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
 
-/**
- * An input animation for an [godot.AnimationNodeBlendTree].
- *
- * Tutorials:
- * [https://godotengine.org/asset-library/asset/678](https://godotengine.org/asset-library/asset/678)
- *
- * A resource to add to an [godot.AnimationNodeBlendTree]. Only has one output port using the [animation] property. Used as an input for [godot.AnimationNode]s that blend animations together.
- */
 @GodotBaseType
 public open class AnimationNodeAnimation : AnimationRootNode() {
-  /**
-   * Animation to use as an output. It is one of the animations provided by [godot.AnimationTree.animPlayer].
-   */
   public var animation: StringName
     get() {
       TransferContext.writeArguments()
@@ -43,9 +32,6 @@ public open class AnimationNodeAnimation : AnimationRootNode() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAnimationPtr, NIL)
     }
 
-  /**
-   * Determines the playback direction of the animation.
-   */
   public var playMode: PlayMode
     get() {
       TransferContext.writeArguments()
@@ -57,7 +43,7 @@ public open class AnimationNodeAnimation : AnimationRootNode() {
       TransferContext.callMethod(rawPtr, MethodBindings.setPlayModePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_ANIMATIONNODEANIMATION, scriptIndex)
     return true
   }
@@ -65,13 +51,7 @@ public open class AnimationNodeAnimation : AnimationRootNode() {
   public enum class PlayMode(
     id: Long,
   ) {
-    /**
-     * Plays animation in forward direction.
-     */
     PLAY_MODE_FORWARD(0),
-    /**
-     * Plays animation in backward direction.
-     */
     PLAY_MODE_BACKWARD(1),
     ;
 
@@ -81,7 +61,9 @@ public open class AnimationNodeAnimation : AnimationRootNode() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): PlayMode = entries.single {
+          it.id == `value`
+      }
     }
   }
 

@@ -25,7 +25,6 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
-import kotlin.Unit
 import kotlin.jvm.JvmOverloads
 
 @GodotBaseType
@@ -86,7 +85,7 @@ public open class WebSocketPeer : PacketPeer() {
       TransferContext.callMethod(rawPtr, MethodBindings.setMaxQueuedPacketsPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_WEBSOCKETPEER, scriptIndex)
     return true
   }
@@ -124,13 +123,13 @@ public open class WebSocketPeer : PacketPeer() {
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  public fun poll(): Unit {
+  public fun poll() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.pollPtr, NIL)
   }
 
   @JvmOverloads
-  public fun close(code: Int = 1000, reason: String = ""): Unit {
+  public fun close(code: Int = 1000, reason: String = "") {
     TransferContext.writeArguments(LONG to code.toLong(), STRING to reason)
     TransferContext.callMethod(rawPtr, MethodBindings.closePtr, NIL)
   }
@@ -159,7 +158,7 @@ public open class WebSocketPeer : PacketPeer() {
     return (TransferContext.readReturnValue(STRING, false) as String)
   }
 
-  public fun setNoDelay(enabled: Boolean): Unit {
+  public fun setNoDelay(enabled: Boolean) {
     TransferContext.writeArguments(BOOL to enabled)
     TransferContext.callMethod(rawPtr, MethodBindings.setNoDelayPtr, NIL)
   }
@@ -201,7 +200,9 @@ public open class WebSocketPeer : PacketPeer() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): WriteMode = entries.single {
+          it.id == `value`
+      }
     }
   }
 
@@ -220,7 +221,9 @@ public open class WebSocketPeer : PacketPeer() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): State = entries.single {
+          it.id == `value`
+      }
     }
   }
 

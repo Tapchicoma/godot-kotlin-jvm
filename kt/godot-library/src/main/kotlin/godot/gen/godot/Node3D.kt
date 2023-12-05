@@ -39,30 +39,10 @@ import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmOverloads
 
-/**
- * Most basic 3D game object, parent of all 3D-related nodes.
- *
- * Tutorials:
- * [https://github.com/godotengine/godot-demo-projects/tree/master/3d](https://github.com/godotengine/godot-demo-projects/tree/master/3d)
- *
- * Most basic 3D game object, with a [godot.Transform3D] and visibility settings. All other 3D game objects inherit from Node3D. Use [godot.Node3D] as a parent node to move, scale, rotate and show/hide children in a 3D project.
- *
- * Affine operations (rotate, scale, translate) happen in parent's local coordinate system, unless the [godot.Node3D] object is set as top-level. Affine operations in this coordinate system correspond to direct affine operations on the [godot.Node3D]'s transform. The word local below refers to this coordinate system. The coordinate system that is attached to the [godot.Node3D] object itself is referred to as object-local coordinate system.
- *
- * **Note:** Unless otherwise specified, all methods that have angle parameters must have angles specified as *radians*. To convert degrees to radians, use [@GlobalScope.degToRad].
- *
- * **Note:** Be aware that "Spatial" nodes are now called "Node3D" starting with Godot 4. Any Godot 3.x references to "Spatial" nodes refer to "Node3D" in Godot 4.
- */
 @GodotBaseType
 public open class Node3D : Node() {
-  /**
-   * Emitted when node visibility changes.
-   */
   public val visibilityChanged: Signal0 by signal()
 
-  /**
-   * Local space [godot.Transform3D] of this node, with respect to the parent node.
-   */
   @CoreTypeLocalCopy
   public var transform: Transform3D
     get() {
@@ -75,9 +55,6 @@ public open class Node3D : Node() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTransformPtr, NIL)
     }
 
-  /**
-   * World3D space (global) [godot.Transform3D] of this node.
-   */
   @CoreTypeLocalCopy
   public var globalTransform: Transform3D
     get() {
@@ -90,9 +67,6 @@ public open class Node3D : Node() {
       TransferContext.callMethod(rawPtr, MethodBindings.setGlobalTransformPtr, NIL)
     }
 
-  /**
-   * Local position or translation of this node relative to the parent. This is equivalent to `transform.origin`.
-   */
   @CoreTypeLocalCopy
   public var position: Vector3
     get() {
@@ -105,13 +79,6 @@ public open class Node3D : Node() {
       TransferContext.callMethod(rawPtr, MethodBindings.setPositionPtr, NIL)
     }
 
-  /**
-   * Rotation part of the local transformation in radians, specified in terms of Euler angles. The angles construct a rotaton in the order specified by the [rotationOrder] property.
-   *
-   * **Note:** In the mathematical sense, rotation is a matrix and not a vector. The three Euler angles, which are the three independent parameters of the Euler-angle parametrization of the rotation matrix, are stored in a [godot.core.Vector3] data structure not because the rotation is a vector, but only because [godot.core.Vector3] exists as a convenient data-structure to store 3 floating-point numbers. Therefore, applying affine operations on the rotation "vector" is not meaningful.
-   *
-   * **Note:** This property is edited in the inspector in degrees. If you want to use degrees in a script, use [rotationDegrees].
-   */
   @CoreTypeLocalCopy
   public var rotation: Vector3
     get() {
@@ -124,9 +91,6 @@ public open class Node3D : Node() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRotationPtr, NIL)
     }
 
-  /**
-   * Helper property to access [rotation] in degrees instead of radians.
-   */
   @CoreTypeLocalCopy
   public var rotationDegrees: Vector3
     get() {
@@ -139,9 +103,6 @@ public open class Node3D : Node() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRotationDegreesPtr, NIL)
     }
 
-  /**
-   * Access to the node rotation as a [godot.Quaternion]. This property is ideal for tweening complex rotations.
-   */
   @CoreTypeLocalCopy
   public var quaternion: Quaternion
     get() {
@@ -154,9 +115,6 @@ public open class Node3D : Node() {
       TransferContext.callMethod(rawPtr, MethodBindings.setQuaternionPtr, NIL)
     }
 
-  /**
-   * Direct access to the 3x3 basis of the [godot.Transform3D] property.
-   */
   @CoreTypeLocalCopy
   public var basis: Basis
     get() {
@@ -169,13 +127,6 @@ public open class Node3D : Node() {
       TransferContext.callMethod(rawPtr, MethodBindings.setBasisPtr, NIL)
     }
 
-  /**
-   * Scale part of the local transformation.
-   *
-   * **Note:** Mixed negative scales in 3D are not decomposable from the transformation matrix. Due to the way scale is represented with transformation matrices in Godot, the scale values will either be all positive or all negative.
-   *
-   * **Note:** Not all nodes are visually scaled by the [scale] property. For example, [godot.Light3D]s are not visually affected by [scale].
-   */
   @CoreTypeLocalCopy
   public var scale: Vector3
     get() {
@@ -188,9 +139,6 @@ public open class Node3D : Node() {
       TransferContext.callMethod(rawPtr, MethodBindings.setScalePtr, NIL)
     }
 
-  /**
-   * Specify how rotation (and scale) will be presented in the editor.
-   */
   public var rotationEditMode: RotationEditMode
     get() {
       TransferContext.writeArguments()
@@ -202,9 +150,6 @@ public open class Node3D : Node() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRotationEditModePtr, NIL)
     }
 
-  /**
-   * Specify the axis rotation order of the [rotation] property. The final orientation is constructed by rotating the Euler angles in the order specified by this property.
-   */
   public var rotationOrder: EulerOrder
     get() {
       TransferContext.writeArguments()
@@ -216,9 +161,6 @@ public open class Node3D : Node() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRotationOrderPtr, NIL)
     }
 
-  /**
-   * If `true`, the node will not inherit its transformations from its parent. Node transformations are only in global space.
-   */
   public var topLevel: Boolean
     get() {
       TransferContext.writeArguments()
@@ -230,9 +172,6 @@ public open class Node3D : Node() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAsTopLevelPtr, NIL)
     }
 
-  /**
-   * Global position of this node. This is equivalent to `global_transform.origin`.
-   */
   @CoreTypeLocalCopy
   public var globalPosition: Vector3
     get() {
@@ -245,11 +184,6 @@ public open class Node3D : Node() {
       TransferContext.callMethod(rawPtr, MethodBindings.setGlobalPositionPtr, NIL)
     }
 
-  /**
-   * Rotation part of the global transformation in radians, specified in terms of YXZ-Euler angles in the format (X angle, Y angle, Z angle).
-   *
-   * **Note:** In the mathematical sense, rotation is a matrix and not a vector. The three Euler angles, which are the three independent parameters of the Euler-angle parametrization of the rotation matrix, are stored in a [godot.core.Vector3] data structure not because the rotation is a vector, but only because [godot.core.Vector3] exists as a convenient data-structure to store 3 floating-point numbers. Therefore, applying affine operations on the rotation "vector" is not meaningful.
-   */
   @CoreTypeLocalCopy
   public var globalRotation: Vector3
     get() {
@@ -262,9 +196,6 @@ public open class Node3D : Node() {
       TransferContext.callMethod(rawPtr, MethodBindings.setGlobalRotationPtr, NIL)
     }
 
-  /**
-   * Helper property to access [globalRotation] in degrees instead of radians.
-   */
   @CoreTypeLocalCopy
   public var globalRotationDegrees: Vector3
     get() {
@@ -277,9 +208,6 @@ public open class Node3D : Node() {
       TransferContext.callMethod(rawPtr, MethodBindings.setGlobalRotationDegreesPtr, NIL)
     }
 
-  /**
-   * If `true`, this node is drawn. The node is only visible if all of its ancestors are visible as well (in other words, [isVisibleInTree] must return `true`).
-   */
   public var visible: Boolean
     get() {
       TransferContext.writeArguments()
@@ -291,9 +219,6 @@ public open class Node3D : Node() {
       TransferContext.callMethod(rawPtr, MethodBindings.setVisiblePtr, NIL)
     }
 
-  /**
-   * Defines the visibility range parent for this node and its subtree. The visibility parent must be a GeometryInstance3D. Any visual instance will only be visible if the visibility parent (and all of its visibility ancestors) is hidden by being closer to the camera than its own [godot.GeometryInstance3D.visibilityRangeBegin]. Nodes hidden via the [godot.Node3D.visible] property are essentially removed from the visibility dependency tree, so dependent instances will not take the hidden node or its ancestors into account.
-   */
   public var visibilityParent: NodePath
     get() {
       TransferContext.writeArguments()
@@ -305,14 +230,12 @@ public open class Node3D : Node() {
       TransferContext.callMethod(rawPtr, MethodBindings.setVisibilityParentPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_NODE3D, scriptIndex)
     return true
   }
 
   /**
-   * Local space [godot.Transform3D] of this node, with respect to the parent node.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -335,8 +258,6 @@ public open class Node3D : Node() {
 
 
   /**
-   * World3D space (global) [godot.Transform3D] of this node.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -360,8 +281,6 @@ public open class Node3D : Node() {
 
 
   /**
-   * Local position or translation of this node relative to the parent. This is equivalent to `transform.origin`.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -384,12 +303,6 @@ public open class Node3D : Node() {
 
 
   /**
-   * Rotation part of the local transformation in radians, specified in terms of Euler angles. The angles construct a rotaton in the order specified by the [rotationOrder] property.
-   *
-   * **Note:** In the mathematical sense, rotation is a matrix and not a vector. The three Euler angles, which are the three independent parameters of the Euler-angle parametrization of the rotation matrix, are stored in a [godot.core.Vector3] data structure not because the rotation is a vector, but only because [godot.core.Vector3] exists as a convenient data-structure to store 3 floating-point numbers. Therefore, applying affine operations on the rotation "vector" is not meaningful.
-   *
-   * **Note:** This property is edited in the inspector in degrees. If you want to use degrees in a script, use [rotationDegrees].
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -412,8 +325,6 @@ public open class Node3D : Node() {
 
 
   /**
-   * Helper property to access [rotation] in degrees instead of radians.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -436,8 +347,6 @@ public open class Node3D : Node() {
 
 
   /**
-   * Access to the node rotation as a [godot.Quaternion]. This property is ideal for tweening complex rotations.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -460,8 +369,6 @@ public open class Node3D : Node() {
 
 
   /**
-   * Direct access to the 3x3 basis of the [godot.Transform3D] property.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -484,12 +391,6 @@ public open class Node3D : Node() {
 
 
   /**
-   * Scale part of the local transformation.
-   *
-   * **Note:** Mixed negative scales in 3D are not decomposable from the transformation matrix. Due to the way scale is represented with transformation matrices in Godot, the scale values will either be all positive or all negative.
-   *
-   * **Note:** Not all nodes are visually scaled by the [scale] property. For example, [godot.Light3D]s are not visually affected by [scale].
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -512,8 +413,6 @@ public open class Node3D : Node() {
 
 
   /**
-   * Global position of this node. This is equivalent to `global_transform.origin`.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -536,10 +435,6 @@ public open class Node3D : Node() {
 
 
   /**
-   * Rotation part of the global transformation in radians, specified in terms of YXZ-Euler angles in the format (X angle, Y angle, Z angle).
-   *
-   * **Note:** In the mathematical sense, rotation is a matrix and not a vector. The three Euler angles, which are the three independent parameters of the Euler-angle parametrization of the rotation matrix, are stored in a [godot.core.Vector3] data structure not because the rotation is a vector, but only because [godot.core.Vector3] exists as a convenient data-structure to store 3 floating-point numbers. Therefore, applying affine operations on the rotation "vector" is not meaningful.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -562,8 +457,6 @@ public open class Node3D : Node() {
 
 
   /**
-   * Helper property to access [globalRotation] in degrees instead of radians.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -586,322 +479,204 @@ public open class Node3D : Node() {
   }
 
 
-  /**
-   * Returns the parent [godot.Node3D], or an empty [godot.Object] if no parent exists or parent is not of type [godot.Node3D].
-   */
   public fun getParentNode3d(): Node3D? {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getParentNode3dPtr, OBJECT)
     return (TransferContext.readReturnValue(OBJECT, true) as Node3D?)
   }
 
-  /**
-   * Sets whether the node ignores notification that its transformation (global or local) changed.
-   */
-  public fun setIgnoreTransformNotification(enabled: Boolean): Unit {
+  public fun setIgnoreTransformNotification(enabled: Boolean) {
     TransferContext.writeArguments(BOOL to enabled)
     TransferContext.callMethod(rawPtr, MethodBindings.setIgnoreTransformNotificationPtr, NIL)
   }
 
-  /**
-   * Sets whether the node uses a scale of `(1, 1, 1)` or its local transformation scale. Changes to the local transformation scale are preserved.
-   */
-  public fun setDisableScale(disable: Boolean): Unit {
+  public fun setDisableScale(disable: Boolean) {
     TransferContext.writeArguments(BOOL to disable)
     TransferContext.callMethod(rawPtr, MethodBindings.setDisableScalePtr, NIL)
   }
 
-  /**
-   * Returns whether this node uses a scale of `(1, 1, 1)` or its local transformation scale.
-   */
   public fun isScaleDisabled(): Boolean {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.isScaleDisabledPtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Returns the current [godot.World3D] resource this [godot.Node3D] node is registered to.
-   */
   public fun getWorld3d(): World3D? {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getWorld3dPtr, OBJECT)
     return (TransferContext.readReturnValue(OBJECT, true) as World3D?)
   }
 
-  /**
-   * Forces the transform to update. Transform changes in physics are not instant for performance reasons. Transforms are accumulated and then set. Use this if you need an up-to-date transform when doing physics operations.
-   */
-  public fun forceUpdateTransform(): Unit {
+  public fun forceUpdateTransform() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.forceUpdateTransformPtr, NIL)
   }
 
-  /**
-   * Updates all the [godot.Node3DGizmo]s attached to this node.
-   */
-  public fun updateGizmos(): Unit {
+  public fun updateGizmos() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.updateGizmosPtr, NIL)
   }
 
-  /**
-   * Attach a gizmo to this `Node3D`.
-   */
-  public fun addGizmo(gizmo: Node3DGizmo): Unit {
+  public fun addGizmo(gizmo: Node3DGizmo) {
     TransferContext.writeArguments(OBJECT to gizmo)
     TransferContext.callMethod(rawPtr, MethodBindings.addGizmoPtr, NIL)
   }
 
-  /**
-   * Returns all the gizmos attached to this `Node3D`.
-   */
   public fun getGizmos(): VariantArray<Node3DGizmo> {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getGizmosPtr, ARRAY)
     return (TransferContext.readReturnValue(ARRAY, false) as VariantArray<Node3DGizmo>)
   }
 
-  /**
-   * Clear all gizmos attached to this `Node3D`.
-   */
-  public fun clearGizmos(): Unit {
+  public fun clearGizmos() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.clearGizmosPtr, NIL)
   }
 
-  /**
-   * Set subgizmo selection for this node in the editor.
-   */
   public fun setSubgizmoSelection(
     gizmo: Node3DGizmo,
     id: Int,
     transform: Transform3D,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(OBJECT to gizmo, LONG to id.toLong(), TRANSFORM3D to transform)
     TransferContext.callMethod(rawPtr, MethodBindings.setSubgizmoSelectionPtr, NIL)
   }
 
-  /**
-   * Clears subgizmo selection for this node in the editor. Useful when subgizmo IDs become invalid after a property change.
-   */
-  public fun clearSubgizmoSelection(): Unit {
+  public fun clearSubgizmoSelection() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.clearSubgizmoSelectionPtr, NIL)
   }
 
-  /**
-   * Returns `true` if the node is present in the [godot.SceneTree], its [visible] property is `true` and all its ancestors are also visible. If any ancestor is hidden, this node will not be visible in the scene tree.
-   */
   public fun isVisibleInTree(): Boolean {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.isVisibleInTreePtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Enables rendering of this node. Changes [visible] to `true`.
-   */
-  public fun show(): Unit {
+  public fun show() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.showPtr, NIL)
   }
 
-  /**
-   * Disables rendering of this node. Changes [visible] to `false`.
-   */
-  public fun hide(): Unit {
+  public fun hide() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.hidePtr, NIL)
   }
 
-  /**
-   * Sets whether the node notifies about its local transformation changes. [godot.Node3D] will not propagate this by default.
-   */
-  public fun setNotifyLocalTransform(enable: Boolean): Unit {
+  public fun setNotifyLocalTransform(enable: Boolean) {
     TransferContext.writeArguments(BOOL to enable)
     TransferContext.callMethod(rawPtr, MethodBindings.setNotifyLocalTransformPtr, NIL)
   }
 
-  /**
-   * Returns whether node notifies about its local transformation changes. [godot.Node3D] will not propagate this by default.
-   */
   public fun isLocalTransformNotificationEnabled(): Boolean {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.isLocalTransformNotificationEnabledPtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Sets whether the node notifies about its global and local transformation changes. [godot.Node3D] will not propagate this by default, unless it is in the editor context and it has a valid gizmo.
-   */
-  public fun setNotifyTransform(enable: Boolean): Unit {
+  public fun setNotifyTransform(enable: Boolean) {
     TransferContext.writeArguments(BOOL to enable)
     TransferContext.callMethod(rawPtr, MethodBindings.setNotifyTransformPtr, NIL)
   }
 
-  /**
-   * Returns whether the node notifies about its global and local transformation changes. [godot.Node3D] will not propagate this by default.
-   */
   public fun isTransformNotificationEnabled(): Boolean {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.isTransformNotificationEnabledPtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Rotates the local transformation around axis, a unit [godot.core.Vector3], by specified angle in radians.
-   */
-  public fun rotate(axis: Vector3, angle: Float): Unit {
+  public fun rotate(axis: Vector3, angle: Float) {
     TransferContext.writeArguments(VECTOR3 to axis, DOUBLE to angle.toDouble())
     TransferContext.callMethod(rawPtr, MethodBindings.rotatePtr, NIL)
   }
 
-  /**
-   * Rotates the global (world) transformation around axis, a unit [godot.core.Vector3], by specified angle in radians. The rotation axis is in global coordinate system.
-   */
-  public fun globalRotate(axis: Vector3, angle: Float): Unit {
+  public fun globalRotate(axis: Vector3, angle: Float) {
     TransferContext.writeArguments(VECTOR3 to axis, DOUBLE to angle.toDouble())
     TransferContext.callMethod(rawPtr, MethodBindings.globalRotatePtr, NIL)
   }
 
-  /**
-   * Scales the global (world) transformation by the given [godot.core.Vector3] scale factors.
-   */
-  public fun globalScale(scale: Vector3): Unit {
+  public fun globalScale(scale: Vector3) {
     TransferContext.writeArguments(VECTOR3 to scale)
     TransferContext.callMethod(rawPtr, MethodBindings.globalScalePtr, NIL)
   }
 
-  /**
-   * Moves the global (world) transformation by [godot.core.Vector3] offset. The offset is in global coordinate system.
-   */
-  public fun globalTranslate(offset: Vector3): Unit {
+  public fun globalTranslate(offset: Vector3) {
     TransferContext.writeArguments(VECTOR3 to offset)
     TransferContext.callMethod(rawPtr, MethodBindings.globalTranslatePtr, NIL)
   }
 
-  /**
-   * Rotates the local transformation around axis, a unit [godot.core.Vector3], by specified angle in radians. The rotation axis is in object-local coordinate system.
-   */
-  public fun rotateObjectLocal(axis: Vector3, angle: Float): Unit {
+  public fun rotateObjectLocal(axis: Vector3, angle: Float) {
     TransferContext.writeArguments(VECTOR3 to axis, DOUBLE to angle.toDouble())
     TransferContext.callMethod(rawPtr, MethodBindings.rotateObjectLocalPtr, NIL)
   }
 
-  /**
-   * Scales the local transformation by given 3D scale factors in object-local coordinate system.
-   */
-  public fun scaleObjectLocal(scale: Vector3): Unit {
+  public fun scaleObjectLocal(scale: Vector3) {
     TransferContext.writeArguments(VECTOR3 to scale)
     TransferContext.callMethod(rawPtr, MethodBindings.scaleObjectLocalPtr, NIL)
   }
 
-  /**
-   * Changes the node's position by the given offset [godot.core.Vector3] in local space.
-   */
-  public fun translateObjectLocal(offset: Vector3): Unit {
+  public fun translateObjectLocal(offset: Vector3) {
     TransferContext.writeArguments(VECTOR3 to offset)
     TransferContext.callMethod(rawPtr, MethodBindings.translateObjectLocalPtr, NIL)
   }
 
-  /**
-   * Rotates the local transformation around the X axis by angle in radians.
-   */
-  public fun rotateX(angle: Float): Unit {
+  public fun rotateX(angle: Float) {
     TransferContext.writeArguments(DOUBLE to angle.toDouble())
     TransferContext.callMethod(rawPtr, MethodBindings.rotateXPtr, NIL)
   }
 
-  /**
-   * Rotates the local transformation around the Y axis by angle in radians.
-   */
-  public fun rotateY(angle: Float): Unit {
+  public fun rotateY(angle: Float) {
     TransferContext.writeArguments(DOUBLE to angle.toDouble())
     TransferContext.callMethod(rawPtr, MethodBindings.rotateYPtr, NIL)
   }
 
-  /**
-   * Rotates the local transformation around the Z axis by angle in radians.
-   */
-  public fun rotateZ(angle: Float): Unit {
+  public fun rotateZ(angle: Float) {
     TransferContext.writeArguments(DOUBLE to angle.toDouble())
     TransferContext.callMethod(rawPtr, MethodBindings.rotateZPtr, NIL)
   }
 
-  /**
-   * Changes the node's position by the given offset [godot.core.Vector3].
-   *
-   * Note that the translation [offset] is affected by the node's scale, so if scaled by e.g. `(10, 1, 1)`, a translation by an offset of `(2, 0, 0)` would actually add 20 (`2 * 10`) to the X coordinate.
-   */
-  public fun translate(offset: Vector3): Unit {
+  public fun translate(offset: Vector3) {
     TransferContext.writeArguments(VECTOR3 to offset)
     TransferContext.callMethod(rawPtr, MethodBindings.translatePtr, NIL)
   }
 
-  /**
-   * Resets this node's transformations (like scale, skew and taper) preserving its rotation and translation by performing Gram-Schmidt orthonormalization on this node's [godot.Transform3D].
-   */
-  public fun orthonormalize(): Unit {
+  public fun orthonormalize() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.orthonormalizePtr, NIL)
   }
 
-  /**
-   * Reset all transformations for this node (sets its [godot.Transform3D] to the identity matrix).
-   */
-  public fun setIdentity(): Unit {
+  public fun setIdentity() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.setIdentityPtr, NIL)
   }
 
-  /**
-   * Rotates the node so that the local forward axis (-Z, [godot.Vector3.FORWARD]) points toward the [target] position.
-   *
-   * The local up axis (+Y) points as close to the [up] vector as possible while staying perpendicular to the local forward axis. The resulting transform is orthogonal, and the scale is preserved. Non-uniform scaling may not work correctly.
-   *
-   * The [target] position cannot be the same as the node's position, the [up] vector cannot be zero, and the direction from the node's position to the [target] vector cannot be parallel to the [up] vector.
-   *
-   * Operations take place in global space, which means that the node must be in the scene tree.
-   *
-   * If [useModelFront] is `true`, the +Z axis (asset front) is treated as forward (implies +X is left) and points toward the [target] position. By default, the -Z axis (camera forward) is treated as forward (implies +X is right).
-   */
   @JvmOverloads
   public fun lookAt(
     target: Vector3,
     up: Vector3 = Vector3(0, 1, 0),
     useModelFront: Boolean = false,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(VECTOR3 to target, VECTOR3 to up, BOOL to useModelFront)
     TransferContext.callMethod(rawPtr, MethodBindings.lookAtPtr, NIL)
   }
 
-  /**
-   * Moves the node to the specified [position], and then rotates the node to point toward the [target] as per [lookAt]. Operations take place in global space.
-   */
   @JvmOverloads
   public fun lookAtFromPosition(
     position: Vector3,
     target: Vector3,
     up: Vector3 = Vector3(0, 1, 0),
     useModelFront: Boolean = false,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(VECTOR3 to position, VECTOR3 to target, VECTOR3 to up, BOOL to useModelFront)
     TransferContext.callMethod(rawPtr, MethodBindings.lookAtFromPositionPtr, NIL)
   }
 
-  /**
-   * Transforms [globalPoint] from world space to this node's local space.
-   */
   public fun toLocal(globalPoint: Vector3): Vector3 {
     TransferContext.writeArguments(VECTOR3 to globalPoint)
     TransferContext.callMethod(rawPtr, MethodBindings.toLocalPtr, VECTOR3)
     return (TransferContext.readReturnValue(VECTOR3, false) as Vector3)
   }
 
-  /**
-   * Transforms [localPoint] from this node's local space to world space.
-   */
   public fun toGlobal(localPoint: Vector3): Vector3 {
     TransferContext.writeArguments(VECTOR3 to localPoint)
     TransferContext.callMethod(rawPtr, MethodBindings.toGlobalPtr, VECTOR3)
@@ -911,17 +686,8 @@ public open class Node3D : Node() {
   public enum class RotationEditMode(
     id: Long,
   ) {
-    /**
-     * The rotation is edited using [godot.core.Vector3] Euler angles.
-     */
     ROTATION_EDIT_MODE_EULER(0),
-    /**
-     * The rotation is edited using a [godot.Quaternion].
-     */
     ROTATION_EDIT_MODE_QUATERNION(1),
-    /**
-     * The rotation is edited using a [godot.core.Basis]. In this mode, [scale] can't be edited separately.
-     */
     ROTATION_EDIT_MODE_BASIS(2),
     ;
 
@@ -931,38 +697,21 @@ public open class Node3D : Node() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): RotationEditMode = entries.single {
+          it.id == `value`
+      }
     }
   }
 
   public companion object {
-    /**
-     * Node3D nodes receives this notification when their global transform changes. This means that either the current or a parent node changed its transform.
-     *
-     * In order for [NOTIFICATION_TRANSFORM_CHANGED] to work, users first need to ask for it, with [setNotifyTransform]. The notification is also sent if the node is in the editor context and it has at least one valid gizmo.
-     */
     public final const val NOTIFICATION_TRANSFORM_CHANGED: Long = 2000
 
-    /**
-     * Node3D nodes receives this notification when they are registered to new [godot.World3D] resource.
-     */
     public final const val NOTIFICATION_ENTER_WORLD: Long = 41
 
-    /**
-     * Node3D nodes receives this notification when they are unregistered from current [godot.World3D] resource.
-     */
     public final const val NOTIFICATION_EXIT_WORLD: Long = 42
 
-    /**
-     * Node3D nodes receives this notification when their visibility changes.
-     */
     public final const val NOTIFICATION_VISIBILITY_CHANGED: Long = 43
 
-    /**
-     * Node3D nodes receives this notification when their local transform changes. This is not received when the transform of a parent node is changed.
-     *
-     * In order for [NOTIFICATION_LOCAL_TRANSFORM_CHANGED] to work, users first need to ask for it, with [setNotifyLocalTransform].
-     */
     public final const val NOTIFICATION_LOCAL_TRANSFORM_CHANGED: Long = 44
   }
 

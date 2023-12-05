@@ -11,14 +11,9 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * A popup with a panel background.
- *
- * A popup with a configurable panel background. Any child controls added to this node will be stretched to fit the panel's size (similar to how [godot.PanelContainer] works). If you are making windows, see [godot.Window].
- */
 @GodotBaseType
 public open class PopupPanel : Popup() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_POPUPPANEL, scriptIndex)
     return true
   }

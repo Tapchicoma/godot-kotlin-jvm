@@ -32,21 +32,10 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
-import kotlin.Unit
 import kotlin.jvm.JvmOverloads
 
-/**
- * Godot editor's interface.
- *
- * [godot.EditorInterface] gives you control over Godot editor's window. It allows customizing the window, saving and (re-)loading scenes, rendering mesh previews, inspecting and editing resources and objects, and provides access to [godot.EditorSettings], [godot.EditorFileSystem], [godot.EditorResourcePreview], [godot.ScriptEditor], the editor viewport, and information about scenes.
- *
- * **Note:** This class shouldn't be instantiated directly. Instead, access the singleton using [godot.EditorPlugin.getEditorInterface].
- */
 @GodotBaseType
 public open class EditorInterface internal constructor() : Object() {
-  /**
-   * If `true`, enables distraction-free mode which hides side docks to increase the space available for the main view.
-   */
   public var distractionFreeMode: Boolean
     get() {
       TransferContext.writeArguments()
@@ -58,9 +47,6 @@ public open class EditorInterface internal constructor() : Object() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDistractionFreeModePtr, NIL)
     }
 
-  /**
-   * If `true`, the Movie Maker mode is enabled in the editor. See [godot.MovieWriter] for more information.
-   */
   public var movieMakerEnabled: Boolean
     get() {
       TransferContext.writeArguments()
@@ -72,79 +58,53 @@ public open class EditorInterface internal constructor() : Object() {
       TransferContext.callMethod(rawPtr, MethodBindings.setMovieMakerEnabledPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_EDITORINTERFACE, scriptIndex)
     return true
   }
 
-  /**
-   * Restarts the editor. This closes the editor and then opens the same project. If [save] is `true`, the project will be saved before restarting.
-   */
   @JvmOverloads
-  public fun restartEditor(save: Boolean = true): Unit {
+  public fun restartEditor(save: Boolean = true) {
     TransferContext.writeArguments(BOOL to save)
     TransferContext.callMethod(rawPtr, MethodBindings.restartEditorPtr, NIL)
   }
 
-  /**
-   * Returns the editor's [godot.EditorCommandPalette] instance.
-   *
-   * **Warning:** Removing and freeing this node will render a part of the editor useless and may cause a crash.
-   */
   public fun getCommandPalette(): EditorCommandPalette? {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getCommandPalettePtr, OBJECT)
     return (TransferContext.readReturnValue(OBJECT, true) as EditorCommandPalette?)
   }
 
-  /**
-   * Returns the editor's [godot.EditorFileSystem] instance.
-   */
   public fun getResourceFilesystem(): EditorFileSystem? {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getResourceFilesystemPtr, OBJECT)
     return (TransferContext.readReturnValue(OBJECT, true) as EditorFileSystem?)
   }
 
-  /**
-   * Returns the [godot.EditorPaths] singleton.
-   */
   public fun getEditorPaths(): EditorPaths? {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getEditorPathsPtr, OBJECT)
     return (TransferContext.readReturnValue(OBJECT, true) as EditorPaths?)
   }
 
-  /**
-   * Returns the editor's [godot.EditorResourcePreview] instance.
-   */
   public fun getResourcePreviewer(): EditorResourcePreview? {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getResourcePreviewerPtr, OBJECT)
     return (TransferContext.readReturnValue(OBJECT, true) as EditorResourcePreview?)
   }
 
-  /**
-   * Returns the editor's [godot.EditorSelection] instance.
-   */
   public fun getSelection(): EditorSelection? {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getSelectionPtr, OBJECT)
     return (TransferContext.readReturnValue(OBJECT, true) as EditorSelection?)
   }
 
-  /**
-   * Returns the editor's [godot.EditorSettings] instance.
-   */
   public fun getEditorSettings(): EditorSettings? {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getEditorSettingsPtr, OBJECT)
     return (TransferContext.readReturnValue(OBJECT, true) as EditorSettings?)
   }
 
-  /**
-   * Returns mesh previews rendered at the given size as an [godot.Array] of [godot.Texture2D]s.
-   */
   public fun makeMeshPreviews(meshes: VariantArray<Mesh>, previewSize: Int):
       VariantArray<Texture2D> {
     TransferContext.writeArguments(ARRAY to meshes, LONG to previewSize.toLong())
@@ -152,327 +112,205 @@ public open class EditorInterface internal constructor() : Object() {
     return (TransferContext.readReturnValue(ARRAY, false) as VariantArray<Texture2D>)
   }
 
-  /**
-   * Sets the enabled status of a plugin. The plugin name is the same as its directory name.
-   */
-  public fun setPluginEnabled(plugin: String, enabled: Boolean): Unit {
+  public fun setPluginEnabled(plugin: String, enabled: Boolean) {
     TransferContext.writeArguments(STRING to plugin, BOOL to enabled)
     TransferContext.callMethod(rawPtr, MethodBindings.setPluginEnabledPtr, NIL)
   }
 
-  /**
-   * Returns `true` if the specified [plugin] is enabled. The plugin name is the same as its directory name.
-   */
   public fun isPluginEnabled(plugin: String): Boolean {
     TransferContext.writeArguments(STRING to plugin)
     TransferContext.callMethod(rawPtr, MethodBindings.isPluginEnabledPtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Returns the main container of Godot editor's window. For example, you can use it to retrieve the size of the container and place your controls accordingly.
-   *
-   * **Warning:** Removing and freeing this node will render the editor useless and may cause a crash.
-   */
   public fun getBaseControl(): Control? {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getBaseControlPtr, OBJECT)
     return (TransferContext.readReturnValue(OBJECT, true) as Control?)
   }
 
-  /**
-   * Returns the editor control responsible for main screen plugins and tools. Use it with plugins that implement [godot.EditorPlugin.HasMainScreen].
-   *
-   * **Warning:** Removing and freeing this node will render a part of the editor useless and may cause a crash.
-   */
   public fun getEditorMainScreen(): VBoxContainer? {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getEditorMainScreenPtr, OBJECT)
     return (TransferContext.readReturnValue(OBJECT, true) as VBoxContainer?)
   }
 
-  /**
-   * Returns the editor's [godot.ScriptEditor] instance.
-   *
-   * **Warning:** Removing and freeing this node will render a part of the editor useless and may cause a crash.
-   */
   public fun getScriptEditor(): ScriptEditor? {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getScriptEditorPtr, OBJECT)
     return (TransferContext.readReturnValue(OBJECT, true) as ScriptEditor?)
   }
 
-  /**
-   * Sets the editor's current main screen to the one specified in [name]. [name] must match the text of the tab in question exactly (`2D`, `3D`, `Script`, `AssetLib`).
-   */
-  public fun setMainScreenEditor(name: String): Unit {
+  public fun setMainScreenEditor(name: String) {
     TransferContext.writeArguments(STRING to name)
     TransferContext.callMethod(rawPtr, MethodBindings.setMainScreenEditorPtr, NIL)
   }
 
-  /**
-   * Returns the actual scale of the editor UI (`1.0` being 100% scale). This can be used to adjust position and dimensions of the UI added by plugins.
-   *
-   * **Note:** This value is set via the `interface/editor/display_scale` and `interface/editor/custom_display_scale` editor settings. Editor must be restarted for changes to be properly applied.
-   */
   public fun getEditorScale(): Float {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getEditorScalePtr, DOUBLE)
     return (TransferContext.readReturnValue(DOUBLE, false) as Double).toFloat()
   }
 
-  /**
-   * Pops up the [dialog] in the editor UI with [godot.Window.popupExclusive]. The dialog must have no current parent, otherwise the method fails.
-   *
-   * See also [godot.Window.setUnparentWhenInvisible].
-   */
   @JvmOverloads
-  public fun popupDialog(dialog: Window, rect: Rect2i = Rect2i(0, 0, 0, 0)): Unit {
+  public fun popupDialog(dialog: Window, rect: Rect2i = Rect2i(0, 0, 0, 0)) {
     TransferContext.writeArguments(OBJECT to dialog, RECT2I to rect)
     TransferContext.callMethod(rawPtr, MethodBindings.popupDialogPtr, NIL)
   }
 
-  /**
-   * Pops up the [dialog] in the editor UI with [godot.Window.popupExclusiveCentered]. The dialog must have no current parent, otherwise the method fails.
-   *
-   * See also [godot.Window.setUnparentWhenInvisible].
-   */
   @JvmOverloads
-  public fun popupDialogCentered(dialog: Window, minsize: Vector2i = Vector2i(0, 0)): Unit {
+  public fun popupDialogCentered(dialog: Window, minsize: Vector2i = Vector2i(0, 0)) {
     TransferContext.writeArguments(OBJECT to dialog, VECTOR2I to minsize)
     TransferContext.callMethod(rawPtr, MethodBindings.popupDialogCenteredPtr, NIL)
   }
 
-  /**
-   * Pops up the [dialog] in the editor UI with [godot.Window.popupExclusiveCenteredRatio]. The dialog must have no current parent, otherwise the method fails.
-   *
-   * See also [godot.Window.setUnparentWhenInvisible].
-   */
   @JvmOverloads
-  public fun popupDialogCenteredRatio(dialog: Window, ratio: Float = 0.8f): Unit {
+  public fun popupDialogCenteredRatio(dialog: Window, ratio: Float = 0.8f) {
     TransferContext.writeArguments(OBJECT to dialog, DOUBLE to ratio.toDouble())
     TransferContext.callMethod(rawPtr, MethodBindings.popupDialogCenteredRatioPtr, NIL)
   }
 
-  /**
-   * Pops up the [dialog] in the editor UI with [godot.Window.popupExclusiveCenteredClamped]. The dialog must have no current parent, otherwise the method fails.
-   *
-   * See also [godot.Window.setUnparentWhenInvisible].
-   */
   @JvmOverloads
   public fun popupDialogCenteredClamped(
     dialog: Window,
     minsize: Vector2i = Vector2i(0, 0),
     fallbackRatio: Float = 0.75f,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(OBJECT to dialog, VECTOR2I to minsize, DOUBLE to fallbackRatio.toDouble())
     TransferContext.callMethod(rawPtr, MethodBindings.popupDialogCenteredClampedPtr, NIL)
   }
 
-  /**
-   * Returns the editor's [godot.FileSystemDock] instance.
-   *
-   * **Warning:** Removing and freeing this node will render a part of the editor useless and may cause a crash.
-   */
   public fun getFileSystemDock(): FileSystemDock? {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getFileSystemDockPtr, OBJECT)
     return (TransferContext.readReturnValue(OBJECT, true) as FileSystemDock?)
   }
 
-  /**
-   * Selects the file, with the path provided by [file], in the FileSystem dock.
-   */
-  public fun selectFile(`file`: String): Unit {
+  public fun selectFile(`file`: String) {
     TransferContext.writeArguments(STRING to file)
     TransferContext.callMethod(rawPtr, MethodBindings.selectFilePtr, NIL)
   }
 
-  /**
-   * Returns an array containing the paths of the currently selected files (and directories) in the [godot.FileSystemDock].
-   */
   public fun getSelectedPaths(): PackedStringArray {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getSelectedPathsPtr, PACKED_STRING_ARRAY)
     return (TransferContext.readReturnValue(PACKED_STRING_ARRAY, false) as PackedStringArray)
   }
 
-  /**
-   * Returns the current path being viewed in the [godot.FileSystemDock].
-   */
   public fun getCurrentPath(): String {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getCurrentPathPtr, STRING)
     return (TransferContext.readReturnValue(STRING, false) as String)
   }
 
-  /**
-   * Returns the current directory being viewed in the [godot.FileSystemDock]. If a file is selected, its base directory will be returned using [godot.String.getBaseDir] instead.
-   */
   public fun getCurrentDirectory(): String {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getCurrentDirectoryPtr, STRING)
     return (TransferContext.readReturnValue(STRING, false) as String)
   }
 
-  /**
-   * Returns the editor's [godot.EditorInspector] instance.
-   *
-   * **Warning:** Removing and freeing this node will render a part of the editor useless and may cause a crash.
-   */
   public fun getInspector(): EditorInspector? {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getInspectorPtr, OBJECT)
     return (TransferContext.readReturnValue(OBJECT, true) as EditorInspector?)
   }
 
-  /**
-   * Shows the given property on the given [object] in the editor's Inspector dock. If [inspectorOnly] is `true`, plugins will not attempt to edit [object].
-   */
   @JvmOverloads
   public fun inspectObject(
     _object: Object,
     forProperty: String = "",
     inspectorOnly: Boolean = false,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(OBJECT to _object, STRING to forProperty, BOOL to inspectorOnly)
     TransferContext.callMethod(rawPtr, MethodBindings.inspectObjectPtr, NIL)
   }
 
-  /**
-   * Edits the given [godot.Resource]. If the resource is a [godot.Script] you can also edit it with [editScript] to specify the line and column position.
-   */
-  public fun editResource(resource: Resource): Unit {
+  public fun editResource(resource: Resource) {
     TransferContext.writeArguments(OBJECT to resource)
     TransferContext.callMethod(rawPtr, MethodBindings.editResourcePtr, NIL)
   }
 
-  /**
-   * Edits the given [godot.Node]. The node will be also selected if it's inside the scene tree.
-   */
-  public fun editNode(node: Node): Unit {
+  public fun editNode(node: Node) {
     TransferContext.writeArguments(OBJECT to node)
     TransferContext.callMethod(rawPtr, MethodBindings.editNodePtr, NIL)
   }
 
-  /**
-   * Edits the given [godot.Script]. The line and column on which to open the script can also be specified. The script will be open with the user-configured editor for the script's language which may be an external editor.
-   */
   @JvmOverloads
   public fun editScript(
     script: Script,
     line: Int = -1,
     column: Int = 0,
     grabFocus: Boolean = true,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(OBJECT to script, LONG to line.toLong(), LONG to column.toLong(), BOOL to grabFocus)
     TransferContext.callMethod(rawPtr, MethodBindings.editScriptPtr, NIL)
   }
 
-  /**
-   * Opens the scene at the given path.
-   */
-  public fun openSceneFromPath(sceneFilepath: String): Unit {
+  public fun openSceneFromPath(sceneFilepath: String) {
     TransferContext.writeArguments(STRING to sceneFilepath)
     TransferContext.callMethod(rawPtr, MethodBindings.openSceneFromPathPtr, NIL)
   }
 
-  /**
-   * Reloads the scene at the given path.
-   */
-  public fun reloadSceneFromPath(sceneFilepath: String): Unit {
+  public fun reloadSceneFromPath(sceneFilepath: String) {
     TransferContext.writeArguments(STRING to sceneFilepath)
     TransferContext.callMethod(rawPtr, MethodBindings.reloadSceneFromPathPtr, NIL)
   }
 
-  /**
-   * Returns an [godot.Array] with the file paths of the currently opened scenes.
-   */
   public fun getOpenScenes(): PackedStringArray {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getOpenScenesPtr, PACKED_STRING_ARRAY)
     return (TransferContext.readReturnValue(PACKED_STRING_ARRAY, false) as PackedStringArray)
   }
 
-  /**
-   * Returns the edited (current) scene's root [godot.Node].
-   */
   public fun getEditedSceneRoot(): Node? {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getEditedSceneRootPtr, OBJECT)
     return (TransferContext.readReturnValue(OBJECT, true) as Node?)
   }
 
-  /**
-   * Saves the scene. Returns either [OK] or [ERR_CANT_CREATE].
-   */
   public fun saveScene(): GodotError {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.saveScenePtr, LONG)
     return GodotError.from(TransferContext.readReturnValue(LONG) as Long)
   }
 
-  /**
-   * Saves the scene as a file at [path].
-   */
   @JvmOverloads
-  public fun saveSceneAs(path: String, withPreview: Boolean = true): Unit {
+  public fun saveSceneAs(path: String, withPreview: Boolean = true) {
     TransferContext.writeArguments(STRING to path, BOOL to withPreview)
     TransferContext.callMethod(rawPtr, MethodBindings.saveSceneAsPtr, NIL)
   }
 
-  /**
-   * Marks the current scene tab as unsaved.
-   */
-  public fun markSceneAsUnsaved(): Unit {
+  public fun markSceneAsUnsaved() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.markSceneAsUnsavedPtr, NIL)
   }
 
-  /**
-   * Plays the main scene.
-   */
-  public fun playMainScene(): Unit {
+  public fun playMainScene() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.playMainScenePtr, NIL)
   }
 
-  /**
-   * Plays the currently active scene.
-   */
-  public fun playCurrentScene(): Unit {
+  public fun playCurrentScene() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.playCurrentScenePtr, NIL)
   }
 
-  /**
-   * Plays the scene specified by its filepath.
-   */
-  public fun playCustomScene(sceneFilepath: String): Unit {
+  public fun playCustomScene(sceneFilepath: String) {
     TransferContext.writeArguments(STRING to sceneFilepath)
     TransferContext.callMethod(rawPtr, MethodBindings.playCustomScenePtr, NIL)
   }
 
-  /**
-   * Stops the scene that is currently playing.
-   */
-  public fun stopPlayingScene(): Unit {
+  public fun stopPlayingScene() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.stopPlayingScenePtr, NIL)
   }
 
-  /**
-   * Returns `true` if a scene is currently being played, `false` otherwise. Paused scenes are considered as being played.
-   */
   public fun isPlayingScene(): Boolean {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.isPlayingScenePtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Returns the name of the scene that is being played. If no scene is currently being played, returns an empty string.
-   */
   public fun getPlayingScene(): String {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getPlayingScenePtr, STRING)

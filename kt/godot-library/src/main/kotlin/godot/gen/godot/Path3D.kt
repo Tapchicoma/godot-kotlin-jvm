@@ -18,23 +18,10 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * Contains a [godot.Curve3D] path for [godot.PathFollow3D] nodes to follow.
- *
- * Can have [godot.PathFollow3D] child nodes moving along the [godot.Curve3D]. See [godot.PathFollow3D] for more information on the usage.
- *
- * Note that the path is considered as relative to the moved nodes (children of [godot.PathFollow3D]). As such, the curve should usually start with a zero vector `(0, 0, 0)`.
- */
 @GodotBaseType
 public open class Path3D : Node3D() {
-  /**
-   * Emitted when the [curve] changes.
-   */
   public val curveChanged: Signal0 by signal()
 
-  /**
-   * A [godot.Curve3D] describing the path.
-   */
   public var curve: Curve3D?
     get() {
       TransferContext.writeArguments()
@@ -46,7 +33,7 @@ public open class Path3D : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setCurvePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_PATH3D, scriptIndex)
     return true
   }

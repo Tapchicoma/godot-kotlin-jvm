@@ -86,53 +86,56 @@ public sealed interface PropertyUsageFlags {
 
     public val PROPERTY_USAGE_CLASS_IS_BITFIELD: PropertyUsageFlags = PropertyUsageFlagsValue(512)
 
-    public val PROPERTY_USAGE_NO_INSTANCE_STATE: PropertyUsageFlags = PropertyUsageFlagsValue(1024)
+    public val PROPERTY_USAGE_NO_INSTANCE_STATE: PropertyUsageFlags = PropertyUsageFlagsValue(1_024)
 
-    public val PROPERTY_USAGE_RESTART_IF_CHANGED: PropertyUsageFlags = PropertyUsageFlagsValue(2048)
+    public val PROPERTY_USAGE_RESTART_IF_CHANGED: PropertyUsageFlags =
+        PropertyUsageFlagsValue(2_048)
 
-    public val PROPERTY_USAGE_SCRIPT_VARIABLE: PropertyUsageFlags = PropertyUsageFlagsValue(4096)
+    public val PROPERTY_USAGE_SCRIPT_VARIABLE: PropertyUsageFlags = PropertyUsageFlagsValue(4_096)
 
-    public val PROPERTY_USAGE_STORE_IF_NULL: PropertyUsageFlags = PropertyUsageFlagsValue(8192)
+    public val PROPERTY_USAGE_STORE_IF_NULL: PropertyUsageFlags = PropertyUsageFlagsValue(8_192)
 
     public val PROPERTY_USAGE_UPDATE_ALL_IF_MODIFIED: PropertyUsageFlags =
-        PropertyUsageFlagsValue(16384)
+        PropertyUsageFlagsValue(16_384)
 
     public val PROPERTY_USAGE_SCRIPT_DEFAULT_VALUE: PropertyUsageFlags =
-        PropertyUsageFlagsValue(32768)
+        PropertyUsageFlagsValue(32_768)
 
-    public val PROPERTY_USAGE_CLASS_IS_ENUM: PropertyUsageFlags = PropertyUsageFlagsValue(65536)
+    public val PROPERTY_USAGE_CLASS_IS_ENUM: PropertyUsageFlags = PropertyUsageFlagsValue(65_536)
 
-    public val PROPERTY_USAGE_NIL_IS_VARIANT: PropertyUsageFlags = PropertyUsageFlagsValue(131072)
+    public val PROPERTY_USAGE_NIL_IS_VARIANT: PropertyUsageFlags = PropertyUsageFlagsValue(131_072)
 
-    public val PROPERTY_USAGE_ARRAY: PropertyUsageFlags = PropertyUsageFlagsValue(262144)
+    public val PROPERTY_USAGE_ARRAY: PropertyUsageFlags = PropertyUsageFlagsValue(262_144)
 
-    public val PROPERTY_USAGE_ALWAYS_DUPLICATE: PropertyUsageFlags = PropertyUsageFlagsValue(524288)
+    public val PROPERTY_USAGE_ALWAYS_DUPLICATE: PropertyUsageFlags =
+        PropertyUsageFlagsValue(524_288)
 
-    public val PROPERTY_USAGE_NEVER_DUPLICATE: PropertyUsageFlags = PropertyUsageFlagsValue(1048576)
+    public val PROPERTY_USAGE_NEVER_DUPLICATE: PropertyUsageFlags =
+        PropertyUsageFlagsValue(1_048_576)
 
-    public val PROPERTY_USAGE_HIGH_END_GFX: PropertyUsageFlags = PropertyUsageFlagsValue(2097152)
+    public val PROPERTY_USAGE_HIGH_END_GFX: PropertyUsageFlags = PropertyUsageFlagsValue(2_097_152)
 
     public val PROPERTY_USAGE_NODE_PATH_FROM_SCENE_ROOT: PropertyUsageFlags =
-        PropertyUsageFlagsValue(4194304)
+        PropertyUsageFlagsValue(4_194_304)
 
     public val PROPERTY_USAGE_RESOURCE_NOT_PERSISTENT: PropertyUsageFlags =
-        PropertyUsageFlagsValue(8388608)
+        PropertyUsageFlagsValue(8_388_608)
 
     public val PROPERTY_USAGE_KEYING_INCREMENTS: PropertyUsageFlags =
-        PropertyUsageFlagsValue(16777216)
+        PropertyUsageFlagsValue(16_777_216)
 
     public val PROPERTY_USAGE_DEFERRED_SET_RESOURCE: PropertyUsageFlags =
-        PropertyUsageFlagsValue(33554432)
+        PropertyUsageFlagsValue(33_554_432)
 
     public val PROPERTY_USAGE_EDITOR_INSTANTIATE_OBJECT: PropertyUsageFlags =
-        PropertyUsageFlagsValue(67108864)
+        PropertyUsageFlagsValue(67_108_864)
 
     public val PROPERTY_USAGE_EDITOR_BASIC_SETTING: PropertyUsageFlags =
-        PropertyUsageFlagsValue(134217728)
+        PropertyUsageFlagsValue(134_217_728)
 
-    public val PROPERTY_USAGE_READ_ONLY: PropertyUsageFlags = PropertyUsageFlagsValue(268435456)
+    public val PROPERTY_USAGE_READ_ONLY: PropertyUsageFlags = PropertyUsageFlagsValue(268_435_456)
 
-    public val PROPERTY_USAGE_SECRET: PropertyUsageFlags = PropertyUsageFlagsValue(536870912)
+    public val PROPERTY_USAGE_SECRET: PropertyUsageFlags = PropertyUsageFlagsValue(536_870_912)
 
     public val PROPERTY_USAGE_DEFAULT: PropertyUsageFlags = PropertyUsageFlagsValue(6)
 
@@ -142,7 +145,7 @@ public sealed interface PropertyUsageFlags {
 
 @JvmInline
 internal value class PropertyUsageFlagsValue internal constructor(
-  public override val flag: Long,
+  override val flag: Long,
 ) : PropertyUsageFlags
 
 public infix fun Long.or(other: PropertyUsageFlags): Long = this.or(other.flag)

@@ -22,18 +22,9 @@ import kotlin.Float
 import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
-import kotlin.Unit
 
-/**
- * A modification that rotates a [godot.Bone2D] node to look at a target.
- *
- * This [godot.SkeletonModification2D] rotates a bone to look a target. This is extremely helpful for moving character's head to look at the player, rotating a turret to look at a target, or any other case where you want to make a bone rotate towards something quickly and easily.
- */
 @GodotBaseType
 public open class SkeletonModification2DLookAt : SkeletonModification2D() {
-  /**
-   * The index of the [godot.Bone2D] node that the modification will operate on.
-   */
   public var boneIndex: Int
     get() {
       TransferContext.writeArguments()
@@ -45,9 +36,6 @@ public open class SkeletonModification2DLookAt : SkeletonModification2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setBoneIndexPtr, NIL)
     }
 
-  /**
-   * The [godot.Bone2D] node that the modification will operate on.
-   */
   public var bone2dNode: NodePath
     get() {
       TransferContext.writeArguments()
@@ -59,9 +47,6 @@ public open class SkeletonModification2DLookAt : SkeletonModification2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setBone2dNodePtr, NIL)
     }
 
-  /**
-   * The NodePath to the node that is the target for the LookAt modification. This node is what the modification will rotate the [godot.Bone2D] to.
-   */
   public var targetNodepath: NodePath
     get() {
       TransferContext.writeArguments()
@@ -73,92 +58,60 @@ public open class SkeletonModification2DLookAt : SkeletonModification2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTargetNodePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_SKELETONMODIFICATION2DLOOKAT, scriptIndex)
     return true
   }
 
-  /**
-   * Sets the amount of additional rotation that is to be applied after executing the modification. This allows for offsetting the results by the inputted rotation amount.
-   */
-  public fun setAdditionalRotation(rotation: Float): Unit {
+  public fun setAdditionalRotation(rotation: Float) {
     TransferContext.writeArguments(DOUBLE to rotation.toDouble())
     TransferContext.callMethod(rawPtr, MethodBindings.setAdditionalRotationPtr, NIL)
   }
 
-  /**
-   * Returns the amount of additional rotation that is applied after the LookAt modification executes.
-   */
   public fun getAdditionalRotation(): Float {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getAdditionalRotationPtr, DOUBLE)
     return (TransferContext.readReturnValue(DOUBLE, false) as Double).toFloat()
   }
 
-  /**
-   * Sets whether this modification will use constraints or not. When `true`, constraints will be applied when solving the LookAt modification.
-   */
-  public fun setEnableConstraint(enableConstraint: Boolean): Unit {
+  public fun setEnableConstraint(enableConstraint: Boolean) {
     TransferContext.writeArguments(BOOL to enableConstraint)
     TransferContext.callMethod(rawPtr, MethodBindings.setEnableConstraintPtr, NIL)
   }
 
-  /**
-   * Returns `true` if the LookAt modification is using constraints.
-   */
   public fun getEnableConstraint(): Boolean {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getEnableConstraintPtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Sets the constraint's minimum allowed angle.
-   */
-  public fun setConstraintAngleMin(angleMin: Float): Unit {
+  public fun setConstraintAngleMin(angleMin: Float) {
     TransferContext.writeArguments(DOUBLE to angleMin.toDouble())
     TransferContext.callMethod(rawPtr, MethodBindings.setConstraintAngleMinPtr, NIL)
   }
 
-  /**
-   * Returns the constraint's minimum allowed angle.
-   */
   public fun getConstraintAngleMin(): Float {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getConstraintAngleMinPtr, DOUBLE)
     return (TransferContext.readReturnValue(DOUBLE, false) as Double).toFloat()
   }
 
-  /**
-   * Sets the constraint's maximum allowed angle.
-   */
-  public fun setConstraintAngleMax(angleMax: Float): Unit {
+  public fun setConstraintAngleMax(angleMax: Float) {
     TransferContext.writeArguments(DOUBLE to angleMax.toDouble())
     TransferContext.callMethod(rawPtr, MethodBindings.setConstraintAngleMaxPtr, NIL)
   }
 
-  /**
-   * Returns the constraint's maximum allowed angle.
-   */
   public fun getConstraintAngleMax(): Float {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getConstraintAngleMaxPtr, DOUBLE)
     return (TransferContext.readReturnValue(DOUBLE, false) as Double).toFloat()
   }
 
-  /**
-   * When `true`, the modification will use an inverted joint constraint.
-   *
-   * An inverted joint constraint only constraints the [godot.Bone2D] to the angles *outside of* the inputted minimum and maximum angles. For this reason, it is referred to as an inverted joint constraint, as it constraints the joint to the outside of the inputted values.
-   */
-  public fun setConstraintAngleInvert(invert: Boolean): Unit {
+  public fun setConstraintAngleInvert(invert: Boolean) {
     TransferContext.writeArguments(BOOL to invert)
     TransferContext.callMethod(rawPtr, MethodBindings.setConstraintAngleInvertPtr, NIL)
   }
 
-  /**
-   * Returns whether the constraints to this modification are inverted or not.
-   */
   public fun getConstraintAngleInvert(): Boolean {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getConstraintAngleInvertPtr, BOOL)

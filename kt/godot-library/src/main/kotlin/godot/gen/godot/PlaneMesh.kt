@@ -24,18 +24,8 @@ import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 
-/**
- * Class representing a planar [godot.PrimitiveMesh].
- *
- * Class representing a planar [godot.PrimitiveMesh]. This flat mesh does not have a thickness. By default, this mesh is aligned on the X and Z axes; this default rotation isn't suited for use with billboarded materials. For billboarded materials, change [orientation] to [FACE_Z].
- *
- * **Note:** When using a large textured [godot.PlaneMesh] (e.g. as a floor), you may stumble upon UV jittering issues depending on the camera angle. To solve this, increase [subdivideDepth] and [subdivideWidth] until you no longer notice UV jittering.
- */
 @GodotBaseType
 public open class PlaneMesh : PrimitiveMesh() {
-  /**
-   * Size of the generated plane.
-   */
   @CoreTypeLocalCopy
   public var size: Vector2
     get() {
@@ -48,9 +38,6 @@ public open class PlaneMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSizePtr, NIL)
     }
 
-  /**
-   * Number of subdivision along the X axis.
-   */
   public var subdivideWidth: Int
     get() {
       TransferContext.writeArguments()
@@ -62,9 +49,6 @@ public open class PlaneMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSubdivideWidthPtr, NIL)
     }
 
-  /**
-   * Number of subdivision along the Z axis.
-   */
   public var subdivideDepth: Int
     get() {
       TransferContext.writeArguments()
@@ -76,9 +60,6 @@ public open class PlaneMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSubdivideDepthPtr, NIL)
     }
 
-  /**
-   * Offset of the generated plane. Useful for particles.
-   */
   @CoreTypeLocalCopy
   public var centerOffset: Vector3
     get() {
@@ -91,9 +72,6 @@ public open class PlaneMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setCenterOffsetPtr, NIL)
     }
 
-  /**
-   * Direction that the [godot.PlaneMesh] is facing. See [enum Orientation] for options.
-   */
   public var orientation: Orientation
     get() {
       TransferContext.writeArguments()
@@ -105,14 +83,12 @@ public open class PlaneMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setOrientationPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_PLANEMESH, scriptIndex)
     return true
   }
 
   /**
-   * Size of the generated plane.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -135,8 +111,6 @@ public open class PlaneMesh : PrimitiveMesh() {
 
 
   /**
-   * Offset of the generated plane. Useful for particles.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -161,17 +135,8 @@ public open class PlaneMesh : PrimitiveMesh() {
   public enum class Orientation(
     id: Long,
   ) {
-    /**
-     * [godot.PlaneMesh] will face the positive X-axis.
-     */
     FACE_X(0),
-    /**
-     * [godot.PlaneMesh] will face the positive Y-axis. This matches the behavior of the [godot.PlaneMesh] in Godot 3.x.
-     */
     FACE_Y(1),
-    /**
-     * [godot.PlaneMesh] will face the positive Z-axis. This matches the behavior of the QuadMesh in Godot 3.x.
-     */
     FACE_Z(2),
     ;
 
@@ -181,7 +146,9 @@ public open class PlaneMesh : PrimitiveMesh() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): Orientation = entries.single {
+          it.id == `value`
+      }
     }
   }
 

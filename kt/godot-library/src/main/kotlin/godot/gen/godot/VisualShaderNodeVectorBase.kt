@@ -17,16 +17,8 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
 
-/**
- * A base type for the nodes that perform vector operations within the visual shader graph.
- *
- * This is an abstract class. See the derived types for descriptions of the possible operations.
- */
 @GodotBaseType
 public open class VisualShaderNodeVectorBase internal constructor() : VisualShaderNode() {
-  /**
-   * A vector type that this operation is performed on.
-   */
   public var opType: OpType
     get() {
       TransferContext.writeArguments()
@@ -38,7 +30,7 @@ public open class VisualShaderNodeVectorBase internal constructor() : VisualShad
       TransferContext.callMethod(rawPtr, MethodBindings.setOpTypePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_VISUALSHADERNODEVECTORBASE, scriptIndex)
     return true
   }
@@ -46,21 +38,9 @@ public open class VisualShaderNodeVectorBase internal constructor() : VisualShad
   public enum class OpType(
     id: Long,
   ) {
-    /**
-     * A 2D vector type.
-     */
     OP_TYPE_VECTOR_2D(0),
-    /**
-     * A 3D vector type.
-     */
     OP_TYPE_VECTOR_3D(1),
-    /**
-     * A 4D vector type.
-     */
     OP_TYPE_VECTOR_4D(2),
-    /**
-     * Represents the size of the [enum OpType] enum.
-     */
     OP_TYPE_MAX(3),
     ;
 
@@ -70,7 +50,9 @@ public open class VisualShaderNodeVectorBase internal constructor() : VisualShad
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): OpType = entries.single {
+          it.id == `value`
+      }
     }
   }
 

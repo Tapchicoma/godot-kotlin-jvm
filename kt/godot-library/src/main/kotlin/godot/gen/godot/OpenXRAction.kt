@@ -56,7 +56,7 @@ public open class OpenXRAction : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setToplevelPathsPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_OPENXRACTION, scriptIndex)
     return true
   }
@@ -76,7 +76,9 @@ public open class OpenXRAction : Resource() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): ActionType = entries.single {
+          it.id == `value`
+      }
     }
   }
 

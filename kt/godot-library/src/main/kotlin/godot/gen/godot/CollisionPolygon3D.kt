@@ -21,18 +21,8 @@ import kotlin.Float
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * A node that provides a thickened polygon shape (a prism) to a [godot.CollisionObject3D] parent.
- *
- * A node that provides a thickened polygon shape (a prism) to a [godot.CollisionObject3D] parent and allows to edit it. The polygon can be concave or convex. This can give a detection shape to an [godot.Area3D] or turn [godot.PhysicsBody3D] into a solid object.
- *
- * **Warning:** A non-uniformly scaled [godot.CollisionShape3D] will likely not behave as expected. Make sure to keep its scale the same on all axes and adjust its shape resource instead.
- */
 @GodotBaseType
 public open class CollisionPolygon3D : Node3D() {
-  /**
-   * Length that the resulting collision extends in either direction perpendicular to its 2D polygon.
-   */
   public var depth: Float
     get() {
       TransferContext.writeArguments()
@@ -44,9 +34,6 @@ public open class CollisionPolygon3D : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDepthPtr, NIL)
     }
 
-  /**
-   * If `true`, no collision will be produced.
-   */
   public var disabled: Boolean
     get() {
       TransferContext.writeArguments()
@@ -58,11 +45,6 @@ public open class CollisionPolygon3D : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDisabledPtr, NIL)
     }
 
-  /**
-   * Array of vertices which define the 2D polygon in the local XY plane.
-   *
-   * **Note:** The returned value is a copy of the original. Methods which mutate the size or properties of the return value will not impact the original polygon. To change properties of the polygon, assign it to a temporary variable and make changes before reassigning the `polygon` member.
-   */
   public var polygon: PackedVector2Array
     get() {
       TransferContext.writeArguments()
@@ -74,9 +56,6 @@ public open class CollisionPolygon3D : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setPolygonPtr, NIL)
     }
 
-  /**
-   * The collision margin for the generated [godot.Shape3D]. See [godot.Shape3D.margin] for more details.
-   */
   public var margin: Float
     get() {
       TransferContext.writeArguments()
@@ -88,7 +67,7 @@ public open class CollisionPolygon3D : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setMarginPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_COLLISIONPOLYGON3D, scriptIndex)
     return true
   }

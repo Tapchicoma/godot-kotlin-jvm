@@ -27,7 +27,7 @@ import kotlin.jvm.JvmOverloads
 
 @GodotBaseType
 public open class ZIPReader : RefCounted() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_ZIPREADER, scriptIndex)
     return true
   }

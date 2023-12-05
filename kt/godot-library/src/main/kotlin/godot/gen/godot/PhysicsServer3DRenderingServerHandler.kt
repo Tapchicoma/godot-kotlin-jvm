@@ -13,22 +13,15 @@ import godot.util.VoidPtr
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
-import kotlin.Unit
 
-/**
- * A class used to provide [godot.PhysicsServer3DExtension.SoftBodyUpdateRenderingServer] with a rendering handler for soft bodies.
- */
 @GodotBaseType
 public open class PhysicsServer3DRenderingServerHandler : Object() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_PHYSICSSERVER3DRENDERINGSERVERHANDLER, scriptIndex)
     return true
   }
 
-  /**
-   *
-   */
-  public open fun _setAabb(aabb: AABB): Unit {
+  public open fun _setAabb(aabb: AABB) {
   }
 
   public companion object

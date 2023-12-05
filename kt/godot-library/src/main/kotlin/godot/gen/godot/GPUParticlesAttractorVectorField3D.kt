@@ -21,20 +21,8 @@ import kotlin.Int
 import kotlin.Suppress
 import kotlin.Unit
 
-/**
- * Box-shaped 3D particle attractor with strength varying within the box, affecting [godot.GPUParticles3D] nodes.
- *
- * Box-shaped 3D particle attractor with strength varying within the box, affecting [godot.GPUParticles3D] nodes.
- *
- * Unlike [godot.GPUParticlesAttractorBox3D], [godot.GPUParticlesAttractorVectorField3D] uses a [texture] to affect attraction strength within the box. This can be used to create complex attraction scenarios where particles travel in different directions depending on their location. This can be useful for weather effects such as sandstorms.
- *
- * **Note:** Particle attractors only affect [godot.GPUParticles3D], not [godot.CPUParticles3D].
- */
 @GodotBaseType
 public open class GPUParticlesAttractorVectorField3D : GPUParticlesAttractor3D() {
-  /**
-   * The size of the vector field box in 3D units.
-   */
   @CoreTypeLocalCopy
   public var size: Vector3
     get() {
@@ -47,11 +35,6 @@ public open class GPUParticlesAttractorVectorField3D : GPUParticlesAttractor3D()
       TransferContext.callMethod(rawPtr, MethodBindings.setSizePtr, NIL)
     }
 
-  /**
-   * The 3D texture to be used. Values are linearly interpolated between the texture's pixels.
-   *
-   * **Note:** To get better performance, the 3D texture's resolution should reflect the [size] of the attractor. Since particle attraction is usually low-frequency data, the texture can be kept at a low resolution such as 64×64×64.
-   */
   public var texture: Texture3D?
     get() {
       TransferContext.writeArguments()
@@ -63,14 +46,12 @@ public open class GPUParticlesAttractorVectorField3D : GPUParticlesAttractor3D()
       TransferContext.callMethod(rawPtr, MethodBindings.setTexturePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_GPUPARTICLESATTRACTORVECTORFIELD3D, scriptIndex)
     return true
   }
 
   /**
-   * The size of the vector field box in 3D units.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our

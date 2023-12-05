@@ -20,18 +20,8 @@ import kotlin.Int
 import kotlin.Suppress
 import kotlin.Unit
 
-/**
- * Box-shaped 3D particle attractor affecting [godot.GPUParticles3D] nodes.
- *
- * Box-shaped 3D particle attractor affecting [godot.GPUParticles3D] nodes.
- *
- * **Note:** Particle attractors only affect [godot.GPUParticles3D], not [godot.CPUParticles3D].
- */
 @GodotBaseType
 public open class GPUParticlesAttractorBox3D : GPUParticlesAttractor3D() {
-  /**
-   * The attractor box's size in 3D units.
-   */
   @CoreTypeLocalCopy
   public var size: Vector3
     get() {
@@ -44,14 +34,12 @@ public open class GPUParticlesAttractorBox3D : GPUParticlesAttractor3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSizePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_GPUPARTICLESATTRACTORBOX3D, scriptIndex)
     return true
   }
 
   /**
-   * The attractor box's size in 3D units.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our

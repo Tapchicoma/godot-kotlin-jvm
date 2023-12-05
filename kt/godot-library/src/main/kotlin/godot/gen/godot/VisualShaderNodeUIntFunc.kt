@@ -17,16 +17,8 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
 
-/**
- * An unsigned scalar integer function to be used within the visual shader graph.
- *
- * Accept an unsigned integer scalar (`x`) to the input port and transform it according to [function].
- */
 @GodotBaseType
 public open class VisualShaderNodeUIntFunc : VisualShaderNode() {
-  /**
-   * A function to be applied to the scalar. See [enum Function] for options.
-   */
   public var function: Function
     get() {
       TransferContext.writeArguments()
@@ -38,7 +30,7 @@ public open class VisualShaderNodeUIntFunc : VisualShaderNode() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFunctionPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_VISUALSHADERNODEUINTFUNC, scriptIndex)
     return true
   }
@@ -46,17 +38,8 @@ public open class VisualShaderNodeUIntFunc : VisualShaderNode() {
   public enum class Function(
     id: Long,
   ) {
-    /**
-     * Negates the `x` using `-(x)`.
-     */
     FUNC_NEGATE(0),
-    /**
-     * Returns the result of bitwise `NOT` operation on the integer. Translates to `~a` in the Godot Shader Language.
-     */
     FUNC_BITWISE_NOT(1),
-    /**
-     * Represents the size of the [enum Function] enum.
-     */
     FUNC_MAX(2),
     ;
 
@@ -66,7 +49,9 @@ public open class VisualShaderNodeUIntFunc : VisualShaderNode() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): Function = entries.single {
+          it.id == `value`
+      }
     }
   }
 

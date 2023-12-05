@@ -18,22 +18,8 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
 
-/**
- * A container used for displaying the contents of a [godot.SubViewport].
- *
- * A container that displays the contents of underlying [godot.SubViewport] child nodes. It uses the combined size of the [godot.SubViewport]s as minimum size, unless [stretch] is enabled.
- *
- * **Note:** Changing a [godot.SubViewportContainer]'s [godot.Control.scale] will cause its contents to appear distorted. To change its visual size without causing distortion, adjust the node's margins instead (if it's not already in a container).
- *
- * **Note:** The [godot.SubViewportContainer] forwards mouse-enter and mouse-exit notifications to its sub-viewports.
- */
 @GodotBaseType
 public open class SubViewportContainer : Container() {
-  /**
-   * If `true`, the sub-viewport will be automatically resized to the control's size.
-   *
-   * **Note:** If `true`, this will prohibit changing [godot.SubViewport.size] of its children manually.
-   */
   public var stretch: Boolean
     get() {
       TransferContext.writeArguments()
@@ -45,13 +31,6 @@ public open class SubViewportContainer : Container() {
       TransferContext.callMethod(rawPtr, MethodBindings.setStretchPtr, NIL)
     }
 
-  /**
-   * Divides the sub-viewport's effective resolution by this value while preserving its scale. This can be used to speed up rendering.
-   *
-   * For example, a 1280×720 sub-viewport with [stretchShrink] set to `2` will be rendered at 640×360 while occupying the same size in the container.
-   *
-   * **Note:** [stretch] must be `true` for this property to work.
-   */
   public var stretchShrink: Int
     get() {
       TransferContext.writeArguments()
@@ -63,7 +42,7 @@ public open class SubViewportContainer : Container() {
       TransferContext.callMethod(rawPtr, MethodBindings.setStretchShrinkPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_SUBVIEWPORTCONTAINER, scriptIndex)
     return true
   }

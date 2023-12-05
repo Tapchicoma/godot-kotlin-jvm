@@ -18,7 +18,7 @@ import kotlin.Suppress
 
 @GodotBaseType
 public open class GDScript : Script() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_GDSCRIPT, scriptIndex)
     return true
   }

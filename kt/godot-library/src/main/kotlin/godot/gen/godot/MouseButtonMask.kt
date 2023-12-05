@@ -75,7 +75,7 @@ public sealed interface MouseButtonMask {
 
 @JvmInline
 internal value class MouseButtonMaskValue internal constructor(
-  public override val flag: Long,
+  override val flag: Long,
 ) : MouseButtonMask
 
 public infix fun Long.or(other: MouseButtonMask): Long = this.or(other.flag)

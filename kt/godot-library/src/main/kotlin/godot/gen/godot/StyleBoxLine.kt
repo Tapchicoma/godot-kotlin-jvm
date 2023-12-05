@@ -26,16 +26,8 @@ import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 
-/**
- * A [godot.StyleBox] that displays a single line of a given color and thickness.
- *
- * A [godot.StyleBox] that displays a single line of a given color and thickness. The line can be either horizontal or vertical. Useful for separators.
- */
 @GodotBaseType
 public open class StyleBoxLine : StyleBox() {
-  /**
-   * The line's color.
-   */
   @CoreTypeLocalCopy
   public var color: Color
     get() {
@@ -48,9 +40,6 @@ public open class StyleBoxLine : StyleBox() {
       TransferContext.callMethod(rawPtr, MethodBindings.setColorPtr, NIL)
     }
 
-  /**
-   * The number of pixels the line will extend before the [godot.StyleBoxLine]'s bounds. If set to a negative value, the line will begin inside the [godot.StyleBoxLine]'s bounds.
-   */
   public var growBegin: Float
     get() {
       TransferContext.writeArguments()
@@ -62,9 +51,6 @@ public open class StyleBoxLine : StyleBox() {
       TransferContext.callMethod(rawPtr, MethodBindings.setGrowBeginPtr, NIL)
     }
 
-  /**
-   * The number of pixels the line will extend past the [godot.StyleBoxLine]'s bounds. If set to a negative value, the line will end inside the [godot.StyleBoxLine]'s bounds.
-   */
   public var growEnd: Float
     get() {
       TransferContext.writeArguments()
@@ -76,9 +62,6 @@ public open class StyleBoxLine : StyleBox() {
       TransferContext.callMethod(rawPtr, MethodBindings.setGrowEndPtr, NIL)
     }
 
-  /**
-   * The line's thickness in pixels.
-   */
   public var thickness: Int
     get() {
       TransferContext.writeArguments()
@@ -90,9 +73,6 @@ public open class StyleBoxLine : StyleBox() {
       TransferContext.callMethod(rawPtr, MethodBindings.setThicknessPtr, NIL)
     }
 
-  /**
-   * If `true`, the line will be vertical. If `false`, the line will be horizontal.
-   */
   public var vertical: Boolean
     get() {
       TransferContext.writeArguments()
@@ -104,14 +84,12 @@ public open class StyleBoxLine : StyleBox() {
       TransferContext.callMethod(rawPtr, MethodBindings.setVerticalPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_STYLEBOXLINE, scriptIndex)
     return true
   }
 
   /**
-   * The line's color.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our

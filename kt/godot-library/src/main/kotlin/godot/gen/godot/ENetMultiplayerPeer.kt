@@ -20,7 +20,6 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
-import kotlin.Unit
 import kotlin.jvm.JvmOverloads
 
 @GodotBaseType
@@ -32,7 +31,7 @@ public open class ENetMultiplayerPeer : MultiplayerPeer() {
       return (TransferContext.readReturnValue(OBJECT, true) as ENetConnection?)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_ENETMULTIPLAYERPEER, scriptIndex)
     return true
   }
@@ -76,7 +75,7 @@ public open class ENetMultiplayerPeer : MultiplayerPeer() {
     return GodotError.from(TransferContext.readReturnValue(LONG) as Long)
   }
 
-  public fun setBindIp(ip: String): Unit {
+  public fun setBindIp(ip: String) {
     TransferContext.writeArguments(STRING to ip)
     TransferContext.callMethod(rawPtr, MethodBindings.setBindIpPtr, NIL)
   }

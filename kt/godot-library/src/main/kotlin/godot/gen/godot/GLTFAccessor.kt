@@ -176,7 +176,7 @@ public open class GLTFAccessor : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSparseValuesByteOffsetPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_GLTFACCESSOR, scriptIndex)
     return true
   }

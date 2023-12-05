@@ -27,7 +27,6 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
-import kotlin.Unit
 import kotlin.jvm.JvmOverloads
 
 @GodotBaseType
@@ -69,12 +68,12 @@ public open class MultiplayerSpawner : Node() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSpawnFunctionPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_MULTIPLAYERSPAWNER, scriptIndex)
     return true
   }
 
-  public fun addSpawnableScene(path: String): Unit {
+  public fun addSpawnableScene(path: String) {
     TransferContext.writeArguments(STRING to path)
     TransferContext.callMethod(rawPtr, MethodBindings.addSpawnableScenePtr, NIL)
   }
@@ -91,7 +90,7 @@ public open class MultiplayerSpawner : Node() {
     return (TransferContext.readReturnValue(STRING, false) as String)
   }
 
-  public fun clearSpawnableScenes(): Unit {
+  public fun clearSpawnableScenes() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.clearSpawnableScenesPtr, NIL)
   }

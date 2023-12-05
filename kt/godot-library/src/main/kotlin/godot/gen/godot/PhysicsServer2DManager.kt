@@ -19,34 +19,20 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
 import kotlin.Suppress
-import kotlin.Unit
 
-/**
- * A singleton for managing [godot.PhysicsServer2D] implementations.
- *
- * [godot.PhysicsServer2DManager] is the API for registering [godot.PhysicsServer2D] implementations and for setting the default implementation.
- *
- * **Note:** It is not possible to switch physics servers at runtime. This class is only used on startup at the server initialization level, by Godot itself and possibly by GDExtensions.
- */
 @GodotBaseType
 public object PhysicsServer2DManager : Object() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     getSingleton(ENGINECLASS_PHYSICSSERVER2DMANAGER)
     return false
   }
 
-  /**
-   * Register a [godot.PhysicsServer2D] implementation by passing a [name] and a [godot.Callable] that returns a [godot.PhysicsServer2D] object.
-   */
-  public fun registerServer(name: String, createCallback: Callable): Unit {
+  public fun registerServer(name: String, createCallback: Callable) {
     TransferContext.writeArguments(STRING to name, CALLABLE to createCallback)
     TransferContext.callMethod(rawPtr, MethodBindings.registerServerPtr, NIL)
   }
 
-  /**
-   * Set the default [godot.PhysicsServer2D] implementation to the one identified by [name], if [priority] is greater than the priority of the current default implementation.
-   */
-  public fun setDefaultServer(name: String, priority: Int): Unit {
+  public fun setDefaultServer(name: String, priority: Int) {
     TransferContext.writeArguments(STRING to name, LONG to priority.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.setDefaultServerPtr, NIL)
   }

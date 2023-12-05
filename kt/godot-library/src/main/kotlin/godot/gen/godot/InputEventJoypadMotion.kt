@@ -20,19 +20,8 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
 
-/**
- * Represents axis motions (such as joystick or analog triggers) from a gamepad.
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/inputs/inputevent.html]($DOCS_URL/tutorials/inputs/inputevent.html)
- *
- * Stores information about joystick motions. One [godot.InputEventJoypadMotion] represents one axis at a time. For gamepad buttons, see [godot.InputEventJoypadButton].
- */
 @GodotBaseType
 public open class InputEventJoypadMotion : InputEvent() {
-  /**
-   * Axis identifier. Use one of the [enum JoyAxis] axis constants.
-   */
   public var axis: JoyAxis
     get() {
       TransferContext.writeArguments()
@@ -44,9 +33,6 @@ public open class InputEventJoypadMotion : InputEvent() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAxisPtr, NIL)
     }
 
-  /**
-   * Current position of the joystick on the given axis. The value ranges from `-1.0` to `1.0`. A value of `0` means the axis is in its resting position.
-   */
   public var axisValue: Float
     get() {
       TransferContext.writeArguments()
@@ -58,7 +44,7 @@ public open class InputEventJoypadMotion : InputEvent() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAxisValuePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_INPUTEVENTJOYPADMOTION, scriptIndex)
     return true
   }

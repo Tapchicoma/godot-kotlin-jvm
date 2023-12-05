@@ -21,16 +21,8 @@ import kotlin.Float
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * Abstract base class for all 2D physics joints.
- *
- * Abstract base class for all joints in 2D physics. 2D joints bind together two physics bodies and apply a constraint.
- */
 @GodotBaseType
 public open class Joint2D internal constructor() : Node2D() {
-  /**
-   * The first body attached to the joint. Must derive from [godot.PhysicsBody2D].
-   */
   public var nodeA: NodePath
     get() {
       TransferContext.writeArguments()
@@ -42,9 +34,6 @@ public open class Joint2D internal constructor() : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setNodeAPtr, NIL)
     }
 
-  /**
-   * The second body attached to the joint. Must derive from [godot.PhysicsBody2D].
-   */
   public var nodeB: NodePath
     get() {
       TransferContext.writeArguments()
@@ -56,11 +45,6 @@ public open class Joint2D internal constructor() : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setNodeBPtr, NIL)
     }
 
-  /**
-   * When [nodeA] and [nodeB] move in different directions the `bias` controls how fast the joint pulls them back to their original position. The lower the `bias` the more the two bodies can pull on the joint.
-   *
-   * When set to `0`, the default value from [godot.ProjectSettings.physics/2d/solver/defaultConstraintBias] is used.
-   */
   public var bias: Float
     get() {
       TransferContext.writeArguments()
@@ -72,9 +56,6 @@ public open class Joint2D internal constructor() : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setBiasPtr, NIL)
     }
 
-  /**
-   * If `true`, [nodeA] and [nodeB] can not collide.
-   */
   public var disableCollision: Boolean
     get() {
       TransferContext.writeArguments()
@@ -86,7 +67,7 @@ public open class Joint2D internal constructor() : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setExcludeNodesFromCollisionPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_JOINT2D, scriptIndex)
     return true
   }

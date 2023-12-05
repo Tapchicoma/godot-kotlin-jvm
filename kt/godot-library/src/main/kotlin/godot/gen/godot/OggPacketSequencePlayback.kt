@@ -13,7 +13,7 @@ import kotlin.Suppress
 
 @GodotBaseType
 public open class OggPacketSequencePlayback : RefCounted() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_OGGPACKETSEQUENCEPLAYBACK, scriptIndex)
     return true
   }

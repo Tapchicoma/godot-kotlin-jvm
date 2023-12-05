@@ -24,16 +24,8 @@ import kotlin.Int
 import kotlin.Suppress
 import kotlin.Unit
 
-/**
- * A rectangle hint for designing UIs.
- *
- * A rectangle box that displays only a colored border around its rectangle. It is used to visualize the extents of a [godot.Control].
- */
 @GodotBaseType
 public open class ReferenceRect : Control() {
-  /**
-   * Sets the border color of the [godot.ReferenceRect].
-   */
   @CoreTypeLocalCopy
   public var borderColor: Color
     get() {
@@ -46,9 +38,6 @@ public open class ReferenceRect : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setBorderColorPtr, NIL)
     }
 
-  /**
-   * Sets the border width of the [godot.ReferenceRect]. The border grows both inwards and outwards with respect to the rectangle box.
-   */
   public var borderWidth: Float
     get() {
       TransferContext.writeArguments()
@@ -60,9 +49,6 @@ public open class ReferenceRect : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setBorderWidthPtr, NIL)
     }
 
-  /**
-   * If `true`, the [godot.ReferenceRect] will only be visible while in editor. Otherwise, [godot.ReferenceRect] will be visible in the running project.
-   */
   public var editorOnly: Boolean
     get() {
       TransferContext.writeArguments()
@@ -74,14 +60,12 @@ public open class ReferenceRect : Control() {
       TransferContext.callMethod(rawPtr, MethodBindings.setEditorOnlyPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_REFERENCERECT, scriptIndex)
     return true
   }
 
   /**
-   * Sets the border color of the [godot.ReferenceRect].
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our

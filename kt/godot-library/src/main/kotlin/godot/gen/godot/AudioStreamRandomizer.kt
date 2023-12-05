@@ -20,19 +20,10 @@ import kotlin.Float
 import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
-import kotlin.Unit
 import kotlin.jvm.JvmOverloads
 
-/**
- * Wraps a pool of audio streams with pitch and volume shifting.
- *
- * Picks a random AudioStream from the pool, depending on the playback mode, and applies random pitch shifting and volume shifting during playback.
- */
 @GodotBaseType
 public open class AudioStreamRandomizer : AudioStream() {
-  /**
-   * The number of streams in the stream pool.
-   */
   public var streamsCount: Int
     get() {
       TransferContext.writeArguments()
@@ -44,9 +35,6 @@ public open class AudioStreamRandomizer : AudioStream() {
       TransferContext.callMethod(rawPtr, MethodBindings.setStreamsCountPtr, NIL)
     }
 
-  /**
-   * Controls how this AudioStreamRandomizer picks which AudioStream to play next.
-   */
   public var playbackMode: PlaybackMode
     get() {
       TransferContext.writeArguments()
@@ -58,9 +46,6 @@ public open class AudioStreamRandomizer : AudioStream() {
       TransferContext.callMethod(rawPtr, MethodBindings.setPlaybackModePtr, NIL)
     }
 
-  /**
-   * The intensity of random pitch variation. A value of 1 means no variation.
-   */
   public var randomPitch: Float
     get() {
       TransferContext.writeArguments()
@@ -72,9 +57,6 @@ public open class AudioStreamRandomizer : AudioStream() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRandomPitchPtr, NIL)
     }
 
-  /**
-   * The intensity of random volume variation. A value of 0 means no variation.
-   */
   public var randomVolumeOffsetDb: Float
     get() {
       TransferContext.writeArguments()
@@ -86,68 +68,47 @@ public open class AudioStreamRandomizer : AudioStream() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRandomVolumeOffsetDbPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_AUDIOSTREAMRANDOMIZER, scriptIndex)
     return true
   }
 
-  /**
-   * Insert a stream at the specified index. If the index is less than zero, the insertion occurs at the end of the underlying pool.
-   */
   @JvmOverloads
   public fun addStream(
     index: Int,
     stream: AudioStream,
     weight: Float = 1.0f,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(LONG to index.toLong(), OBJECT to stream, DOUBLE to weight.toDouble())
     TransferContext.callMethod(rawPtr, MethodBindings.addStreamPtr, NIL)
   }
 
-  /**
-   * Move a stream from one index to another.
-   */
-  public fun moveStream(indexFrom: Int, indexTo: Int): Unit {
+  public fun moveStream(indexFrom: Int, indexTo: Int) {
     TransferContext.writeArguments(LONG to indexFrom.toLong(), LONG to indexTo.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.moveStreamPtr, NIL)
   }
 
-  /**
-   * Remove the stream at the specified index.
-   */
-  public fun removeStream(index: Int): Unit {
+  public fun removeStream(index: Int) {
     TransferContext.writeArguments(LONG to index.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.removeStreamPtr, NIL)
   }
 
-  /**
-   * Set the AudioStream at the specified index.
-   */
-  public fun setStream(index: Int, stream: AudioStream): Unit {
+  public fun setStream(index: Int, stream: AudioStream) {
     TransferContext.writeArguments(LONG to index.toLong(), OBJECT to stream)
     TransferContext.callMethod(rawPtr, MethodBindings.setStreamPtr, NIL)
   }
 
-  /**
-   * Returns the stream at the specified index.
-   */
   public fun getStream(index: Int): AudioStream? {
     TransferContext.writeArguments(LONG to index.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getStreamPtr, OBJECT)
     return (TransferContext.readReturnValue(OBJECT, true) as AudioStream?)
   }
 
-  /**
-   * Set the probability weight of the stream at the specified index. The higher this value, the more likely that the randomizer will choose this stream during random playback modes.
-   */
-  public fun setStreamProbabilityWeight(index: Int, weight: Float): Unit {
+  public fun setStreamProbabilityWeight(index: Int, weight: Float) {
     TransferContext.writeArguments(LONG to index.toLong(), DOUBLE to weight.toDouble())
     TransferContext.callMethod(rawPtr, MethodBindings.setStreamProbabilityWeightPtr, NIL)
   }
 
-  /**
-   * Returns the probability weight associated with the stream at the given index.
-   */
   public fun getStreamProbabilityWeight(index: Int): Float {
     TransferContext.writeArguments(LONG to index.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getStreamProbabilityWeightPtr, DOUBLE)
@@ -157,17 +118,8 @@ public open class AudioStreamRandomizer : AudioStream() {
   public enum class PlaybackMode(
     id: Long,
   ) {
-    /**
-     * Pick a stream at random according to the probability weights chosen for each stream, but avoid playing the same stream twice in a row whenever possible. If only 1 sound is present in the pool, the same sound will always play, effectively allowing repeats to occur.
-     */
     PLAYBACK_RANDOM_NO_REPEATS(0),
-    /**
-     * Pick a stream at random according to the probability weights chosen for each stream. If only 1 sound is present in the pool, the same sound will always play.
-     */
     PLAYBACK_RANDOM(1),
-    /**
-     * Play streams in the order they appear in the stream pool. If only 1 sound is present in the pool, the same sound will always play.
-     */
     PLAYBACK_SEQUENTIAL(2),
     ;
 
@@ -177,7 +129,9 @@ public open class AudioStreamRandomizer : AudioStream() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): PlaybackMode = entries.single {
+          it.id == `value`
+      }
     }
   }
 

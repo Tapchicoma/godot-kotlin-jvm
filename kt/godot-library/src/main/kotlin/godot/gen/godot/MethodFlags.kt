@@ -76,7 +76,7 @@ public sealed interface MethodFlags {
 
 @JvmInline
 internal value class MethodFlagsValue internal constructor(
-  public override val flag: Long,
+  override val flag: Long,
 ) : MethodFlags
 
 public infix fun Long.or(other: MethodFlags): Long = this.or(other.flag)

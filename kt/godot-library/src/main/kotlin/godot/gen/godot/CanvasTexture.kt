@@ -26,18 +26,8 @@ import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 
-/**
- * Texture with optional normal and specular maps for use in 2D rendering.
- *
- * [godot.CanvasTexture] is an alternative to [godot.ImageTexture] for 2D rendering. It allows using normal maps and specular maps in any node that inherits from [godot.CanvasItem]. [godot.CanvasTexture] also allows overriding the texture's filter and repeat mode independently of the node's properties (or the project settings).
- *
- * **Note:** [godot.CanvasTexture] cannot be used in 3D rendering. For physically-based materials in 3D, use [godot.BaseMaterial3D] instead.
- */
 @GodotBaseType
 public open class CanvasTexture : Texture2D() {
-  /**
-   * The diffuse (color) texture to use. This is the main texture you want to set in most cases.
-   */
   public var diffuseTexture: Texture2D?
     get() {
       TransferContext.writeArguments()
@@ -49,11 +39,6 @@ public open class CanvasTexture : Texture2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDiffuseTexturePtr, NIL)
     }
 
-  /**
-   * The normal map texture to use. Only has a visible effect if [godot.Light2D]s are affecting this [godot.CanvasTexture].
-   *
-   * **Note:** Godot expects the normal map to use X+, Y+, and Z+ coordinates. See [this page](http://wiki.polycount.com/wiki/Normal_Map_Technical_Details#Common_Swizzle_Coordinates) for a comparison of normal map coordinates expected by popular engines.
-   */
   public var normalTexture: Texture2D?
     get() {
       TransferContext.writeArguments()
@@ -65,9 +50,6 @@ public open class CanvasTexture : Texture2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setNormalTexturePtr, NIL)
     }
 
-  /**
-   * The specular map to use for [godot.Light2D] specular reflections. This should be a grayscale or colored texture, with brighter areas resulting in a higher [specularShininess] value. Using a colored [specularTexture] allows controlling specular shininess on a per-channel basis. Only has a visible effect if [godot.Light2D]s are affecting this [godot.CanvasTexture].
-   */
   public var specularTexture: Texture2D?
     get() {
       TransferContext.writeArguments()
@@ -79,9 +61,6 @@ public open class CanvasTexture : Texture2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSpecularTexturePtr, NIL)
     }
 
-  /**
-   * The multiplier for specular reflection colors. The [godot.Light2D]'s color is also taken into account when determining the reflection color. Only has a visible effect if [godot.Light2D]s are affecting this [godot.CanvasTexture].
-   */
   @CoreTypeLocalCopy
   public var specularColor: Color
     get() {
@@ -94,9 +73,6 @@ public open class CanvasTexture : Texture2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSpecularColorPtr, NIL)
     }
 
-  /**
-   * The specular exponent for [godot.Light2D] specular reflections. Higher values result in a more glossy/"wet" look, with reflections becoming more localized and less visible overall. The default value of `1.0` disables specular reflections entirely. Only has a visible effect if [godot.Light2D]s are affecting this [godot.CanvasTexture].
-   */
   public var specularShininess: Float
     get() {
       TransferContext.writeArguments()
@@ -108,9 +84,6 @@ public open class CanvasTexture : Texture2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSpecularShininessPtr, NIL)
     }
 
-  /**
-   * The texture filtering mode to use when drawing this [godot.CanvasTexture].
-   */
   public var textureFilter: CanvasItem.TextureFilter
     get() {
       TransferContext.writeArguments()
@@ -122,9 +95,6 @@ public open class CanvasTexture : Texture2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTextureFilterPtr, NIL)
     }
 
-  /**
-   * The texture repeat mode to use when drawing this [godot.CanvasTexture].
-   */
   public var textureRepeat: CanvasItem.TextureRepeat
     get() {
       TransferContext.writeArguments()
@@ -136,14 +106,12 @@ public open class CanvasTexture : Texture2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTextureRepeatPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_CANVASTEXTURE, scriptIndex)
     return true
   }
 
   /**
-   * The multiplier for specular reflection colors. The [godot.Light2D]'s color is also taken into account when determining the reflection color. Only has a visible effect if [godot.Light2D]s are affecting this [godot.CanvasTexture].
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our

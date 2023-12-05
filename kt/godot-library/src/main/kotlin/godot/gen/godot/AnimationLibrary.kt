@@ -26,91 +26,50 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
-import kotlin.Unit
 
-/**
- * Container for [godot.Animation] resources.
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/animation/index.html]($DOCS_URL/tutorials/animation/index.html)
- *
- * An animation library stores a set of animations accessible through [godot.StringName] keys, for use with [godot.AnimationPlayer] nodes.
- */
 @GodotBaseType
 public open class AnimationLibrary : Resource() {
-  /**
-   * Emitted when an [godot.Animation] is added, under the key [name].
-   */
   public val animationAdded: Signal1<StringName> by signal("name")
 
-  /**
-   * Emitted when an [godot.Animation] stored with the key [name] is removed.
-   */
   public val animationRemoved: Signal1<StringName> by signal("name")
 
-  /**
-   * Emitted when the key for an [godot.Animation] is changed, from [name] to [toName].
-   */
   public val animationRenamed: Signal2<StringName, StringName> by signal("name", "toName")
 
-  /**
-   * Emitted when there's a change in one of the animations, e.g. tracks are added, moved or have changed paths. [name] is the key of the animation that was changed.
-   *
-   * See also [godot.Resource.changed], which this acts as a relay for.
-   */
   public val animationChanged: Signal1<StringName> by signal("name")
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_ANIMATIONLIBRARY, scriptIndex)
     return true
   }
 
-  /**
-   * Adds the [animation] to the library, accessible by the key [name].
-   */
   public fun addAnimation(name: StringName, animation: Animation): GodotError {
     TransferContext.writeArguments(STRING_NAME to name, OBJECT to animation)
     TransferContext.callMethod(rawPtr, MethodBindings.addAnimationPtr, LONG)
     return GodotError.from(TransferContext.readReturnValue(LONG) as Long)
   }
 
-  /**
-   * Removes the [godot.Animation] with the key [name].
-   */
-  public fun removeAnimation(name: StringName): Unit {
+  public fun removeAnimation(name: StringName) {
     TransferContext.writeArguments(STRING_NAME to name)
     TransferContext.callMethod(rawPtr, MethodBindings.removeAnimationPtr, NIL)
   }
 
-  /**
-   * Changes the key of the [godot.Animation] associated with the key [name] to [newname].
-   */
-  public fun renameAnimation(name: StringName, newname: StringName): Unit {
+  public fun renameAnimation(name: StringName, newname: StringName) {
     TransferContext.writeArguments(STRING_NAME to name, STRING_NAME to newname)
     TransferContext.callMethod(rawPtr, MethodBindings.renameAnimationPtr, NIL)
   }
 
-  /**
-   * Returns `true` if the library stores an [godot.Animation] with [name] as the key.
-   */
   public fun hasAnimation(name: StringName): Boolean {
     TransferContext.writeArguments(STRING_NAME to name)
     TransferContext.callMethod(rawPtr, MethodBindings.hasAnimationPtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Returns the [godot.Animation] with the key [name]. If the animation does not exist, `null` is returned and an error is logged.
-   */
   public fun getAnimation(name: StringName): Animation? {
     TransferContext.writeArguments(STRING_NAME to name)
     TransferContext.callMethod(rawPtr, MethodBindings.getAnimationPtr, OBJECT)
     return (TransferContext.readReturnValue(OBJECT, true) as Animation?)
   }
 
-  /**
-   * Returns the keys for the [godot.Animation]s stored in the library.
-   */
   public fun getAnimationList(): VariantArray<StringName> {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getAnimationListPtr, ARRAY)

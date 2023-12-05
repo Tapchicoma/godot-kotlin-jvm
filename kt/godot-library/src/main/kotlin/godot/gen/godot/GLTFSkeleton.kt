@@ -72,7 +72,7 @@ public open class GLTFSkeleton : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setGodotBoneNodePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_GLTFSKELETON, scriptIndex)
     return true
   }

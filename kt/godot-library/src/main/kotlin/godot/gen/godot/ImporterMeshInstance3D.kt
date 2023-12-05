@@ -18,14 +18,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- *
- */
 @GodotBaseType
 public open class ImporterMeshInstance3D : Node3D() {
-  /**
-   *
-   */
   public var mesh: ImporterMesh?
     get() {
       TransferContext.writeArguments()
@@ -37,9 +31,6 @@ public open class ImporterMeshInstance3D : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setMeshPtr, NIL)
     }
 
-  /**
-   *
-   */
   public var skin: Skin?
     get() {
       TransferContext.writeArguments()
@@ -51,9 +42,6 @@ public open class ImporterMeshInstance3D : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSkinPtr, NIL)
     }
 
-  /**
-   *
-   */
   public var skeletonPath: NodePath
     get() {
       TransferContext.writeArguments()
@@ -65,7 +53,7 @@ public open class ImporterMeshInstance3D : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSkeletonPathPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_IMPORTERMESHINSTANCE3D, scriptIndex)
     return true
   }

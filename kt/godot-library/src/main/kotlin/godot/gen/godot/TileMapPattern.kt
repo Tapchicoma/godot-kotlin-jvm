@@ -21,110 +21,72 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
-import kotlin.Unit
 import kotlin.jvm.JvmOverloads
 
-/**
- * Holds a pattern to be copied from or pasted into [godot.TileMap]s.
- *
- * This resource holds a set of cells to help bulk manipulations of [godot.TileMap].
- *
- * A pattern always start at the `(0,0)` coordinates and cannot have cells with negative coordinates.
- */
 @GodotBaseType
 public open class TileMapPattern : Resource() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_TILEMAPPATTERN, scriptIndex)
     return true
   }
 
-  /**
-   * Sets the tile identifiers for the cell at coordinates [coords]. See [godot.TileMap.setCell].
-   */
   @JvmOverloads
   public fun setCell(
     coords: Vector2i,
     sourceId: Int = -1,
     atlasCoords: Vector2i = Vector2i(-1, -1),
     alternativeTile: Int = -1,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(VECTOR2I to coords, LONG to sourceId.toLong(), VECTOR2I to atlasCoords, LONG to alternativeTile.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.setCellPtr, NIL)
   }
 
-  /**
-   * Returns whether the pattern has a tile at the given coordinates.
-   */
   public fun hasCell(coords: Vector2i): Boolean {
     TransferContext.writeArguments(VECTOR2I to coords)
     TransferContext.callMethod(rawPtr, MethodBindings.hasCellPtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Remove the cell at the given coordinates.
-   */
-  public fun removeCell(coords: Vector2i, updateSize: Boolean): Unit {
+  public fun removeCell(coords: Vector2i, updateSize: Boolean) {
     TransferContext.writeArguments(VECTOR2I to coords, BOOL to updateSize)
     TransferContext.callMethod(rawPtr, MethodBindings.removeCellPtr, NIL)
   }
 
-  /**
-   * Returns the tile source ID of the cell at [coords].
-   */
   public fun getCellSourceId(coords: Vector2i): Int {
     TransferContext.writeArguments(VECTOR2I to coords)
     TransferContext.callMethod(rawPtr, MethodBindings.getCellSourceIdPtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Returns the tile atlas coordinates ID of the cell at [coords].
-   */
   public fun getCellAtlasCoords(coords: Vector2i): Vector2i {
     TransferContext.writeArguments(VECTOR2I to coords)
     TransferContext.callMethod(rawPtr, MethodBindings.getCellAtlasCoordsPtr, VECTOR2I)
     return (TransferContext.readReturnValue(VECTOR2I, false) as Vector2i)
   }
 
-  /**
-   * Returns the tile alternative ID of the cell at [coords].
-   */
   public fun getCellAlternativeTile(coords: Vector2i): Int {
     TransferContext.writeArguments(VECTOR2I to coords)
     TransferContext.callMethod(rawPtr, MethodBindings.getCellAlternativeTilePtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Returns the list of used cell coordinates in the pattern.
-   */
   public fun getUsedCells(): VariantArray<Vector2i> {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getUsedCellsPtr, ARRAY)
     return (TransferContext.readReturnValue(ARRAY, false) as VariantArray<Vector2i>)
   }
 
-  /**
-   * Returns the size, in cells, of the pattern.
-   */
   public fun getSize(): Vector2i {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getSizePtr, VECTOR2I)
     return (TransferContext.readReturnValue(VECTOR2I, false) as Vector2i)
   }
 
-  /**
-   * Sets the size of the pattern.
-   */
-  public fun setSize(size: Vector2i): Unit {
+  public fun setSize(size: Vector2i) {
     TransferContext.writeArguments(VECTOR2I to size)
     TransferContext.callMethod(rawPtr, MethodBindings.setSizePtr, NIL)
   }
 
-  /**
-   * Returns whether the pattern is empty or not.
-   */
   public fun isEmpty(): Boolean {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.isEmptyPtr, BOOL)

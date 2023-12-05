@@ -25,29 +25,12 @@ import kotlin.Float
 import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
-import kotlin.Unit
 import kotlin.jvm.JvmOverloads
 
-/**
- * Plays back audio non-positionally.
- *
- * Tutorials:
- * [https://godotengine.org/asset-library/asset/528](https://godotengine.org/asset-library/asset/528)
- *
- * Plays an audio stream non-positionally.
- *
- * To play audio positionally, use [godot.AudioStreamPlayer2D] or [godot.AudioStreamPlayer3D] instead of [godot.AudioStreamPlayer].
- */
 @GodotBaseType
 public open class AudioStreamPlayer : Node() {
-  /**
-   * Emitted when the audio stops playing.
-   */
   public val finished: Signal0 by signal()
 
-  /**
-   * The [godot.AudioStream] object to be played.
-   */
   public var stream: AudioStream?
     get() {
       TransferContext.writeArguments()
@@ -59,9 +42,6 @@ public open class AudioStreamPlayer : Node() {
       TransferContext.callMethod(rawPtr, MethodBindings.setStreamPtr, NIL)
     }
 
-  /**
-   * Volume of sound, in dB.
-   */
   public var volumeDb: Float
     get() {
       TransferContext.writeArguments()
@@ -73,9 +53,6 @@ public open class AudioStreamPlayer : Node() {
       TransferContext.callMethod(rawPtr, MethodBindings.setVolumeDbPtr, NIL)
     }
 
-  /**
-   * The pitch and the tempo of the audio, as a multiplier of the audio sample's sample rate.
-   */
   public var pitchScale: Float
     get() {
       TransferContext.writeArguments()
@@ -87,9 +64,6 @@ public open class AudioStreamPlayer : Node() {
       TransferContext.callMethod(rawPtr, MethodBindings.setPitchScalePtr, NIL)
     }
 
-  /**
-   * If `true`, audio is playing.
-   */
   public val playing: Boolean
     get() {
       TransferContext.writeArguments()
@@ -97,9 +71,6 @@ public open class AudioStreamPlayer : Node() {
       return (TransferContext.readReturnValue(BOOL, false) as Boolean)
     }
 
-  /**
-   * If `true`, audio plays when added to scene tree.
-   */
   public var autoplay: Boolean
     get() {
       TransferContext.writeArguments()
@@ -111,9 +82,6 @@ public open class AudioStreamPlayer : Node() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAutoplayPtr, NIL)
     }
 
-  /**
-   * If `true`, the playback is paused. You can resume it by setting `stream_paused` to `false`.
-   */
   public var streamPaused: Boolean
     get() {
       TransferContext.writeArguments()
@@ -125,9 +93,6 @@ public open class AudioStreamPlayer : Node() {
       TransferContext.callMethod(rawPtr, MethodBindings.setStreamPausedPtr, NIL)
     }
 
-  /**
-   * If the audio configuration has more than two speakers, this sets the target channels. See [enum MixTarget] constants.
-   */
   public var mixTarget: MixTarget
     get() {
       TransferContext.writeArguments()
@@ -139,9 +104,6 @@ public open class AudioStreamPlayer : Node() {
       TransferContext.callMethod(rawPtr, MethodBindings.setMixTargetPtr, NIL)
     }
 
-  /**
-   * The maximum number of sounds this node can play at the same time. Playing additional sounds after this value is reached will cut off the oldest sounds.
-   */
   public var maxPolyphony: Int
     get() {
       TransferContext.writeArguments()
@@ -153,11 +115,6 @@ public open class AudioStreamPlayer : Node() {
       TransferContext.callMethod(rawPtr, MethodBindings.setMaxPolyphonyPtr, NIL)
     }
 
-  /**
-   * Bus on which this audio is playing.
-   *
-   * **Note:** When setting this property, keep in mind that no validation is performed to see if the given name matches an existing bus. This is because audio bus layouts might be loaded after this property is set. If this given name can't be resolved at runtime, it will fall back to `"Master"`.
-   */
   public var bus: StringName
     get() {
       TransferContext.writeArguments()
@@ -169,57 +126,39 @@ public open class AudioStreamPlayer : Node() {
       TransferContext.callMethod(rawPtr, MethodBindings.setBusPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_AUDIOSTREAMPLAYER, scriptIndex)
     return true
   }
 
-  /**
-   * Plays the audio from the given [fromPosition], in seconds.
-   */
   @JvmOverloads
-  public fun play(fromPosition: Float = 0.0f): Unit {
+  public fun play(fromPosition: Float = 0.0f) {
     TransferContext.writeArguments(DOUBLE to fromPosition.toDouble())
     TransferContext.callMethod(rawPtr, MethodBindings.playPtr, NIL)
   }
 
-  /**
-   * Sets the position from which audio will be played, in seconds.
-   */
-  public fun seek(toPosition: Float): Unit {
+  public fun seek(toPosition: Float) {
     TransferContext.writeArguments(DOUBLE to toPosition.toDouble())
     TransferContext.callMethod(rawPtr, MethodBindings.seekPtr, NIL)
   }
 
-  /**
-   * Stops the audio.
-   */
-  public fun stop(): Unit {
+  public fun stop() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.stopPtr, NIL)
   }
 
-  /**
-   * Returns the position in the [godot.AudioStream] in seconds.
-   */
   public fun getPlaybackPosition(): Float {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getPlaybackPositionPtr, DOUBLE)
     return (TransferContext.readReturnValue(DOUBLE, false) as Double).toFloat()
   }
 
-  /**
-   * Returns whether the [godot.AudioStreamPlayer] can return the [godot.AudioStreamPlayback] object or not.
-   */
   public fun hasStreamPlayback(): Boolean {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.hasStreamPlaybackPtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Returns the [godot.AudioStreamPlayback] object associated with this [godot.AudioStreamPlayer].
-   */
   public fun getStreamPlayback(): AudioStreamPlayback? {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getStreamPlaybackPtr, OBJECT)
@@ -229,17 +168,8 @@ public open class AudioStreamPlayer : Node() {
   public enum class MixTarget(
     id: Long,
   ) {
-    /**
-     * The audio will be played only on the first channel.
-     */
     MIX_TARGET_STEREO(0),
-    /**
-     * The audio will be played on all surround channels.
-     */
     MIX_TARGET_SURROUND(1),
-    /**
-     * The audio will be played on the second channel, which is usually the center.
-     */
     MIX_TARGET_CENTER(2),
     ;
 
@@ -249,7 +179,9 @@ public open class AudioStreamPlayer : Node() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): MixTarget = entries.single {
+          it.id == `value`
+      }
     }
   }
 

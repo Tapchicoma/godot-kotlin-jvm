@@ -18,7 +18,7 @@ import kotlin.Suppress
 
 @GodotBaseType
 public open class GDScriptNativeClass internal constructor() : RefCounted() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_GDSCRIPTNATIVECLASS, scriptIndex)
     return true
   }

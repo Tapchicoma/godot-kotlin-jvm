@@ -25,27 +25,8 @@ import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmOverloads
 
-/**
- * Real-time global illumination (GI) probe.
- *
- * Tutorials:
- * [https://godotengine.org/asset-library/asset/678](https://godotengine.org/asset-library/asset/678)
- *
- * [godot.VoxelGI]s are used to provide high-quality real-time indirect light and reflections to scenes. They precompute the effect of objects that emit light and the effect of static geometry to simulate the behavior of complex light in real-time. [godot.VoxelGI]s need to be baked before having a visible effect. However, once baked, dynamic objects will receive light from them. Furthermore, lights can be fully dynamic or baked.
- *
- * **Note:** [godot.VoxelGI] is only supported in the Forward+ rendering method, not Mobile or Compatibility.
- *
- * **Procedural generation:** [godot.VoxelGI] can be baked in an exported project, which makes it suitable for procedurally generated or user-built levels as long as all the geometry is generated in advance. For games where geometry is generated at any time during gameplay, SDFGI is more suitable (see [godot.Environment.sdfgiEnabled]).
- *
- * **Performance:** [godot.VoxelGI] is relatively demanding on the GPU and is not suited to low-end hardware such as integrated graphics (consider [godot.LightmapGI] instead). To improve performance, adjust [godot.ProjectSettings.rendering/globalIllumination/voxelGi/quality] and enable [godot.ProjectSettings.rendering/globalIllumination/gi/useHalfResolution] in the Project Settings. To provide a fallback for low-end hardware, consider adding an option to disable [godot.VoxelGI] in your project's options menus. A [godot.VoxelGI] node can be disabled by hiding it.
- *
- * **Note:** Meshes should have sufficiently thick walls to avoid light leaks (avoid one-sided walls). For interior levels, enclose your level geometry in a sufficiently large box and bridge the loops to close the mesh. To further prevent light leaks, you can also strategically place temporary [godot.MeshInstance3D] nodes with their [godot.GeometryInstance3D.giMode] set to [godot.GeometryInstance3D.GI_MODE_STATIC]. These temporary nodes can then be hidden after baking the [godot.VoxelGI] node.
- */
 @GodotBaseType
 public open class VoxelGI : VisualInstance3D() {
-  /**
-   * Number of times to subdivide the grid that the [godot.VoxelGI] operates on. A higher number results in finer detail and thus higher visual quality, while lower numbers result in better performance.
-   */
   public var subdiv: Subdiv
     get() {
       TransferContext.writeArguments()
@@ -57,11 +38,6 @@ public open class VoxelGI : VisualInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSubdivPtr, NIL)
     }
 
-  /**
-   * The size of the area covered by the [godot.VoxelGI]. If you make the size larger without increasing the subdivisions with [subdiv], the size of each cell will increase and result in lower detailed lighting.
-   *
-   * **Note:** Size is clamped to 1.0 unit or more on each axis.
-   */
   @CoreTypeLocalCopy
   public var size: Vector3
     get() {
@@ -74,9 +50,6 @@ public open class VoxelGI : VisualInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSizePtr, NIL)
     }
 
-  /**
-   * The [godot.CameraAttributes] resource that specifies exposure levels to bake at. Auto-exposure and non exposure properties will be ignored. Exposure settings should be used to reduce the dynamic range present when baking. If exposure is too high, the [godot.VoxelGI] will have banding artifacts or may have over-exposure artifacts.
-   */
   public var cameraAttributes: Material?
     get() {
       TransferContext.writeArguments()
@@ -88,9 +61,6 @@ public open class VoxelGI : VisualInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setCameraAttributesPtr, NIL)
     }
 
-  /**
-   * The [godot.VoxelGIData] resource that holds the data for this [godot.VoxelGI].
-   */
   public var `data`: VoxelGIData?
     get() {
       TransferContext.writeArguments()
@@ -102,16 +72,12 @@ public open class VoxelGI : VisualInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setProbeDataPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_VOXELGI, scriptIndex)
     return true
   }
 
   /**
-   * The size of the area covered by the [godot.VoxelGI]. If you make the size larger without increasing the subdivisions with [subdiv], the size of each cell will increase and result in lower detailed lighting.
-   *
-   * **Note:** Size is clamped to 1.0 unit or more on each axis.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -133,23 +99,13 @@ public open class VoxelGI : VisualInstance3D() {
   }
 
 
-  /**
-   * Bakes the effect from all [godot.GeometryInstance3D]s marked with [godot.GeometryInstance3D.GI_MODE_STATIC] and [godot.Light3D]s marked with either [godot.Light3D.BAKE_STATIC] or [godot.Light3D.BAKE_DYNAMIC]. If [createVisualDebug] is `true`, after baking the light, this will generate a [godot.MultiMesh] that has a cube representing each solid cell with each cube colored to the cell's albedo color. This can be used to visualize the [godot.VoxelGI]'s data and debug any issues that may be occurring.
-   *
-   * **Note:** [bake] works from the editor and in exported projects. This makes it suitable for procedurally generated or user-built levels. Baking a [godot.VoxelGI] node generally takes from 5 to 20 seconds in most scenes. Reducing [subdiv] can speed up baking.
-   *
-   * **Note:** [godot.GeometryInstance3D]s and [godot.Light3D]s must be fully ready before [bake] is called. If you are procedurally creating those and some meshes or lights are missing from your baked [godot.VoxelGI], use `call_deferred("bake")` instead of calling [bake] directly.
-   */
   @JvmOverloads
-  public fun bake(fromNode: Node? = null, createVisualDebug: Boolean = false): Unit {
+  public fun bake(fromNode: Node? = null, createVisualDebug: Boolean = false) {
     TransferContext.writeArguments(OBJECT to fromNode, BOOL to createVisualDebug)
     TransferContext.callMethod(rawPtr, MethodBindings.bakePtr, NIL)
   }
 
-  /**
-   * Calls [bake] with `create_visual_debug` enabled.
-   */
-  public fun debugBake(): Unit {
+  public fun debugBake() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.debugBakePtr, NIL)
   }
@@ -157,25 +113,10 @@ public open class VoxelGI : VisualInstance3D() {
   public enum class Subdiv(
     id: Long,
   ) {
-    /**
-     * Use 64 subdivisions. This is the lowest quality setting, but the fastest. Use it if you can, but especially use it on lower-end hardware.
-     */
     SUBDIV_64(0),
-    /**
-     * Use 128 subdivisions. This is the default quality setting.
-     */
     SUBDIV_128(1),
-    /**
-     * Use 256 subdivisions.
-     */
     SUBDIV_256(2),
-    /**
-     * Use 512 subdivisions. This is the highest quality setting, but the slowest. On lower-end hardware, this could cause the GPU to stall.
-     */
     SUBDIV_512(3),
-    /**
-     * Represents the size of the [enum Subdiv] enum.
-     */
     SUBDIV_MAX(4),
     ;
 
@@ -185,7 +126,9 @@ public open class VoxelGI : VisualInstance3D() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): Subdiv = entries.single {
+          it.id == `value`
+      }
     }
   }
 

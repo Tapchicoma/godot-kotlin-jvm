@@ -24,30 +24,18 @@ import kotlin.Long
 import kotlin.NotImplementedError
 import kotlin.String
 import kotlin.Suppress
-import kotlin.Unit
 import kotlin.jvm.JvmOverloads
 
-/**
- * Plugin to control and modifying the process of importing a scene.
- *
- * This plugin type exists to modify the process of importing scenes, allowing to change the content as well as add importer options at every stage of the process.
- */
 @GodotBaseType
 public open class EditorScenePostImportPlugin internal constructor() : RefCounted() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_EDITORSCENEPOSTIMPORTPLUGIN, scriptIndex)
     return true
   }
 
-  /**
-   * Override to add internal import options. These will appear in the 3D scene import dialog. Add options via [addImportOption] and [addImportOptionAdvanced].
-   */
-  public open fun _getInternalImportOptions(category: Int): Unit {
+  public open fun _getInternalImportOptions(category: Int) {
   }
 
-  /**
-   * Return true or false whether a given option should be visible. Return null to ignore.
-   */
   public open fun _getInternalOptionVisibility(
     category: Int,
     forAnimation: Boolean,
@@ -56,33 +44,21 @@ public open class EditorScenePostImportPlugin internal constructor() : RefCounte
     throw NotImplementedError("_get_internal_option_visibility is not implemented for EditorScenePostImportPlugin")
   }
 
-  /**
-   * Return true whether updating the 3D view of the import dialog needs to be updated if an option has changed.
-   */
   public open fun _getInternalOptionUpdateViewRequired(category: Int, option: String): Any? {
     throw NotImplementedError("_get_internal_option_update_view_required is not implemented for EditorScenePostImportPlugin")
   }
 
-  /**
-   * Process a specific node or resource for a given category.
-   */
   public open fun _internalProcess(
     category: Int,
     baseNode: Node,
     node: Node,
     resource: Resource,
-  ): Unit {
+  ) {
   }
 
-  /**
-   * Override to add general import options. These will appear in the main import dock on the editor. Add options via [addImportOption] and [addImportOptionAdvanced].
-   */
-  public open fun _getImportOptions(path: String): Unit {
+  public open fun _getImportOptions(path: String) {
   }
 
-  /**
-   * Return true or false whether a given option should be visible. Return null to ignore.
-   */
   public open fun _getOptionVisibility(
     path: String,
     forAnimation: Boolean,
@@ -91,38 +67,23 @@ public open class EditorScenePostImportPlugin internal constructor() : RefCounte
     throw NotImplementedError("_get_option_visibility is not implemented for EditorScenePostImportPlugin")
   }
 
-  /**
-   * Pre Process the scene. This function is called right after the scene format loader loaded the scene and no changes have been made.
-   */
-  public open fun _preProcess(scene: Node): Unit {
+  public open fun _preProcess(scene: Node) {
   }
 
-  /**
-   * Post process the scene. This function is called after the final scene has been configured.
-   */
-  public open fun _postProcess(scene: Node): Unit {
+  public open fun _postProcess(scene: Node) {
   }
 
-  /**
-   * Query the value of an option. This function can only be called from those querying visibility, or processing.
-   */
   public fun getOptionValue(name: StringName): Any? {
     TransferContext.writeArguments(STRING_NAME to name)
     TransferContext.callMethod(rawPtr, MethodBindings.getOptionValuePtr, ANY)
     return (TransferContext.readReturnValue(ANY, true) as Any?)
   }
 
-  /**
-   * Add a specific import option (name and default value only). This function can only be called from [_getImportOptions] and [_getInternalImportOptions].
-   */
-  public fun addImportOption(name: String, `value`: Any?): Unit {
+  public fun addImportOption(name: String, `value`: Any?) {
     TransferContext.writeArguments(STRING to name, ANY to value)
     TransferContext.callMethod(rawPtr, MethodBindings.addImportOptionPtr, NIL)
   }
 
-  /**
-   * Add a specific import option. This function can only be called from [_getImportOptions] and [_getInternalImportOptions].
-   */
   @JvmOverloads
   public fun addImportOptionAdvanced(
     type: VariantType,
@@ -131,7 +92,7 @@ public open class EditorScenePostImportPlugin internal constructor() : RefCounte
     hint: PropertyHint = PropertyHint.PROPERTY_HINT_NONE,
     hintString: String = "",
     usageFlags: Int = 6,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(LONG to type.id, STRING to name, ANY to defaultValue, LONG to hint.id, STRING to hintString, LONG to usageFlags.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.addImportOptionAdvancedPtr, NIL)
   }
@@ -139,37 +100,13 @@ public open class EditorScenePostImportPlugin internal constructor() : RefCounte
   public enum class InternalImportCategory(
     id: Long,
   ) {
-    /**
-     *
-     */
     INTERNAL_IMPORT_CATEGORY_NODE(0),
-    /**
-     *
-     */
     INTERNAL_IMPORT_CATEGORY_MESH_3D_NODE(1),
-    /**
-     *
-     */
     INTERNAL_IMPORT_CATEGORY_MESH(2),
-    /**
-     *
-     */
     INTERNAL_IMPORT_CATEGORY_MATERIAL(3),
-    /**
-     *
-     */
     INTERNAL_IMPORT_CATEGORY_ANIMATION(4),
-    /**
-     *
-     */
     INTERNAL_IMPORT_CATEGORY_ANIMATION_NODE(5),
-    /**
-     *
-     */
     INTERNAL_IMPORT_CATEGORY_SKELETON_3D_NODE(6),
-    /**
-     *
-     */
     INTERNAL_IMPORT_CATEGORY_MAX(7),
     ;
 
@@ -179,7 +116,9 @@ public open class EditorScenePostImportPlugin internal constructor() : RefCounte
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): InternalImportCategory = entries.single {
+          it.id == `value`
+      }
     }
   }
 

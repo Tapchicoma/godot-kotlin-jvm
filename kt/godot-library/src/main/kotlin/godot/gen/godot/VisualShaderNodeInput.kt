@@ -19,24 +19,10 @@ import kotlin.Int
 import kotlin.String
 import kotlin.Suppress
 
-/**
- * Represents the input shader parameter within the visual shader graph.
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/shaders/shader_reference/index.html]($DOCS_URL/tutorials/shaders/shader_reference/index.html)
- *
- * Gives access to input variables (built-ins) available for the shader. See the shading reference for the list of available built-ins for each shader type (check `Tutorials` section for link).
- */
 @GodotBaseType
 public open class VisualShaderNodeInput : VisualShaderNode() {
-  /**
-   * Emitted when input is changed via [inputName].
-   */
   public val inputTypeChanged: Signal0 by signal()
 
-  /**
-   * One of the several input constants in lower-case style like: "vertex" (`VERTEX`) or "point_size" (`POINT_SIZE`).
-   */
   public var inputName: String
     get() {
       TransferContext.writeArguments()
@@ -48,14 +34,11 @@ public open class VisualShaderNodeInput : VisualShaderNode() {
       TransferContext.callMethod(rawPtr, MethodBindings.setInputNamePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_VISUALSHADERNODEINPUT, scriptIndex)
     return true
   }
 
-  /**
-   * Returns a translated name of the current constant in the Godot Shader Language. E.g. `"ALBEDO"` if the [inputName] equal to `"albedo"`.
-   */
   public fun getInputRealName(): String {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getInputRealNamePtr, STRING)

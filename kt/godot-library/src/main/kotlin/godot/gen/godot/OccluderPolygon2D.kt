@@ -20,16 +20,8 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
 
-/**
- * Defines a 2D polygon for LightOccluder2D.
- *
- * Editor facility that helps you draw a 2D polygon used as resource for [godot.LightOccluder2D].
- */
 @GodotBaseType
 public open class OccluderPolygon2D : Resource() {
-  /**
-   * If `true`, closes the polygon. A closed OccluderPolygon2D occludes the light coming from any direction. An opened OccluderPolygon2D occludes the light only at its outline's direction.
-   */
   public var closed: Boolean
     get() {
       TransferContext.writeArguments()
@@ -41,9 +33,6 @@ public open class OccluderPolygon2D : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setClosedPtr, NIL)
     }
 
-  /**
-   * The culling mode to use.
-   */
   public var cullMode: CullMode
     get() {
       TransferContext.writeArguments()
@@ -55,11 +44,6 @@ public open class OccluderPolygon2D : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setCullModePtr, NIL)
     }
 
-  /**
-   * A [godot.core.Vector2] array with the index for polygon's vertices positions.
-   *
-   * **Note:** The returned value is a copy of the underlying array, rather than a reference.
-   */
   public var polygon: PackedVector2Array
     get() {
       TransferContext.writeArguments()
@@ -71,7 +55,7 @@ public open class OccluderPolygon2D : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setPolygonPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_OCCLUDERPOLYGON2D, scriptIndex)
     return true
   }
@@ -79,17 +63,8 @@ public open class OccluderPolygon2D : Resource() {
   public enum class CullMode(
     id: Long,
   ) {
-    /**
-     * Culling is disabled. See [cullMode].
-     */
     CULL_DISABLED(0),
-    /**
-     * Culling is performed in the clockwise direction. See [cullMode].
-     */
     CULL_CLOCKWISE(1),
-    /**
-     * Culling is performed in the counterclockwise direction. See [cullMode].
-     */
     CULL_COUNTER_CLOCKWISE(2),
     ;
 
@@ -99,7 +74,9 @@ public open class OccluderPolygon2D : Resource() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): CullMode = entries.single {
+          it.id == `value`
+      }
     }
   }
 

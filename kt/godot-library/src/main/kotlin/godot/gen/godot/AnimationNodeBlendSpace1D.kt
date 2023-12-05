@@ -23,26 +23,10 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
-import kotlin.Unit
 import kotlin.jvm.JvmOverloads
 
-/**
- * A set of [godot.AnimationRootNode]s placed on a virtual axis, crossfading between the two adjacent ones. Used by [godot.AnimationTree].
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/animation/animation_tree.html]($DOCS_URL/tutorials/animation/animation_tree.html)
- *
- * A resource used by [godot.AnimationNodeBlendTree].
- *
- * [godot.AnimationNodeBlendSpace1D] represents a virtual axis on which any type of [godot.AnimationRootNode]s can be added using [addBlendPoint]. Outputs the linear blend of the two [godot.AnimationRootNode]s adjacent to the current value.
- *
- * You can set the extents of the axis with [minSpace] and [maxSpace].
- */
 @GodotBaseType
 public open class AnimationNodeBlendSpace1D : AnimationRootNode() {
-  /**
-   * The blend space's axis's lower limit for the points' position. See [addBlendPoint].
-   */
   public var minSpace: Float
     get() {
       TransferContext.writeArguments()
@@ -54,9 +38,6 @@ public open class AnimationNodeBlendSpace1D : AnimationRootNode() {
       TransferContext.callMethod(rawPtr, MethodBindings.setMinSpacePtr, NIL)
     }
 
-  /**
-   * The blend space's axis's upper limit for the points' position. See [addBlendPoint].
-   */
   public var maxSpace: Float
     get() {
       TransferContext.writeArguments()
@@ -68,9 +49,6 @@ public open class AnimationNodeBlendSpace1D : AnimationRootNode() {
       TransferContext.callMethod(rawPtr, MethodBindings.setMaxSpacePtr, NIL)
     }
 
-  /**
-   * Position increment to snap to when moving a point on the axis.
-   */
   public var snap: Float
     get() {
       TransferContext.writeArguments()
@@ -82,9 +60,6 @@ public open class AnimationNodeBlendSpace1D : AnimationRootNode() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSnapPtr, NIL)
     }
 
-  /**
-   * Label of the virtual axis of the blend space.
-   */
   public var valueLabel: String
     get() {
       TransferContext.writeArguments()
@@ -96,9 +71,6 @@ public open class AnimationNodeBlendSpace1D : AnimationRootNode() {
       TransferContext.callMethod(rawPtr, MethodBindings.setValueLabelPtr, NIL)
     }
 
-  /**
-   * Controls the interpolation between animations. See [enum BlendMode] constants.
-   */
   public var blendMode: BlendMode
     get() {
       TransferContext.writeArguments()
@@ -110,11 +82,6 @@ public open class AnimationNodeBlendSpace1D : AnimationRootNode() {
       TransferContext.callMethod(rawPtr, MethodBindings.setBlendModePtr, NIL)
     }
 
-  /**
-   * If `false`, the blended animations' frame are stopped when the blend value is `0`.
-   *
-   * If `true`, forcing the blended animations to advance frame.
-   */
   public var sync: Boolean
     get() {
       TransferContext.writeArguments()
@@ -126,69 +93,48 @@ public open class AnimationNodeBlendSpace1D : AnimationRootNode() {
       TransferContext.callMethod(rawPtr, MethodBindings.setUseSyncPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_ANIMATIONNODEBLENDSPACE1D, scriptIndex)
     return true
   }
 
-  /**
-   * Adds a new point that represents a [node] on the virtual axis at a given position set by [pos]. You can insert it at a specific index using the [atIndex] argument. If you use the default value for [atIndex], the point is inserted at the end of the blend points array.
-   */
   @JvmOverloads
   public fun addBlendPoint(
     node: AnimationRootNode,
     pos: Float,
     atIndex: Int = -1,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(OBJECT to node, DOUBLE to pos.toDouble(), LONG to atIndex.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.addBlendPointPtr, NIL)
   }
 
-  /**
-   * Updates the position of the point at index [point] on the blend axis.
-   */
-  public fun setBlendPointPosition(point: Int, pos: Float): Unit {
+  public fun setBlendPointPosition(point: Int, pos: Float) {
     TransferContext.writeArguments(LONG to point.toLong(), DOUBLE to pos.toDouble())
     TransferContext.callMethod(rawPtr, MethodBindings.setBlendPointPositionPtr, NIL)
   }
 
-  /**
-   * Returns the position of the point at index [point].
-   */
   public fun getBlendPointPosition(point: Int): Float {
     TransferContext.writeArguments(LONG to point.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getBlendPointPositionPtr, DOUBLE)
     return (TransferContext.readReturnValue(DOUBLE, false) as Double).toFloat()
   }
 
-  /**
-   * Changes the [godot.AnimationNode] referenced by the point at index [point].
-   */
-  public fun setBlendPointNode(point: Int, node: AnimationRootNode): Unit {
+  public fun setBlendPointNode(point: Int, node: AnimationRootNode) {
     TransferContext.writeArguments(LONG to point.toLong(), OBJECT to node)
     TransferContext.callMethod(rawPtr, MethodBindings.setBlendPointNodePtr, NIL)
   }
 
-  /**
-   * Returns the [godot.AnimationNode] referenced by the point at index [point].
-   */
   public fun getBlendPointNode(point: Int): AnimationRootNode? {
     TransferContext.writeArguments(LONG to point.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getBlendPointNodePtr, OBJECT)
     return (TransferContext.readReturnValue(OBJECT, true) as AnimationRootNode?)
   }
 
-  /**
-   * Removes the point at index [point] from the blend axis.
-   */
-  public fun removeBlendPoint(point: Int): Unit {
+  public fun removeBlendPoint(point: Int) {
     TransferContext.writeArguments(LONG to point.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.removeBlendPointPtr, NIL)
   }
 
-  /**
-   * Returns the number of points on the blend axis.
-   */
   public fun getBlendPointCount(): Int {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getBlendPointCountPtr, LONG)
@@ -198,17 +144,8 @@ public open class AnimationNodeBlendSpace1D : AnimationRootNode() {
   public enum class BlendMode(
     id: Long,
   ) {
-    /**
-     * The interpolation between animations is linear.
-     */
     BLEND_MODE_INTERPOLATED(0),
-    /**
-     * The blend space plays the animation of the animation node which blending position is closest to. Useful for frame-by-frame 2D animations.
-     */
     BLEND_MODE_DISCRETE(1),
-    /**
-     * Similar to [BLEND_MODE_DISCRETE], but starts the new animation at the last animation's playback position.
-     */
     BLEND_MODE_DISCRETE_CARRY(2),
     ;
 
@@ -218,7 +155,9 @@ public open class AnimationNodeBlendSpace1D : AnimationRootNode() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): BlendMode = entries.single {
+          it.id == `value`
+      }
     }
   }
 

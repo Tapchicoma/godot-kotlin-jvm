@@ -20,31 +20,8 @@ import kotlin.Float
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * Adds a compressor audio effect to an audio bus.
- *
- * Reduces sounds that exceed a certain threshold level, smooths out the dynamics and increases the overall volume.
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/audio/audio_buses.html]($DOCS_URL/tutorials/audio/audio_buses.html)
- *
- * Dynamic range compressor reduces the level of the sound when the amplitude goes over a certain threshold in Decibels. One of the main uses of a compressor is to increase the dynamic range by clipping as little as possible (when sound goes over 0dB).
- *
- * Compressor has many uses in the mix:
- *
- * - In the Master bus to compress the whole output (although an [godot.AudioEffectLimiter] is probably better).
- *
- * - In voice channels to ensure they sound as balanced as possible.
- *
- * - Sidechained. This can reduce the sound level sidechained with another audio bus for threshold detection. This technique is common in video game mixing to the level of music and SFX while voices are being heard.
- *
- * - Accentuates transients by using a wider attack, making effects sound more punchy.
- */
 @GodotBaseType
 public open class AudioEffectCompressor : AudioEffect() {
-  /**
-   * The level above which compression is applied to the audio. Value can range from -60 to 0.
-   */
   public var threshold: Float
     get() {
       TransferContext.writeArguments()
@@ -56,9 +33,6 @@ public open class AudioEffectCompressor : AudioEffect() {
       TransferContext.callMethod(rawPtr, MethodBindings.setThresholdPtr, NIL)
     }
 
-  /**
-   * Amount of compression applied to the audio once it passes the threshold level. The higher the ratio, the more the loud parts of the audio will be compressed. Value can range from 1 to 48.
-   */
   public var ratio: Float
     get() {
       TransferContext.writeArguments()
@@ -70,9 +44,6 @@ public open class AudioEffectCompressor : AudioEffect() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRatioPtr, NIL)
     }
 
-  /**
-   * Gain applied to the output signal.
-   */
   public var gain: Float
     get() {
       TransferContext.writeArguments()
@@ -84,9 +55,6 @@ public open class AudioEffectCompressor : AudioEffect() {
       TransferContext.callMethod(rawPtr, MethodBindings.setGainPtr, NIL)
     }
 
-  /**
-   * Compressor's reaction time when the signal exceeds the threshold, in microseconds. Value can range from 20 to 2000.
-   */
   public var attackUs: Float
     get() {
       TransferContext.writeArguments()
@@ -98,9 +66,6 @@ public open class AudioEffectCompressor : AudioEffect() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAttackUsPtr, NIL)
     }
 
-  /**
-   * Compressor's delay time to stop reducing the signal after the signal level falls below the threshold, in milliseconds. Value can range from 20 to 2000.
-   */
   public var releaseMs: Float
     get() {
       TransferContext.writeArguments()
@@ -112,9 +77,6 @@ public open class AudioEffectCompressor : AudioEffect() {
       TransferContext.callMethod(rawPtr, MethodBindings.setReleaseMsPtr, NIL)
     }
 
-  /**
-   * Balance between original signal and effect signal. Value can range from 0 (totally dry) to 1 (totally wet).
-   */
   public var mix: Float
     get() {
       TransferContext.writeArguments()
@@ -126,9 +88,6 @@ public open class AudioEffectCompressor : AudioEffect() {
       TransferContext.callMethod(rawPtr, MethodBindings.setMixPtr, NIL)
     }
 
-  /**
-   * Reduce the sound level using another audio bus for threshold detection.
-   */
   public var sidechain: StringName
     get() {
       TransferContext.writeArguments()
@@ -140,7 +99,7 @@ public open class AudioEffectCompressor : AudioEffect() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSidechainPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_AUDIOEFFECTCOMPRESSOR, scriptIndex)
     return true
   }

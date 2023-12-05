@@ -20,18 +20,8 @@ import kotlin.Int
 import kotlin.Suppress
 import kotlin.Unit
 
-/**
- * Cuboid shape for use with occlusion culling in [godot.OccluderInstance3D].
- *
- * [godot.BoxOccluder3D] stores a cuboid shape that can be used by the engine's occlusion culling system.
- *
- * See [godot.OccluderInstance3D]'s documentation for instructions on setting up occlusion culling.
- */
 @GodotBaseType
 public open class BoxOccluder3D : Occluder3D() {
-  /**
-   * The box's size in 3D units.
-   */
   @CoreTypeLocalCopy
   public var size: Vector3
     get() {
@@ -44,14 +34,12 @@ public open class BoxOccluder3D : Occluder3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSizePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_BOXOCCLUDER3D, scriptIndex)
     return true
   }
 
   /**
-   * The box's size in 3D units.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our

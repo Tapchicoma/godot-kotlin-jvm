@@ -30,203 +30,62 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
-import kotlin.Unit
 import kotlin.jvm.JvmOverloads
 
-/**
- * Object that holds the project-independent editor settings.
- *
- * Object that holds the project-independent editor settings. These settings are generally visible in the **Editor > Editor Settings** menu.
- *
- * Property names use slash delimiters to distinguish sections. Setting values can be of any [Variant] type. It's recommended to use `snake_case` for editor settings to be consistent with the Godot editor itself.
- *
- * Accessing the settings can be done using the following methods, such as:
- *
- * [codeblocks]
- *
- * [gdscript]
- *
- * var settings = get_editor_interface().get_editor_settings()
- *
- * # `settings.set("some/property", 10)` also works as this class overrides `_set()` internally.
- *
- * settings.set_setting("some/property", 10)
- *
- * # `settings.get("some/property")` also works as this class overrides `_get()` internally.
- *
- * settings.get_setting("some/property")
- *
- * var list_of_settings = settings.get_property_list()
- *
- * [/gdscript]
- *
- * [csharp]
- *
- * EditorSettings settings = GetEditorInterface().GetEditorSettings();
- *
- * // `settings.set("some/property", value)` also works as this class overrides `_set()` internally.
- *
- * settings.SetSetting("some/property", Value);
- *
- * // `settings.get("some/property", value)` also works as this class overrides `_get()` internally.
- *
- * settings.GetSetting("some/property");
- *
- * Godot.Collections.Array<Godot.Collections.Dictionary> listOfSettings = settings.GetPropertyList();
- *
- * [/csharp]
- *
- * [/codeblocks]
- *
- * **Note:** This class shouldn't be instantiated directly. Instead, access the singleton using [godot.EditorInterface.getEditorSettings].
- */
 @GodotBaseType
 public open class EditorSettings internal constructor() : Resource() {
-  /**
-   * Emitted after any editor setting has changed.
-   */
   public val settingsChanged: Signal0 by signal()
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_EDITORSETTINGS, scriptIndex)
     return true
   }
 
-  /**
-   * Returns `true` if the setting specified by [name] exists, `false` otherwise.
-   */
   public fun hasSetting(name: String): Boolean {
     TransferContext.writeArguments(STRING to name)
     TransferContext.callMethod(rawPtr, MethodBindings.hasSettingPtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Sets the [value] of the setting specified by [name]. This is equivalent to using [godot.Object.set] on the EditorSettings instance.
-   */
-  public fun setSetting(name: String, `value`: Any?): Unit {
+  public fun setSetting(name: String, `value`: Any?) {
     TransferContext.writeArguments(STRING to name, ANY to value)
     TransferContext.callMethod(rawPtr, MethodBindings.setSettingPtr, NIL)
   }
 
-  /**
-   * Returns the value of the setting specified by [name]. This is equivalent to using [godot.Object.get] on the EditorSettings instance.
-   */
   public fun getSetting(name: String): Any? {
     TransferContext.writeArguments(STRING to name)
     TransferContext.callMethod(rawPtr, MethodBindings.getSettingPtr, ANY)
     return (TransferContext.readReturnValue(ANY, true) as Any?)
   }
 
-  /**
-   * Erases the setting whose name is specified by [property].
-   */
-  public fun erase(`property`: String): Unit {
+  public fun erase(`property`: String) {
     TransferContext.writeArguments(STRING to property)
     TransferContext.callMethod(rawPtr, MethodBindings.erasePtr, NIL)
   }
 
-  /**
-   * Sets the initial value of the setting specified by [name] to [value]. This is used to provide a value for the Revert button in the Editor Settings. If [updateCurrent] is true, the current value of the setting will be set to [value] as well.
-   */
   public fun setInitialValue(
     name: StringName,
     `value`: Any?,
     updateCurrent: Boolean,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(STRING_NAME to name, ANY to value, BOOL to updateCurrent)
     TransferContext.callMethod(rawPtr, MethodBindings.setInitialValuePtr, NIL)
   }
 
-  /**
-   * Adds a custom property info to a property. The dictionary must contain:
-   *
-   * - `name`: [godot.String] (the name of the property)
-   *
-   * - `type`: [int] (see [enum Variant.Type])
-   *
-   * - optionally `hint`: [int] (see [enum PropertyHint]) and `hint_string`: [godot.String]
-   *
-   * **Example:**
-   *
-   * [codeblocks]
-   *
-   * [gdscript]
-   *
-   * var settings = EditorInterface.get_editor_settings()
-   *
-   * settings.set("category/property_name", 0)
-   *
-   *
-   *
-   * var property_info = {
-   *
-   *     "name": "category/property_name",
-   *
-   *     "type": TYPE_INT,
-   *
-   *     "hint": PROPERTY_HINT_ENUM,
-   *
-   *     "hint_string": "one,two,three"
-   *
-   * }
-   *
-   *
-   *
-   * settings.add_property_info(property_info)
-   *
-   * [/gdscript]
-   *
-   * [csharp]
-   *
-   * var settings = GetEditorInterface().GetEditorSettings();
-   *
-   * settings.Set("category/property_name", 0);
-   *
-   *
-   *
-   * var propertyInfo = new Godot.Collections.Dictionary
-   *
-   * {
-   *
-   *     {"name", "category/propertyName"},
-   *
-   *     {"type", Variant.Type.Int},
-   *
-   *     {"hint", PropertyHint.Enum},
-   *
-   *     {"hint_string", "one,two,three"}
-   *
-   * };
-   *
-   *
-   *
-   * settings.AddPropertyInfo(propertyInfo);
-   *
-   * [/csharp]
-   *
-   * [/codeblocks]
-   */
-  public fun addPropertyInfo(info: Dictionary<Any?, Any?>): Unit {
+  public fun addPropertyInfo(info: Dictionary<Any?, Any?>) {
     TransferContext.writeArguments(DICTIONARY to info)
     TransferContext.callMethod(rawPtr, MethodBindings.addPropertyInfoPtr, NIL)
   }
 
-  /**
-   * Sets project-specific metadata with the [section], [key] and [data] specified. This metadata is stored outside the project folder and therefore won't be checked into version control. See also [getProjectMetadata].
-   */
   public fun setProjectMetadata(
     section: String,
     key: String,
     `data`: Any?,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(STRING to section, STRING to key, ANY to data)
     TransferContext.callMethod(rawPtr, MethodBindings.setProjectMetadataPtr, NIL)
   }
 
-  /**
-   * Returns project-specific metadata for the [section] and [key] specified. If the metadata doesn't exist, [default] will be returned instead. See also [setProjectMetadata].
-   */
   @JvmOverloads
   public fun getProjectMetadata(
     section: String,
@@ -238,78 +97,51 @@ public open class EditorSettings internal constructor() : Resource() {
     return (TransferContext.readReturnValue(ANY, true) as Any?)
   }
 
-  /**
-   * Sets the list of favorite files and directories for this project.
-   */
-  public fun setFavorites(dirs: PackedStringArray): Unit {
+  public fun setFavorites(dirs: PackedStringArray) {
     TransferContext.writeArguments(PACKED_STRING_ARRAY to dirs)
     TransferContext.callMethod(rawPtr, MethodBindings.setFavoritesPtr, NIL)
   }
 
-  /**
-   * Returns the list of favorite files and directories for this project.
-   */
   public fun getFavorites(): PackedStringArray {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getFavoritesPtr, PACKED_STRING_ARRAY)
     return (TransferContext.readReturnValue(PACKED_STRING_ARRAY, false) as PackedStringArray)
   }
 
-  /**
-   * Sets the list of recently visited folders in the file dialog for this project.
-   */
-  public fun setRecentDirs(dirs: PackedStringArray): Unit {
+  public fun setRecentDirs(dirs: PackedStringArray) {
     TransferContext.writeArguments(PACKED_STRING_ARRAY to dirs)
     TransferContext.callMethod(rawPtr, MethodBindings.setRecentDirsPtr, NIL)
   }
 
-  /**
-   * Returns the list of recently visited folders in the file dialog for this project.
-   */
   public fun getRecentDirs(): PackedStringArray {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getRecentDirsPtr, PACKED_STRING_ARRAY)
     return (TransferContext.readReturnValue(PACKED_STRING_ARRAY, false) as PackedStringArray)
   }
 
-  /**
-   * Overrides the built-in editor action [name] with the input actions defined in [actionsList].
-   */
-  public fun setBuiltinActionOverride(name: String, actionsList: VariantArray<InputEvent>): Unit {
+  public fun setBuiltinActionOverride(name: String, actionsList: VariantArray<InputEvent>) {
     TransferContext.writeArguments(STRING to name, ARRAY to actionsList)
     TransferContext.callMethod(rawPtr, MethodBindings.setBuiltinActionOverridePtr, NIL)
   }
 
-  /**
-   * Checks if any settings with the prefix [settingPrefix] exist in the set of changed settings. See also [getChangedSettings].
-   */
   public fun checkChangedSettingsInGroup(settingPrefix: String): Boolean {
     TransferContext.writeArguments(STRING to settingPrefix)
     TransferContext.callMethod(rawPtr, MethodBindings.checkChangedSettingsInGroupPtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Gets an array of the settings which have been changed since the last save. Note that internally `changed_settings` is cleared after a successful save, so generally the most appropriate place to use this method is when processing [NOTIFICATION_EDITOR_SETTINGS_CHANGED].
-   */
   public fun getChangedSettings(): PackedStringArray {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getChangedSettingsPtr, PACKED_STRING_ARRAY)
     return (TransferContext.readReturnValue(PACKED_STRING_ARRAY, false) as PackedStringArray)
   }
 
-  /**
-   * Marks the passed editor setting as being changed, see [getChangedSettings]. Only settings which exist (see [hasSetting]) will be accepted.
-   */
-  public fun markSettingChanged(setting: String): Unit {
+  public fun markSettingChanged(setting: String) {
     TransferContext.writeArguments(STRING to setting)
     TransferContext.callMethod(rawPtr, MethodBindings.markSettingChangedPtr, NIL)
   }
 
   public companion object {
-    /**
-     * Emitted after any editor setting has changed. It's used by various editor plugins to update their visuals on theme changes or logic on configuration changes.
-     */
     public final const val NOTIFICATION_EDITOR_SETTINGS_CHANGED: Long = 10000
   }
 

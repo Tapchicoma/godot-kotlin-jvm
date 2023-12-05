@@ -17,16 +17,8 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
 
-/**
- * Linearly interpolates between two values within the visual shader graph.
- *
- * Translates to `mix(a, b, weight)` in the shader language.
- */
 @GodotBaseType
 public open class VisualShaderNodeMix : VisualShaderNode() {
-  /**
-   * A type of operands and returned value.
-   */
   public var opType: OpType
     get() {
       TransferContext.writeArguments()
@@ -38,7 +30,7 @@ public open class VisualShaderNodeMix : VisualShaderNode() {
       TransferContext.callMethod(rawPtr, MethodBindings.setOpTypePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_VISUALSHADERNODEMIX, scriptIndex)
     return true
   }
@@ -46,37 +38,13 @@ public open class VisualShaderNodeMix : VisualShaderNode() {
   public enum class OpType(
     id: Long,
   ) {
-    /**
-     * A floating-point scalar.
-     */
     OP_TYPE_SCALAR(0),
-    /**
-     * A 2D vector type.
-     */
     OP_TYPE_VECTOR_2D(1),
-    /**
-     * The `a` and `b` ports use a 2D vector type. The `weight` port uses a scalar type.
-     */
     OP_TYPE_VECTOR_2D_SCALAR(2),
-    /**
-     * A 3D vector type.
-     */
     OP_TYPE_VECTOR_3D(3),
-    /**
-     * The `a` and `b` ports use a 3D vector type. The `weight` port uses a scalar type.
-     */
     OP_TYPE_VECTOR_3D_SCALAR(4),
-    /**
-     * A 4D vector type.
-     */
     OP_TYPE_VECTOR_4D(5),
-    /**
-     * The `a` and `b` ports use a 4D vector type. The `weight` port uses a scalar type.
-     */
     OP_TYPE_VECTOR_4D_SCALAR(6),
-    /**
-     * Represents the size of the [enum OpType] enum.
-     */
     OP_TYPE_MAX(7),
     ;
 
@@ -86,7 +54,9 @@ public open class VisualShaderNodeMix : VisualShaderNode() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): OpType = entries.single {
+          it.id == `value`
+      }
     }
   }
 

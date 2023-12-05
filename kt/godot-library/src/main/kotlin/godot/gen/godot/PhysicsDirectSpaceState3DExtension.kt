@@ -19,30 +19,17 @@ import kotlin.Int
 import kotlin.NotImplementedError
 import kotlin.Suppress
 
-/**
- * Provides virtual methods that can be overridden to create custom [godot.PhysicsDirectSpaceState3D] implementations.
- *
- * This class extends [godot.PhysicsDirectSpaceState3D] by providing additional virtual methods that can be overridden. When these methods are overridden, they will be called instead of the internal methods of the physics server.
- *
- * Intended for use with GDExtension to create custom implementations of [godot.PhysicsDirectSpaceState3D].
- */
 @GodotBaseType
 public open class PhysicsDirectSpaceState3DExtension : PhysicsDirectSpaceState3D() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_PHYSICSDIRECTSPACESTATE3DEXTENSION, scriptIndex)
     return true
   }
 
-  /**
-   *
-   */
   public open fun _getClosestPointToObjectVolume(_object: RID, point: Vector3): Vector3 {
     throw NotImplementedError("_get_closest_point_to_object_volume is not implemented for PhysicsDirectSpaceState3DExtension")
   }
 
-  /**
-   *
-   */
   public fun isBodyExcludedFromQuery(body: RID): Boolean {
     TransferContext.writeArguments(_RID to body)
     TransferContext.callMethod(rawPtr, MethodBindings.isBodyExcludedFromQueryPtr, BOOL)

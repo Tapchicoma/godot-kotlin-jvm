@@ -11,14 +11,9 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * A vertical slider that goes from bottom (min) to top (max).
- *
- * A vertical slider, used to adjust a value by moving a grabber along a vertical axis. It is a [godot.Range]-based control and goes from bottom (min) to top (max). Note that this direction is the opposite of [godot.VScrollBar]'s.
- */
 @GodotBaseType
 public open class VSlider : Slider() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_VSLIDER, scriptIndex)
     return true
   }

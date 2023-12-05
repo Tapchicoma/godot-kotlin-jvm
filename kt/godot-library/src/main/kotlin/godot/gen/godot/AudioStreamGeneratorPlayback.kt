@@ -21,73 +21,46 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
-import kotlin.Unit
 
-/**
- * Plays back audio generated using [godot.AudioStreamGenerator].
- *
- * Tutorials:
- * [https://godotengine.org/article/godot-32-will-get-new-audio-features](https://godotengine.org/article/godot-32-will-get-new-audio-features)
- *
- * This class is meant to be used with [godot.AudioStreamGenerator] to play back the generated audio in real-time.
- */
 @GodotBaseType
 public open class AudioStreamGeneratorPlayback internal constructor() :
     AudioStreamPlaybackResampled() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_AUDIOSTREAMGENERATORPLAYBACK, scriptIndex)
     return true
   }
 
-  /**
-   * Pushes a single audio data frame to the buffer. This is usually less efficient than [pushBuffer] in C# and compiled languages via GDExtension, but [pushFrame] may be *more* efficient in GDScript.
-   */
   public fun pushFrame(frame: Vector2): Boolean {
     TransferContext.writeArguments(VECTOR2 to frame)
     TransferContext.callMethod(rawPtr, MethodBindings.pushFramePtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Returns `true` if a buffer of the size [amount] can be pushed to the audio sample data buffer without overflowing it, `false` otherwise.
-   */
   public fun canPushBuffer(amount: Int): Boolean {
     TransferContext.writeArguments(LONG to amount.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.canPushBufferPtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Pushes several audio data frames to the buffer. This is usually more efficient than [pushFrame] in C# and compiled languages via GDExtension, but [pushBuffer] may be *less* efficient in GDScript.
-   */
   public fun pushBuffer(frames: PackedVector2Array): Boolean {
     TransferContext.writeArguments(PACKED_VECTOR2_ARRAY to frames)
     TransferContext.callMethod(rawPtr, MethodBindings.pushBufferPtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Returns the number of frames that can be pushed to the audio sample data buffer without overflowing it. If the result is `0`, the buffer is full.
-   */
   public fun getFramesAvailable(): Int {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getFramesAvailablePtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   *
-   */
   public fun getSkips(): Int {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getSkipsPtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Clears the audio sample data buffer.
-   */
-  public fun clearBuffer(): Unit {
+  public fun clearBuffer() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.clearBufferPtr, NIL)
   }

@@ -29,7 +29,7 @@ public open class GLTFAnimation : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setLoopPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_GLTFANIMATION, scriptIndex)
     return true
   }

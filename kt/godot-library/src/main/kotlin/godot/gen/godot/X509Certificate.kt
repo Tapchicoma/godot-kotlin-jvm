@@ -19,50 +19,31 @@ import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 
-/**
- * An X509 certificate (e.g. for TLS).
- *
- * The X509Certificate class represents an X509 certificate. Certificates can be loaded and saved like any other [godot.Resource].
- *
- * They can be used as the server certificate in [godot.StreamPeerTLS.acceptStream] (along with the proper [godot.CryptoKey]), and to specify the only certificate that should be accepted when connecting to a TLS server via [godot.StreamPeerTLS.connectToStream].
- */
 @GodotBaseType
 public open class X509Certificate : Resource() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_X509CERTIFICATE, scriptIndex)
     return true
   }
 
-  /**
-   * Saves a certificate to the given [path] (should be a "*.crt" file).
-   */
   public fun save(path: String): GodotError {
     TransferContext.writeArguments(STRING to path)
     TransferContext.callMethod(rawPtr, MethodBindings.savePtr, LONG)
     return GodotError.from(TransferContext.readReturnValue(LONG) as Long)
   }
 
-  /**
-   * Loads a certificate from [path] ("*.crt" file).
-   */
   public fun load(path: String): GodotError {
     TransferContext.writeArguments(STRING to path)
     TransferContext.callMethod(rawPtr, MethodBindings.loadPtr, LONG)
     return GodotError.from(TransferContext.readReturnValue(LONG) as Long)
   }
 
-  /**
-   * Returns a string representation of the certificate, or an empty string if the certificate is invalid.
-   */
   public fun saveToString(): String {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.saveToStringPtr, STRING)
     return (TransferContext.readReturnValue(STRING, false) as String)
   }
 
-  /**
-   * Loads a certificate from the given [string].
-   */
   public fun loadFromString(string: String): GodotError {
     TransferContext.writeArguments(STRING to string)
     TransferContext.callMethod(rawPtr, MethodBindings.loadFromStringPtr, LONG)

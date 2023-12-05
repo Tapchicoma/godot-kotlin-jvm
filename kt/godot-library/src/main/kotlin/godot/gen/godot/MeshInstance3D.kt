@@ -25,22 +25,10 @@ import kotlin.Float
 import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
-import kotlin.Unit
 import kotlin.jvm.JvmOverloads
 
-/**
- * Node that instances meshes into a scenario.
- *
- * Tutorials:
- * [https://godotengine.org/asset-library/asset/678](https://godotengine.org/asset-library/asset/678)
- *
- * MeshInstance3D is a node that takes a [godot.Mesh] resource and adds it to the current scenario by creating an instance of it. This is the class most often used render 3D geometry and can be used to instance a single [godot.Mesh] in many places. This allows reusing geometry, which can save on resources. When a [godot.Mesh] has to be instantiated more than thousands of times at close proximity, consider using a [godot.MultiMesh] in a [godot.MultiMeshInstance3D] instead.
- */
 @GodotBaseType
 public open class MeshInstance3D : GeometryInstance3D() {
-  /**
-   * The [godot.Mesh] resource for the instance.
-   */
   public var mesh: Mesh?
     get() {
       TransferContext.writeArguments()
@@ -52,9 +40,6 @@ public open class MeshInstance3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setMeshPtr, NIL)
     }
 
-  /**
-   * The [godot.Skin] to be used by this instance.
-   */
   public var skin: Skin?
     get() {
       TransferContext.writeArguments()
@@ -66,9 +51,6 @@ public open class MeshInstance3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSkinPtr, NIL)
     }
 
-  /**
-   * [godot.core.NodePath] to the [godot.Skeleton3D] associated with the instance.
-   */
   public var skeleton: NodePath
     get() {
       TransferContext.writeArguments()
@@ -80,118 +62,75 @@ public open class MeshInstance3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSkeletonPathPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_MESHINSTANCE3D, scriptIndex)
     return true
   }
 
-  /**
-   * Returns the number of surface override materials. This is equivalent to [godot.Mesh.getSurfaceCount].
-   */
   public fun getSurfaceOverrideMaterialCount(): Int {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getSurfaceOverrideMaterialCountPtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Sets the override [material] for the specified [surface] of the [godot.Mesh] resource. This material is associated with this [godot.MeshInstance3D] rather than with [mesh].
-   */
-  public fun setSurfaceOverrideMaterial(surface: Int, material: Material): Unit {
+  public fun setSurfaceOverrideMaterial(surface: Int, material: Material) {
     TransferContext.writeArguments(LONG to surface.toLong(), OBJECT to material)
     TransferContext.callMethod(rawPtr, MethodBindings.setSurfaceOverrideMaterialPtr, NIL)
   }
 
-  /**
-   * Returns the override [godot.Material] for the specified [surface] of the [godot.Mesh] resource.
-   */
   public fun getSurfaceOverrideMaterial(surface: Int): Material? {
     TransferContext.writeArguments(LONG to surface.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getSurfaceOverrideMaterialPtr, OBJECT)
     return (TransferContext.readReturnValue(OBJECT, true) as Material?)
   }
 
-  /**
-   * Returns the [godot.Material] that will be used by the [godot.Mesh] when drawing. This can return the [godot.GeometryInstance3D.materialOverride], the surface override [godot.Material] defined in this [godot.MeshInstance3D], or the surface [godot.Material] defined in the [mesh]. For example, if [godot.GeometryInstance3D.materialOverride] is used, all surfaces will return the override material.
-   *
-   * Returns `null` if no material is active, including when [mesh] is `null`.
-   */
   public fun getActiveMaterial(surface: Int): Material? {
     TransferContext.writeArguments(LONG to surface.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getActiveMaterialPtr, OBJECT)
     return (TransferContext.readReturnValue(OBJECT, true) as Material?)
   }
 
-  /**
-   * This helper creates a [godot.StaticBody3D] child node with a [godot.ConcavePolygonShape3D] collision shape calculated from the mesh geometry. It's mainly used for testing.
-   */
-  public fun createTrimeshCollision(): Unit {
+  public fun createTrimeshCollision() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.createTrimeshCollisionPtr, NIL)
   }
 
-  /**
-   * This helper creates a [godot.StaticBody3D] child node with a [godot.ConvexPolygonShape3D] collision shape calculated from the mesh geometry. It's mainly used for testing.
-   *
-   * If [clean] is `true` (default), duplicate and interior vertices are removed automatically. You can set it to `false` to make the process faster if not needed.
-   *
-   * If [simplify] is `true`, the geometry can be further simplified to reduce the number of vertices. Disabled by default.
-   */
   @JvmOverloads
-  public fun createConvexCollision(clean: Boolean = true, simplify: Boolean = false): Unit {
+  public fun createConvexCollision(clean: Boolean = true, simplify: Boolean = false) {
     TransferContext.writeArguments(BOOL to clean, BOOL to simplify)
     TransferContext.callMethod(rawPtr, MethodBindings.createConvexCollisionPtr, NIL)
   }
 
-  /**
-   * This helper creates a [godot.StaticBody3D] child node with multiple [godot.ConvexPolygonShape3D] collision shapes calculated from the mesh geometry via convex decomposition. The convex decomposition operation can be controlled with parameters from the optional [settings].
-   */
   @JvmOverloads
-  public fun createMultipleConvexCollisions(settings: MeshConvexDecompositionSettings? = null):
-      Unit {
+  public fun createMultipleConvexCollisions(settings: MeshConvexDecompositionSettings? = null) {
     TransferContext.writeArguments(OBJECT to settings)
     TransferContext.callMethod(rawPtr, MethodBindings.createMultipleConvexCollisionsPtr, NIL)
   }
 
-  /**
-   * Returns the number of blend shapes available. Produces an error if [mesh] is `null`.
-   */
   public fun getBlendShapeCount(): Int {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getBlendShapeCountPtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Returns the index of the blend shape with the given [name]. Returns `-1` if no blend shape with this name exists, including when [mesh] is `null`.
-   */
   public fun findBlendShapeByName(name: StringName): Int {
     TransferContext.writeArguments(STRING_NAME to name)
     TransferContext.callMethod(rawPtr, MethodBindings.findBlendShapeByNamePtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Returns the value of the blend shape at the given [blendShapeIdx]. Returns `0.0` and produces an error if [mesh] is `null` or doesn't have a blend shape at that index.
-   */
   public fun getBlendShapeValue(blendShapeIdx: Int): Float {
     TransferContext.writeArguments(LONG to blendShapeIdx.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getBlendShapeValuePtr, DOUBLE)
     return (TransferContext.readReturnValue(DOUBLE, false) as Double).toFloat()
   }
 
-  /**
-   * Sets the value of the blend shape at [blendShapeIdx] to [value]. Produces an error if [mesh] is `null` or doesn't have a blend shape at that index.
-   */
-  public fun setBlendShapeValue(blendShapeIdx: Int, `value`: Float): Unit {
+  public fun setBlendShapeValue(blendShapeIdx: Int, `value`: Float) {
     TransferContext.writeArguments(LONG to blendShapeIdx.toLong(), DOUBLE to value.toDouble())
     TransferContext.callMethod(rawPtr, MethodBindings.setBlendShapeValuePtr, NIL)
   }
 
-  /**
-   * This helper creates a [godot.MeshInstance3D] child node with gizmos at every vertex calculated from the mesh geometry. It's mainly used for testing.
-   */
-  public fun createDebugTangents(): Unit {
+  public fun createDebugTangents() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.createDebugTangentsPtr, NIL)
   }

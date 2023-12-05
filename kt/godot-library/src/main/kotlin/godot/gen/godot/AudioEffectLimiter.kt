@@ -18,21 +18,8 @@ import kotlin.Float
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * Adds a soft-clip limiter audio effect to an Audio bus.
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/audio/audio_buses.html]($DOCS_URL/tutorials/audio/audio_buses.html)
- *
- * A limiter is similar to a compressor, but it's less flexible and designed to disallow sound going over a given dB threshold. Adding one in the Master bus is always recommended to reduce the effects of clipping.
- *
- * Soft clipping starts to reduce the peaks a little below the threshold level and progressively increases its effect as the input level increases such that the threshold is never exceeded.
- */
 @GodotBaseType
 public open class AudioEffectLimiter : AudioEffect() {
-  /**
-   * The waveform's maximum allowed value, in decibels. Value can range from -20 to -0.1.
-   */
   public var ceilingDb: Float
     get() {
       TransferContext.writeArguments()
@@ -44,9 +31,6 @@ public open class AudioEffectLimiter : AudioEffect() {
       TransferContext.callMethod(rawPtr, MethodBindings.setCeilingDbPtr, NIL)
     }
 
-  /**
-   * Threshold from which the limiter begins to be active, in decibels. Value can range from -30 to 0.
-   */
   public var thresholdDb: Float
     get() {
       TransferContext.writeArguments()
@@ -58,9 +42,6 @@ public open class AudioEffectLimiter : AudioEffect() {
       TransferContext.callMethod(rawPtr, MethodBindings.setThresholdDbPtr, NIL)
     }
 
-  /**
-   * Applies a gain to the limited waves, in decibels. Value can range from 0 to 6.
-   */
   public var softClipDb: Float
     get() {
       TransferContext.writeArguments()
@@ -72,9 +53,6 @@ public open class AudioEffectLimiter : AudioEffect() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSoftClipDbPtr, NIL)
     }
 
-  /**
-   *
-   */
   public var softClipRatio: Float
     get() {
       TransferContext.writeArguments()
@@ -86,7 +64,7 @@ public open class AudioEffectLimiter : AudioEffect() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSoftClipRatioPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_AUDIOEFFECTLIMITER, scriptIndex)
     return true
   }

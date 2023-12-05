@@ -21,21 +21,10 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
-import kotlin.Unit
 import kotlin.jvm.JvmOverloads
 
-/**
- * A modification that applies the transforms of [godot.PhysicalBone2D] nodes to [godot.Bone2D] nodes.
- *
- * This modification takes the transforms of [godot.PhysicalBone2D] nodes and applies them to [godot.Bone2D] nodes. This allows the [godot.Bone2D] nodes to react to physics thanks to the linked [godot.PhysicalBone2D] nodes.
- *
- * Experimental. Physical bones may be changed in the future to perform the position update of [godot.Bone2D] on their own.
- */
 @GodotBaseType
 public open class SkeletonModification2DPhysicalBones : SkeletonModification2D() {
-  /**
-   * The number of [godot.PhysicalBone2D] nodes linked in this modification.
-   */
   public var physicalBoneChainLength: Int
     get() {
       TransferContext.writeArguments()
@@ -47,56 +36,35 @@ public open class SkeletonModification2DPhysicalBones : SkeletonModification2D()
       TransferContext.callMethod(rawPtr, MethodBindings.setPhysicalBoneChainLengthPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_SKELETONMODIFICATION2DPHYSICALBONES, scriptIndex)
     return true
   }
 
-  /**
-   * Sets the [godot.PhysicalBone2D] node at [jointIdx].
-   *
-   * **Note:** This is just the index used for this modification, not the bone index used in the [godot.Skeleton2D].
-   */
-  public fun setPhysicalBoneNode(jointIdx: Int, physicalbone2dNode: NodePath): Unit {
+  public fun setPhysicalBoneNode(jointIdx: Int, physicalbone2dNode: NodePath) {
     TransferContext.writeArguments(LONG to jointIdx.toLong(), NODE_PATH to physicalbone2dNode)
     TransferContext.callMethod(rawPtr, MethodBindings.setPhysicalBoneNodePtr, NIL)
   }
 
-  /**
-   * Returns the [godot.PhysicalBone2D] node at [jointIdx].
-   */
   public fun getPhysicalBoneNode(jointIdx: Int): NodePath {
     TransferContext.writeArguments(LONG to jointIdx.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getPhysicalBoneNodePtr, NODE_PATH)
     return (TransferContext.readReturnValue(NODE_PATH, false) as NodePath)
   }
 
-  /**
-   * Empties the list of [godot.PhysicalBone2D] nodes and populates it with all [godot.PhysicalBone2D] nodes that are children of the [godot.Skeleton2D].
-   */
-  public fun fetchPhysicalBones(): Unit {
+  public fun fetchPhysicalBones() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.fetchPhysicalBonesPtr, NIL)
   }
 
-  /**
-   * Tell the [godot.PhysicalBone2D] nodes to start simulating and interacting with the physics world.
-   *
-   * Optionally, an array of bone names can be passed to this function, and that will cause only [godot.PhysicalBone2D] nodes with those names to start simulating.
-   */
   @JvmOverloads
-  public fun startSimulation(bones: VariantArray<StringName> = godot.core.variantArrayOf()): Unit {
+  public fun startSimulation(bones: VariantArray<StringName> = godot.core.variantArrayOf()) {
     TransferContext.writeArguments(ARRAY to bones)
     TransferContext.callMethod(rawPtr, MethodBindings.startSimulationPtr, NIL)
   }
 
-  /**
-   * Tell the [godot.PhysicalBone2D] nodes to stop simulating and interacting with the physics world.
-   *
-   * Optionally, an array of bone names can be passed to this function, and that will cause only [godot.PhysicalBone2D] nodes with those names to stop simulating.
-   */
   @JvmOverloads
-  public fun stopSimulation(bones: VariantArray<StringName> = godot.core.variantArrayOf()): Unit {
+  public fun stopSimulation(bones: VariantArray<StringName> = godot.core.variantArrayOf()) {
     TransferContext.writeArguments(ARRAY to bones)
     TransferContext.callMethod(rawPtr, MethodBindings.stopSimulationPtr, NIL)
   }

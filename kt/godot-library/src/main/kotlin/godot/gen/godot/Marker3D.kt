@@ -18,16 +18,8 @@ import kotlin.Float
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * Generic 3D position hint for editing.
- *
- * Generic 3D position hint for editing. It's just like a plain [godot.Node3D], but it displays as a cross in the 3D editor at all times.
- */
 @GodotBaseType
 public open class Marker3D : Node3D() {
-  /**
-   * Size of the gizmo cross that appears in the editor.
-   */
   public var gizmoExtents: Float
     get() {
       TransferContext.writeArguments()
@@ -39,7 +31,7 @@ public open class Marker3D : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setGizmoExtentsPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_MARKER3D, scriptIndex)
     return true
   }

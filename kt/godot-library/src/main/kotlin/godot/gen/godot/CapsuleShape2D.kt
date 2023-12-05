@@ -18,18 +18,8 @@ import kotlin.Float
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * A 2D capsule shape used for physics collision.
- *
- * A 2D capsule shape, intended for use in physics. Usually used to provide a shape for a [godot.CollisionShape2D].
- *
- * **Performance:** [godot.CapsuleShape2D] is fast to check collisions against, but it is slower than [godot.RectangleShape2D] and [godot.CircleShape2D].
- */
 @GodotBaseType
 public open class CapsuleShape2D : Shape2D() {
-  /**
-   * The capsule's radius.
-   */
   public var radius: Float
     get() {
       TransferContext.writeArguments()
@@ -41,9 +31,6 @@ public open class CapsuleShape2D : Shape2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRadiusPtr, NIL)
     }
 
-  /**
-   * The capsule's height.
-   */
   public var height: Float
     get() {
       TransferContext.writeArguments()
@@ -55,7 +42,7 @@ public open class CapsuleShape2D : Shape2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setHeightPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_CAPSULESHAPE2D, scriptIndex)
     return true
   }

@@ -91,7 +91,7 @@ public open class GLTFPhysicsBody : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setInertiaTensorPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_GLTFPHYSICSBODY, scriptIndex)
     return true
   }

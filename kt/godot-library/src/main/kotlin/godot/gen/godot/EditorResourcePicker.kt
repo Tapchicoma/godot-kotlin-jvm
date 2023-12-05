@@ -24,30 +24,13 @@ import kotlin.Int
 import kotlin.NotImplementedError
 import kotlin.String
 import kotlin.Suppress
-import kotlin.Unit
 
-/**
- * Godot editor's control for selecting [godot.Resource] type properties.
- *
- * This [godot.Control] node is used in the editor's Inspector dock to allow editing of [godot.Resource] type properties. It provides options for creating, loading, saving and converting resources. Can be used with [godot.EditorInspectorPlugin] to recreate the same behavior.
- *
- * **Note:** This [godot.Control] does not include any editor for the resource, as editing is controlled by the Inspector dock itself or sub-Inspectors.
- */
 @GodotBaseType
 public open class EditorResourcePicker internal constructor() : HBoxContainer() {
-  /**
-   * Emitted when the resource value was set and user clicked to edit it. When [inspect] is `true`, the signal was caused by the context menu "Edit" or "Inspect" option.
-   */
   public val resourceSelected: Signal2<Resource, Boolean> by signal("resource", "inspect")
 
-  /**
-   * Emitted when the value of the edited resource was changed.
-   */
   public val resourceChanged: Signal1<Resource> by signal("resource")
 
-  /**
-   * The base type of allowed resource types. Can be a comma-separated list of several options.
-   */
   public var baseType: String
     get() {
       TransferContext.writeArguments()
@@ -59,9 +42,6 @@ public open class EditorResourcePicker internal constructor() : HBoxContainer() 
       TransferContext.callMethod(rawPtr, MethodBindings.setBaseTypePtr, NIL)
     }
 
-  /**
-   * The edited resource value.
-   */
   public var editedResource: Resource?
     get() {
       TransferContext.writeArguments()
@@ -73,9 +53,6 @@ public open class EditorResourcePicker internal constructor() : HBoxContainer() 
       TransferContext.callMethod(rawPtr, MethodBindings.setEditedResourcePtr, NIL)
     }
 
-  /**
-   * If `true`, the value can be selected and edited.
-   */
   public var editable: Boolean
     get() {
       TransferContext.writeArguments()
@@ -87,9 +64,6 @@ public open class EditorResourcePicker internal constructor() : HBoxContainer() 
       TransferContext.callMethod(rawPtr, MethodBindings.setEditablePtr, NIL)
     }
 
-  /**
-   * If `true`, the main button with the resource preview works in the toggle mode. Use [setTogglePressed] to manually set the state.
-   */
   public var toggleMode: Boolean
     get() {
       TransferContext.writeArguments()
@@ -101,39 +75,25 @@ public open class EditorResourcePicker internal constructor() : HBoxContainer() 
       TransferContext.callMethod(rawPtr, MethodBindings.setToggleModePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_EDITORRESOURCEPICKER, scriptIndex)
     return true
   }
 
-  /**
-   * This virtual method is called when updating the context menu of [godot.EditorResourcePicker]. Implement this method to override the "New ..." items with your own options. [menuNode] is a reference to the [godot.PopupMenu] node.
-   *
-   * **Note:** Implement [_handleMenuSelected] to handle these custom items.
-   */
-  public open fun _setCreateOptions(menuNode: Object): Unit {
+  public open fun _setCreateOptions(menuNode: Object) {
   }
 
-  /**
-   * This virtual method can be implemented to handle context menu items not handled by default. See [_setCreateOptions].
-   */
   public open fun _handleMenuSelected(id: Int): Boolean {
     throw NotImplementedError("_handle_menu_selected is not implemented for EditorResourcePicker")
   }
 
-  /**
-   * Returns a list of all allowed types and subtypes corresponding to the [baseType]. If the [baseType] is empty, an empty list is returned.
-   */
   public fun getAllowedTypes(): PackedStringArray {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getAllowedTypesPtr, PACKED_STRING_ARRAY)
     return (TransferContext.readReturnValue(PACKED_STRING_ARRAY, false) as PackedStringArray)
   }
 
-  /**
-   * Sets the toggle mode state for the main button. Works only if [toggleMode] is set to `true`.
-   */
-  public fun setTogglePressed(pressed: Boolean): Unit {
+  public fun setTogglePressed(pressed: Boolean) {
     TransferContext.writeArguments(BOOL to pressed)
     TransferContext.callMethod(rawPtr, MethodBindings.setTogglePressedPtr, NIL)
   }

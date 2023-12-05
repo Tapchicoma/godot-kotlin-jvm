@@ -50,87 +50,39 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
-import kotlin.Unit
 import kotlin.jvm.JvmOverloads
 
-/**
- * A server interface for low-level window management.
- *
- * [godot.DisplayServer] handles everything related to window management. It is separated from [OS] as a single operating system may support multiple display servers.
- *
- * **Headless mode:** Starting the engine with the `--headless` [command line argument]($DOCS_URL/tutorials/editor/command_line_tutorial.html) disables all rendering and window management functions. Most functions from [godot.DisplayServer] will return dummy values in this case.
- */
 @GodotBaseType
 public object DisplayServer : Object() {
-  /**
-   * Represents the screen containing the mouse pointer.
-   */
   public final const val SCREEN_WITH_MOUSE_FOCUS: Long = -4
 
-  /**
-   * Represents the screen containing the window with the keyboard focus.
-   */
   public final const val SCREEN_WITH_KEYBOARD_FOCUS: Long = -3
 
-  /**
-   * Represents the primary screen.
-   */
   public final const val SCREEN_PRIMARY: Long = -2
 
-  /**
-   * Represents the screen where the main window is located. This is usually the default value in functions that allow specifying one of several screens.
-   */
   public final const val SCREEN_OF_MAIN_WINDOW: Long = -1
 
-  /**
-   * The ID of the main window spawned by the engine, which can be passed to methods expecting a `window_id`.
-   */
   public final const val MAIN_WINDOW_ID: Long = 0
 
-  /**
-   * The ID that refers to a nonexisting window. This is be returned by some [godot.DisplayServer] methods if no window matches the requested result.
-   */
   public final const val INVALID_WINDOW_ID: Long = -1
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     getSingleton(ENGINECLASS_DISPLAYSERVER)
     return false
   }
 
-  /**
-   * Returns `true` if the specified [feature] is supported by the current [godot.DisplayServer], `false` otherwise.
-   */
   public fun hasFeature(feature: Feature): Boolean {
     TransferContext.writeArguments(LONG to feature.id)
     TransferContext.callMethod(rawPtr, MethodBindings.hasFeaturePtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Returns the name of the [godot.DisplayServer] currently in use. Most operating systems only have a single [godot.DisplayServer], but Linux has access to more than one [godot.DisplayServer] (although only X11 is currently implemented in Godot).
-   *
-   * The names of built-in display servers are `Windows`, `macOS`, `X11` (Linux), `Android`, `iOS`, `web` (HTML5) and `headless` (when started with the `--headless` [command line argument]($DOCS_URL/tutorials/editor/command_line_tutorial.html)).
-   */
   public fun getName(): String {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getNamePtr, STRING)
     return (TransferContext.readReturnValue(STRING, false) as String)
   }
 
-  /**
-   * Adds an item that will act as a submenu of the global menu [menuRoot]. The [submenu] argument is the ID of the global menu root that will be shown when the item is clicked.
-   *
-   * Returns index of the inserted item, it's not guaranteed to be the same as [index] value.
-   *
-   * **Note:** This method is implemented only on macOS.
-   *
-   * **Supported system menu IDs:**
-   *
-   * ```
-   * 				"_main" - Main menu (macOS).
-   * 				"_dock" - Dock popup menu (macOS).
-   * 				```
-   */
   @JvmOverloads
   public fun globalMenuAddSubmenuItem(
     menuRoot: String,
@@ -143,24 +95,6 @@ public object DisplayServer : Object() {
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Adds a new item with text [label] to the global menu with ID [menuRoot].
-   *
-   * Returns index of the inserted item, it's not guaranteed to be the same as [index] value.
-   *
-   * An [accelerator] can optionally be defined, which is a keyboard shortcut that can be pressed to trigger the menu button even if it's not currently open. The [accelerator] is generally a combination of [enum KeyModifierMask]s and [enum Key]s using bitwise OR such as `KEY_MASK_CTRL | KEY_A` ([kbd]Ctrl + A[/kbd]).
-   *
-   * **Note:** The [callback] and [keyCallback] Callables need to accept exactly one Variant parameter, the parameter passed to the Callables will be the value passed to [tag].
-   *
-   * **Note:** This method is implemented only on macOS.
-   *
-   * **Supported system menu IDs:**
-   *
-   * ```
-   * 				"_main" - Main menu (macOS).
-   * 				"_dock" - Dock popup menu (macOS).
-   * 				```
-   */
   @JvmOverloads
   public fun globalMenuAddItem(
     menuRoot: String,
@@ -176,24 +110,6 @@ public object DisplayServer : Object() {
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Adds a new checkable item with text [label] to the global menu with ID [menuRoot].
-   *
-   * Returns index of the inserted item, it's not guaranteed to be the same as [index] value.
-   *
-   * An [accelerator] can optionally be defined, which is a keyboard shortcut that can be pressed to trigger the menu button even if it's not currently open. The [accelerator] is generally a combination of [enum KeyModifierMask]s and [enum Key]s using bitwise OR such as `KEY_MASK_CTRL | KEY_A` ([kbd]Ctrl + A[/kbd]).
-   *
-   * **Note:** The [callback] and [keyCallback] Callables need to accept exactly one Variant parameter, the parameter passed to the Callables will be the value passed to [tag].
-   *
-   * **Note:** This method is implemented only on macOS.
-   *
-   * **Supported system menu IDs:**
-   *
-   * ```
-   * 				"_main" - Main menu (macOS).
-   * 				"_dock" - Dock popup menu (macOS).
-   * 				```
-   */
   @JvmOverloads
   public fun globalMenuAddCheckItem(
     menuRoot: String,
@@ -209,24 +125,6 @@ public object DisplayServer : Object() {
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Adds a new item with text [label] and icon [icon] to the global menu with ID [menuRoot].
-   *
-   * Returns index of the inserted item, it's not guaranteed to be the same as [index] value.
-   *
-   * An [accelerator] can optionally be defined, which is a keyboard shortcut that can be pressed to trigger the menu button even if it's not currently open. The [accelerator] is generally a combination of [enum KeyModifierMask]s and [enum Key]s using bitwise OR such as `KEY_MASK_CTRL | KEY_A` ([kbd]Ctrl + A[/kbd]).
-   *
-   * **Note:** The [callback] and [keyCallback] Callables need to accept exactly one Variant parameter, the parameter passed to the Callables will be the value passed to [tag].
-   *
-   * **Note:** This method is implemented only on macOS.
-   *
-   * **Supported system menu IDs:**
-   *
-   * ```
-   * 				"_main" - Main menu (macOS).
-   * 				"_dock" - Dock popup menu (macOS).
-   * 				```
-   */
   @JvmOverloads
   public fun globalMenuAddIconItem(
     menuRoot: String,
@@ -243,24 +141,6 @@ public object DisplayServer : Object() {
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Adds a new checkable item with text [label] and icon [icon] to the global menu with ID [menuRoot].
-   *
-   * Returns index of the inserted item, it's not guaranteed to be the same as [index] value.
-   *
-   * An [accelerator] can optionally be defined, which is a keyboard shortcut that can be pressed to trigger the menu button even if it's not currently open. The [accelerator] is generally a combination of [enum KeyModifierMask]s and [enum Key]s using bitwise OR such as `KEY_MASK_CTRL | KEY_A` ([kbd]Ctrl + A[/kbd]).
-   *
-   * **Note:** The [callback] and [keyCallback] Callables need to accept exactly one Variant parameter, the parameter passed to the Callables will be the value passed to [tag].
-   *
-   * **Note:** This method is implemented only on macOS.
-   *
-   * **Supported system menu IDs:**
-   *
-   * ```
-   * 				"_main" - Main menu (macOS).
-   * 				"_dock" - Dock popup menu (macOS).
-   * 				```
-   */
   @JvmOverloads
   public fun globalMenuAddIconCheckItem(
     menuRoot: String,
@@ -277,26 +157,6 @@ public object DisplayServer : Object() {
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Adds a new radio-checkable item with text [label] to the global menu with ID [menuRoot].
-   *
-   * Returns index of the inserted item, it's not guaranteed to be the same as [index] value.
-   *
-   * An [accelerator] can optionally be defined, which is a keyboard shortcut that can be pressed to trigger the menu button even if it's not currently open. The [accelerator] is generally a combination of [enum KeyModifierMask]s and [enum Key]s using bitwise OR such as `KEY_MASK_CTRL | KEY_A` ([kbd]Ctrl + A[/kbd]).
-   *
-   * **Note:** Radio-checkable items just display a checkmark, but don't have any built-in checking behavior and must be checked/unchecked manually. See [globalMenuSetItemChecked] for more info on how to control it.
-   *
-   * **Note:** The [callback] and [keyCallback] Callables need to accept exactly one Variant parameter, the parameter passed to the Callables will be the value passed to [tag].
-   *
-   * **Note:** This method is implemented only on macOS.
-   *
-   * **Supported system menu IDs:**
-   *
-   * ```
-   * 				"_main" - Main menu (macOS).
-   * 				"_dock" - Dock popup menu (macOS).
-   * 				```
-   */
   @JvmOverloads
   public fun globalMenuAddRadioCheckItem(
     menuRoot: String,
@@ -312,26 +172,6 @@ public object DisplayServer : Object() {
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Adds a new radio-checkable item with text [label] and icon [icon] to the global menu with ID [menuRoot].
-   *
-   * Returns index of the inserted item, it's not guaranteed to be the same as [index] value.
-   *
-   * An [accelerator] can optionally be defined, which is a keyboard shortcut that can be pressed to trigger the menu button even if it's not currently open. The [accelerator] is generally a combination of [enum KeyModifierMask]s and [enum Key]s using bitwise OR such as `KEY_MASK_CTRL | KEY_A` ([kbd]Ctrl + A[/kbd]).
-   *
-   * **Note:** Radio-checkable items just display a checkmark, but don't have any built-in checking behavior and must be checked/unchecked manually. See [globalMenuSetItemChecked] for more info on how to control it.
-   *
-   * **Note:** The [callback] and [keyCallback] Callables need to accept exactly one Variant parameter, the parameter passed to the Callables will be the value passed to [tag].
-   *
-   * **Note:** This method is implemented only on macOS.
-   *
-   * **Supported system menu IDs:**
-   *
-   * ```
-   * 				"_main" - Main menu (macOS).
-   * 				"_dock" - Dock popup menu (macOS).
-   * 				```
-   */
   @JvmOverloads
   public fun globalMenuAddIconRadioCheckItem(
     menuRoot: String,
@@ -348,28 +188,6 @@ public object DisplayServer : Object() {
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Adds a new item with text [label] to the global menu with ID [menuRoot].
-   *
-   * Contrarily to normal binary items, multistate items can have more than two states, as defined by [maxStates]. Each press or activate of the item will increase the state by one. The default value is defined by [defaultState].
-   *
-   * Returns index of the inserted item, it's not guaranteed to be the same as [index] value.
-   *
-   * An [accelerator] can optionally be defined, which is a keyboard shortcut that can be pressed to trigger the menu button even if it's not currently open. The [accelerator] is generally a combination of [enum KeyModifierMask]s and [enum Key]s using bitwise OR such as `KEY_MASK_CTRL | KEY_A` ([kbd]Ctrl + A[/kbd]).
-   *
-   * **Note:** By default, there's no indication of the current item state, it should be changed manually.
-   *
-   * **Note:** The [callback] and [keyCallback] Callables need to accept exactly one Variant parameter, the parameter passed to the Callables will be the value passed to [tag].
-   *
-   * **Note:** This method is implemented only on macOS.
-   *
-   * **Supported system menu IDs:**
-   *
-   * ```
-   * 				"_main" - Main menu (macOS).
-   * 				"_dock" - Dock popup menu (macOS).
-   * 				```
-   */
   @JvmOverloads
   public fun globalMenuAddMultistateItem(
     menuRoot: String,
@@ -387,20 +205,6 @@ public object DisplayServer : Object() {
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Adds a separator between items to the global menu with ID [menuRoot]. Separators also occupy an index.
-   *
-   * Returns index of the inserted item, it's not guaranteed to be the same as [index] value.
-   *
-   * **Note:** This method is implemented only on macOS.
-   *
-   * **Supported system menu IDs:**
-   *
-   * ```
-   * 				"_main" - Main menu (macOS).
-   * 				"_dock" - Dock popup menu (macOS).
-   * 				```
-   */
   @JvmOverloads
   public fun globalMenuAddSeparator(menuRoot: String, index: Int = -1): Int {
     TransferContext.writeArguments(STRING to menuRoot, LONG to index.toLong())
@@ -408,511 +212,277 @@ public object DisplayServer : Object() {
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Returns the index of the item with the specified [text]. Index is automatically assigned to each item by the engine. Index can not be set manually.
-   *
-   * **Note:** This method is implemented only on macOS.
-   */
   public fun globalMenuGetItemIndexFromText(menuRoot: String, text: String): Int {
     TransferContext.writeArguments(STRING to menuRoot, STRING to text)
     TransferContext.callMethod(rawPtr, MethodBindings.globalMenuGetItemIndexFromTextPtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Returns the index of the item with the specified [tag]. Index is automatically assigned to each item by the engine. Index can not be set manually.
-   *
-   * **Note:** This method is implemented only on macOS.
-   */
   public fun globalMenuGetItemIndexFromTag(menuRoot: String, tag: Any?): Int {
     TransferContext.writeArguments(STRING to menuRoot, ANY to tag)
     TransferContext.callMethod(rawPtr, MethodBindings.globalMenuGetItemIndexFromTagPtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Returns `true` if the item at index [idx] is checked.
-   *
-   * **Note:** This method is implemented only on macOS.
-   */
   public fun globalMenuIsItemChecked(menuRoot: String, idx: Int): Boolean {
     TransferContext.writeArguments(STRING to menuRoot, LONG to idx.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.globalMenuIsItemCheckedPtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Returns `true` if the item at index [idx] is checkable in some way, i.e. if it has a checkbox or radio button.
-   *
-   * **Note:** This method is implemented only on macOS.
-   */
   public fun globalMenuIsItemCheckable(menuRoot: String, idx: Int): Boolean {
     TransferContext.writeArguments(STRING to menuRoot, LONG to idx.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.globalMenuIsItemCheckablePtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Returns `true` if the item at index [idx] has radio button-style checkability.
-   *
-   * **Note:** This is purely cosmetic; you must add the logic for checking/unchecking items in radio groups.
-   *
-   * **Note:** This method is implemented only on macOS.
-   */
   public fun globalMenuIsItemRadioCheckable(menuRoot: String, idx: Int): Boolean {
     TransferContext.writeArguments(STRING to menuRoot, LONG to idx.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.globalMenuIsItemRadioCheckablePtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Returns the callback of the item at index [idx].
-   *
-   * **Note:** This method is implemented only on macOS.
-   */
   public fun globalMenuGetItemCallback(menuRoot: String, idx: Int): Callable {
     TransferContext.writeArguments(STRING to menuRoot, LONG to idx.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.globalMenuGetItemCallbackPtr, CALLABLE)
     return (TransferContext.readReturnValue(CALLABLE, false) as Callable)
   }
 
-  /**
-   * Returns the callback of the item accelerator at index [idx].
-   *
-   * **Note:** This method is implemented only on macOS.
-   */
   public fun globalMenuGetItemKeyCallback(menuRoot: String, idx: Int): Callable {
     TransferContext.writeArguments(STRING to menuRoot, LONG to idx.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.globalMenuGetItemKeyCallbackPtr, CALLABLE)
     return (TransferContext.readReturnValue(CALLABLE, false) as Callable)
   }
 
-  /**
-   * Returns the metadata of the specified item, which might be of any type. You can set it with [globalMenuSetItemTag], which provides a simple way of assigning context data to items.
-   *
-   * **Note:** This method is implemented only on macOS.
-   */
   public fun globalMenuGetItemTag(menuRoot: String, idx: Int): Any? {
     TransferContext.writeArguments(STRING to menuRoot, LONG to idx.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.globalMenuGetItemTagPtr, ANY)
     return (TransferContext.readReturnValue(ANY, true) as Any?)
   }
 
-  /**
-   * Returns the text of the item at index [idx].
-   *
-   * **Note:** This method is implemented only on macOS.
-   */
   public fun globalMenuGetItemText(menuRoot: String, idx: Int): String {
     TransferContext.writeArguments(STRING to menuRoot, LONG to idx.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.globalMenuGetItemTextPtr, STRING)
     return (TransferContext.readReturnValue(STRING, false) as String)
   }
 
-  /**
-   * Returns the submenu ID of the item at index [idx]. See [globalMenuAddSubmenuItem] for more info on how to add a submenu.
-   *
-   * **Note:** This method is implemented only on macOS.
-   */
   public fun globalMenuGetItemSubmenu(menuRoot: String, idx: Int): String {
     TransferContext.writeArguments(STRING to menuRoot, LONG to idx.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.globalMenuGetItemSubmenuPtr, STRING)
     return (TransferContext.readReturnValue(STRING, false) as String)
   }
 
-  /**
-   * Returns the accelerator of the item at index [idx]. Accelerators are special combinations of keys that activate the item, no matter which control is focused.
-   *
-   * **Note:** This method is implemented only on macOS.
-   */
   public fun globalMenuGetItemAccelerator(menuRoot: String, idx: Int): Key {
     TransferContext.writeArguments(STRING to menuRoot, LONG to idx.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.globalMenuGetItemAcceleratorPtr, LONG)
     return Key.from(TransferContext.readReturnValue(LONG) as Long)
   }
 
-  /**
-   * Returns `true` if the item at index [idx] is disabled. When it is disabled it can't be selected, or its action invoked.
-   *
-   * See [globalMenuSetItemDisabled] for more info on how to disable an item.
-   *
-   * **Note:** This method is implemented only on macOS.
-   */
   public fun globalMenuIsItemDisabled(menuRoot: String, idx: Int): Boolean {
     TransferContext.writeArguments(STRING to menuRoot, LONG to idx.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.globalMenuIsItemDisabledPtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Returns the tooltip associated with the specified index [idx].
-   *
-   * **Note:** This method is implemented only on macOS.
-   */
   public fun globalMenuGetItemTooltip(menuRoot: String, idx: Int): String {
     TransferContext.writeArguments(STRING to menuRoot, LONG to idx.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.globalMenuGetItemTooltipPtr, STRING)
     return (TransferContext.readReturnValue(STRING, false) as String)
   }
 
-  /**
-   * Returns the state of a multistate item. See [globalMenuAddMultistateItem] for details.
-   *
-   * **Note:** This method is implemented only on macOS.
-   */
   public fun globalMenuGetItemState(menuRoot: String, idx: Int): Int {
     TransferContext.writeArguments(STRING to menuRoot, LONG to idx.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.globalMenuGetItemStatePtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Returns number of states of a multistate item. See [globalMenuAddMultistateItem] for details.
-   *
-   * **Note:** This method is implemented only on macOS.
-   */
   public fun globalMenuGetItemMaxStates(menuRoot: String, idx: Int): Int {
     TransferContext.writeArguments(STRING to menuRoot, LONG to idx.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.globalMenuGetItemMaxStatesPtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Returns the icon of the item at index [idx].
-   *
-   * **Note:** This method is implemented only on macOS.
-   */
   public fun globalMenuGetItemIcon(menuRoot: String, idx: Int): Texture2D? {
     TransferContext.writeArguments(STRING to menuRoot, LONG to idx.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.globalMenuGetItemIconPtr, OBJECT)
     return (TransferContext.readReturnValue(OBJECT, true) as Texture2D?)
   }
 
-  /**
-   * Returns the horizontal offset of the item at the given [idx].
-   *
-   * **Note:** This method is implemented only on macOS.
-   */
   public fun globalMenuGetItemIndentationLevel(menuRoot: String, idx: Int): Int {
     TransferContext.writeArguments(STRING to menuRoot, LONG to idx.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.globalMenuGetItemIndentationLevelPtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Sets the checkstate status of the item at index [idx].
-   *
-   * **Note:** This method is implemented only on macOS.
-   */
   public fun globalMenuSetItemChecked(
     menuRoot: String,
     idx: Int,
     checked: Boolean,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(STRING to menuRoot, LONG to idx.toLong(), BOOL to checked)
     TransferContext.callMethod(rawPtr, MethodBindings.globalMenuSetItemCheckedPtr, NIL)
   }
 
-  /**
-   * Sets whether the item at index [idx] has a checkbox. If `false`, sets the type of the item to plain text.
-   *
-   * **Note:** This method is implemented only on macOS.
-   */
   public fun globalMenuSetItemCheckable(
     menuRoot: String,
     idx: Int,
     checkable: Boolean,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(STRING to menuRoot, LONG to idx.toLong(), BOOL to checkable)
     TransferContext.callMethod(rawPtr, MethodBindings.globalMenuSetItemCheckablePtr, NIL)
   }
 
-  /**
-   * Sets the type of the item at the specified index [idx] to radio button. If `false`, sets the type of the item to plain text.
-   *
-   * **Note:** This is purely cosmetic; you must add the logic for checking/unchecking items in radio groups.
-   *
-   * **Note:** This method is implemented only on macOS.
-   */
   public fun globalMenuSetItemRadioCheckable(
     menuRoot: String,
     idx: Int,
     checkable: Boolean,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(STRING to menuRoot, LONG to idx.toLong(), BOOL to checkable)
     TransferContext.callMethod(rawPtr, MethodBindings.globalMenuSetItemRadioCheckablePtr, NIL)
   }
 
-  /**
-   * Sets the callback of the item at index [idx]. Callback is emitted when an item is pressed.
-   *
-   * **Note:** The [callback] Callable needs to accept exactly one Variant parameter, the parameter passed to the Callable will be the value passed to the `tag` parameter when the menu item was created.
-   *
-   * **Note:** This method is implemented only on macOS.
-   */
   public fun globalMenuSetItemCallback(
     menuRoot: String,
     idx: Int,
     callback: Callable,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(STRING to menuRoot, LONG to idx.toLong(), CALLABLE to callback)
     TransferContext.callMethod(rawPtr, MethodBindings.globalMenuSetItemCallbackPtr, NIL)
   }
 
-  /**
-   * Sets the callback of the item at index [idx]. Callback is emitted when its accelerator is activated.
-   *
-   * **Note:** The [keyCallback] Callable needs to accept exactly one Variant parameter, the parameter passed to the Callable will be the value passed to the `tag` parameter when the menu item was created.
-   *
-   * **Note:** This method is implemented only on macOS.
-   */
   public fun globalMenuSetItemKeyCallback(
     menuRoot: String,
     idx: Int,
     keyCallback: Callable,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(STRING to menuRoot, LONG to idx.toLong(), CALLABLE to keyCallback)
     TransferContext.callMethod(rawPtr, MethodBindings.globalMenuSetItemKeyCallbackPtr, NIL)
   }
 
-  /**
-   * Sets the metadata of an item, which may be of any type. You can later get it with [globalMenuGetItemTag], which provides a simple way of assigning context data to items.
-   *
-   * **Note:** This method is implemented only on macOS.
-   */
   public fun globalMenuSetItemTag(
     menuRoot: String,
     idx: Int,
     tag: Any?,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(STRING to menuRoot, LONG to idx.toLong(), ANY to tag)
     TransferContext.callMethod(rawPtr, MethodBindings.globalMenuSetItemTagPtr, NIL)
   }
 
-  /**
-   * Sets the text of the item at index [idx].
-   *
-   * **Note:** This method is implemented only on macOS.
-   */
   public fun globalMenuSetItemText(
     menuRoot: String,
     idx: Int,
     text: String,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(STRING to menuRoot, LONG to idx.toLong(), STRING to text)
     TransferContext.callMethod(rawPtr, MethodBindings.globalMenuSetItemTextPtr, NIL)
   }
 
-  /**
-   * Sets the submenu of the item at index [idx]. The submenu is the ID of a global menu root that would be shown when the item is clicked.
-   *
-   * **Note:** This method is implemented only on macOS.
-   */
   public fun globalMenuSetItemSubmenu(
     menuRoot: String,
     idx: Int,
     submenu: String,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(STRING to menuRoot, LONG to idx.toLong(), STRING to submenu)
     TransferContext.callMethod(rawPtr, MethodBindings.globalMenuSetItemSubmenuPtr, NIL)
   }
 
-  /**
-   * Sets the accelerator of the item at index [idx]. [keycode] can be a single [enum Key], or a combination of [enum KeyModifierMask]s and [enum Key]s using bitwise OR such as `KEY_MASK_CTRL | KEY_A` ([kbd]Ctrl + A[/kbd]).
-   *
-   * **Note:** This method is implemented only on macOS.
-   */
   public fun globalMenuSetItemAccelerator(
     menuRoot: String,
     idx: Int,
     keycode: Key,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(STRING to menuRoot, LONG to idx.toLong(), LONG to keycode.id)
     TransferContext.callMethod(rawPtr, MethodBindings.globalMenuSetItemAcceleratorPtr, NIL)
   }
 
-  /**
-   * Enables/disables the item at index [idx]. When it is disabled, it can't be selected and its action can't be invoked.
-   *
-   * **Note:** This method is implemented only on macOS.
-   */
   public fun globalMenuSetItemDisabled(
     menuRoot: String,
     idx: Int,
     disabled: Boolean,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(STRING to menuRoot, LONG to idx.toLong(), BOOL to disabled)
     TransferContext.callMethod(rawPtr, MethodBindings.globalMenuSetItemDisabledPtr, NIL)
   }
 
-  /**
-   * Sets the [godot.String] tooltip of the item at the specified index [idx].
-   *
-   * **Note:** This method is implemented only on macOS.
-   */
   public fun globalMenuSetItemTooltip(
     menuRoot: String,
     idx: Int,
     tooltip: String,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(STRING to menuRoot, LONG to idx.toLong(), STRING to tooltip)
     TransferContext.callMethod(rawPtr, MethodBindings.globalMenuSetItemTooltipPtr, NIL)
   }
 
-  /**
-   * Sets the state of a multistate item. See [globalMenuAddMultistateItem] for details.
-   *
-   * **Note:** This method is implemented only on macOS.
-   */
   public fun globalMenuSetItemState(
     menuRoot: String,
     idx: Int,
     state: Int,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(STRING to menuRoot, LONG to idx.toLong(), LONG to state.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.globalMenuSetItemStatePtr, NIL)
   }
 
-  /**
-   * Sets number of state of a multistate item. See [globalMenuAddMultistateItem] for details.
-   *
-   * **Note:** This method is implemented only on macOS.
-   */
   public fun globalMenuSetItemMaxStates(
     menuRoot: String,
     idx: Int,
     maxStates: Int,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(STRING to menuRoot, LONG to idx.toLong(), LONG to maxStates.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.globalMenuSetItemMaxStatesPtr, NIL)
   }
 
-  /**
-   * Replaces the [godot.Texture2D] icon of the specified [idx].
-   *
-   * **Note:** This method is implemented only on macOS.
-   *
-   * **Note:** This method is not supported by macOS "_dock" menu items.
-   */
   public fun globalMenuSetItemIcon(
     menuRoot: String,
     idx: Int,
     icon: Texture2D,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(STRING to menuRoot, LONG to idx.toLong(), OBJECT to icon)
     TransferContext.callMethod(rawPtr, MethodBindings.globalMenuSetItemIconPtr, NIL)
   }
 
-  /**
-   * Sets the horizontal offset of the item at the given [idx].
-   *
-   * **Note:** This method is implemented only on macOS.
-   */
   public fun globalMenuSetItemIndentationLevel(
     menuRoot: String,
     idx: Int,
     level: Int,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(STRING to menuRoot, LONG to idx.toLong(), LONG to level.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.globalMenuSetItemIndentationLevelPtr, NIL)
   }
 
-  /**
-   * Returns number of items in the global menu with ID [menuRoot].
-   *
-   * **Note:** This method is implemented only on macOS.
-   */
   public fun globalMenuGetItemCount(menuRoot: String): Int {
     TransferContext.writeArguments(STRING to menuRoot)
     TransferContext.callMethod(rawPtr, MethodBindings.globalMenuGetItemCountPtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Removes the item at index [idx] from the global menu [menuRoot].
-   *
-   * **Note:** The indices of items after the removed item will be shifted by one.
-   *
-   * **Note:** This method is implemented only on macOS.
-   */
-  public fun globalMenuRemoveItem(menuRoot: String, idx: Int): Unit {
+  public fun globalMenuRemoveItem(menuRoot: String, idx: Int) {
     TransferContext.writeArguments(STRING to menuRoot, LONG to idx.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.globalMenuRemoveItemPtr, NIL)
   }
 
-  /**
-   * Removes all items from the global menu with ID [menuRoot].
-   *
-   * **Note:** This method is implemented only on macOS.
-   *
-   * **Supported system menu IDs:**
-   *
-   * ```
-   * 				"_main" - Main menu (macOS).
-   * 				"_dock" - Dock popup menu (macOS).
-   * 				```
-   */
-  public fun globalMenuClear(menuRoot: String): Unit {
+  public fun globalMenuClear(menuRoot: String) {
     TransferContext.writeArguments(STRING to menuRoot)
     TransferContext.callMethod(rawPtr, MethodBindings.globalMenuClearPtr, NIL)
   }
 
-  /**
-   * Returns `true` if the synthesizer is generating speech, or have utterance waiting in the queue.
-   *
-   * **Note:** This method is implemented on Android, iOS, Web, Linux (X11), macOS, and Windows.
-   *
-   * **Note:** [godot.ProjectSettings.audio/general/textToSpeech] should be `true` to use text-to-speech.
-   */
   public fun ttsIsSpeaking(): Boolean {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.ttsIsSpeakingPtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Returns `true` if the synthesizer is in a paused state.
-   *
-   * **Note:** This method is implemented on Android, iOS, Web, Linux (X11), macOS, and Windows.
-   *
-   * **Note:** [godot.ProjectSettings.audio/general/textToSpeech] should be `true` to use text-to-speech.
-   */
   public fun ttsIsPaused(): Boolean {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.ttsIsPausedPtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Returns an [godot.Array] of voice information dictionaries.
-   *
-   * Each [godot.core.Dictionary] contains two [godot.String] entries:
-   *
-   * - `name` is voice name.
-   *
-   * - `id` is voice identifier.
-   *
-   * - `language` is language code in `lang_Variant` format. `lang` part is a 2 or 3-letter code based on the ISO-639 standard, in lowercase. And `Variant` part is an engine dependent string describing country, region or/and dialect.
-   *
-   * Note that Godot depends on system libraries for text-to-speech functionality. These libraries are installed by default on Windows and macOS, but not on all Linux distributions. If they are not present, this method will return an empty list. This applies to both Godot users on Linux, as well as end-users on Linux running Godot games that use text-to-speech.
-   *
-   * **Note:** This method is implemented on Android, iOS, Web, Linux (X11), macOS, and Windows.
-   *
-   * **Note:** [godot.ProjectSettings.audio/general/textToSpeech] should be `true` to use text-to-speech.
-   */
   public fun ttsGetVoices(): VariantArray<Dictionary<Any?, Any?>> {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.ttsGetVoicesPtr, ARRAY)
     return (TransferContext.readReturnValue(ARRAY, false) as VariantArray<Dictionary<Any?, Any?>>)
   }
 
-  /**
-   * Returns an [godot.PackedStringArray] of voice identifiers for the [language].
-   *
-   * **Note:** This method is implemented on Android, iOS, Web, Linux (X11), macOS, and Windows.
-   *
-   * **Note:** [godot.ProjectSettings.audio/general/textToSpeech] should be `true` to use text-to-speech.
-   */
   public fun ttsGetVoicesForLanguage(language: String): PackedStringArray {
     TransferContext.writeArguments(STRING to language)
     TransferContext.callMethod(rawPtr, MethodBindings.ttsGetVoicesForLanguagePtr,
@@ -920,27 +490,6 @@ public object DisplayServer : Object() {
     return (TransferContext.readReturnValue(PACKED_STRING_ARRAY, false) as PackedStringArray)
   }
 
-  /**
-   * Adds an utterance to the queue. If [interrupt] is `true`, the queue is cleared first.
-   *
-   * - [voice] identifier is one of the `"id"` values returned by [ttsGetVoices] or one of the values returned by [ttsGetVoicesForLanguage].
-   *
-   * - [volume] ranges from `0` (lowest) to `100` (highest).
-   *
-   * - [pitch] ranges from `0.0` (lowest) to `2.0` (highest), `1.0` is default pitch for the current voice.
-   *
-   * - [rate] ranges from `0.1` (lowest) to `10.0` (highest), `1.0` is a normal speaking rate. Other values act as a percentage relative.
-   *
-   * - [utteranceId] is passed as a parameter to the callback functions.
-   *
-   * **Note:** On Windows and Linux (X11), utterance [text] can use SSML markup. SSML support is engine and voice dependent. If the engine does not support SSML, you should strip out all XML markup before calling [ttsSpeak].
-   *
-   * **Note:** The granularity of pitch, rate, and volume is engine and voice dependent. Values may be truncated.
-   *
-   * **Note:** This method is implemented on Android, iOS, Web, Linux (X11), macOS, and Windows.
-   *
-   * **Note:** [godot.ProjectSettings.audio/general/textToSpeech] should be `true` to use text-to-speech.
-   */
   @JvmOverloads
   public fun ttsSpeak(
     text: String,
@@ -950,260 +499,141 @@ public object DisplayServer : Object() {
     rate: Float = 1.0f,
     utteranceId: Int = 0,
     interrupt: Boolean = false,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(STRING to text, STRING to voice, LONG to volume.toLong(), DOUBLE to pitch.toDouble(), DOUBLE to rate.toDouble(), LONG to utteranceId.toLong(), BOOL to interrupt)
     TransferContext.callMethod(rawPtr, MethodBindings.ttsSpeakPtr, NIL)
   }
 
-  /**
-   * Puts the synthesizer into a paused state.
-   *
-   * **Note:** This method is implemented on Android, iOS, Web, Linux (X11), macOS, and Windows.
-   *
-   * **Note:** [godot.ProjectSettings.audio/general/textToSpeech] should be `true` to use text-to-speech.
-   */
-  public fun ttsPause(): Unit {
+  public fun ttsPause() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.ttsPausePtr, NIL)
   }
 
-  /**
-   * Resumes the synthesizer if it was paused.
-   *
-   * **Note:** This method is implemented on Android, iOS, Web, Linux (X11), macOS, and Windows.
-   *
-   * **Note:** [godot.ProjectSettings.audio/general/textToSpeech] should be `true` to use text-to-speech.
-   */
-  public fun ttsResume(): Unit {
+  public fun ttsResume() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.ttsResumePtr, NIL)
   }
 
-  /**
-   * Stops synthesis in progress and removes all utterances from the queue.
-   *
-   * **Note:** This method is implemented on Android, iOS, Web, Linux (X11), macOS, and Windows.
-   *
-   * **Note:** [godot.ProjectSettings.audio/general/textToSpeech] should be `true` to use text-to-speech.
-   */
-  public fun ttsStop(): Unit {
+  public fun ttsStop() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.ttsStopPtr, NIL)
   }
 
-  /**
-   * Adds a callback, which is called when the utterance has started, finished, canceled or reached a text boundary.
-   *
-   * - [TTS_UTTERANCE_STARTED], [TTS_UTTERANCE_ENDED], and [TTS_UTTERANCE_CANCELED] callable's method should take one [int] parameter, the utterance ID.
-   *
-   * - [TTS_UTTERANCE_BOUNDARY] callable's method should take two [int] parameters, the index of the character and the utterance ID.
-   *
-   * **Note:** The granularity of the boundary callbacks is engine dependent.
-   *
-   * **Note:** This method is implemented on Android, iOS, Web, Linux (X11), macOS, and Windows.
-   *
-   * **Note:** [godot.ProjectSettings.audio/general/textToSpeech] should be `true` to use text-to-speech.
-   */
-  public fun ttsSetUtteranceCallback(event: TTSUtteranceEvent, callable: Callable): Unit {
+  public fun ttsSetUtteranceCallback(event: TTSUtteranceEvent, callable: Callable) {
     TransferContext.writeArguments(LONG to event.id, CALLABLE to callable)
     TransferContext.callMethod(rawPtr, MethodBindings.ttsSetUtteranceCallbackPtr, NIL)
   }
 
-  /**
-   * Returns `true` if OS supports dark mode.
-   *
-   * **Note:** This method is implemented on macOS, Windows and Linux (X11).
-   */
   public fun isDarkModeSupported(): Boolean {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.isDarkModeSupportedPtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Returns `true` if OS is using dark mode.
-   *
-   * **Note:** This method is implemented on macOS, Windows and Linux (X11).
-   */
   public fun isDarkMode(): Boolean {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.isDarkModePtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Returns OS theme accent color. Returns `Color(0, 0, 0, 0)`, if accent color is unknown.
-   *
-   * **Note:** This method is implemented on macOS and Windows.
-   */
   public fun getAccentColor(): Color {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getAccentColorPtr, COLOR)
     return (TransferContext.readReturnValue(COLOR, false) as Color)
   }
 
-  /**
-   * Sets the current mouse mode. See also [mouseGetMode].
-   */
-  public fun mouseSetMode(mouseMode: MouseMode): Unit {
+  public fun mouseSetMode(mouseMode: MouseMode) {
     TransferContext.writeArguments(LONG to mouseMode.id)
     TransferContext.callMethod(rawPtr, MethodBindings.mouseSetModePtr, NIL)
   }
 
-  /**
-   * Returns the current mouse mode. See also [mouseSetMode].
-   */
   public fun mouseGetMode(): MouseMode {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.mouseGetModePtr, LONG)
     return DisplayServer.MouseMode.from(TransferContext.readReturnValue(LONG) as Long)
   }
 
-  /**
-   * Sets the mouse cursor position to the given [position] relative to an origin at the upper left corner of the currently focused game Window Manager window.
-   *
-   * **Note:** [warpMouse] is only supported on Windows, macOS and Linux. It has no effect on Android, iOS and Web.
-   */
-  public fun warpMouse(position: Vector2i): Unit {
+  public fun warpMouse(position: Vector2i) {
     TransferContext.writeArguments(VECTOR2I to position)
     TransferContext.callMethod(rawPtr, MethodBindings.warpMousePtr, NIL)
   }
 
-  /**
-   * Returns the mouse cursor's current position in screen coordinates.
-   */
   public fun mouseGetPosition(): Vector2i {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.mouseGetPositionPtr, VECTOR2I)
     return (TransferContext.readReturnValue(VECTOR2I, false) as Vector2i)
   }
 
-  /**
-   * Returns the current state of mouse buttons (whether each button is pressed) as a bitmask. If multiple mouse buttons are pressed at the same time, the bits are added together. Equivalent to [godot.Input.getMouseButtonMask].
-   */
   public fun mouseGetButtonState(): MouseButtonMask {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.mouseGetButtonStatePtr, LONG)
     return MouseButtonMaskValue(TransferContext.readReturnValue(LONG) as Long)
   }
 
-  /**
-   * Sets the user's clipboard content to the given string.
-   */
-  public fun clipboardSet(clipboard: String): Unit {
+  public fun clipboardSet(clipboard: String) {
     TransferContext.writeArguments(STRING to clipboard)
     TransferContext.callMethod(rawPtr, MethodBindings.clipboardSetPtr, NIL)
   }
 
-  /**
-   * Returns the user's clipboard as a string if possible.
-   */
   public fun clipboardGet(): String {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.clipboardGetPtr, STRING)
     return (TransferContext.readReturnValue(STRING, false) as String)
   }
 
-  /**
-   * Returns `true` if there is content on the user's clipboard.
-   */
   public fun clipboardHas(): Boolean {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.clipboardHasPtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Sets the user's [primary](https://unix.stackexchange.com/questions/139191/whats-the-difference-between-primary-selection-and-clipboard-buffer) clipboard content to the given string. This is the clipboard that is set when the user selects text in any application, rather than when pressing [kbd]Ctrl + C[/kbd]. The clipboard data can then be pasted by clicking the middle mouse button in any application that supports the primary clipboard mechanism.
-   *
-   * **Note:** This method is only implemented on Linux (X11).
-   */
-  public fun clipboardSetPrimary(clipboardPrimary: String): Unit {
+  public fun clipboardSetPrimary(clipboardPrimary: String) {
     TransferContext.writeArguments(STRING to clipboardPrimary)
     TransferContext.callMethod(rawPtr, MethodBindings.clipboardSetPrimaryPtr, NIL)
   }
 
-  /**
-   * Returns the user's [primary](https://unix.stackexchange.com/questions/139191/whats-the-difference-between-primary-selection-and-clipboard-buffer) clipboard as a string if possible. This is the clipboard that is set when the user selects text in any application, rather than when pressing [kbd]Ctrl + C[/kbd]. The clipboard data can then be pasted by clicking the middle mouse button in any application that supports the primary clipboard mechanism.
-   *
-   * **Note:** This method is only implemented on Linux (X11).
-   */
   public fun clipboardGetPrimary(): String {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.clipboardGetPrimaryPtr, STRING)
     return (TransferContext.readReturnValue(STRING, false) as String)
   }
 
-  /**
-   * Returns an [godot.Array] of [godot.core.Rect2], each of which is the bounding rectangle for a display cutout or notch. These are non-functional areas on edge-to-edge screens used by cameras and sensors. Returns an empty array if the device does not have cutouts. See also [getDisplaySafeArea].
-   *
-   * **Note:** Currently only implemented on Android. Other platforms will return an empty array even if they do have display cutouts or notches.
-   */
   public fun getDisplayCutouts(): VariantArray<Rect2> {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getDisplayCutoutsPtr, ARRAY)
     return (TransferContext.readReturnValue(ARRAY, false) as VariantArray<Rect2>)
   }
 
-  /**
-   * Returns the unobscured area of the display where interactive controls should be rendered. See also [getDisplayCutouts].
-   */
   public fun getDisplaySafeArea(): Rect2i {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getDisplaySafeAreaPtr, RECT2I)
     return (TransferContext.readReturnValue(RECT2I, false) as Rect2i)
   }
 
-  /**
-   * Returns the number of displays available.
-   */
   public fun getScreenCount(): Int {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getScreenCountPtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Returns index of the primary screen.
-   */
   public fun getPrimaryScreen(): Int {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getPrimaryScreenPtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Returns the index of the screen containing the window with the keyboard focus, or the primary screen if there's no focused window.
-   */
   public fun getKeyboardFocusScreen(): Int {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getKeyboardFocusScreenPtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Returns index of the screen which contains specified rectangle.
-   */
   public fun getScreenFromRect(rect: Rect2): Int {
     TransferContext.writeArguments(RECT2 to rect)
     TransferContext.callMethod(rawPtr, MethodBindings.getScreenFromRectPtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Returns the screen's top-left corner position in pixels. On multi-monitor setups, the screen position is relative to the virtual desktop area. On multi-monitor setups with different screen resolutions or orientations, the origin may be located outside any display like this:
-   *
-   * ```
-   * 				* (0, 0)        +-------+
-   * 				                |       |
-   * 				+-------------+ |       |
-   * 				|             | |       |
-   * 				|             | |       |
-   * 				+-------------+ +-------+
-   * 				```
-   *
-   * See also [screenGetSize].
-   */
   @JvmOverloads
   public fun screenGetPosition(screen: Int = -1): Vector2i {
     TransferContext.writeArguments(LONG to screen.toLong())
@@ -1211,9 +641,6 @@ public object DisplayServer : Object() {
     return (TransferContext.readReturnValue(VECTOR2I, false) as Vector2i)
   }
 
-  /**
-   * Returns the screen's size in pixels. See also [screenGetPosition] and [screenGetUsableRect].
-   */
   @JvmOverloads
   public fun screenGetSize(screen: Int = -1): Vector2i {
     TransferContext.writeArguments(LONG to screen.toLong())
@@ -1221,9 +648,6 @@ public object DisplayServer : Object() {
     return (TransferContext.readReturnValue(VECTOR2I, false) as Vector2i)
   }
 
-  /**
-   * Returns the portion of the screen that is not obstructed by a status bar in pixels. See also [screenGetSize].
-   */
   @JvmOverloads
   public fun screenGetUsableRect(screen: Int = -1): Rect2i {
     TransferContext.writeArguments(LONG to screen.toLong())
@@ -1231,24 +655,6 @@ public object DisplayServer : Object() {
     return (TransferContext.readReturnValue(RECT2I, false) as Rect2i)
   }
 
-  /**
-   * Returns the dots per inch density of the specified screen. If [screen] is [SCREEN_OF_MAIN_WINDOW] (the default value), a screen with the main window will be used.
-   *
-   * **Note:** On macOS, returned value is inaccurate if fractional display scaling mode is used.
-   *
-   * **Note:** On Android devices, the actual screen densities are grouped into six generalized densities:
-   *
-   * ```
-   * 				   ldpi - 120 dpi
-   * 				   mdpi - 160 dpi
-   * 				   hdpi - 240 dpi
-   * 				  xhdpi - 320 dpi
-   * 				 xxhdpi - 480 dpi
-   * 				xxxhdpi - 640 dpi
-   * 				```
-   *
-   * **Note:** This method is implemented on Android, Linux (X11), macOS and Windows. Returns `72` on unsupported platforms.
-   */
   @JvmOverloads
   public fun screenGetDpi(screen: Int = -1): Int {
     TransferContext.writeArguments(LONG to screen.toLong())
@@ -1256,13 +662,6 @@ public object DisplayServer : Object() {
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Returns the scale factor of the specified screen by index.
-   *
-   * **Note:** On macOS returned value is `2.0` for hiDPI (Retina) screen, and `1.0` for all other cases.
-   *
-   * **Note:** This method is implemented only on macOS.
-   */
   @JvmOverloads
   public fun screenGetScale(screen: Int = -1): Float {
     TransferContext.writeArguments(LONG to screen.toLong())
@@ -1270,41 +669,18 @@ public object DisplayServer : Object() {
     return (TransferContext.readReturnValue(DOUBLE, false) as Double).toFloat()
   }
 
-  /**
-   * Returns `true` if touch events are available (Android or iOS), the capability is detected on the Web platform or if [godot.ProjectSettings.inputDevices/pointing/emulateTouchFromMouse] is `true`.
-   */
   public fun isTouchscreenAvailable(): Boolean {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.isTouchscreenAvailablePtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Returns the greatest scale factor of all screens.
-   *
-   * **Note:** On macOS returned value is `2.0` if there is at least one hiDPI (Retina) screen in the system, and `1.0` in all other cases.
-   *
-   * **Note:** This method is implemented only on macOS.
-   */
   public fun screenGetMaxScale(): Float {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.screenGetMaxScalePtr, DOUBLE)
     return (TransferContext.readReturnValue(DOUBLE, false) as Double).toFloat()
   }
 
-  /**
-   * Returns the current refresh rate of the specified screen. If [screen] is [SCREEN_OF_MAIN_WINDOW] (the default value), a screen with the main window will be used.
-   *
-   * **Note:** Returns `-1.0` if the DisplayServer fails to find the refresh rate for the specified screen. On Web, [screenGetRefreshRate] will always return `-1.0` as there is no way to retrieve the refresh rate on that platform.
-   *
-   * To fallback to a default refresh rate if the method fails, try:
-   *
-   * ```
-   * 				var refresh_rate = DisplayServer.screen_get_refresh_rate()
-   * 				if refresh_rate < 0:
-   * 				    refresh_rate = 60.0
-   * 				```
-   */
   @JvmOverloads
   public fun screenGetRefreshRate(screen: Int = -1): Float {
     TransferContext.writeArguments(LONG to screen.toLong())
@@ -1312,26 +688,12 @@ public object DisplayServer : Object() {
     return (TransferContext.readReturnValue(DOUBLE, false) as Double).toFloat()
   }
 
-  /**
-   * Returns color of the display pixel at the [position].
-   *
-   * **Note:** This method is implemented on Linux (X11), macOS, and Windows.
-   *
-   * **Note:** On macOS, this method requires "Screen Recording" permission, if permission is not granted it will return desktop wallpaper color.
-   */
   public fun screenGetPixel(position: Vector2i): Color {
     TransferContext.writeArguments(VECTOR2I to position)
     TransferContext.callMethod(rawPtr, MethodBindings.screenGetPixelPtr, COLOR)
     return (TransferContext.readReturnValue(COLOR, false) as Color)
   }
 
-  /**
-   * Returns screenshot of the [screen].
-   *
-   * **Note:** This method is implemented on Linux (X11), macOS, and Windows.
-   *
-   * **Note:** On macOS, this method requires "Screen Recording" permission, if permission is not granted it will return desktop wallpaper color.
-   */
   @JvmOverloads
   public fun screenGetImage(screen: Int = -1): Image? {
     TransferContext.writeArguments(LONG to screen.toLong())
@@ -1339,22 +701,12 @@ public object DisplayServer : Object() {
     return (TransferContext.readReturnValue(OBJECT, true) as Image?)
   }
 
-  /**
-   * Sets the [screen]'s [orientation]. See also [screenGetOrientation].
-   *
-   * **Note:** On iOS, this method has no effect if [godot.ProjectSettings.display/window/handheld/orientation] is not set to [SCREEN_SENSOR].
-   */
   @JvmOverloads
-  public fun screenSetOrientation(orientation: ScreenOrientation, screen: Int = -1): Unit {
+  public fun screenSetOrientation(orientation: ScreenOrientation, screen: Int = -1) {
     TransferContext.writeArguments(LONG to orientation.id, LONG to screen.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.screenSetOrientationPtr, NIL)
   }
 
-  /**
-   * Returns the [screen]'s current orientation. See also [screenSetOrientation].
-   *
-   * **Note:** This method is implemented on Android and iOS.
-   */
   @JvmOverloads
   public fun screenGetOrientation(screen: Int = -1): ScreenOrientation {
     TransferContext.writeArguments(LONG to screen.toLong())
@@ -1362,57 +714,29 @@ public object DisplayServer : Object() {
     return DisplayServer.ScreenOrientation.from(TransferContext.readReturnValue(LONG) as Long)
   }
 
-  /**
-   * Sets whether the screen should never be turned off by the operating system's power-saving measures. See also [screenIsKeptOn].
-   */
-  public fun screenSetKeepOn(enable: Boolean): Unit {
+  public fun screenSetKeepOn(enable: Boolean) {
     TransferContext.writeArguments(BOOL to enable)
     TransferContext.callMethod(rawPtr, MethodBindings.screenSetKeepOnPtr, NIL)
   }
 
-  /**
-   * Returns `true` if the screen should never be turned off by the operating system's power-saving measures. See also [screenSetKeepOn].
-   */
   public fun screenIsKeptOn(): Boolean {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.screenIsKeptOnPtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Returns the list of Godot window IDs belonging to this process.
-   *
-   * **Note:** Native dialogs are not included in this list.
-   */
   public fun getWindowList(): PackedInt32Array {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getWindowListPtr, PACKED_INT_32_ARRAY)
     return (TransferContext.readReturnValue(PACKED_INT_32_ARRAY, false) as PackedInt32Array)
   }
 
-  /**
-   * Returns the ID of the window at the specified screen [position] (in pixels). On multi-monitor setups, the screen position is relative to the virtual desktop area. On multi-monitor setups with different screen resolutions or orientations, the origin may be located outside any display like this:
-   *
-   * ```
-   * 				* (0, 0)        +-------+
-   * 				                |       |
-   * 				+-------------+ |       |
-   * 				|             | |       |
-   * 				|             | |       |
-   * 				+-------------+ +-------+
-   * 				```
-   */
   public fun getWindowAtScreenPosition(position: Vector2i): Int {
     TransferContext.writeArguments(VECTOR2I to position)
     TransferContext.callMethod(rawPtr, MethodBindings.getWindowAtScreenPositionPtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Returns internal structure pointers for use in plugins.
-   *
-   * **Note:** This method is implemented on Android, Linux (X11), macOS and Windows.
-   */
   @JvmOverloads
   public fun windowGetNativeHandle(handleType: HandleType, windowId: Int = 0): Long {
     TransferContext.writeArguments(LONG to handleType.id, LONG to windowId.toLong())
@@ -1420,107 +744,35 @@ public object DisplayServer : Object() {
     return (TransferContext.readReturnValue(LONG, false) as Long)
   }
 
-  /**
-   * Returns ID of the active popup window, or [INVALID_WINDOW_ID] if there is none.
-   */
   public fun windowGetActivePopup(): Int {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.windowGetActivePopupPtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Sets the bounding box of control, or menu item that was used to open the popup window, in the screen coordinate system. Clicking this area will not auto-close this popup.
-   */
-  public fun windowSetPopupSafeRect(window: Int, rect: Rect2i): Unit {
+  public fun windowSetPopupSafeRect(window: Int, rect: Rect2i) {
     TransferContext.writeArguments(LONG to window.toLong(), RECT2I to rect)
     TransferContext.callMethod(rawPtr, MethodBindings.windowSetPopupSafeRectPtr, NIL)
   }
 
-  /**
-   * Returns the bounding box of control, or menu item that was used to open the popup window, in the screen coordinate system.
-   */
   public fun windowGetPopupSafeRect(window: Int): Rect2i {
     TransferContext.writeArguments(LONG to window.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.windowGetPopupSafeRectPtr, RECT2I)
     return (TransferContext.readReturnValue(RECT2I, false) as Rect2i)
   }
 
-  /**
-   * Sets the title of the given window to [title].
-   *
-   * **Note:** It's recommended to change this value using [godot.Window.title] instead.
-   *
-   * **Note:** Avoid changing the window title every frame, as this can cause performance issues on certain window managers. Try to change the window title only a few times per second at most.
-   */
   @JvmOverloads
-  public fun windowSetTitle(title: String, windowId: Int = 0): Unit {
+  public fun windowSetTitle(title: String, windowId: Int = 0) {
     TransferContext.writeArguments(STRING to title, LONG to windowId.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.windowSetTitlePtr, NIL)
   }
 
-  /**
-   * Sets a polygonal region of the window which accepts mouse events. Mouse events outside the region will be passed through.
-   *
-   * Passing an empty array will disable passthrough support (all mouse events will be intercepted by the window, which is the default behavior).
-   *
-   * [codeblocks]
-   *
-   * [gdscript]
-   *
-   * # Set region, using Path2D node.
-   *
-   * DisplayServer.window_set_mouse_passthrough($Path2D.curve.get_baked_points())
-   *
-   *
-   *
-   * # Set region, using Polygon2D node.
-   *
-   * DisplayServer.window_set_mouse_passthrough($Polygon2D.polygon)
-   *
-   *
-   *
-   * # Reset region to default.
-   *
-   * DisplayServer.window_set_mouse_passthrough([])
-   *
-   * [/gdscript]
-   *
-   * [csharp]
-   *
-   * // Set region, using Path2D node.
-   *
-   * DisplayServer.WindowSetMousePassthrough(GetNode<Path2D>("Path2D").Curve.GetBakedPoints());
-   *
-   *
-   *
-   * // Set region, using Polygon2D node.
-   *
-   * DisplayServer.WindowSetMousePassthrough(GetNode<Polygon2D>("Polygon2D").Polygon);
-   *
-   *
-   *
-   * // Reset region to default.
-   *
-   * DisplayServer.WindowSetMousePassthrough(new Vector2[] {});
-   *
-   * [/csharp]
-   *
-   * [/codeblocks]
-   *
-   * **Note:** On Windows, the portion of a window that lies outside the region is not drawn, while on Linux (X11) and macOS it is.
-   *
-   * **Note:** This method is implemented on Linux (X11), macOS and Windows.
-   */
   @JvmOverloads
-  public fun windowSetMousePassthrough(region: PackedVector2Array, windowId: Int = 0): Unit {
+  public fun windowSetMousePassthrough(region: PackedVector2Array, windowId: Int = 0) {
     TransferContext.writeArguments(PACKED_VECTOR2_ARRAY to region, LONG to windowId.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.windowSetMousePassthroughPtr, NIL)
   }
 
-  /**
-   * Returns the screen the window specified by [windowId] is currently positioned on. If the screen overlaps multiple displays, the screen where the window's center is located is returned. See also [windowSetCurrentScreen].
-   */
   @JvmOverloads
   public fun windowGetCurrentScreen(windowId: Int = 0): Int {
     TransferContext.writeArguments(LONG to windowId.toLong())
@@ -1528,18 +780,12 @@ public object DisplayServer : Object() {
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Moves the window specified by [windowId] to the specified [screen]. See also [windowGetCurrentScreen].
-   */
   @JvmOverloads
-  public fun windowSetCurrentScreen(screen: Int, windowId: Int = 0): Unit {
+  public fun windowSetCurrentScreen(screen: Int, windowId: Int = 0) {
     TransferContext.writeArguments(LONG to screen.toLong(), LONG to windowId.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.windowSetCurrentScreenPtr, NIL)
   }
 
-  /**
-   * Returns the position of the client area of the given window on the screen.
-   */
   @JvmOverloads
   public fun windowGetPosition(windowId: Int = 0): Vector2i {
     TransferContext.writeArguments(LONG to windowId.toLong())
@@ -1547,9 +793,6 @@ public object DisplayServer : Object() {
     return (TransferContext.readReturnValue(VECTOR2I, false) as Vector2i)
   }
 
-  /**
-   * Returns the position of the given window on the screen including the borders drawn by the operating system. See also [windowGetPosition].
-   */
   @JvmOverloads
   public fun windowGetPositionWithDecorations(windowId: Int = 0): Vector2i {
     TransferContext.writeArguments(LONG to windowId.toLong())
@@ -1557,31 +800,12 @@ public object DisplayServer : Object() {
     return (TransferContext.readReturnValue(VECTOR2I, false) as Vector2i)
   }
 
-  /**
-   * Sets the position of the given window to [position]. On multi-monitor setups, the screen position is relative to the virtual desktop area. On multi-monitor setups with different screen resolutions or orientations, the origin may be located outside any display like this:
-   *
-   * ```
-   * 				* (0, 0)        +-------+
-   * 				                |       |
-   * 				+-------------+ |       |
-   * 				|             | |       |
-   * 				|             | |       |
-   * 				+-------------+ +-------+
-   * 				```
-   *
-   * See also [windowGetPosition] and [windowSetSize].
-   *
-   * **Note:** It's recommended to change this value using [godot.Window.position] instead.
-   */
   @JvmOverloads
-  public fun windowSetPosition(position: Vector2i, windowId: Int = 0): Unit {
+  public fun windowSetPosition(position: Vector2i, windowId: Int = 0) {
     TransferContext.writeArguments(VECTOR2I to position, LONG to windowId.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.windowSetPositionPtr, NIL)
   }
 
-  /**
-   * Returns the size of the window specified by [windowId] (in pixels), excluding the borders drawn by the operating system. This is also called the "client area". See also [windowGetSizeWithDecorations], [windowSetSize] and [windowGetPosition].
-   */
   @JvmOverloads
   public fun windowGetSize(windowId: Int = 0): Vector2i {
     TransferContext.writeArguments(LONG to windowId.toLong())
@@ -1589,67 +813,42 @@ public object DisplayServer : Object() {
     return (TransferContext.readReturnValue(VECTOR2I, false) as Vector2i)
   }
 
-  /**
-   * Sets the size of the given window to [size] (in pixels). See also [windowGetSize] and [windowGetPosition].
-   *
-   * **Note:** It's recommended to change this value using [godot.Window.size] instead.
-   */
   @JvmOverloads
-  public fun windowSetSize(size: Vector2i, windowId: Int = 0): Unit {
+  public fun windowSetSize(size: Vector2i, windowId: Int = 0) {
     TransferContext.writeArguments(VECTOR2I to size, LONG to windowId.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.windowSetSizePtr, NIL)
   }
 
-  /**
-   * Sets the [callback] that will be called when the window specified by [windowId] is moved or resized.
-   */
   @JvmOverloads
-  public fun windowSetRectChangedCallback(callback: Callable, windowId: Int = 0): Unit {
+  public fun windowSetRectChangedCallback(callback: Callable, windowId: Int = 0) {
     TransferContext.writeArguments(CALLABLE to callback, LONG to windowId.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.windowSetRectChangedCallbackPtr, NIL)
   }
 
-  /**
-   * Sets the [callback] that will be called when an event occurs in the window specified by [windowId].
-   */
   @JvmOverloads
-  public fun windowSetWindowEventCallback(callback: Callable, windowId: Int = 0): Unit {
+  public fun windowSetWindowEventCallback(callback: Callable, windowId: Int = 0) {
     TransferContext.writeArguments(CALLABLE to callback, LONG to windowId.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.windowSetWindowEventCallbackPtr, NIL)
   }
 
-  /**
-   * Sets the [callback] that should be called when any [godot.InputEvent] is sent to the window specified by [windowId].
-   */
   @JvmOverloads
-  public fun windowSetInputEventCallback(callback: Callable, windowId: Int = 0): Unit {
+  public fun windowSetInputEventCallback(callback: Callable, windowId: Int = 0) {
     TransferContext.writeArguments(CALLABLE to callback, LONG to windowId.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.windowSetInputEventCallbackPtr, NIL)
   }
 
-  /**
-   * Sets the [callback] that should be called when text is entered using the virtual keyboard to the window specified by [windowId].
-   */
   @JvmOverloads
-  public fun windowSetInputTextCallback(callback: Callable, windowId: Int = 0): Unit {
+  public fun windowSetInputTextCallback(callback: Callable, windowId: Int = 0) {
     TransferContext.writeArguments(CALLABLE to callback, LONG to windowId.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.windowSetInputTextCallbackPtr, NIL)
   }
 
-  /**
-   * Sets the [callback] that should be called when files are dropped from the operating system's file manager to the window specified by [windowId].
-   *
-   * **Note:** This method is implemented on Windows, macOS, Linux (X11) and Web.
-   */
   @JvmOverloads
-  public fun windowSetDropFilesCallback(callback: Callable, windowId: Int = 0): Unit {
+  public fun windowSetDropFilesCallback(callback: Callable, windowId: Int = 0) {
     TransferContext.writeArguments(CALLABLE to callback, LONG to windowId.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.windowSetDropFilesCallbackPtr, NIL)
   }
 
-  /**
-   * Returns the [godot.Object.getInstanceId] of the [godot.Window] the [windowId] is attached to.
-   */
   @JvmOverloads
   public fun windowGetAttachedInstanceId(windowId: Int = 0): Long {
     TransferContext.writeArguments(LONG to windowId.toLong())
@@ -1657,9 +856,6 @@ public object DisplayServer : Object() {
     return (TransferContext.readReturnValue(LONG, false) as Long)
   }
 
-  /**
-   * Returns the window's maximum size (in pixels). See also [windowSetMaxSize].
-   */
   @JvmOverloads
   public fun windowGetMaxSize(windowId: Int = 0): Vector2i {
     TransferContext.writeArguments(LONG to windowId.toLong())
@@ -1667,22 +863,12 @@ public object DisplayServer : Object() {
     return (TransferContext.readReturnValue(VECTOR2I, false) as Vector2i)
   }
 
-  /**
-   * Sets the maximum size of the window specified by [windowId] in pixels. Normally, the user will not be able to drag the window to make it smaller than the specified size. See also [windowGetMaxSize].
-   *
-   * **Note:** It's recommended to change this value using [godot.Window.maxSize] instead.
-   *
-   * **Note:** Using third-party tools, it is possible for users to disable window geometry restrictions and therefore bypass this limit.
-   */
   @JvmOverloads
-  public fun windowSetMaxSize(maxSize: Vector2i, windowId: Int = 0): Unit {
+  public fun windowSetMaxSize(maxSize: Vector2i, windowId: Int = 0) {
     TransferContext.writeArguments(VECTOR2I to maxSize, LONG to windowId.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.windowSetMaxSizePtr, NIL)
   }
 
-  /**
-   * Returns the window's minimum size (in pixels). See also [windowSetMinSize].
-   */
   @JvmOverloads
   public fun windowGetMinSize(windowId: Int = 0): Vector2i {
     TransferContext.writeArguments(LONG to windowId.toLong())
@@ -1690,24 +876,12 @@ public object DisplayServer : Object() {
     return (TransferContext.readReturnValue(VECTOR2I, false) as Vector2i)
   }
 
-  /**
-   * Sets the minimum size for the given window to [minSize] (in pixels). Normally, the user will not be able to drag the window to make it larger than the specified size. See also [windowGetMinSize].
-   *
-   * **Note:** It's recommended to change this value using [godot.Window.minSize] instead.
-   *
-   * **Note:** By default, the main window has a minimum size of `Vector2i(64, 64)`. This prevents issues that can arise when the window is resized to a near-zero size.
-   *
-   * **Note:** Using third-party tools, it is possible for users to disable window geometry restrictions and therefore bypass this limit.
-   */
   @JvmOverloads
-  public fun windowSetMinSize(minSize: Vector2i, windowId: Int = 0): Unit {
+  public fun windowSetMinSize(minSize: Vector2i, windowId: Int = 0) {
     TransferContext.writeArguments(VECTOR2I to minSize, LONG to windowId.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.windowSetMinSizePtr, NIL)
   }
 
-  /**
-   * Returns the size of the window specified by [windowId] (in pixels), including the borders drawn by the operating system. See also [windowGetSize].
-   */
   @JvmOverloads
   public fun windowGetSizeWithDecorations(windowId: Int = 0): Vector2i {
     TransferContext.writeArguments(LONG to windowId.toLong())
@@ -1715,9 +889,6 @@ public object DisplayServer : Object() {
     return (TransferContext.readReturnValue(VECTOR2I, false) as Vector2i)
   }
 
-  /**
-   * Returns the mode of the given window.
-   */
   @JvmOverloads
   public fun windowGetMode(windowId: Int = 0): WindowMode {
     TransferContext.writeArguments(LONG to windowId.toLong())
@@ -1725,33 +896,22 @@ public object DisplayServer : Object() {
     return DisplayServer.WindowMode.from(TransferContext.readReturnValue(LONG) as Long)
   }
 
-  /**
-   * Sets window mode for the given window to [mode]. See [enum WindowMode] for possible values and how each mode behaves.
-   *
-   * **Note:** Setting the window to full screen forcibly sets the borderless flag to `true`, so make sure to set it back to `false` when not wanted.
-   */
   @JvmOverloads
-  public fun windowSetMode(mode: WindowMode, windowId: Int = 0): Unit {
+  public fun windowSetMode(mode: WindowMode, windowId: Int = 0) {
     TransferContext.writeArguments(LONG to mode.id, LONG to windowId.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.windowSetModePtr, NIL)
   }
 
-  /**
-   * Enables or disables the given window's given [flag]. See [enum WindowFlags] for possible values and their behavior.
-   */
   @JvmOverloads
   public fun windowSetFlag(
     flag: WindowFlags,
     enabled: Boolean,
     windowId: Int = 0,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(LONG to flag.id, BOOL to enabled, LONG to windowId.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.windowSetFlagPtr, NIL)
   }
 
-  /**
-   * Returns the current value of the given window's [flag].
-   */
   @JvmOverloads
   public fun windowGetFlag(flag: WindowFlags, windowId: Int = 0): Boolean {
     TransferContext.writeArguments(LONG to flag.id, LONG to windowId.toLong())
@@ -1759,20 +919,12 @@ public object DisplayServer : Object() {
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * When [WINDOW_FLAG_EXTEND_TO_TITLE] flag is set, set offset to the center of the first titlebar button.
-   *
-   * **Note:** This flag is implemented only on macOS.
-   */
   @JvmOverloads
-  public fun windowSetWindowButtonsOffset(offset: Vector2i, windowId: Int = 0): Unit {
+  public fun windowSetWindowButtonsOffset(offset: Vector2i, windowId: Int = 0) {
     TransferContext.writeArguments(VECTOR2I to offset, LONG to windowId.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.windowSetWindowButtonsOffsetPtr, NIL)
   }
 
-  /**
-   * Returns left margins (`x`), right margins (`y`) and height (`z`) of the title that are safe to use (contains no buttons or other elements) when [WINDOW_FLAG_EXTEND_TO_TITLE] flag is set.
-   */
   @JvmOverloads
   public fun windowGetSafeTitleMargins(windowId: Int = 0): Vector3i {
     TransferContext.writeArguments(LONG to windowId.toLong())
@@ -1780,27 +932,18 @@ public object DisplayServer : Object() {
     return (TransferContext.readReturnValue(VECTOR3I, false) as Vector3i)
   }
 
-  /**
-   * Makes the window specified by [windowId] request attention, which is materialized by the window title and taskbar entry blinking until the window is focused. This usually has no visible effect if the window is currently focused. The exact behavior varies depending on the operating system.
-   */
   @JvmOverloads
-  public fun windowRequestAttention(windowId: Int = 0): Unit {
+  public fun windowRequestAttention(windowId: Int = 0) {
     TransferContext.writeArguments(LONG to windowId.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.windowRequestAttentionPtr, NIL)
   }
 
-  /**
-   * Moves the window specified by [windowId] to the foreground, so that it is visible over other windows.
-   */
   @JvmOverloads
-  public fun windowMoveToForeground(windowId: Int = 0): Unit {
+  public fun windowMoveToForeground(windowId: Int = 0) {
     TransferContext.writeArguments(LONG to windowId.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.windowMoveToForegroundPtr, NIL)
   }
 
-  /**
-   * Returns `true` if the window specified by [windowId] is focused.
-   */
   @JvmOverloads
   public fun windowIsFocused(windowId: Int = 0): Boolean {
     TransferContext.writeArguments(LONG to windowId.toLong())
@@ -1808,9 +951,6 @@ public object DisplayServer : Object() {
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Returns `true` if anything can be drawn in the window specified by [windowId], `false` otherwise. Using the `--disable-render-loop` command line argument or a headless build will return `false`.
-   */
   @JvmOverloads
   public fun windowCanDraw(windowId: Int = 0): Boolean {
     TransferContext.writeArguments(LONG to windowId.toLong())
@@ -1818,66 +958,34 @@ public object DisplayServer : Object() {
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Sets window transient parent. Transient window is will be destroyed with its transient parent and will return focus to their parent when closed. The transient window is displayed on top of a non-exclusive full-screen parent window. Transient windows can't enter full-screen mode.
-   *
-   * **Note:** It's recommended to change this value using [godot.Window.transient] instead.
-   *
-   * **Note:** The behavior might be different depending on the platform.
-   */
-  public fun windowSetTransient(windowId: Int, parentWindowId: Int): Unit {
+  public fun windowSetTransient(windowId: Int, parentWindowId: Int) {
     TransferContext.writeArguments(LONG to windowId.toLong(), LONG to parentWindowId.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.windowSetTransientPtr, NIL)
   }
 
-  /**
-   * If set to `true`, this window will always stay on top of its parent window, parent window will ignore input while this window is opened.
-   *
-   * **Note:** On macOS, exclusive windows are confined to the same space (virtual desktop or screen) as the parent window.
-   *
-   * **Note:** This method is implemented on macOS and Windows.
-   */
-  public fun windowSetExclusive(windowId: Int, exclusive: Boolean): Unit {
+  public fun windowSetExclusive(windowId: Int, exclusive: Boolean) {
     TransferContext.writeArguments(LONG to windowId.toLong(), BOOL to exclusive)
     TransferContext.callMethod(rawPtr, MethodBindings.windowSetExclusivePtr, NIL)
   }
 
-  /**
-   * Sets whether [godot.Input Method Editor](https://en.wikipedia.org/wiki/Input_method) should be enabled for the window specified by [windowId]. See also [windowSetImePosition].
-   */
   @JvmOverloads
-  public fun windowSetImeActive(active: Boolean, windowId: Int = 0): Unit {
+  public fun windowSetImeActive(active: Boolean, windowId: Int = 0) {
     TransferContext.writeArguments(BOOL to active, LONG to windowId.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.windowSetImeActivePtr, NIL)
   }
 
-  /**
-   * Sets the position of the [godot.Input Method Editor](https://en.wikipedia.org/wiki/Input_method) popup for the specified [windowId]. Only effective if [windowSetImeActive] was set to `true` for the specified [windowId].
-   */
   @JvmOverloads
-  public fun windowSetImePosition(position: Vector2i, windowId: Int = 0): Unit {
+  public fun windowSetImePosition(position: Vector2i, windowId: Int = 0) {
     TransferContext.writeArguments(VECTOR2I to position, LONG to windowId.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.windowSetImePositionPtr, NIL)
   }
 
-  /**
-   * Sets the V-Sync mode of the given window. See also [godot.ProjectSettings.display/window/vsync/vsyncMode].
-   *
-   * See [enum DisplayServer.VSyncMode] for possible values and how they affect the behavior of your application.
-   *
-   * Depending on the platform and used renderer, the engine will fall back to [VSYNC_ENABLED] if the desired mode is not supported.
-   *
-   * **Note:** V-Sync modes other than [VSYNC_ENABLED] are only supported in the Forward+ and Mobile rendering methods, not Compatibility.
-   */
   @JvmOverloads
-  public fun windowSetVsyncMode(vsyncMode: VSyncMode, windowId: Int = 0): Unit {
+  public fun windowSetVsyncMode(vsyncMode: VSyncMode, windowId: Int = 0) {
     TransferContext.writeArguments(LONG to vsyncMode.id, LONG to windowId.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.windowSetVsyncModePtr, NIL)
   }
 
-  /**
-   * Returns the V-Sync mode of the given window.
-   */
   @JvmOverloads
   public fun windowGetVsyncMode(windowId: Int = 0): VSyncMode {
     TransferContext.writeArguments(LONG to windowId.toLong())
@@ -1885,9 +993,6 @@ public object DisplayServer : Object() {
     return DisplayServer.VSyncMode.from(TransferContext.readReturnValue(LONG) as Long)
   }
 
-  /**
-   * Returns `true` if the given window can be maximized (the maximize button is enabled).
-   */
   @JvmOverloads
   public fun windowIsMaximizeAllowed(windowId: Int = 0): Boolean {
     TransferContext.writeArguments(LONG to windowId.toLong())
@@ -1895,67 +1000,30 @@ public object DisplayServer : Object() {
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Returns `true`, if double-click on a window title should maximize it.
-   *
-   * **Note:** This method is implemented only on macOS.
-   */
   public fun windowMaximizeOnTitleDblClick(): Boolean {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.windowMaximizeOnTitleDblClickPtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Returns `true`, if double-click on a window title should minimize it.
-   *
-   * **Note:** This method is implemented only on macOS.
-   */
   public fun windowMinimizeOnTitleDblClick(): Boolean {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.windowMinimizeOnTitleDblClickPtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Returns the text selection in the [godot.Input Method Editor](https://en.wikipedia.org/wiki/Input_method) composition string, with the [godot.Vector2i]'s `x` component being the caret position and `y` being the length of the selection.
-   *
-   * **Note:** This method is implemented only on macOS.
-   */
   public fun imeGetSelection(): Vector2i {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.imeGetSelectionPtr, VECTOR2I)
     return (TransferContext.readReturnValue(VECTOR2I, false) as Vector2i)
   }
 
-  /**
-   * Returns the composition string contained within the [godot.Input Method Editor](https://en.wikipedia.org/wiki/Input_method) window.
-   *
-   * **Note:** This method is implemented only on macOS.
-   */
   public fun imeGetText(): String {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.imeGetTextPtr, STRING)
     return (TransferContext.readReturnValue(STRING, false) as String)
   }
 
-  /**
-   * Shows the virtual keyboard if the platform has one.
-   *
-   * [existingText] parameter is useful for implementing your own [godot.LineEdit] or [godot.TextEdit], as it tells the virtual keyboard what text has already been typed (the virtual keyboard uses it for auto-correct and predictions).
-   *
-   * [position] parameter is the screen space [godot.core.Rect2] of the edited text.
-   *
-   * [type] parameter allows configuring which type of virtual keyboard to show.
-   *
-   * [maxLength] limits the number of characters that can be entered if different from `-1`.
-   *
-   * [cursorStart] can optionally define the current text cursor position if [cursorEnd] is not set.
-   *
-   * [cursorStart] and [cursorEnd] can optionally define the current text selection.
-   *
-   * **Note:** This method is implemented on Android, iOS and Web.
-   */
   @JvmOverloads
   public fun virtualKeyboardShow(
     existingText: String,
@@ -1964,84 +1032,54 @@ public object DisplayServer : Object() {
     maxLength: Int = -1,
     cursorStart: Int = -1,
     cursorEnd: Int = -1,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(STRING to existingText, RECT2 to position, LONG to type.id, LONG to maxLength.toLong(), LONG to cursorStart.toLong(), LONG to cursorEnd.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.virtualKeyboardShowPtr, NIL)
   }
 
-  /**
-   * Hides the virtual keyboard if it is shown, does nothing otherwise.
-   */
-  public fun virtualKeyboardHide(): Unit {
+  public fun virtualKeyboardHide() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.virtualKeyboardHidePtr, NIL)
   }
 
-  /**
-   * Returns the on-screen keyboard's height in pixels. Returns 0 if there is no keyboard or if it is currently hidden.
-   */
   public fun virtualKeyboardGetHeight(): Int {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.virtualKeyboardGetHeightPtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Sets the default mouse cursor shape. The cursor's appearance will vary depending on the user's operating system and mouse cursor theme. See also [cursorGetShape] and [cursorSetCustomImage].
-   */
-  public fun cursorSetShape(shape: CursorShape): Unit {
+  public fun cursorSetShape(shape: CursorShape) {
     TransferContext.writeArguments(LONG to shape.id)
     TransferContext.callMethod(rawPtr, MethodBindings.cursorSetShapePtr, NIL)
   }
 
-  /**
-   * Returns the default mouse cursor shape set by [cursorSetShape].
-   */
   public fun cursorGetShape(): CursorShape {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.cursorGetShapePtr, LONG)
     return DisplayServer.CursorShape.from(TransferContext.readReturnValue(LONG) as Long)
   }
 
-  /**
-   * Sets a custom mouse cursor image for the defined [shape]. This means the user's operating system and mouse cursor theme will no longer influence the mouse cursor's appearance. The image must be `256x256` or smaller for correct appearance. [hotspot] can optionally be set to define the area where the cursor will click. By default, [hotspot] is set to `Vector2(0, 0)`, which is the top-left corner of the image. See also [cursorSetShape].
-   */
   @JvmOverloads
   public fun cursorSetCustomImage(
     cursor: Resource,
     shape: CursorShape = DisplayServer.CursorShape.CURSOR_ARROW,
     hotspot: Vector2 = Vector2(0, 0),
-  ): Unit {
+  ) {
     TransferContext.writeArguments(OBJECT to cursor, LONG to shape.id, VECTOR2 to hotspot)
     TransferContext.callMethod(rawPtr, MethodBindings.cursorSetCustomImagePtr, NIL)
   }
 
-  /**
-   * Returns `true` if positions of **OK** and **Cancel** buttons are swapped in dialogs. This is enabled by default on Windows and UWP to follow interface conventions, and be toggled by changing [godot.ProjectSettings.gui/common/swapCancelOk].
-   *
-   * **Note:** This doesn't affect native dialogs such as the ones spawned by [godot.DisplayServer.dialogShow].
-   */
   public fun getSwapCancelOk(): Boolean {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getSwapCancelOkPtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Allows the [processId] PID to steal focus from this window. In other words, this disables the operating system's focus stealing protection for the specified PID.
-   *
-   * **Note:** This method is implemented only on Windows.
-   */
-  public fun enableForStealingFocus(processId: Long): Unit {
+  public fun enableForStealingFocus(processId: Long) {
     TransferContext.writeArguments(LONG to processId)
     TransferContext.callMethod(rawPtr, MethodBindings.enableForStealingFocusPtr, NIL)
   }
 
-  /**
-   * Shows a text dialog which uses the operating system's native look-and-feel. [callback] will be called when the dialog is closed for any reason.
-   *
-   * **Note:** This method is implemented only on macOS.
-   */
   public fun dialogShow(
     title: String,
     description: String,
@@ -2053,11 +1091,6 @@ public object DisplayServer : Object() {
     return GodotError.from(TransferContext.readReturnValue(LONG) as Long)
   }
 
-  /**
-   * Shows a text input dialog which uses the operating system's native look-and-feel. [callback] will be called with a [godot.String] argument equal to the text field's contents when the dialog is closed for any reason.
-   *
-   * **Note:** This method is implemented only on macOS.
-   */
   public fun dialogInputText(
     title: String,
     description: String,
@@ -2069,144 +1102,80 @@ public object DisplayServer : Object() {
     return GodotError.from(TransferContext.readReturnValue(LONG) as Long)
   }
 
-  /**
-   * Returns the number of keyboard layouts.
-   *
-   * **Note:** This method is implemented on Linux (X11), macOS and Windows.
-   */
   public fun keyboardGetLayoutCount(): Int {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.keyboardGetLayoutCountPtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Returns active keyboard layout index.
-   *
-   * **Note:** This method is implemented on Linux (X11), macOS and Windows.
-   */
   public fun keyboardGetCurrentLayout(): Int {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.keyboardGetCurrentLayoutPtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Sets the active keyboard layout.
-   *
-   * **Note:** This method is implemented on Linux (X11), macOS and Windows.
-   */
-  public fun keyboardSetCurrentLayout(index: Int): Unit {
+  public fun keyboardSetCurrentLayout(index: Int) {
     TransferContext.writeArguments(LONG to index.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.keyboardSetCurrentLayoutPtr, NIL)
   }
 
-  /**
-   * Returns the ISO-639/BCP-47 language code of the keyboard layout at position [index].
-   *
-   * **Note:** This method is implemented on Linux (X11), macOS and Windows.
-   */
   public fun keyboardGetLayoutLanguage(index: Int): String {
     TransferContext.writeArguments(LONG to index.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.keyboardGetLayoutLanguagePtr, STRING)
     return (TransferContext.readReturnValue(STRING, false) as String)
   }
 
-  /**
-   * Returns the localized name of the keyboard layout at position [index].
-   *
-   * **Note:** This method is implemented on Linux (X11), macOS and Windows.
-   */
   public fun keyboardGetLayoutName(index: Int): String {
     TransferContext.writeArguments(LONG to index.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.keyboardGetLayoutNamePtr, STRING)
     return (TransferContext.readReturnValue(STRING, false) as String)
   }
 
-  /**
-   * Converts a physical (US QWERTY) [keycode] to one in the active keyboard layout.
-   *
-   * **Note:** This method is implemented on Linux (X11), macOS and Windows.
-   */
   public fun keyboardGetKeycodeFromPhysical(keycode: Key): Key {
     TransferContext.writeArguments(LONG to keycode.id)
     TransferContext.callMethod(rawPtr, MethodBindings.keyboardGetKeycodeFromPhysicalPtr, LONG)
     return Key.from(TransferContext.readReturnValue(LONG) as Long)
   }
 
-  /**
-   * Perform window manager processing, including input flushing. See also [forceProcessAndDropEvents], [godot.Input.flushBufferedEvents] and [godot.Input.useAccumulatedInput].
-   */
-  public fun processEvents(): Unit {
+  public fun processEvents() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.processEventsPtr, NIL)
   }
 
-  /**
-   * Forces window manager processing while ignoring all [godot.InputEvent]s. See also [processEvents].
-   *
-   * **Note:** This method is implemented on Windows and macOS.
-   */
-  public fun forceProcessAndDropEvents(): Unit {
+  public fun forceProcessAndDropEvents() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.forceProcessAndDropEventsPtr, NIL)
   }
 
-  /**
-   * Sets the window icon (usually displayed in the top-left corner) in the operating system's *native* format. The file at [filename] must be in `.ico` format on Windows or `.icns` on macOS. By using specially crafted `.ico` or `.icns` icons, [setNativeIcon] allows specifying different icons depending on the size the icon is displayed at. This size is determined by the operating system and user preferences (including the display scale factor). To use icons in other formats, use [setIcon] instead.
-   */
-  public fun setNativeIcon(filename: String): Unit {
+  public fun setNativeIcon(filename: String) {
     TransferContext.writeArguments(STRING to filename)
     TransferContext.callMethod(rawPtr, MethodBindings.setNativeIconPtr, NIL)
   }
 
-  /**
-   * Sets the window icon (usually displayed in the top-left corner) with an [godot.Image]. To use icons in the operating system's native format, use [setNativeIcon] instead.
-   */
-  public fun setIcon(image: Image): Unit {
+  public fun setIcon(image: Image) {
     TransferContext.writeArguments(OBJECT to image)
     TransferContext.callMethod(rawPtr, MethodBindings.setIconPtr, NIL)
   }
 
-  /**
-   * Returns the total number of available tablet drivers.
-   *
-   * **Note:** This method is implemented only on Windows.
-   */
   public fun tabletGetDriverCount(): Int {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.tabletGetDriverCountPtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Returns the tablet driver name for the given index.
-   *
-   * **Note:** This method is implemented only on Windows.
-   */
   public fun tabletGetDriverName(idx: Int): String {
     TransferContext.writeArguments(LONG to idx.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.tabletGetDriverNamePtr, STRING)
     return (TransferContext.readReturnValue(STRING, false) as String)
   }
 
-  /**
-   * Returns current active tablet driver name.
-   *
-   * **Note:** This method is implemented only on Windows.
-   */
   public fun tabletGetCurrentDriver(): String {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.tabletGetCurrentDriverPtr, STRING)
     return (TransferContext.readReturnValue(STRING, false) as String)
   }
 
-  /**
-   * Set active tablet driver name.
-   *
-   * **Note:** This method is implemented only on Windows.
-   */
-  public fun tabletSetCurrentDriver(name: String): Unit {
+  public fun tabletSetCurrentDriver(name: String) {
     TransferContext.writeArguments(STRING to name)
     TransferContext.callMethod(rawPtr, MethodBindings.tabletSetCurrentDriverPtr, NIL)
   }
@@ -2214,89 +1183,26 @@ public object DisplayServer : Object() {
   public enum class Feature(
     id: Long,
   ) {
-    /**
-     * Display server supports global menu. This allows the application to display its menu items in the operating system's top bar. **macOS**
-     */
     FEATURE_GLOBAL_MENU(0),
-    /**
-     * Display server supports multiple windows that can be moved outside of the main window. **Windows, macOS, Linux (X11)**
-     */
     FEATURE_SUBWINDOWS(1),
-    /**
-     * Display server supports touchscreen input. **Windows, Linux (X11), Android, iOS, Web**
-     */
     FEATURE_TOUCHSCREEN(2),
-    /**
-     * Display server supports mouse input. **Windows, macOS, Linux (X11), Android, Web**
-     */
     FEATURE_MOUSE(3),
-    /**
-     * Display server supports warping mouse coordinates to keep the mouse cursor constrained within an area, but looping when one of the edges is reached. **Windows, macOS, Linux (X11)**
-     */
     FEATURE_MOUSE_WARP(4),
-    /**
-     * Display server supports setting and getting clipboard data. See also [FEATURE_CLIPBOARD_PRIMARY]. **Windows, macOS, Linux (X11), Android, iOS, Web**
-     */
     FEATURE_CLIPBOARD(5),
-    /**
-     * Display server supports popping up a virtual keyboard when requested to input text without a physical keyboard. **Android, iOS, Web**
-     */
     FEATURE_VIRTUAL_KEYBOARD(6),
-    /**
-     * Display server supports setting the mouse cursor shape to be different from the default. **Windows, macOS, Linux (X11), Android, Web**
-     */
     FEATURE_CURSOR_SHAPE(7),
-    /**
-     * Display server supports setting the mouse cursor shape to a custom image. **Windows, macOS, Linux (X11), Web**
-     */
     FEATURE_CUSTOM_CURSOR_SHAPE(8),
-    /**
-     * Display server supports spawning dialogs using the operating system's native look-and-feel. **macOS**
-     */
     FEATURE_NATIVE_DIALOG(9),
-    /**
-     * Display server supports [godot.Input Method Editor](https://en.wikipedia.org/wiki/Input_method), which is commonly used for inputting Chinese/Japanese/Korean text. This is handled by the operating system, rather than by Godot. **Windows, macOS, Linux (X11)**
-     */
     FEATURE_IME(10),
-    /**
-     * Display server supports windows can use per-pixel transparency to make windows behind them partially or fully visible. **Windows, macOS, Linux (X11)**
-     */
     FEATURE_WINDOW_TRANSPARENCY(11),
-    /**
-     * Display server supports querying the operating system's display scale factor. This allows for *reliable* automatic hiDPI display detection, as opposed to guessing based on the screen resolution and reported display DPI (which can be unreliable due to broken monitor EDID). **Windows, macOS**
-     */
     FEATURE_HIDPI(12),
-    /**
-     * Display server supports changing the window icon (usually displayed in the top-left corner). **Windows, macOS, Linux (X11)**
-     */
     FEATURE_ICON(13),
-    /**
-     * Display server supports changing the window icon (usually displayed in the top-left corner). **Windows, macOS**
-     */
     FEATURE_NATIVE_ICON(14),
-    /**
-     * Display server supports changing the screen orientation. **Android, iOS**
-     */
     FEATURE_ORIENTATION(15),
-    /**
-     * Display server supports V-Sync status can be changed from the default (which is forced to be enabled platforms not supporting this feature). **Windows, macOS, Linux (X11)**
-     */
     FEATURE_SWAP_BUFFERS(16),
-    /**
-     * Display server supports Primary clipboard can be used. This is a different clipboard from [FEATURE_CLIPBOARD]. **Linux (X11)**
-     */
     FEATURE_CLIPBOARD_PRIMARY(18),
-    /**
-     * Display server supports text-to-speech. See `tts_*` methods. **Windows, macOS, Linux (X11), Android, iOS, Web**
-     */
     FEATURE_TEXT_TO_SPEECH(19),
-    /**
-     * Display server supports expanding window content to the title. See [WINDOW_FLAG_EXTEND_TO_TITLE]. **macOS**
-     */
     FEATURE_EXTEND_TO_TITLE(20),
-    /**
-     * Display server supports reading screen pixels. See [screenGetPixel].
-     */
     FEATURE_SCREEN_CAPTURE(21),
     ;
 
@@ -2306,34 +1212,19 @@ public object DisplayServer : Object() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): Feature = entries.single {
+          it.id == `value`
+      }
     }
   }
 
   public enum class MouseMode(
     id: Long,
   ) {
-    /**
-     * Makes the mouse cursor visible if it is hidden.
-     */
     MOUSE_MODE_VISIBLE(0),
-    /**
-     * Makes the mouse cursor hidden if it is visible.
-     */
     MOUSE_MODE_HIDDEN(1),
-    /**
-     * Captures the mouse. The mouse will be hidden and its position locked at the center of the window manager's window.
-     *
-     * **Note:** If you want to process the mouse's movement in this mode, you need to use [godot.InputEventMouseMotion.relative].
-     */
     MOUSE_MODE_CAPTURED(2),
-    /**
-     * Confines the mouse cursor to the game window, and make it visible.
-     */
     MOUSE_MODE_CONFINED(3),
-    /**
-     * Confines the mouse cursor to the game window, and make it hidden.
-     */
     MOUSE_MODE_CONFINED_HIDDEN(4),
     ;
 
@@ -2343,40 +1234,21 @@ public object DisplayServer : Object() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): MouseMode = entries.single {
+          it.id == `value`
+      }
     }
   }
 
   public enum class ScreenOrientation(
     id: Long,
   ) {
-    /**
-     * Default landscape orientation.
-     */
     SCREEN_LANDSCAPE(0),
-    /**
-     * Default portrait orientation.
-     */
     SCREEN_PORTRAIT(1),
-    /**
-     * Reverse landscape orientation (upside down).
-     */
     SCREEN_REVERSE_LANDSCAPE(2),
-    /**
-     * Reverse portrait orientation (upside down).
-     */
     SCREEN_REVERSE_PORTRAIT(3),
-    /**
-     * Automatic landscape orientation (default or reverse depending on sensor).
-     */
     SCREEN_SENSOR_LANDSCAPE(4),
-    /**
-     * Automatic portrait orientation (default or reverse depending on sensor).
-     */
     SCREEN_SENSOR_PORTRAIT(5),
-    /**
-     * Automatic landscape or portrait orientation (default or reverse depending on sensor).
-     */
     SCREEN_SENSOR(6),
     ;
 
@@ -2386,46 +1258,22 @@ public object DisplayServer : Object() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): ScreenOrientation = entries.single {
+          it.id == `value`
+      }
     }
   }
 
   public enum class VirtualKeyboardType(
     id: Long,
   ) {
-    /**
-     * Default text virtual keyboard.
-     */
     KEYBOARD_TYPE_DEFAULT(0),
-    /**
-     * Multiline virtual keyboard.
-     */
     KEYBOARD_TYPE_MULTILINE(1),
-    /**
-     * Virtual number keypad, useful for PIN entry.
-     */
     KEYBOARD_TYPE_NUMBER(2),
-    /**
-     * Virtual number keypad, useful for entering fractional numbers.
-     */
     KEYBOARD_TYPE_NUMBER_DECIMAL(3),
-    /**
-     * Virtual phone number keypad.
-     */
     KEYBOARD_TYPE_PHONE(4),
-    /**
-     * Virtual keyboard with additional keys to assist with typing email addresses.
-     */
     KEYBOARD_TYPE_EMAIL_ADDRESS(5),
-    /**
-     * Virtual keyboard for entering a password. On most platforms, this should disable autocomplete and autocapitalization.
-     *
-     * **Note:** This is not supported on Web. Instead, this behaves identically to [KEYBOARD_TYPE_DEFAULT].
-     */
     KEYBOARD_TYPE_PASSWORD(6),
-    /**
-     * Virtual keyboard with additional keys to assist with typing URLs.
-     */
     KEYBOARD_TYPE_URL(7),
     ;
 
@@ -2435,84 +1283,32 @@ public object DisplayServer : Object() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): VirtualKeyboardType = entries.single {
+          it.id == `value`
+      }
     }
   }
 
   public enum class CursorShape(
     id: Long,
   ) {
-    /**
-     * Arrow cursor shape. This is the default when not pointing anything that overrides the mouse cursor, such as a [godot.LineEdit] or [godot.TextEdit].
-     */
     CURSOR_ARROW(0),
-    /**
-     * I-beam cursor shape. This is used by default when hovering a control that accepts text input, such as [godot.LineEdit] or [godot.TextEdit].
-     */
     CURSOR_IBEAM(1),
-    /**
-     * Pointing hand cursor shape. This is used by default when hovering a [godot.LinkButton] or a URL tag in a [godot.RichTextLabel].
-     */
     CURSOR_POINTING_HAND(2),
-    /**
-     * Crosshair cursor. This is intended to be displayed when the user needs precise aim over an element, such as a rectangle selection tool or a color picker.
-     */
     CURSOR_CROSS(3),
-    /**
-     * Wait cursor. On most cursor themes, this displays a spinning icon *besides* the arrow. Intended to be used for non-blocking operations (when the user can do something else at the moment). See also [CURSOR_BUSY].
-     */
     CURSOR_WAIT(4),
-    /**
-     * Wait cursor. On most cursor themes, this *replaces* the arrow with a spinning icon. Intended to be used for blocking operations (when the user can't do anything else at the moment). See also [CURSOR_WAIT].
-     */
     CURSOR_BUSY(5),
-    /**
-     * Dragging hand cursor. This is displayed during drag-and-drop operations. See also [CURSOR_CAN_DROP].
-     */
     CURSOR_DRAG(6),
-    /**
-     * "Can drop" cursor. This is displayed during drag-and-drop operations if hovering over a [godot.Control] that can accept the drag-and-drop event. On most cursor themes, this displays a dragging hand with an arrow symbol besides it. See also [CURSOR_DRAG].
-     */
     CURSOR_CAN_DROP(7),
-    /**
-     * Forbidden cursor. This is displayed during drag-and-drop operations if the hovered [godot.Control] can't accept the drag-and-drop event.
-     */
     CURSOR_FORBIDDEN(8),
-    /**
-     * Vertical resize cursor. Intended to be displayed when the hovered [godot.Control] can be vertically resized using the mouse. See also [CURSOR_VSPLIT].
-     */
     CURSOR_VSIZE(9),
-    /**
-     * Horizontal resize cursor. Intended to be displayed when the hovered [godot.Control] can be horizontally resized using the mouse. See also [CURSOR_HSPLIT].
-     */
     CURSOR_HSIZE(10),
-    /**
-     * Secondary diagonal resize cursor (top-right/bottom-left). Intended to be displayed when the hovered [godot.Control] can be resized on both axes at once using the mouse.
-     */
     CURSOR_BDIAGSIZE(11),
-    /**
-     * Main diagonal resize cursor (top-left/bottom-right). Intended to be displayed when the hovered [godot.Control] can be resized on both axes at once using the mouse.
-     */
     CURSOR_FDIAGSIZE(12),
-    /**
-     * Move cursor. Intended to be displayed when the hovered [godot.Control] can be moved using the mouse.
-     */
     CURSOR_MOVE(13),
-    /**
-     * Vertical split cursor. This is displayed when hovering a [godot.Control] with splits that can be vertically resized using the mouse, such as [godot.VSplitContainer]. On some cursor themes, this cursor may have the same appearance as [CURSOR_VSIZE].
-     */
     CURSOR_VSPLIT(14),
-    /**
-     * Horizontal split cursor. This is displayed when hovering a [godot.Control] with splits that can be horizontally resized using the mouse, such as [godot.HSplitContainer]. On some cursor themes, this cursor may have the same appearance as [CURSOR_HSIZE].
-     */
     CURSOR_HSPLIT(15),
-    /**
-     * Help cursor. On most cursor themes, this displays a question mark icon instead of the mouse cursor. Intended to be used when the user has requested help on the next element that will be clicked.
-     */
     CURSOR_HELP(16),
-    /**
-     * Represents the size of the [enum CursorShape] enum.
-     */
     CURSOR_MAX(17),
     ;
 
@@ -2522,46 +1318,19 @@ public object DisplayServer : Object() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): CursorShape = entries.single {
+          it.id == `value`
+      }
     }
   }
 
   public enum class WindowMode(
     id: Long,
   ) {
-    /**
-     * Windowed mode, i.e. [godot.Window] doesn't occupy the whole screen (unless set to the size of the screen).
-     */
     WINDOW_MODE_WINDOWED(0),
-    /**
-     * Minimized window mode, i.e. [godot.Window] is not visible and available on window manager's window list. Normally happens when the minimize button is pressed.
-     */
     WINDOW_MODE_MINIMIZED(1),
-    /**
-     * Maximized window mode, i.e. [godot.Window] will occupy whole screen area except task bar and still display its borders. Normally happens when the maximize button is pressed.
-     */
     WINDOW_MODE_MAXIMIZED(2),
-    /**
-     * Full screen mode with full multi-window support.
-     *
-     * Full screen window cover the entire display area of a screen, have no border or decorations. Display video mode is not changed.
-     *
-     * **Note:** Regardless of the platform, enabling full screen will change the window size to match the monitor's size. Therefore, make sure your project supports [multiple resolutions]($DOCS_URL/tutorials/rendering/multiple_resolutions.html) when enabling full screen mode.
-     */
     WINDOW_MODE_FULLSCREEN(3),
-    /**
-     * A single window full screen mode. This mode has less overhead, but only one window can be open on a given screen at a time (opening a child window or application switching will trigger a full screen transition).
-     *
-     * Full screen window cover the entire display area of a screen, have no border or decorations. Display video mode is not changed.
-     *
-     * **On Windows:** Depending on video driver, full screen transition might cause screens to go black for a moment.
-     *
-     * **On macOS:** Exclusive full screen mode prevents Dock and Menu from showing up when the mouse pointer is hovering the edge of the screen.
-     *
-     * **On Linux (X11):** Exclusive full screen mode bypasses compositor.
-     *
-     * **Note:** Regardless of the platform, enabling full screen will change the window size to match the monitor's size. Therefore, make sure your project supports [multiple resolutions]($DOCS_URL/tutorials/rendering/multiple_resolutions.html) when enabling full screen mode.
-     */
     WINDOW_MODE_EXCLUSIVE_FULLSCREEN(4),
     ;
 
@@ -2571,58 +1340,23 @@ public object DisplayServer : Object() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): WindowMode = entries.single {
+          it.id == `value`
+      }
     }
   }
 
   public enum class WindowFlags(
     id: Long,
   ) {
-    /**
-     * The window can't be resized by dragging its resize grip. It's still possible to resize the window using [windowSetSize]. This flag is ignored for full screen windows.
-     */
     WINDOW_FLAG_RESIZE_DISABLED(0),
-    /**
-     * The window do not have native title bar and other decorations. This flag is ignored for full-screen windows.
-     */
     WINDOW_FLAG_BORDERLESS(1),
-    /**
-     * The window is floating on top of all other windows. This flag is ignored for full-screen windows.
-     */
     WINDOW_FLAG_ALWAYS_ON_TOP(2),
-    /**
-     * The window background can be transparent.
-     *
-     * **Note:** This flag has no effect if [godot.ProjectSettings.display/window/perPixelTransparency/allowed] is set to `false`.
-     *
-     * **Note:** Transparency support is implemented on Linux (X11), macOS and Windows, but availability might vary depending on GPU driver, display manager, and compositor capabilities.
-     */
     WINDOW_FLAG_TRANSPARENT(3),
-    /**
-     * The window can't be focused. No-focus window will ignore all input, except mouse clicks.
-     */
     WINDOW_FLAG_NO_FOCUS(4),
-    /**
-     * Window is part of menu or [godot.OptionButton] dropdown. This flag can't be changed when the window is visible. An active popup window will exclusively receive all input, without stealing focus from its parent. Popup windows are automatically closed when uses click outside it, or when an application is switched. Popup window must have transient parent set (see [windowSetTransient]).
-     */
     WINDOW_FLAG_POPUP(5),
-    /**
-     * Window content is expanded to the full size of the window. Unlike borderless window, the frame is left intact and can be used to resize the window, title bar is transparent, but have minimize/maximize/close buttons.
-     *
-     * Use [windowSetWindowButtonsOffset] to adjust minimize/maximize/close buttons offset.
-     *
-     * Use [windowGetSafeTitleMargins] to determine area under the title bar that is not covered by decorations.
-     *
-     * **Note:** This flag is implemented only on macOS.
-     */
     WINDOW_FLAG_EXTEND_TO_TITLE(6),
-    /**
-     * All mouse events are passed to the underlying window of the same application.
-     */
     WINDOW_FLAG_MOUSE_PASSTHROUGH(7),
-    /**
-     * Max value of the [enum WindowFlags].
-     */
     WINDOW_FLAG_MAX(8),
     ;
 
@@ -2632,50 +1366,22 @@ public object DisplayServer : Object() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): WindowFlags = entries.single {
+          it.id == `value`
+      }
     }
   }
 
   public enum class WindowEvent(
     id: Long,
   ) {
-    /**
-     * Sent when the mouse pointer enters the window, see [windowSetWindowEventCallback].
-     */
     WINDOW_EVENT_MOUSE_ENTER(0),
-    /**
-     * Sent when the mouse pointer exits the window, see [windowSetWindowEventCallback].
-     */
     WINDOW_EVENT_MOUSE_EXIT(1),
-    /**
-     * Sent when the window grabs focus, see [windowSetWindowEventCallback].
-     */
     WINDOW_EVENT_FOCUS_IN(2),
-    /**
-     * Sent when the window loses focus, see [windowSetWindowEventCallback].
-     */
     WINDOW_EVENT_FOCUS_OUT(3),
-    /**
-     * Sent when the user has attempted to close the window (e.g. close button is pressed), see [windowSetWindowEventCallback].
-     */
     WINDOW_EVENT_CLOSE_REQUEST(4),
-    /**
-     * Sent when the device "Back" button is pressed, see [windowSetWindowEventCallback].
-     *
-     * **Note:** This event is implemented only on Android.
-     */
     WINDOW_EVENT_GO_BACK_REQUEST(5),
-    /**
-     * Sent when the window is moved to the display with different DPI, or display DPI is changed, see [windowSetWindowEventCallback].
-     *
-     * **Note:** This flag is implemented only on macOS.
-     */
     WINDOW_EVENT_DPI_CHANGE(6),
-    /**
-     * Sent when the window title bar decoration is changed (e.g. [WINDOW_FLAG_EXTEND_TO_TITLE] is set or window entered/exited full screen mode), see [windowSetWindowEventCallback].
-     *
-     * **Note:** This flag is implemented only on macOS.
-     */
     WINDOW_EVENT_TITLEBAR_CHANGE(7),
     ;
 
@@ -2685,30 +1391,18 @@ public object DisplayServer : Object() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): WindowEvent = entries.single {
+          it.id == `value`
+      }
     }
   }
 
   public enum class VSyncMode(
     id: Long,
   ) {
-    /**
-     * No vertical synchronization, which means the engine will display frames as fast as possible (tearing may be visible). Framerate is unlimited (notwithstanding [godot.Engine.maxFps]).
-     */
     VSYNC_DISABLED(0),
-    /**
-     * Default vertical synchronization mode, the image is displayed only on vertical blanking intervals (no tearing is visible). Framerate is limited by the monitor refresh rate (notwithstanding [godot.Engine.maxFps]).
-     */
     VSYNC_ENABLED(1),
-    /**
-     * Behaves like [VSYNC_DISABLED] when the framerate drops below the screen's refresh rate to reduce stuttering (tearing may be visible). Otherwise, vertical synchronization is enabled to avoid tearing. Framerate is limited by the monitor refresh rate (notwithstanding [godot.Engine.maxFps]). Behaves like [VSYNC_ENABLED] when using the Compatibility rendering method.
-     */
     VSYNC_ADAPTIVE(2),
-    /**
-     * Displays the most recent image in the queue on vertical blanking intervals, while rendering to the other images (no tearing is visible). Framerate is unlimited (notwithstanding [godot.Engine.maxFps]).
-     *
-     * Although not guaranteed, the images can be rendered as fast as possible, which may reduce input lag (also called "Fast" V-Sync mode). [VSYNC_MAILBOX] works best when at least twice as many frames as the display refresh rate are rendered. Behaves like [VSYNC_ENABLED] when using the Compatibility rendering method.
-     */
     VSYNC_MAILBOX(3),
     ;
 
@@ -2718,56 +1412,18 @@ public object DisplayServer : Object() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): VSyncMode = entries.single {
+          it.id == `value`
+      }
     }
   }
 
   public enum class HandleType(
     id: Long,
   ) {
-    /**
-     * Display handle:
-     *
-     * - Linux (X11): `X11::Display*` for the display.
-     *
-     * - Android: `EGLDisplay` for the display.
-     */
     DISPLAY_HANDLE(0),
-    /**
-     * Window handle:
-     *
-     * - Windows: `HWND` for the window.
-     *
-     * - Linux (X11): `X11::Window*` for the window.
-     *
-     * - macOS: `NSWindow*` for the window.
-     *
-     * - iOS: `UIViewController*` for the view controller.
-     *
-     * - Android: `jObject` for the activity.
-     */
     WINDOW_HANDLE(1),
-    /**
-     * Window view:
-     *
-     * - Windows: `HDC` for the window (only with the GL Compatibility renderer).
-     *
-     * - macOS: `NSView*` for the window main view.
-     *
-     * - iOS: `UIView*` for the window main view.
-     */
     WINDOW_VIEW(2),
-    /**
-     * OpenGL context (only with the GL Compatibility renderer):
-     *
-     * - Windows: `HGLRC` for the window.
-     *
-     * - Linux: `GLXContext*` for the window.
-     *
-     * - macOS: `NSOpenGLContext*` for the window.
-     *
-     * - Android: `EGLContext` for the window.
-     */
     OPENGL_CONTEXT(3),
     ;
 
@@ -2777,28 +1433,18 @@ public object DisplayServer : Object() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): HandleType = entries.single {
+          it.id == `value`
+      }
     }
   }
 
   public enum class TTSUtteranceEvent(
     id: Long,
   ) {
-    /**
-     * Utterance has begun to be spoken.
-     */
     TTS_UTTERANCE_STARTED(0),
-    /**
-     * Utterance was successfully finished.
-     */
     TTS_UTTERANCE_ENDED(1),
-    /**
-     * Utterance was canceled, or TTS service was unable to process it.
-     */
     TTS_UTTERANCE_CANCELED(2),
-    /**
-     * Utterance reached a word or sentence boundary.
-     */
     TTS_UTTERANCE_BOUNDARY(3),
     ;
 
@@ -2808,7 +1454,9 @@ public object DisplayServer : Object() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): TTSUtteranceEvent = entries.single {
+          it.id == `value`
+      }
     }
   }
 

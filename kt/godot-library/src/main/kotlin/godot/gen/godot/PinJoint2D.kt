@@ -18,16 +18,8 @@ import kotlin.Float
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * A physics joint that attaches two 2D physics bodies at a single point, allowing them to freely rotate.
- *
- * A physics joint that attaches two 2D physics bodies at a single point, allowing them to freely rotate. For example, a [godot.RigidBody2D] can be attached to a [godot.StaticBody2D] to create a pendulum or a seesaw.
- */
 @GodotBaseType
 public open class PinJoint2D : Joint2D() {
-  /**
-   * The higher this value, the more the bond to the pinned partner can flex.
-   */
   public var softness: Float
     get() {
       TransferContext.writeArguments()
@@ -39,7 +31,7 @@ public open class PinJoint2D : Joint2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSoftnessPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_PINJOINT2D, scriptIndex)
     return true
   }

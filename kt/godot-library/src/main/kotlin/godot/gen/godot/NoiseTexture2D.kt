@@ -152,7 +152,7 @@ public open class NoiseTexture2D : Texture2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setNoisePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_NOISETEXTURE2D, scriptIndex)
     return true
   }

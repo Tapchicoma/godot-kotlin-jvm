@@ -13,7 +13,7 @@ import kotlin.Suppress
 
 @GodotBaseType
 public open class UniformSetCacheRD internal constructor() : Object() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_UNIFORMSETCACHERD, scriptIndex)
     return true
   }

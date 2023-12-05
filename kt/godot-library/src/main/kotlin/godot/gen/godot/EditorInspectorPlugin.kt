@@ -22,64 +22,28 @@ import kotlin.Int
 import kotlin.NotImplementedError
 import kotlin.String
 import kotlin.Suppress
-import kotlin.Unit
 import kotlin.jvm.JvmOverloads
 
-/**
- * Plugin for adding custom property editors on the inspector.
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/plugins/editor/inspector_plugins.html]($DOCS_URL/tutorials/plugins/editor/inspector_plugins.html)
- *
- * [godot.EditorInspectorPlugin] allows adding custom property editors to [godot.EditorInspector].
- *
- * When an object is edited, the [_canHandle] function is called and must return `true` if the object type is supported.
- *
- * If supported, the function [_parseBegin] will be called, allowing to place custom controls at the beginning of the class.
- *
- * Subsequently, the [_parseCategory] and [_parseProperty] are called for every category and property. They offer the ability to add custom controls to the inspector too.
- *
- * Finally, [_parseEnd] will be called.
- *
- * On each of these calls, the "add" functions can be called.
- *
- * To use [godot.EditorInspectorPlugin], register it using the [godot.EditorPlugin.addInspectorPlugin] method first.
- */
 @GodotBaseType
 public open class EditorInspectorPlugin internal constructor() : RefCounted() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_EDITORINSPECTORPLUGIN, scriptIndex)
     return true
   }
 
-  /**
-   * Returns `true` if this object can be handled by this plugin.
-   */
   public open fun _canHandle(_object: Object): Boolean {
     throw NotImplementedError("_can_handle is not implemented for EditorInspectorPlugin")
   }
 
-  /**
-   * Called to allow adding controls at the beginning of the property list for [object].
-   */
-  public open fun _parseBegin(_object: Object): Unit {
+  public open fun _parseBegin(_object: Object) {
   }
 
-  /**
-   * Called to allow adding controls at the beginning of a category in the property list for [object].
-   */
-  public open fun _parseCategory(_object: Object, category: String): Unit {
+  public open fun _parseCategory(_object: Object, category: String) {
   }
 
-  /**
-   * Called to allow adding controls at the beginning of a group or a sub-group in the property list for [object].
-   */
-  public open fun _parseGroup(_object: Object, group: String): Unit {
+  public open fun _parseGroup(_object: Object, group: String) {
   }
 
-  /**
-   * Called to allow adding property-specific editors to the property list for [object]. The added editor control must extend [godot.EditorProperty]. Returning `true` removes the built-in editor for this property, otherwise allows to insert a custom editor before the built-in one.
-   */
   public open fun _parseProperty(
     _object: Object,
     type: VariantType,
@@ -92,41 +56,29 @@ public open class EditorInspectorPlugin internal constructor() : RefCounted() {
     throw NotImplementedError("_parse_property is not implemented for EditorInspectorPlugin")
   }
 
-  /**
-   * Called to allow adding controls at the end of the property list for [object].
-   */
-  public open fun _parseEnd(_object: Object): Unit {
+  public open fun _parseEnd(_object: Object) {
   }
 
-  /**
-   * Adds a custom control, which is not necessarily a property editor.
-   */
-  public fun addCustomControl(control: Control): Unit {
+  public fun addCustomControl(control: Control) {
     TransferContext.writeArguments(OBJECT to control)
     TransferContext.callMethod(rawPtr, MethodBindings.addCustomControlPtr, NIL)
   }
 
-  /**
-   * Adds a property editor for an individual property. The [editor] control must extend [godot.EditorProperty].
-   */
   @JvmOverloads
   public fun addPropertyEditor(
     `property`: String,
     editor: Control,
     addToEnd: Boolean = false,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(STRING to property, OBJECT to editor, BOOL to addToEnd)
     TransferContext.callMethod(rawPtr, MethodBindings.addPropertyEditorPtr, NIL)
   }
 
-  /**
-   * Adds an editor that allows modifying multiple properties. The [editor] control must extend [godot.EditorProperty].
-   */
   public fun addPropertyEditorForMultipleProperties(
     label: String,
     properties: PackedStringArray,
     editor: Control,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(STRING to label, PACKED_STRING_ARRAY to properties, OBJECT to editor)
     TransferContext.callMethod(rawPtr, MethodBindings.addPropertyEditorForMultiplePropertiesPtr,
         NIL)

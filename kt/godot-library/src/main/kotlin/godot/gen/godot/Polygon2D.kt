@@ -40,16 +40,8 @@ import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 
-/**
- * A 2D polygon.
- *
- * A Polygon2D is defined by a set of points. Each point is connected to the next, with the final point being connected to the first, resulting in a closed polygon. Polygon2Ds can be filled with color (solid or gradient) or filled with a given texture.
- */
 @GodotBaseType
 public open class Polygon2D : Node2D() {
-  /**
-   * The polygon's fill color. If `texture` is defined, it will be multiplied by this color. It will also be the default color for vertices not set in `vertex_colors`.
-   */
   @CoreTypeLocalCopy
   public var color: Color
     get() {
@@ -62,9 +54,6 @@ public open class Polygon2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setColorPtr, NIL)
     }
 
-  /**
-   * The offset applied to each vertex.
-   */
   @CoreTypeLocalCopy
   public var offset: Vector2
     get() {
@@ -77,9 +66,6 @@ public open class Polygon2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setOffsetPtr, NIL)
     }
 
-  /**
-   * If `true`, polygon edges will be anti-aliased.
-   */
   public var antialiased: Boolean
     get() {
       TransferContext.writeArguments()
@@ -91,9 +77,6 @@ public open class Polygon2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAntialiasedPtr, NIL)
     }
 
-  /**
-   * The polygon's fill texture. Use `uv` to set texture coordinates.
-   */
   public var texture: Texture2D?
     get() {
       TransferContext.writeArguments()
@@ -105,9 +88,6 @@ public open class Polygon2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTexturePtr, NIL)
     }
 
-  /**
-   * Amount to offset the polygon's `texture`. If `(0, 0)` the texture's origin (its top-left corner) will be placed at the polygon's `position`.
-   */
   @CoreTypeLocalCopy
   public var textureOffset: Vector2
     get() {
@@ -120,9 +100,6 @@ public open class Polygon2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTextureOffsetPtr, NIL)
     }
 
-  /**
-   * Amount to multiply the `uv` coordinates when using a `texture`. Larger values make the texture smaller, and vice versa.
-   */
   @CoreTypeLocalCopy
   public var textureScale: Vector2
     get() {
@@ -135,9 +112,6 @@ public open class Polygon2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTextureScalePtr, NIL)
     }
 
-  /**
-   * The texture's rotation in radians.
-   */
   public var textureRotation: Float
     get() {
       TransferContext.writeArguments()
@@ -149,9 +123,6 @@ public open class Polygon2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTextureRotationPtr, NIL)
     }
 
-  /**
-   * Path to a [godot.Skeleton2D] node used for skeleton-based deformations of this polygon. If empty or invalid, skeletal deformations will not be used.
-   */
   public var skeleton: NodePath
     get() {
       TransferContext.writeArguments()
@@ -163,9 +134,6 @@ public open class Polygon2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSkeletonPtr, NIL)
     }
 
-  /**
-   * If `true`, the polygon will be inverted, containing the area outside the defined points and extending to the [invertBorder].
-   */
   public var invertEnabled: Boolean
     get() {
       TransferContext.writeArguments()
@@ -177,9 +145,6 @@ public open class Polygon2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setInvertEnabledPtr, NIL)
     }
 
-  /**
-   * Added padding applied to the bounding box when [invertEnabled] is set to `true`. Setting this value too small may result in a "Bad Polygon" error.
-   */
   public var invertBorder: Float
     get() {
       TransferContext.writeArguments()
@@ -191,11 +156,6 @@ public open class Polygon2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setInvertBorderPtr, NIL)
     }
 
-  /**
-   * The polygon's list of vertices. The final point will be connected to the first.
-   *
-   * **Note:** This returns a copy of the [godot.PackedVector2Array] rather than a reference.
-   */
   public var polygon: PackedVector2Array
     get() {
       TransferContext.writeArguments()
@@ -207,9 +167,6 @@ public open class Polygon2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setPolygonPtr, NIL)
     }
 
-  /**
-   * Texture coordinates for each vertex of the polygon. There should be one `uv` per polygon vertex. If there are fewer, undefined vertices will use `(0, 0)`.
-   */
   public var uv: PackedVector2Array
     get() {
       TransferContext.writeArguments()
@@ -221,9 +178,6 @@ public open class Polygon2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setUvPtr, NIL)
     }
 
-  /**
-   * Color for each vertex. Colors are interpolated between vertices, resulting in smooth gradients. There should be one per polygon vertex. If there are fewer, undefined vertices will use `color`.
-   */
   public var vertexColors: PackedColorArray
     get() {
       TransferContext.writeArguments()
@@ -235,9 +189,6 @@ public open class Polygon2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setVertexColorsPtr, NIL)
     }
 
-  /**
-   * The list of polygons, in case more than one is being represented. Every individual polygon is stored as a [godot.PackedInt32Array] where each [int] is an index to a point in [polygon]. If empty, this property will be ignored, and the resulting single polygon will be composed of all points in [polygon], using the order they are stored in.
-   */
   public var polygons: VariantArray<Any?>
     get() {
       TransferContext.writeArguments()
@@ -249,9 +200,6 @@ public open class Polygon2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setPolygonsPtr, NIL)
     }
 
-  /**
-   * Number of internal vertices, used for UV mapping.
-   */
   public var internalVertexCount: Int
     get() {
       TransferContext.writeArguments()
@@ -263,14 +211,12 @@ public open class Polygon2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setInternalVertexCountPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_POLYGON2D, scriptIndex)
     return true
   }
 
   /**
-   * The polygon's fill color. If `texture` is defined, it will be multiplied by this color. It will also be the default color for vertices not set in `vertex_colors`.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -293,8 +239,6 @@ public open class Polygon2D : Node2D() {
 
 
   /**
-   * The offset applied to each vertex.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -317,8 +261,6 @@ public open class Polygon2D : Node2D() {
 
 
   /**
-   * Amount to offset the polygon's `texture`. If `(0, 0)` the texture's origin (its top-left corner) will be placed at the polygon's `position`.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -341,8 +283,6 @@ public open class Polygon2D : Node2D() {
 
 
   /**
-   * Amount to multiply the `uv` coordinates when using a `texture`. Larger values make the texture smaller, and vice versa.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -364,69 +304,45 @@ public open class Polygon2D : Node2D() {
   }
 
 
-  /**
-   * Adds a bone with the specified [path] and [weights].
-   */
-  public fun addBone(path: NodePath, weights: PackedFloat32Array): Unit {
+  public fun addBone(path: NodePath, weights: PackedFloat32Array) {
     TransferContext.writeArguments(NODE_PATH to path, PACKED_FLOAT_32_ARRAY to weights)
     TransferContext.callMethod(rawPtr, MethodBindings.addBonePtr, NIL)
   }
 
-  /**
-   * Returns the number of bones in this [godot.Polygon2D].
-   */
   public fun getBoneCount(): Int {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getBoneCountPtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Returns the path to the node associated with the specified bone.
-   */
   public fun getBonePath(index: Int): NodePath {
     TransferContext.writeArguments(LONG to index.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getBonePathPtr, NODE_PATH)
     return (TransferContext.readReturnValue(NODE_PATH, false) as NodePath)
   }
 
-  /**
-   * Returns the weight values of the specified bone.
-   */
   public fun getBoneWeights(index: Int): PackedFloat32Array {
     TransferContext.writeArguments(LONG to index.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getBoneWeightsPtr, PACKED_FLOAT_32_ARRAY)
     return (TransferContext.readReturnValue(PACKED_FLOAT_32_ARRAY, false) as PackedFloat32Array)
   }
 
-  /**
-   * Removes the specified bone from this [godot.Polygon2D].
-   */
-  public fun eraseBone(index: Int): Unit {
+  public fun eraseBone(index: Int) {
     TransferContext.writeArguments(LONG to index.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.eraseBonePtr, NIL)
   }
 
-  /**
-   * Removes all bones from this [godot.Polygon2D].
-   */
-  public fun clearBones(): Unit {
+  public fun clearBones() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.clearBonesPtr, NIL)
   }
 
-  /**
-   * Sets the path to the node associated with the specified bone.
-   */
-  public fun setBonePath(index: Int, path: NodePath): Unit {
+  public fun setBonePath(index: Int, path: NodePath) {
     TransferContext.writeArguments(LONG to index.toLong(), NODE_PATH to path)
     TransferContext.callMethod(rawPtr, MethodBindings.setBonePathPtr, NIL)
   }
 
-  /**
-   * Sets the weight values for the specified bone.
-   */
-  public fun setBoneWeights(index: Int, weights: PackedFloat32Array): Unit {
+  public fun setBoneWeights(index: Int, weights: PackedFloat32Array) {
     TransferContext.writeArguments(LONG to index.toLong(), PACKED_FLOAT_32_ARRAY to weights)
     TransferContext.callMethod(rawPtr, MethodBindings.setBoneWeightsPtr, NIL)
   }

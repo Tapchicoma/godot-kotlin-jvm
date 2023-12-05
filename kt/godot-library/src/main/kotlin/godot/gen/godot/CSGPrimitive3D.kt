@@ -29,7 +29,7 @@ public open class CSGPrimitive3D internal constructor() : CSGShape3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFlipFacesPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_CSGPRIMITIVE3D, scriptIndex)
     return true
   }

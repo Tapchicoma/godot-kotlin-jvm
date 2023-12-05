@@ -17,16 +17,8 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
 
-/**
- * Performs a fused multiply-add operation within the visual shader graph.
- *
- * Uses three operands to compute `(a * b + c)` expression.
- */
 @GodotBaseType
 public open class VisualShaderNodeMultiplyAdd : VisualShaderNode() {
-  /**
-   * A type of operands and returned value.
-   */
   public var opType: OpType
     get() {
       TransferContext.writeArguments()
@@ -38,7 +30,7 @@ public open class VisualShaderNodeMultiplyAdd : VisualShaderNode() {
       TransferContext.callMethod(rawPtr, MethodBindings.setOpTypePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_VISUALSHADERNODEMULTIPLYADD, scriptIndex)
     return true
   }
@@ -46,25 +38,10 @@ public open class VisualShaderNodeMultiplyAdd : VisualShaderNode() {
   public enum class OpType(
     id: Long,
   ) {
-    /**
-     * A floating-point scalar type.
-     */
     OP_TYPE_SCALAR(0),
-    /**
-     * A 2D vector type.
-     */
     OP_TYPE_VECTOR_2D(1),
-    /**
-     * A 3D vector type.
-     */
     OP_TYPE_VECTOR_3D(2),
-    /**
-     * A 4D vector type.
-     */
     OP_TYPE_VECTOR_4D(3),
-    /**
-     * Represents the size of the [enum OpType] enum.
-     */
     OP_TYPE_MAX(4),
     ;
 
@@ -74,7 +51,9 @@ public open class VisualShaderNodeMultiplyAdd : VisualShaderNode() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): OpType = entries.single {
+          it.id == `value`
+      }
     }
   }
 

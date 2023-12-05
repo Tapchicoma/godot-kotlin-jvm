@@ -11,17 +11,9 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * Class representing a square mesh facing the camera.
- *
- * Tutorials:
- * [https://godotengine.org/asset-library/asset/129](https://godotengine.org/asset-library/asset/129)
- *
- * Class representing a square [godot.PrimitiveMesh]. This flat mesh does not have a thickness. By default, this mesh is aligned on the X and Y axes; this rotation is more suited for use with billboarded materials. A [godot.QuadMesh] is equivalent to a [godot.PlaneMesh] except its default [godot.PlaneMesh.orientation] is [godot.PlaneMesh.FACE_Z].
- */
 @GodotBaseType
 public open class QuadMesh : PlaneMesh() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_QUADMESH, scriptIndex)
     return true
   }

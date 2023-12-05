@@ -22,20 +22,8 @@ import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 
-/**
- * Generate an axis-aligned box [godot.PrimitiveMesh].
- *
- * Generate an axis-aligned box [godot.PrimitiveMesh].
- *
- * The box's UV layout is arranged in a 3×2 layout that allows texturing each face individually. To apply the same texture on all faces, change the material's UV property to `Vector3(3, 2, 1)`. This is equivalent to adding `UV *= vec2(3.0, 2.0)` in a vertex shader.
- *
- * **Note:** When using a large textured [godot.BoxMesh] (e.g. as a floor), you may stumble upon UV jittering issues depending on the camera angle. To solve this, increase [subdivideDepth], [subdivideHeight] and [subdivideWidth] until you no longer notice UV jittering.
- */
 @GodotBaseType
 public open class BoxMesh : PrimitiveMesh() {
-  /**
-   * The box's width, height and depth.
-   */
   @CoreTypeLocalCopy
   public var size: Vector3
     get() {
@@ -48,9 +36,6 @@ public open class BoxMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSizePtr, NIL)
     }
 
-  /**
-   * Number of extra edge loops inserted along the X axis.
-   */
   public var subdivideWidth: Int
     get() {
       TransferContext.writeArguments()
@@ -62,9 +47,6 @@ public open class BoxMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSubdivideWidthPtr, NIL)
     }
 
-  /**
-   * Number of extra edge loops inserted along the Y axis.
-   */
   public var subdivideHeight: Int
     get() {
       TransferContext.writeArguments()
@@ -76,9 +58,6 @@ public open class BoxMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSubdivideHeightPtr, NIL)
     }
 
-  /**
-   * Number of extra edge loops inserted along the Z axis.
-   */
   public var subdivideDepth: Int
     get() {
       TransferContext.writeArguments()
@@ -90,14 +69,12 @@ public open class BoxMesh : PrimitiveMesh() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSubdivideDepthPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_BOXMESH, scriptIndex)
     return true
   }
 
   /**
-   * The box's width, height and depth.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our

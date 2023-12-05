@@ -48,7 +48,7 @@ public open class RegExMatch : RefCounted() {
       return (TransferContext.readReturnValue(PACKED_STRING_ARRAY, false) as PackedStringArray)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_REGEXMATCH, scriptIndex)
     return true
   }

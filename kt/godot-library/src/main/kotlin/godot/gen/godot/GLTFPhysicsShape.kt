@@ -113,7 +113,7 @@ public open class GLTFPhysicsShape : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setImporterMeshPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_GLTFPHYSICSSHAPE, scriptIndex)
     return true
   }

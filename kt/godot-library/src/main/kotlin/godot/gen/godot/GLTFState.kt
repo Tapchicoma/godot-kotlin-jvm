@@ -32,7 +32,6 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
-import kotlin.Unit
 
 @GodotBaseType
 public open class GLTFState : Resource() {
@@ -322,12 +321,12 @@ public open class GLTFState : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setHandleBinaryImagePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_GLTFSTATE, scriptIndex)
     return true
   }
 
-  public fun addUsedExtension(extensionName: String, required: Boolean): Unit {
+  public fun addUsedExtension(extensionName: String, required: Boolean) {
     TransferContext.writeArguments(STRING to extensionName, BOOL to required)
     TransferContext.callMethod(rawPtr, MethodBindings.addUsedExtensionPtr, NIL)
   }
@@ -362,7 +361,7 @@ public open class GLTFState : Resource() {
     return (TransferContext.readReturnValue(ANY, true) as Any?)
   }
 
-  public fun setAdditionalData(extensionName: StringName, additionalData: Any?): Unit {
+  public fun setAdditionalData(extensionName: StringName, additionalData: Any?) {
     TransferContext.writeArguments(STRING_NAME to extensionName, ANY to additionalData)
     TransferContext.callMethod(rawPtr, MethodBindings.setAdditionalDataPtr, NIL)
   }

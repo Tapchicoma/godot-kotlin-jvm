@@ -17,16 +17,8 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
 
-/**
- * Computes a [godot.Transform3D] function within the visual shader graph.
- *
- * Computes an inverse or transpose function on the provided [godot.Transform3D].
- */
 @GodotBaseType
 public open class VisualShaderNodeTransformFunc : VisualShaderNode() {
-  /**
-   * The function to be computed. See [enum Function] for options.
-   */
   public var function: Function
     get() {
       TransferContext.writeArguments()
@@ -38,7 +30,7 @@ public open class VisualShaderNodeTransformFunc : VisualShaderNode() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFunctionPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_VISUALSHADERNODETRANSFORMFUNC, scriptIndex)
     return true
   }
@@ -46,17 +38,8 @@ public open class VisualShaderNodeTransformFunc : VisualShaderNode() {
   public enum class Function(
     id: Long,
   ) {
-    /**
-     * Perform the inverse operation on the [godot.Transform3D] matrix.
-     */
     FUNC_INVERSE(0),
-    /**
-     * Perform the transpose operation on the [godot.Transform3D] matrix.
-     */
     FUNC_TRANSPOSE(1),
-    /**
-     * Represents the size of the [enum Function] enum.
-     */
     FUNC_MAX(2),
     ;
 
@@ -66,7 +49,9 @@ public open class VisualShaderNodeTransformFunc : VisualShaderNode() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): Function = entries.single {
+          it.id == `value`
+      }
     }
   }
 

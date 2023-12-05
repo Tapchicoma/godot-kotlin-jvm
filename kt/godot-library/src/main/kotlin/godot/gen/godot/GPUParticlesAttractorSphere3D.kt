@@ -18,20 +18,8 @@ import kotlin.Float
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * Ellipse-shaped 3D particle attractor affecting [godot.GPUParticles3D] nodes.
- *
- * Ellipse-shaped 3D particle attractor affecting [godot.GPUParticles3D] nodes.
- *
- * **Note:** Particle attractors only affect [godot.GPUParticles3D], not [godot.CPUParticles3D].
- */
 @GodotBaseType
 public open class GPUParticlesAttractorSphere3D : GPUParticlesAttractor3D() {
-  /**
-   * The attractor sphere's radius in 3D units.
-   *
-   * **Note:** Stretched ellipses can be obtained by using non-uniform scaling on the [godot.GPUParticlesAttractorSphere3D] node.
-   */
   public var radius: Float
     get() {
       TransferContext.writeArguments()
@@ -43,7 +31,7 @@ public open class GPUParticlesAttractorSphere3D : GPUParticlesAttractor3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRadiusPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_GPUPARTICLESATTRACTORSPHERE3D, scriptIndex)
     return true
   }

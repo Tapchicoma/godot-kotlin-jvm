@@ -16,21 +16,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * Node that instances a [godot.MultiMesh].
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/performance/using_multimesh.html]($DOCS_URL/tutorials/performance/using_multimesh.html)
- *
- * [godot.MultiMeshInstance3D] is a specialized node to instance [godot.GeometryInstance3D]s based on a [godot.MultiMesh] resource.
- *
- * This is useful to optimize the rendering of a high number of instances of a given mesh (for example trees in a forest or grass strands).
- */
 @GodotBaseType
 public open class MultiMeshInstance3D : GeometryInstance3D() {
-  /**
-   * The [godot.MultiMesh] resource that will be used and shared among all instances of the [godot.MultiMeshInstance3D].
-   */
   public var multimesh: MultiMesh?
     get() {
       TransferContext.writeArguments()
@@ -42,7 +29,7 @@ public open class MultiMeshInstance3D : GeometryInstance3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setMultimeshPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_MULTIMESHINSTANCE3D, scriptIndex)
     return true
   }

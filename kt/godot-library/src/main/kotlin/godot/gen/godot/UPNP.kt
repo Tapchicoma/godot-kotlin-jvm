@@ -20,7 +20,6 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
-import kotlin.Unit
 import kotlin.jvm.JvmOverloads
 
 @GodotBaseType
@@ -58,7 +57,7 @@ public open class UPNP : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDiscoverIpv6Ptr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_UPNP, scriptIndex)
     return true
   }
@@ -75,22 +74,22 @@ public open class UPNP : RefCounted() {
     return (TransferContext.readReturnValue(OBJECT, true) as UPNPDevice?)
   }
 
-  public fun addDevice(device: UPNPDevice): Unit {
+  public fun addDevice(device: UPNPDevice) {
     TransferContext.writeArguments(OBJECT to device)
     TransferContext.callMethod(rawPtr, MethodBindings.addDevicePtr, NIL)
   }
 
-  public fun setDevice(index: Int, device: UPNPDevice): Unit {
+  public fun setDevice(index: Int, device: UPNPDevice) {
     TransferContext.writeArguments(LONG to index.toLong(), OBJECT to device)
     TransferContext.callMethod(rawPtr, MethodBindings.setDevicePtr, NIL)
   }
 
-  public fun removeDevice(index: Int): Unit {
+  public fun removeDevice(index: Int) {
     TransferContext.writeArguments(LONG to index.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.removeDevicePtr, NIL)
   }
 
-  public fun clearDevices(): Unit {
+  public fun clearDevices() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.clearDevicesPtr, NIL)
   }
@@ -178,7 +177,9 @@ public open class UPNP : RefCounted() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): UPNPResult = entries.single {
+          it.id == `value`
+      }
     }
   }
 

@@ -11,14 +11,9 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * Provides a 3D texture parameter within the visual shader graph.
- *
- * Translated to `uniform sampler3D` in the shader language.
- */
 @GodotBaseType
 public open class VisualShaderNodeTexture3DParameter : VisualShaderNodeTextureParameter() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_VISUALSHADERNODETEXTURE3DPARAMETER, scriptIndex)
     return true
   }

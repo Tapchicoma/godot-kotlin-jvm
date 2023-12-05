@@ -13,7 +13,7 @@ import kotlin.Suppress
 
 @GodotBaseType
 public open class GLTFDocumentExtensionPhysics internal constructor() : GLTFDocumentExtension() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_GLTFDOCUMENTEXTENSIONPHYSICS, scriptIndex)
     return true
   }

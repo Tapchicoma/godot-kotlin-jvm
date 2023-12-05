@@ -17,16 +17,8 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
 
-/**
- * Vertex attribute (used by [godot.RenderingDevice]).
- *
- * This object is used by [godot.RenderingDevice].
- */
 @GodotBaseType
 public open class RDVertexAttribute : RefCounted() {
-  /**
-   *
-   */
   public var location: Long
     get() {
       TransferContext.writeArguments()
@@ -38,9 +30,6 @@ public open class RDVertexAttribute : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setLocationPtr, NIL)
     }
 
-  /**
-   *
-   */
   public var offset: Long
     get() {
       TransferContext.writeArguments()
@@ -52,9 +41,6 @@ public open class RDVertexAttribute : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setOffsetPtr, NIL)
     }
 
-  /**
-   *
-   */
   public var format: RenderingDevice.DataFormat
     get() {
       TransferContext.writeArguments()
@@ -66,9 +52,6 @@ public open class RDVertexAttribute : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFormatPtr, NIL)
     }
 
-  /**
-   *
-   */
   public var stride: Long
     get() {
       TransferContext.writeArguments()
@@ -80,9 +63,6 @@ public open class RDVertexAttribute : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setStridePtr, NIL)
     }
 
-  /**
-   *
-   */
   public var frequency: RenderingDevice.VertexFrequency
     get() {
       TransferContext.writeArguments()
@@ -94,7 +74,7 @@ public open class RDVertexAttribute : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFrequencyPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_RDVERTEXATTRIBUTE, scriptIndex)
     return true
   }

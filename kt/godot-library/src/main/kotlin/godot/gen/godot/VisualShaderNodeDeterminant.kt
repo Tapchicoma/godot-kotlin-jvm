@@ -11,14 +11,9 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * Calculates the determinant of a [godot.Transform3D] within the visual shader graph.
- *
- * Translates to `determinant(x)` in the shader language.
- */
 @GodotBaseType
 public open class VisualShaderNodeDeterminant : VisualShaderNode() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_VISUALSHADERNODEDETERMINANT, scriptIndex)
     return true
   }

@@ -22,20 +22,9 @@ import kotlin.Float
 import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
-import kotlin.Unit
 
-/**
- * A modification that rotates two bones using the law of cosines to reach the target.
- *
- * This [godot.SkeletonModification2D] uses an algorithm typically called TwoBoneIK. This algorithm works by leveraging the law of cosines and the lengths of the bones to figure out what rotation the bones currently have, and what rotation they need to make a complete triangle, where the first bone, the second bone, and the target form the three vertices of the triangle. Because the algorithm works by making a triangle, it can only operate on two bones.
- *
- * TwoBoneIK is great for arms, legs, and really any joints that can be represented by just two bones that bend to reach a target. This solver is more lightweight than [godot.SkeletonModification2DFABRIK], but gives similar, natural looking results.
- */
 @GodotBaseType
 public open class SkeletonModification2DTwoBoneIK : SkeletonModification2D() {
-  /**
-   * The NodePath to the node that is the target for the TwoBoneIK modification. This node is what the modification will use when bending the [godot.Bone2D] nodes.
-   */
   public var targetNodepath: NodePath
     get() {
       TransferContext.writeArguments()
@@ -47,9 +36,6 @@ public open class SkeletonModification2DTwoBoneIK : SkeletonModification2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTargetNodePtr, NIL)
     }
 
-  /**
-   * The minimum distance the target can be at. If the target is closer than this distance, the modification will solve as if it's at this minimum distance. When set to `0`, the modification will solve without distance constraints.
-   */
   public var targetMinimumDistance: Float
     get() {
       TransferContext.writeArguments()
@@ -61,9 +47,6 @@ public open class SkeletonModification2DTwoBoneIK : SkeletonModification2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTargetMinimumDistancePtr, NIL)
     }
 
-  /**
-   * The maximum distance the target can be at. If the target is farther than this distance, the modification will solve as if it's at this maximum distance. When set to `0`, the modification will solve without distance constraints.
-   */
   public var targetMaximumDistance: Float
     get() {
       TransferContext.writeArguments()
@@ -75,9 +58,6 @@ public open class SkeletonModification2DTwoBoneIK : SkeletonModification2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTargetMaximumDistancePtr, NIL)
     }
 
-  /**
-   * If `true`, the bones in the modification will blend outward as opposed to inwards when contracting. If `false`, the bones will bend inwards when contracting.
-   */
   public var flipBendDirection: Boolean
     get() {
       TransferContext.writeArguments()
@@ -89,73 +69,49 @@ public open class SkeletonModification2DTwoBoneIK : SkeletonModification2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFlipBendDirectionPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_SKELETONMODIFICATION2DTWOBONEIK, scriptIndex)
     return true
   }
 
-  /**
-   * Sets the [godot.Bone2D] node that is being used as the first bone in the TwoBoneIK modification.
-   */
-  public fun setJointOneBone2dNode(bone2dNode: NodePath): Unit {
+  public fun setJointOneBone2dNode(bone2dNode: NodePath) {
     TransferContext.writeArguments(NODE_PATH to bone2dNode)
     TransferContext.callMethod(rawPtr, MethodBindings.setJointOneBone2dNodePtr, NIL)
   }
 
-  /**
-   * Returns the [godot.Bone2D] node that is being used as the first bone in the TwoBoneIK modification.
-   */
   public fun getJointOneBone2dNode(): NodePath {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getJointOneBone2dNodePtr, NODE_PATH)
     return (TransferContext.readReturnValue(NODE_PATH, false) as NodePath)
   }
 
-  /**
-   * Sets the index of the [godot.Bone2D] node that is being used as the first bone in the TwoBoneIK modification.
-   */
-  public fun setJointOneBoneIdx(boneIdx: Int): Unit {
+  public fun setJointOneBoneIdx(boneIdx: Int) {
     TransferContext.writeArguments(LONG to boneIdx.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.setJointOneBoneIdxPtr, NIL)
   }
 
-  /**
-   * Returns the index of the [godot.Bone2D] node that is being used as the first bone in the TwoBoneIK modification.
-   */
   public fun getJointOneBoneIdx(): Int {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getJointOneBoneIdxPtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Sets the [godot.Bone2D] node that is being used as the second bone in the TwoBoneIK modification.
-   */
-  public fun setJointTwoBone2dNode(bone2dNode: NodePath): Unit {
+  public fun setJointTwoBone2dNode(bone2dNode: NodePath) {
     TransferContext.writeArguments(NODE_PATH to bone2dNode)
     TransferContext.callMethod(rawPtr, MethodBindings.setJointTwoBone2dNodePtr, NIL)
   }
 
-  /**
-   * Returns the [godot.Bone2D] node that is being used as the second bone in the TwoBoneIK modification.
-   */
   public fun getJointTwoBone2dNode(): NodePath {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getJointTwoBone2dNodePtr, NODE_PATH)
     return (TransferContext.readReturnValue(NODE_PATH, false) as NodePath)
   }
 
-  /**
-   * Sets the index of the [godot.Bone2D] node that is being used as the second bone in the TwoBoneIK modification.
-   */
-  public fun setJointTwoBoneIdx(boneIdx: Int): Unit {
+  public fun setJointTwoBoneIdx(boneIdx: Int) {
     TransferContext.writeArguments(LONG to boneIdx.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.setJointTwoBoneIdxPtr, NIL)
   }
 
-  /**
-   * Returns the index of the [godot.Bone2D] node that is being used as the second bone in the TwoBoneIK modification.
-   */
   public fun getJointTwoBoneIdx(): Int {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getJointTwoBoneIdxPtr, LONG)

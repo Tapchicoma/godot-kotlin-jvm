@@ -22,34 +22,16 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
 import kotlin.Suppress
-import kotlin.Unit
 import kotlin.jvm.JvmOverloads
 
-/**
- * A base dialog used for user notification.
- *
- * The default use of [godot.AcceptDialog] is to allow it to only be accepted or closed, with the same result. However, the [confirmed] and [canceled] signals allow to make the two actions different, and the [addButton] method allows to add custom buttons and actions.
- */
 @GodotBaseType
 public open class AcceptDialog : Window() {
-  /**
-   * Emitted when the dialog is accepted, i.e. the OK button is pressed.
-   */
   public val confirmed: Signal0 by signal()
 
-  /**
-   * Emitted when the dialog is closed or the button created with [addCancelButton] is pressed.
-   */
   public val canceled: Signal0 by signal()
 
-  /**
-   * Emitted when a custom button is pressed. See [addButton].
-   */
   public val customAction: Signal1<StringName> by signal("action")
 
-  /**
-   * The text displayed by the OK button (see [getOkButton]).
-   */
   public var okButtonText: String
     get() {
       TransferContext.writeArguments()
@@ -61,9 +43,6 @@ public open class AcceptDialog : Window() {
       TransferContext.callMethod(rawPtr, MethodBindings.setOkButtonTextPtr, NIL)
     }
 
-  /**
-   * The text displayed by the dialog.
-   */
   public var dialogText: String
     get() {
       TransferContext.writeArguments()
@@ -75,11 +54,6 @@ public open class AcceptDialog : Window() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTextPtr, NIL)
     }
 
-  /**
-   * If `true`, the dialog is hidden when the OK button is pressed. You can set it to `false` if you want to do e.g. input validation when receiving the [confirmed] signal, and handle hiding the dialog in your own logic.
-   *
-   * **Note:** Some nodes derived from this class can have a different default value, and potentially their own built-in logic overriding this setting. For example [godot.FileDialog] defaults to `false`, and has its own input validation code that is called when you press OK, which eventually hides the dialog if the input is valid. As such, this property can't be used in [godot.FileDialog] to disable hiding the dialog when pressing OK.
-   */
   public var dialogHideOnOk: Boolean
     get() {
       TransferContext.writeArguments()
@@ -91,9 +65,6 @@ public open class AcceptDialog : Window() {
       TransferContext.callMethod(rawPtr, MethodBindings.setHideOnOkPtr, NIL)
     }
 
-  /**
-   * If `true`, the dialog will be hidden when the escape key ([KEY_ESCAPE]) is pressed.
-   */
   public var dialogCloseOnEscape: Boolean
     get() {
       TransferContext.writeArguments()
@@ -105,9 +76,6 @@ public open class AcceptDialog : Window() {
       TransferContext.callMethod(rawPtr, MethodBindings.setCloseOnEscapePtr, NIL)
     }
 
-  /**
-   * Sets autowrapping for the text in the dialog.
-   */
   public var dialogAutowrap: Boolean
     get() {
       TransferContext.writeArguments()
@@ -119,40 +87,23 @@ public open class AcceptDialog : Window() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAutowrapPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_ACCEPTDIALOG, scriptIndex)
     return true
   }
 
-  /**
-   * Returns the OK [godot.Button] instance.
-   *
-   * **Warning:** This is a required internal node, removing and freeing it may cause a crash. If you wish to hide it or any of its children, use their [godot.CanvasItem.visible] property.
-   */
   public fun getOkButton(): Button? {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getOkButtonPtr, OBJECT)
     return (TransferContext.readReturnValue(OBJECT, true) as Button?)
   }
 
-  /**
-   * Returns the label used for built-in text.
-   *
-   * **Warning:** This is a required internal node, removing and freeing it may cause a crash. If you wish to hide it or any of its children, use their [godot.CanvasItem.visible] property.
-   */
   public fun getLabel(): Label? {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getLabelPtr, OBJECT)
     return (TransferContext.readReturnValue(OBJECT, true) as Label?)
   }
 
-  /**
-   * Adds a button with label [text] and a custom [action] to the dialog and returns the created button. [action] will be passed to the [customAction] signal when pressed.
-   *
-   * If `true`, [right] will place the button to the right of any sibling buttons.
-   *
-   * You can use [removeButton] method to remove a button created with this method from the dialog.
-   */
   @JvmOverloads
   public fun addButton(
     text: String,
@@ -164,29 +115,18 @@ public open class AcceptDialog : Window() {
     return (TransferContext.readReturnValue(OBJECT, true) as Button?)
   }
 
-  /**
-   * Adds a button with label [name] and a cancel action to the dialog and returns the created button.
-   *
-   * You can use [removeButton] method to remove a button created with this method from the dialog.
-   */
   public fun addCancelButton(name: String): Button? {
     TransferContext.writeArguments(STRING to name)
     TransferContext.callMethod(rawPtr, MethodBindings.addCancelButtonPtr, OBJECT)
     return (TransferContext.readReturnValue(OBJECT, true) as Button?)
   }
 
-  /**
-   * Removes the [button] from the dialog. Does NOT free the [button]. The [button] must be a [godot.Button] added with [addButton] or [addCancelButton] method. After removal, pressing the [button] will no longer emit this dialog's [customAction] or [canceled] signals.
-   */
-  public fun removeButton(button: Control): Unit {
+  public fun removeButton(button: Control) {
     TransferContext.writeArguments(OBJECT to button)
     TransferContext.callMethod(rawPtr, MethodBindings.removeButtonPtr, NIL)
   }
 
-  /**
-   * Registers a [godot.LineEdit] in the dialog. When the enter key is pressed, the dialog will be accepted.
-   */
-  public fun registerTextEnter(lineEdit: Control): Unit {
+  public fun registerTextEnter(lineEdit: Control) {
     TransferContext.writeArguments(OBJECT to lineEdit)
     TransferContext.callMethod(rawPtr, MethodBindings.registerTextEnterPtr, NIL)
   }

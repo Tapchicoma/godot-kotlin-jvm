@@ -11,14 +11,9 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * Performs an SDF (signed-distance field) texture lookup within the visual shader graph.
- *
- * Translates to `texture_sdf(sdf_pos)` in the shader language.
- */
 @GodotBaseType
 public open class VisualShaderNodeTextureSDF : VisualShaderNode() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_VISUALSHADERNODETEXTURESDF, scriptIndex)
     return true
   }

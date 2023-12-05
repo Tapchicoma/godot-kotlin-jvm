@@ -26,140 +26,83 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
-import kotlin.Unit
 
-/**
- * Library of meshes.
- *
- * Tutorials:
- * [https://godotengine.org/asset-library/asset/125](https://godotengine.org/asset-library/asset/125)
- *
- * A library of meshes. Contains a list of [godot.Mesh] resources, each with a name and ID. Each item can also include collision and navigation shapes. This resource is used in [godot.GridMap].
- */
 @GodotBaseType
 public open class MeshLibrary : Resource() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_MESHLIBRARY, scriptIndex)
     return true
   }
 
-  /**
-   * Creates a new item in the library with the given ID.
-   *
-   * You can get an unused ID from [getLastUnusedItemId].
-   */
-  public fun createItem(id: Int): Unit {
+  public fun createItem(id: Int) {
     TransferContext.writeArguments(LONG to id.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.createItemPtr, NIL)
   }
 
-  /**
-   * Sets the item's name.
-   *
-   * This name is shown in the editor. It can also be used to look up the item later using [findItemByName].
-   */
-  public fun setItemName(id: Int, name: String): Unit {
+  public fun setItemName(id: Int, name: String) {
     TransferContext.writeArguments(LONG to id.toLong(), STRING to name)
     TransferContext.callMethod(rawPtr, MethodBindings.setItemNamePtr, NIL)
   }
 
-  /**
-   * Sets the item's mesh.
-   */
-  public fun setItemMesh(id: Int, mesh: Mesh): Unit {
+  public fun setItemMesh(id: Int, mesh: Mesh) {
     TransferContext.writeArguments(LONG to id.toLong(), OBJECT to mesh)
     TransferContext.callMethod(rawPtr, MethodBindings.setItemMeshPtr, NIL)
   }
 
-  /**
-   * Sets the transform to apply to the item's mesh.
-   */
-  public fun setItemMeshTransform(id: Int, meshTransform: Transform3D): Unit {
+  public fun setItemMeshTransform(id: Int, meshTransform: Transform3D) {
     TransferContext.writeArguments(LONG to id.toLong(), TRANSFORM3D to meshTransform)
     TransferContext.callMethod(rawPtr, MethodBindings.setItemMeshTransformPtr, NIL)
   }
 
-  /**
-   * Sets the item's navigation mesh.
-   */
-  public fun setItemNavigationMesh(id: Int, navigationMesh: NavigationMesh): Unit {
+  public fun setItemNavigationMesh(id: Int, navigationMesh: NavigationMesh) {
     TransferContext.writeArguments(LONG to id.toLong(), OBJECT to navigationMesh)
     TransferContext.callMethod(rawPtr, MethodBindings.setItemNavigationMeshPtr, NIL)
   }
 
-  /**
-   * Sets the transform to apply to the item's navigation mesh.
-   */
-  public fun setItemNavigationMeshTransform(id: Int, navigationMesh: Transform3D): Unit {
+  public fun setItemNavigationMeshTransform(id: Int, navigationMesh: Transform3D) {
     TransferContext.writeArguments(LONG to id.toLong(), TRANSFORM3D to navigationMesh)
     TransferContext.callMethod(rawPtr, MethodBindings.setItemNavigationMeshTransformPtr, NIL)
   }
 
-  /**
-   * Sets the item's navigation layers bitmask.
-   */
-  public fun setItemNavigationLayers(id: Int, navigationLayers: Long): Unit {
+  public fun setItemNavigationLayers(id: Int, navigationLayers: Long) {
     TransferContext.writeArguments(LONG to id.toLong(), LONG to navigationLayers)
     TransferContext.callMethod(rawPtr, MethodBindings.setItemNavigationLayersPtr, NIL)
   }
 
-  /**
-   * Sets an item's collision shapes.
-   *
-   * The array should consist of [godot.Shape3D] objects, each followed by a [godot.Transform3D] that will be applied to it. For shapes that should not have a transform, use [godot.Transform3D.IDENTITY].
-   */
-  public fun setItemShapes(id: Int, shapes: VariantArray<Any?>): Unit {
+  public fun setItemShapes(id: Int, shapes: VariantArray<Any?>) {
     TransferContext.writeArguments(LONG to id.toLong(), ARRAY to shapes)
     TransferContext.callMethod(rawPtr, MethodBindings.setItemShapesPtr, NIL)
   }
 
-  /**
-   * Sets a texture to use as the item's preview icon in the editor.
-   */
-  public fun setItemPreview(id: Int, texture: Texture2D): Unit {
+  public fun setItemPreview(id: Int, texture: Texture2D) {
     TransferContext.writeArguments(LONG to id.toLong(), OBJECT to texture)
     TransferContext.callMethod(rawPtr, MethodBindings.setItemPreviewPtr, NIL)
   }
 
-  /**
-   * Returns the item's name.
-   */
   public fun getItemName(id: Int): String {
     TransferContext.writeArguments(LONG to id.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getItemNamePtr, STRING)
     return (TransferContext.readReturnValue(STRING, false) as String)
   }
 
-  /**
-   * Returns the item's mesh.
-   */
   public fun getItemMesh(id: Int): Mesh? {
     TransferContext.writeArguments(LONG to id.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getItemMeshPtr, OBJECT)
     return (TransferContext.readReturnValue(OBJECT, true) as Mesh?)
   }
 
-  /**
-   * Returns the transform applied to the item's mesh.
-   */
   public fun getItemMeshTransform(id: Int): Transform3D {
     TransferContext.writeArguments(LONG to id.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getItemMeshTransformPtr, TRANSFORM3D)
     return (TransferContext.readReturnValue(TRANSFORM3D, false) as Transform3D)
   }
 
-  /**
-   * Returns the item's navigation mesh.
-   */
   public fun getItemNavigationMesh(id: Int): NavigationMesh? {
     TransferContext.writeArguments(LONG to id.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getItemNavigationMeshPtr, OBJECT)
     return (TransferContext.readReturnValue(OBJECT, true) as NavigationMesh?)
   }
 
-  /**
-   * Returns the transform applied to the item's navigation mesh.
-   */
   public fun getItemNavigationMeshTransform(id: Int): Transform3D {
     TransferContext.writeArguments(LONG to id.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getItemNavigationMeshTransformPtr,
@@ -167,72 +110,46 @@ public open class MeshLibrary : Resource() {
     return (TransferContext.readReturnValue(TRANSFORM3D, false) as Transform3D)
   }
 
-  /**
-   * Returns the item's navigation layers bitmask.
-   */
   public fun getItemNavigationLayers(id: Int): Long {
     TransferContext.writeArguments(LONG to id.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getItemNavigationLayersPtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long)
   }
 
-  /**
-   * Returns an item's collision shapes.
-   *
-   * The array consists of each [godot.Shape3D] followed by its [godot.Transform3D].
-   */
   public fun getItemShapes(id: Int): VariantArray<Any?> {
     TransferContext.writeArguments(LONG to id.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getItemShapesPtr, ARRAY)
     return (TransferContext.readReturnValue(ARRAY, false) as VariantArray<Any?>)
   }
 
-  /**
-   * When running in the editor, returns a generated item preview (a 3D rendering in isometric perspective). When used in a running project, returns the manually-defined item preview which can be set using [setItemPreview]. Returns an empty [godot.Texture2D] if no preview was manually set in a running project.
-   */
   public fun getItemPreview(id: Int): Texture2D? {
     TransferContext.writeArguments(LONG to id.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getItemPreviewPtr, OBJECT)
     return (TransferContext.readReturnValue(OBJECT, true) as Texture2D?)
   }
 
-  /**
-   * Removes the item.
-   */
-  public fun removeItem(id: Int): Unit {
+  public fun removeItem(id: Int) {
     TransferContext.writeArguments(LONG to id.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.removeItemPtr, NIL)
   }
 
-  /**
-   * Returns the first item with the given name.
-   */
   public fun findItemByName(name: String): Int {
     TransferContext.writeArguments(STRING to name)
     TransferContext.callMethod(rawPtr, MethodBindings.findItemByNamePtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Clears the library.
-   */
-  public fun clear(): Unit {
+  public fun clear() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.clearPtr, NIL)
   }
 
-  /**
-   * Returns the list of item IDs in use.
-   */
   public fun getItemList(): PackedInt32Array {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getItemListPtr, PACKED_INT_32_ARRAY)
     return (TransferContext.readReturnValue(PACKED_INT_32_ARRAY, false) as PackedInt32Array)
   }
 
-  /**
-   * Gets an unused ID for a new item.
-   */
   public fun getLastUnusedItemId(): Int {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getLastUnusedItemIdPtr, LONG)

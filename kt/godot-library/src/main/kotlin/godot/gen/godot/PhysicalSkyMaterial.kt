@@ -25,20 +25,8 @@ import kotlin.Int
 import kotlin.Suppress
 import kotlin.Unit
 
-/**
- * [godot.Sky] [godot.Material] used for a physically based sky.
- *
- * The [godot.PhysicalSkyMaterial] uses the Preetham analytic daylight model to draw a sky based on physical properties. This results in a substantially more realistic sky than the [godot.ProceduralSkyMaterial], but it is slightly slower and less flexible.
- *
- * The [godot.PhysicalSkyMaterial] only supports one sun. The color, energy, and direction of the sun are taken from the first [godot.DirectionalLight3D] in the scene tree.
- *
- * As it is based on a daylight model, the sky fades to black as the sunset ends. If you want a full day/night cycle, you will have to add a night sky by converting this to a [godot.ShaderMaterial] and adding a night sky directly into the resulting shader.
- */
 @GodotBaseType
 public open class PhysicalSkyMaterial : Material() {
-  /**
-   * Controls the strength of the [godot.Rayleigh scattering](https://en.wikipedia.org/wiki/Rayleigh_scattering). Rayleigh scattering results from light colliding with small particles. It is responsible for the blue color of the sky.
-   */
   public var rayleighCoefficient: Float
     get() {
       TransferContext.writeArguments()
@@ -50,9 +38,6 @@ public open class PhysicalSkyMaterial : Material() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRayleighCoefficientPtr, NIL)
     }
 
-  /**
-   * Controls the [godot.core.Color] of the [godot.Rayleigh scattering](https://en.wikipedia.org/wiki/Rayleigh_scattering). While not physically accurate, this allows for the creation of alien-looking planets. For example, setting this to a red [godot.core.Color] results in a Mars-looking atmosphere with a corresponding blue sunset.
-   */
   @CoreTypeLocalCopy
   public var rayleighColor: Color
     get() {
@@ -65,9 +50,6 @@ public open class PhysicalSkyMaterial : Material() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRayleighColorPtr, NIL)
     }
 
-  /**
-   * Controls the strength of [godot.Mie scattering](https://en.wikipedia.org/wiki/Mie_scattering) for the sky. Mie scattering results from light colliding with larger particles (like water). On earth, Mie scattering results in a whitish color around the sun and horizon.
-   */
   public var mieCoefficient: Float
     get() {
       TransferContext.writeArguments()
@@ -79,9 +61,6 @@ public open class PhysicalSkyMaterial : Material() {
       TransferContext.callMethod(rawPtr, MethodBindings.setMieCoefficientPtr, NIL)
     }
 
-  /**
-   * Controls the direction of the [godot.Mie scattering](https://en.wikipedia.org/wiki/Mie_scattering). A value of `1` means that when light hits a particle it's passing through straight forward. A value of `-1` means that all light is scatter backwards.
-   */
   public var mieEccentricity: Float
     get() {
       TransferContext.writeArguments()
@@ -93,9 +72,6 @@ public open class PhysicalSkyMaterial : Material() {
       TransferContext.callMethod(rawPtr, MethodBindings.setMieEccentricityPtr, NIL)
     }
 
-  /**
-   * Controls the [godot.core.Color] of the [godot.Mie scattering](https://en.wikipedia.org/wiki/Mie_scattering) effect. While not physically accurate, this allows for the creation of alien-looking planets.
-   */
   @CoreTypeLocalCopy
   public var mieColor: Color
     get() {
@@ -108,9 +84,6 @@ public open class PhysicalSkyMaterial : Material() {
       TransferContext.callMethod(rawPtr, MethodBindings.setMieColorPtr, NIL)
     }
 
-  /**
-   * Sets the thickness of the atmosphere. High turbidity creates a foggy-looking atmosphere, while a low turbidity results in a clearer atmosphere.
-   */
   public var turbidity: Float
     get() {
       TransferContext.writeArguments()
@@ -122,9 +95,6 @@ public open class PhysicalSkyMaterial : Material() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTurbidityPtr, NIL)
     }
 
-  /**
-   * Sets the size of the sun disk. Default value is based on Sol's perceived size from Earth.
-   */
   public var sunDiskScale: Float
     get() {
       TransferContext.writeArguments()
@@ -136,9 +106,6 @@ public open class PhysicalSkyMaterial : Material() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSunDiskScalePtr, NIL)
     }
 
-  /**
-   * Modulates the [godot.core.Color] on the bottom half of the sky to represent the ground.
-   */
   @CoreTypeLocalCopy
   public var groundColor: Color
     get() {
@@ -151,9 +118,6 @@ public open class PhysicalSkyMaterial : Material() {
       TransferContext.callMethod(rawPtr, MethodBindings.setGroundColorPtr, NIL)
     }
 
-  /**
-   * The sky's overall brightness multiplier. Higher values result in a brighter sky.
-   */
   public var energyMultiplier: Float
     get() {
       TransferContext.writeArguments()
@@ -165,9 +129,6 @@ public open class PhysicalSkyMaterial : Material() {
       TransferContext.callMethod(rawPtr, MethodBindings.setEnergyMultiplierPtr, NIL)
     }
 
-  /**
-   * If `true`, enables debanding. Debanding adds a small amount of noise which helps reduce banding that appears from the smooth changes in color in the sky.
-   */
   public var useDebanding: Boolean
     get() {
       TransferContext.writeArguments()
@@ -179,9 +140,6 @@ public open class PhysicalSkyMaterial : Material() {
       TransferContext.callMethod(rawPtr, MethodBindings.setUseDebandingPtr, NIL)
     }
 
-  /**
-   * [godot.Texture2D] for the night sky. This is added to the sky, so if it is bright enough, it may be visible during the day.
-   */
   public var nightSky: Texture2D?
     get() {
       TransferContext.writeArguments()
@@ -193,14 +151,12 @@ public open class PhysicalSkyMaterial : Material() {
       TransferContext.callMethod(rawPtr, MethodBindings.setNightSkyPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_PHYSICALSKYMATERIAL, scriptIndex)
     return true
   }
 
   /**
-   * Controls the [godot.core.Color] of the [godot.Rayleigh scattering](https://en.wikipedia.org/wiki/Rayleigh_scattering). While not physically accurate, this allows for the creation of alien-looking planets. For example, setting this to a red [godot.core.Color] results in a Mars-looking atmosphere with a corresponding blue sunset.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -223,8 +179,6 @@ public open class PhysicalSkyMaterial : Material() {
 
 
   /**
-   * Controls the [godot.core.Color] of the [godot.Mie scattering](https://en.wikipedia.org/wiki/Mie_scattering) effect. While not physically accurate, this allows for the creation of alien-looking planets.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -247,8 +201,6 @@ public open class PhysicalSkyMaterial : Material() {
 
 
   /**
-   * Modulates the [godot.core.Color] on the bottom half of the sky to represent the ground.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our

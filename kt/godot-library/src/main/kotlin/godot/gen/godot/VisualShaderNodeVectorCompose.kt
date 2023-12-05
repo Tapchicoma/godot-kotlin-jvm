@@ -11,14 +11,9 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * Composes a [godot.core.Vector2], [godot.core.Vector3] or 4D vector (represented as a [godot.Quaternion]) from scalars within the visual shader graph.
- *
- * Creates a `vec2`, `vec3` or `vec4` using scalar values that can be provided from separate inputs.
- */
 @GodotBaseType
 public open class VisualShaderNodeVectorCompose : VisualShaderNodeVectorBase() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_VISUALSHADERNODEVECTORCOMPOSE, scriptIndex)
     return true
   }

@@ -30,86 +30,45 @@ import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 
-/**
- * A spatial node representing a spatially-tracked controller.
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/xr/index.html]($DOCS_URL/tutorials/xr/index.html)
- *
- * This is a helper spatial node that is linked to the tracking of controllers. It also offers several handy passthroughs to the state of buttons and such on the controllers.
- *
- * Controllers are linked by their ID. You can create controller nodes before the controllers are available. If your game always uses two controllers (one for each hand), you can predefine the controllers with ID 1 and 2; they will become active as soon as the controllers are identified. If you expect additional controllers to be used, you should react to the signals and add XRController3D nodes to your scene.
- *
- * The position of the controller node is automatically updated by the [godot.XRServer]. This makes this node ideal to add child nodes to visualize the controller.
- *
- * As many XR runtimes now use a configurable action map all inputs are named.
- */
 @GodotBaseType
 public open class XRController3D : XRNode3D() {
-  /**
-   * Emitted when a button on this controller is pressed.
-   */
   public val buttonPressed: Signal1<String> by signal("name")
 
-  /**
-   * Emitted when a button on this controller is released.
-   */
   public val buttonReleased: Signal1<String> by signal("name")
 
-  /**
-   * Emitted when a trigger or similar input on this controller changes value.
-   */
   public val inputFloatChanged: Signal2<String, Double> by signal("name", "value")
 
-  /**
-   * Emitted when a thumbstick or thumbpad on this controller is moved.
-   */
   public val inputVector2Changed: Signal2<String, Vector2> by signal("name", "value")
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_XRCONTROLLER3D, scriptIndex)
     return true
   }
 
-  /**
-   * Returns `true` if the button with the given [name] is pressed.
-   */
   public fun isButtonPressed(name: StringName): Boolean {
     TransferContext.writeArguments(STRING_NAME to name)
     TransferContext.callMethod(rawPtr, MethodBindings.isButtonPressedPtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Returns a [Variant] for the input with the given [name]. This works for any input type, the variant will be typed according to the actions configuration.
-   */
   public fun getInput(name: StringName): Any? {
     TransferContext.writeArguments(STRING_NAME to name)
     TransferContext.callMethod(rawPtr, MethodBindings.getInputPtr, ANY)
     return (TransferContext.readReturnValue(ANY, true) as Any?)
   }
 
-  /**
-   * Returns a numeric value for the input with the given [name]. This is used for triggers and grip sensors.
-   */
   public fun getFloat(name: StringName): Float {
     TransferContext.writeArguments(STRING_NAME to name)
     TransferContext.callMethod(rawPtr, MethodBindings.getFloatPtr, DOUBLE)
     return (TransferContext.readReturnValue(DOUBLE, false) as Double).toFloat()
   }
 
-  /**
-   * Returns a [godot.core.Vector2] for the input with the given [name]. This is used for thumbsticks and thumbpads found on many controllers.
-   */
   public fun getVector2(name: StringName): Vector2 {
     TransferContext.writeArguments(STRING_NAME to name)
     TransferContext.callMethod(rawPtr, MethodBindings.getVector2Ptr, VECTOR2)
     return (TransferContext.readReturnValue(VECTOR2, false) as Vector2)
   }
 
-  /**
-   * Returns the hand holding this controller, if known. See [enum XRPositionalTracker.TrackerHand].
-   */
   public fun getTrackerHand(): XRPositionalTracker.TrackerHand {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getTrackerHandPtr, LONG)

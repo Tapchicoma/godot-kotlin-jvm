@@ -26,19 +26,8 @@ import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 
-/**
- * Represents a screen drag event.
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/inputs/inputevent.html]($DOCS_URL/tutorials/inputs/inputevent.html)
- *
- * Stores information about screen drag events. See [godot.Node.Input].
- */
 @GodotBaseType
 public open class InputEventScreenDrag : InputEventFromWindow() {
-  /**
-   * The drag event index in the case of a multi-drag event.
-   */
   public var index: Int
     get() {
       TransferContext.writeArguments()
@@ -50,9 +39,6 @@ public open class InputEventScreenDrag : InputEventFromWindow() {
       TransferContext.callMethod(rawPtr, MethodBindings.setIndexPtr, NIL)
     }
 
-  /**
-   * Represents the angles of tilt of the pen. Positive X-coordinate value indicates a tilt to the right. Positive Y-coordinate value indicates a tilt toward the user. Ranges from `-1.0` to `1.0` for both axes.
-   */
   @CoreTypeLocalCopy
   public var tilt: Vector2
     get() {
@@ -65,9 +51,6 @@ public open class InputEventScreenDrag : InputEventFromWindow() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTiltPtr, NIL)
     }
 
-  /**
-   * Represents the pressure the user puts on the pen. Ranges from `0.0` to `1.0`.
-   */
   public var pressure: Float
     get() {
       TransferContext.writeArguments()
@@ -79,9 +62,6 @@ public open class InputEventScreenDrag : InputEventFromWindow() {
       TransferContext.callMethod(rawPtr, MethodBindings.setPressurePtr, NIL)
     }
 
-  /**
-   * Returns `true` when using the eraser end of a stylus pen.
-   */
   public var penInverted: Boolean
     get() {
       TransferContext.writeArguments()
@@ -93,9 +73,6 @@ public open class InputEventScreenDrag : InputEventFromWindow() {
       TransferContext.callMethod(rawPtr, MethodBindings.setPenInvertedPtr, NIL)
     }
 
-  /**
-   * The drag position.
-   */
   @CoreTypeLocalCopy
   public var position: Vector2
     get() {
@@ -108,9 +85,6 @@ public open class InputEventScreenDrag : InputEventFromWindow() {
       TransferContext.callMethod(rawPtr, MethodBindings.setPositionPtr, NIL)
     }
 
-  /**
-   * The drag position relative to the previous position (position at the last frame).
-   */
   @CoreTypeLocalCopy
   public var relative: Vector2
     get() {
@@ -123,9 +97,6 @@ public open class InputEventScreenDrag : InputEventFromWindow() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRelativePtr, NIL)
     }
 
-  /**
-   * The drag velocity.
-   */
   @CoreTypeLocalCopy
   public var velocity: Vector2
     get() {
@@ -138,14 +109,12 @@ public open class InputEventScreenDrag : InputEventFromWindow() {
       TransferContext.callMethod(rawPtr, MethodBindings.setVelocityPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_INPUTEVENTSCREENDRAG, scriptIndex)
     return true
   }
 
   /**
-   * Represents the angles of tilt of the pen. Positive X-coordinate value indicates a tilt to the right. Positive Y-coordinate value indicates a tilt toward the user. Ranges from `-1.0` to `1.0` for both axes.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -168,8 +137,6 @@ public open class InputEventScreenDrag : InputEventFromWindow() {
 
 
   /**
-   * The drag position.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -192,8 +159,6 @@ public open class InputEventScreenDrag : InputEventFromWindow() {
 
 
   /**
-   * The drag position relative to the previous position (position at the last frame).
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -216,8 +181,6 @@ public open class InputEventScreenDrag : InputEventFromWindow() {
 
 
   /**
-   * The drag velocity.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our

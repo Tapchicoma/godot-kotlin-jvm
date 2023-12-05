@@ -17,16 +17,8 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
 
-/**
- * An unsigned scalar integer constant to be used within the visual shader graph.
- *
- * Translated to `uint` in the shader language.
- */
 @GodotBaseType
 public open class VisualShaderNodeUIntConstant : VisualShaderNodeConstant() {
-  /**
-   * An unsigned integer constant which represents a state of this node.
-   */
   public var constant: Int
     get() {
       TransferContext.writeArguments()
@@ -38,7 +30,7 @@ public open class VisualShaderNodeUIntConstant : VisualShaderNodeConstant() {
       TransferContext.callMethod(rawPtr, MethodBindings.setConstantPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_VISUALSHADERNODEUINTCONSTANT, scriptIndex)
     return true
   }

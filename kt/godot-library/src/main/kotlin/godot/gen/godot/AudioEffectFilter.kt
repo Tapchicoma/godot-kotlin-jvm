@@ -20,19 +20,8 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
 
-/**
- * Adds a filter to the audio bus.
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/audio/audio_buses.html]($DOCS_URL/tutorials/audio/audio_buses.html)
- *
- * Allows frequencies other than the [cutoffHz] to pass.
- */
 @GodotBaseType
 public open class AudioEffectFilter : AudioEffect() {
-  /**
-   * Threshold frequency for the filter, in Hz.
-   */
   public var cutoffHz: Float
     get() {
       TransferContext.writeArguments()
@@ -44,9 +33,6 @@ public open class AudioEffectFilter : AudioEffect() {
       TransferContext.callMethod(rawPtr, MethodBindings.setCutoffPtr, NIL)
     }
 
-  /**
-   * Amount of boost in the frequency range near the cutoff frequency.
-   */
   public var resonance: Float
     get() {
       TransferContext.writeArguments()
@@ -58,9 +44,6 @@ public open class AudioEffectFilter : AudioEffect() {
       TransferContext.callMethod(rawPtr, MethodBindings.setResonancePtr, NIL)
     }
 
-  /**
-   * Gain amount of the frequencies after the filter.
-   */
   public var gain: Float
     get() {
       TransferContext.writeArguments()
@@ -72,9 +55,6 @@ public open class AudioEffectFilter : AudioEffect() {
       TransferContext.callMethod(rawPtr, MethodBindings.setGainPtr, NIL)
     }
 
-  /**
-   *
-   */
   public var db: FilterDB
     get() {
       TransferContext.writeArguments()
@@ -86,7 +66,7 @@ public open class AudioEffectFilter : AudioEffect() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDbPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_AUDIOEFFECTFILTER, scriptIndex)
     return true
   }
@@ -94,21 +74,9 @@ public open class AudioEffectFilter : AudioEffect() {
   public enum class FilterDB(
     id: Long,
   ) {
-    /**
-     *
-     */
     FILTER_6DB(0),
-    /**
-     *
-     */
     FILTER_12DB(1),
-    /**
-     *
-     */
     FILTER_18DB(2),
-    /**
-     *
-     */
     FILTER_24DB(3),
     ;
 
@@ -118,7 +86,9 @@ public open class AudioEffectFilter : AudioEffect() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): FilterDB = entries.single {
+          it.id == `value`
+      }
     }
   }
 

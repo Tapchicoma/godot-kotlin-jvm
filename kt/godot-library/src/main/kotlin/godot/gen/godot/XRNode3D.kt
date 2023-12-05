@@ -22,20 +22,9 @@ import kotlin.Double
 import kotlin.Int
 import kotlin.String
 import kotlin.Suppress
-import kotlin.Unit
 
-/**
- * A spatial node that has its position automatically updated by the [godot.XRServer].
- *
- * This node can be bound to a specific pose of a [godot.XRPositionalTracker] and will automatically have its [godot.Node3D.transform] updated by the [godot.XRServer]. Nodes of this type must be added as children of the [godot.XROrigin3D] node.
- */
 @GodotBaseType
 public open class XRNode3D internal constructor() : Node3D() {
-  /**
-   * The name of the tracker we're bound to. Which trackers are available is not known during design time.
-   *
-   * Godot defines a number of standard trackers such as `left_hand` and `right_hand` but others may be configured within a given [godot.XRInterface].
-   */
   public var tracker: StringName
     get() {
       TransferContext.writeArguments()
@@ -47,11 +36,6 @@ public open class XRNode3D internal constructor() : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTrackerPtr, NIL)
     }
 
-  /**
-   * The name of the pose we're bound to. Which poses a tracker supports is not known during design time.
-   *
-   * Godot defines number of standard pose names such as `aim` and `grip` but other may be configured within a given [godot.XRInterface].
-   */
   public var pose: StringName
     get() {
       TransferContext.writeArguments()
@@ -63,50 +47,36 @@ public open class XRNode3D internal constructor() : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setPoseNamePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_XRNODE3D, scriptIndex)
     return true
   }
 
-  /**
-   * Returns `true` if the [tracker] has been registered and the [pose] is being tracked.
-   */
   public fun getIsActive(): Boolean {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getIsActivePtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Returns `true` if the [tracker] has current tracking data for the [pose] being tracked.
-   */
   public fun getHasTrackingData(): Boolean {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getHasTrackingDataPtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Returns the [godot.XRPose] containing the current state of the pose being tracked. This gives access to additional properties of this pose.
-   */
   public fun getPose(): XRPose? {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getPosePtr, OBJECT)
     return (TransferContext.readReturnValue(OBJECT, true) as XRPose?)
   }
 
-  /**
-   * Triggers a haptic pulse on a device associated with this interface.
-   *
-   * [actionName] is the name of the action for this pulse.
-   */
   public fun triggerHapticPulse(
     actionName: String,
     frequency: Double,
     amplitude: Double,
     durationSec: Double,
     delaySec: Double,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(STRING to actionName, DOUBLE to frequency, DOUBLE to amplitude, DOUBLE to durationSec, DOUBLE to delaySec)
     TransferContext.callMethod(rawPtr, MethodBindings.triggerHapticPulsePtr, NIL)
   }

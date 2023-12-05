@@ -170,7 +170,7 @@ public open class GLTFNode : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setLightPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_GLTFNODE, scriptIndex)
     return true
   }
@@ -269,7 +269,7 @@ public open class GLTFNode : Resource() {
     return (TransferContext.readReturnValue(ANY, true) as Any?)
   }
 
-  public fun setAdditionalData(extensionName: StringName, additionalData: Any?): Unit {
+  public fun setAdditionalData(extensionName: StringName, additionalData: Any?) {
     TransferContext.writeArguments(STRING_NAME to extensionName, ANY to additionalData)
     TransferContext.callMethod(rawPtr, MethodBindings.setAdditionalDataPtr, NIL)
   }

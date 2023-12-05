@@ -16,23 +16,9 @@ import godot.util.VoidPtr
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
-import kotlin.Unit
 
-/**
- * A node that provides a [godot.Shape3D] to a [godot.CollisionObject3D] parent.
- *
- * Tutorials:
- * [https://godotengine.org/asset-library/asset/678](https://godotengine.org/asset-library/asset/678)
- *
- * A node that provides a [godot.Shape3D] to a [godot.CollisionObject3D] parent and allows to edit it. This can give a detection shape to an [godot.Area3D] or turn a [godot.PhysicsBody3D] into a solid object.
- *
- * **Warning:** A non-uniformly scaled [godot.CollisionShape3D] will likely not behave as expected. Make sure to keep its scale the same on all axes and adjust its [shape] resource instead.
- */
 @GodotBaseType
 public open class CollisionShape3D : Node3D() {
-  /**
-   * The actual shape owned by this collision shape.
-   */
   public var shape: Shape3D?
     get() {
       TransferContext.writeArguments()
@@ -44,9 +30,6 @@ public open class CollisionShape3D : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setShapePtr, NIL)
     }
 
-  /**
-   * A disabled collision shape has no effect in the world.
-   */
   public var disabled: Boolean
     get() {
       TransferContext.writeArguments()
@@ -58,23 +41,17 @@ public open class CollisionShape3D : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDisabledPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_COLLISIONSHAPE3D, scriptIndex)
     return true
   }
 
-  /**
-   * If this method exists within a script it will be called whenever the shape resource has been modified.
-   */
-  public fun resourceChanged(resource: Resource): Unit {
+  public fun resourceChanged(resource: Resource) {
     TransferContext.writeArguments(OBJECT to resource)
     TransferContext.callMethod(rawPtr, MethodBindings.resourceChangedPtr, NIL)
   }
 
-  /**
-   * Sets the collision shape's shape to the addition of all its convexed [godot.MeshInstance3D] siblings geometry.
-   */
-  public fun makeConvexFromSiblings(): Unit {
+  public fun makeConvexFromSiblings() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.makeConvexFromSiblingsPtr, NIL)
   }

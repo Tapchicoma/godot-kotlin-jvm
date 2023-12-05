@@ -11,14 +11,9 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * A horizontal line used for separating other controls.
- *
- * A horizontal separator used for separating other controls that are arranged **vertically**. [godot.HSeparator] is purely visual and normally drawn as a [godot.StyleBoxLine].
- */
 @GodotBaseType
 public open class HSeparator : Separator() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_HSEPARATOR, scriptIndex)
     return true
   }

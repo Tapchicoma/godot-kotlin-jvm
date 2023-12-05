@@ -18,16 +18,8 @@ import kotlin.Int
 import kotlin.String
 import kotlin.Suppress
 
-/**
- * An internal editor class intended for keeping the data of unrecognized resources.
- *
- * This is an internal editor class intended for keeping data of resources of unknown type (most likely this type was supplied by an extension that is no longer loaded). It can't be manually instantiated or placed in the scene. Ignore it if you don't know what it is.
- */
 @GodotBaseType
 public open class MissingResource : Resource() {
-  /**
-   * Returns the name of the class this resource was originally.
-   */
   public var originalClass: String
     get() {
       TransferContext.writeArguments()
@@ -39,9 +31,6 @@ public open class MissingResource : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setOriginalClassPtr, NIL)
     }
 
-  /**
-   *
-   */
   public var recordingProperties: Boolean
     get() {
       TransferContext.writeArguments()
@@ -53,7 +42,7 @@ public open class MissingResource : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRecordingPropertiesPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_MISSINGRESOURCE, scriptIndex)
     return true
   }

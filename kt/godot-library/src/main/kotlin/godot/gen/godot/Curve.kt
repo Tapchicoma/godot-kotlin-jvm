@@ -23,26 +23,12 @@ import kotlin.Float
 import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
-import kotlin.Unit
 import kotlin.jvm.JvmOverloads
 
-/**
- * A mathematic curve.
- *
- * A curve that can be saved and re-used for other objects. By default, it ranges between `0` and `1` on the Y axis and positions points relative to the `0.5` Y position.
- *
- * See also [godot.Gradient] which is designed for color interpolation. See also [godot.Curve2D] and [godot.Curve3D].
- */
 @GodotBaseType
 public open class Curve : Resource() {
-  /**
-   * Emitted when [maxValue] or [minValue] is changed.
-   */
   public val rangeChanged: Signal0 by signal()
 
-  /**
-   * The minimum value the curve can reach.
-   */
   public var minValue: Float
     get() {
       TransferContext.writeArguments()
@@ -54,9 +40,6 @@ public open class Curve : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setMinValuePtr, NIL)
     }
 
-  /**
-   * The maximum value the curve can reach.
-   */
   public var maxValue: Float
     get() {
       TransferContext.writeArguments()
@@ -68,9 +51,6 @@ public open class Curve : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setMaxValuePtr, NIL)
     }
 
-  /**
-   * The number of points to include in the baked (i.e. cached) curve data.
-   */
   public var bakeResolution: Int
     get() {
       TransferContext.writeArguments()
@@ -82,9 +62,6 @@ public open class Curve : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setBakeResolutionPtr, NIL)
     }
 
-  /**
-   * The number of points describing the curve.
-   */
   public var pointCount: Int
     get() {
       TransferContext.writeArguments()
@@ -96,14 +73,11 @@ public open class Curve : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setPointCountPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_CURVE, scriptIndex)
     return true
   }
 
-  /**
-   * Adds a point to the curve. For each side, if the `*_mode` is [TANGENT_LINEAR], the `*_tangent` angle (in degrees) uses the slope of the curve halfway to the adjacent point. Allows custom assignments to the `*_tangent` angle if `*_mode` is set to [TANGENT_FREE].
-   */
   @JvmOverloads
   public fun addPoint(
     position: Vector2,
@@ -117,146 +91,95 @@ public open class Curve : Resource() {
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Removes the point at [index] from the curve.
-   */
-  public fun removePoint(index: Int): Unit {
+  public fun removePoint(index: Int) {
     TransferContext.writeArguments(LONG to index.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.removePointPtr, NIL)
   }
 
-  /**
-   * Removes all points from the curve.
-   */
-  public fun clearPoints(): Unit {
+  public fun clearPoints() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.clearPointsPtr, NIL)
   }
 
-  /**
-   * Returns the curve coordinates for the point at [index].
-   */
   public fun getPointPosition(index: Int): Vector2 {
     TransferContext.writeArguments(LONG to index.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getPointPositionPtr, VECTOR2)
     return (TransferContext.readReturnValue(VECTOR2, false) as Vector2)
   }
 
-  /**
-   * Assigns the vertical position [y] to the point at [index].
-   */
-  public fun setPointValue(index: Int, y: Float): Unit {
+  public fun setPointValue(index: Int, y: Float) {
     TransferContext.writeArguments(LONG to index.toLong(), DOUBLE to y.toDouble())
     TransferContext.callMethod(rawPtr, MethodBindings.setPointValuePtr, NIL)
   }
 
-  /**
-   * Sets the offset from `0.5`.
-   */
   public fun setPointOffset(index: Int, offset: Float): Int {
     TransferContext.writeArguments(LONG to index.toLong(), DOUBLE to offset.toDouble())
     TransferContext.callMethod(rawPtr, MethodBindings.setPointOffsetPtr, LONG)
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  /**
-   * Returns the Y value for the point that would exist at the X position [offset] along the curve.
-   */
   public fun sample(offset: Float): Float {
     TransferContext.writeArguments(DOUBLE to offset.toDouble())
     TransferContext.callMethod(rawPtr, MethodBindings.samplePtr, DOUBLE)
     return (TransferContext.readReturnValue(DOUBLE, false) as Double).toFloat()
   }
 
-  /**
-   * Returns the Y value for the point that would exist at the X position [offset] along the curve using the baked cache. Bakes the curve's points if not already baked.
-   */
   public fun sampleBaked(offset: Float): Float {
     TransferContext.writeArguments(DOUBLE to offset.toDouble())
     TransferContext.callMethod(rawPtr, MethodBindings.sampleBakedPtr, DOUBLE)
     return (TransferContext.readReturnValue(DOUBLE, false) as Double).toFloat()
   }
 
-  /**
-   * Returns the left tangent angle (in degrees) for the point at [index].
-   */
   public fun getPointLeftTangent(index: Int): Float {
     TransferContext.writeArguments(LONG to index.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getPointLeftTangentPtr, DOUBLE)
     return (TransferContext.readReturnValue(DOUBLE, false) as Double).toFloat()
   }
 
-  /**
-   * Returns the right tangent angle (in degrees) for the point at [index].
-   */
   public fun getPointRightTangent(index: Int): Float {
     TransferContext.writeArguments(LONG to index.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getPointRightTangentPtr, DOUBLE)
     return (TransferContext.readReturnValue(DOUBLE, false) as Double).toFloat()
   }
 
-  /**
-   * Returns the left [enum TangentMode] for the point at [index].
-   */
   public fun getPointLeftMode(index: Int): TangentMode {
     TransferContext.writeArguments(LONG to index.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getPointLeftModePtr, LONG)
     return Curve.TangentMode.from(TransferContext.readReturnValue(LONG) as Long)
   }
 
-  /**
-   * Returns the right [enum TangentMode] for the point at [index].
-   */
   public fun getPointRightMode(index: Int): TangentMode {
     TransferContext.writeArguments(LONG to index.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getPointRightModePtr, LONG)
     return Curve.TangentMode.from(TransferContext.readReturnValue(LONG) as Long)
   }
 
-  /**
-   * Sets the left tangent angle for the point at [index] to [tangent].
-   */
-  public fun setPointLeftTangent(index: Int, tangent: Float): Unit {
+  public fun setPointLeftTangent(index: Int, tangent: Float) {
     TransferContext.writeArguments(LONG to index.toLong(), DOUBLE to tangent.toDouble())
     TransferContext.callMethod(rawPtr, MethodBindings.setPointLeftTangentPtr, NIL)
   }
 
-  /**
-   * Sets the right tangent angle for the point at [index] to [tangent].
-   */
-  public fun setPointRightTangent(index: Int, tangent: Float): Unit {
+  public fun setPointRightTangent(index: Int, tangent: Float) {
     TransferContext.writeArguments(LONG to index.toLong(), DOUBLE to tangent.toDouble())
     TransferContext.callMethod(rawPtr, MethodBindings.setPointRightTangentPtr, NIL)
   }
 
-  /**
-   * Sets the left [enum TangentMode] for the point at [index] to [mode].
-   */
-  public fun setPointLeftMode(index: Int, mode: TangentMode): Unit {
+  public fun setPointLeftMode(index: Int, mode: TangentMode) {
     TransferContext.writeArguments(LONG to index.toLong(), LONG to mode.id)
     TransferContext.callMethod(rawPtr, MethodBindings.setPointLeftModePtr, NIL)
   }
 
-  /**
-   * Sets the right [enum TangentMode] for the point at [index] to [mode].
-   */
-  public fun setPointRightMode(index: Int, mode: TangentMode): Unit {
+  public fun setPointRightMode(index: Int, mode: TangentMode) {
     TransferContext.writeArguments(LONG to index.toLong(), LONG to mode.id)
     TransferContext.callMethod(rawPtr, MethodBindings.setPointRightModePtr, NIL)
   }
 
-  /**
-   * Removes duplicate points, i.e. points that are less than 0.00001 units (engine epsilon value) away from their neighbor on the curve.
-   */
-  public fun cleanDupes(): Unit {
+  public fun cleanDupes() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.cleanDupesPtr, NIL)
   }
 
-  /**
-   * Recomputes the baked cache of points for the curve.
-   */
-  public fun bake(): Unit {
+  public fun bake() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.bakePtr, NIL)
   }
@@ -264,17 +187,8 @@ public open class Curve : Resource() {
   public enum class TangentMode(
     id: Long,
   ) {
-    /**
-     * The tangent on this side of the point is user-defined.
-     */
     TANGENT_FREE(0),
-    /**
-     * The curve calculates the tangent on this side of the point as the slope halfway towards the adjacent point.
-     */
     TANGENT_LINEAR(1),
-    /**
-     * The total number of available tangent modes.
-     */
     TANGENT_MODE_COUNT(2),
     ;
 
@@ -284,7 +198,9 @@ public open class Curve : Resource() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): TangentMode = entries.single {
+          it.id == `value`
+      }
     }
   }
 

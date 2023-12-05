@@ -75,7 +75,7 @@ public open class GLTFBufferView : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setIndicesPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_GLTFBUFFERVIEW, scriptIndex)
     return true
   }

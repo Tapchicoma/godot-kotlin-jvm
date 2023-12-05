@@ -22,18 +22,8 @@ import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 
-/**
- * A button that represents a link.
- *
- * A button that represents a link. This type of button is primarily used for interactions that cause a context change (like linking to a web page).
- *
- * See also [godot.BaseButton] which contains common properties and methods associated with this node.
- */
 @GodotBaseType
 public open class LinkButton : BaseButton() {
-  /**
-   * The button's text that will be displayed inside the button's area.
-   */
   public var text: String
     get() {
       TransferContext.writeArguments()
@@ -45,9 +35,6 @@ public open class LinkButton : BaseButton() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTextPtr, NIL)
     }
 
-  /**
-   * The underline mode to use for the text. See [enum LinkButton.UnderlineMode] for the available modes.
-   */
   public var underline: UnderlineMode
     get() {
       TransferContext.writeArguments()
@@ -59,35 +46,6 @@ public open class LinkButton : BaseButton() {
       TransferContext.callMethod(rawPtr, MethodBindings.setUnderlineModePtr, NIL)
     }
 
-  /**
-   * The [URI](https://en.wikipedia.org/wiki/Uniform_Resource_Identifier) for this [godot.LinkButton]. If set to a valid URI, pressing the button opens the URI using the operating system's default program for the protocol (via [godot.OS.shellOpen]). HTTP and HTTPS URLs open the default web browser.
-   *
-   * **Examples:**
-   *
-   * [codeblocks]
-   *
-   * [gdscript]
-   *
-   * uri = "https://godotengine.org"  # Opens the URL in the default web browser.
-   *
-   * uri = "C:\SomeFolder"  # Opens the file explorer at the given path.
-   *
-   * uri = "C:\SomeImage.png"  # Opens the given image in the default viewing app.
-   *
-   * [/gdscript]
-   *
-   * [csharp]
-   *
-   * Uri = "https://godotengine.org"; // Opens the URL in the default web browser.
-   *
-   * Uri = "C:\SomeFolder"; // Opens the file explorer at the given path.
-   *
-   * Uri = "C:\SomeImage.png"; // Opens the given image in the default viewing app.
-   *
-   * [/csharp]
-   *
-   * [/codeblocks]
-   */
   public var uri: String
     get() {
       TransferContext.writeArguments()
@@ -99,9 +57,6 @@ public open class LinkButton : BaseButton() {
       TransferContext.callMethod(rawPtr, MethodBindings.setUriPtr, NIL)
     }
 
-  /**
-   * Base text writing direction.
-   */
   public var textDirection: Control.TextDirection
     get() {
       TransferContext.writeArguments()
@@ -113,9 +68,6 @@ public open class LinkButton : BaseButton() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTextDirectionPtr, NIL)
     }
 
-  /**
-   * Language code used for line-breaking and text shaping algorithms, if left empty current locale is used instead.
-   */
   public var language: String
     get() {
       TransferContext.writeArguments()
@@ -127,9 +79,6 @@ public open class LinkButton : BaseButton() {
       TransferContext.callMethod(rawPtr, MethodBindings.setLanguagePtr, NIL)
     }
 
-  /**
-   * Set BiDi algorithm override for the structured text.
-   */
   public var structuredTextBidiOverride: TextServer.StructuredTextParser
     get() {
       TransferContext.writeArguments()
@@ -141,9 +90,6 @@ public open class LinkButton : BaseButton() {
       TransferContext.callMethod(rawPtr, MethodBindings.setStructuredTextBidiOverridePtr, NIL)
     }
 
-  /**
-   * Set additional options for BiDi override.
-   */
   public var structuredTextBidiOverrideOptions: VariantArray<Any?>
     get() {
       TransferContext.writeArguments()
@@ -157,7 +103,7 @@ public open class LinkButton : BaseButton() {
           NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_LINKBUTTON, scriptIndex)
     return true
   }
@@ -165,17 +111,8 @@ public open class LinkButton : BaseButton() {
   public enum class UnderlineMode(
     id: Long,
   ) {
-    /**
-     * The LinkButton will always show an underline at the bottom of its text.
-     */
     UNDERLINE_MODE_ALWAYS(0),
-    /**
-     * The LinkButton will show an underline at the bottom of its text when the mouse cursor is over it.
-     */
     UNDERLINE_MODE_ON_HOVER(1),
-    /**
-     * The LinkButton will never show an underline at the bottom of its text.
-     */
     UNDERLINE_MODE_NEVER(2),
     ;
 
@@ -185,7 +122,9 @@ public open class LinkButton : BaseButton() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): UnderlineMode = entries.single {
+          it.id == `value`
+      }
     }
   }
 

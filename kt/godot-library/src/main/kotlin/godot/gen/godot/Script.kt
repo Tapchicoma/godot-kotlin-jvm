@@ -31,23 +31,8 @@ import kotlin.String
 import kotlin.Suppress
 import kotlin.jvm.JvmOverloads
 
-/**
- * A class stored as a resource.
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/scripting/index.html]($DOCS_URL/tutorials/scripting/index.html)
- *
- * A class stored as a resource. A script extends the functionality of all objects that instantiate it.
- *
- * This is the base class for all scripts and should not be used directly. Trying to create a new script with this class will result in an error.
- *
- * The `new` method of a script subclass creates a new instance. [godot.Object.setScript] extends an existing object, if that object's class matches one of the script's base classes.
- */
 @GodotBaseType
 public open class Script internal constructor() : Resource() {
-  /**
-   * The script source code or an empty string if source code is not available. When set, does not reload the class implementation automatically.
-   */
   public var sourceCode: String
     get() {
       TransferContext.writeArguments()
@@ -59,41 +44,29 @@ public open class Script internal constructor() : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSourceCodePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_SCRIPT, scriptIndex)
     return true
   }
 
-  /**
-   * Returns `true` if the script can be instantiated.
-   */
   public fun canInstantiate(): Boolean {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.canInstantiatePtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Returns `true` if [baseObject] is an instance of this script.
-   */
   public fun instanceHas(baseObject: Object): Boolean {
     TransferContext.writeArguments(OBJECT to baseObject)
     TransferContext.callMethod(rawPtr, MethodBindings.instanceHasPtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Returns `true` if the script contains non-empty source code.
-   */
   public fun hasSourceCode(): Boolean {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.hasSourceCodePtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Reloads the script's class implementation. Returns an error code.
-   */
   @JvmOverloads
   public fun reload(keepState: Boolean = false): GodotError {
     TransferContext.writeArguments(BOOL to keepState)
@@ -101,81 +74,54 @@ public open class Script internal constructor() : Resource() {
     return GodotError.from(TransferContext.readReturnValue(LONG) as Long)
   }
 
-  /**
-   * Returns the script directly inherited by this script.
-   */
   public fun getBaseScript(): Script? {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getBaseScriptPtr, OBJECT)
     return (TransferContext.readReturnValue(OBJECT, true) as Script?)
   }
 
-  /**
-   * Returns the script's base type.
-   */
   public fun getInstanceBaseType(): StringName {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getInstanceBaseTypePtr, STRING_NAME)
     return (TransferContext.readReturnValue(STRING_NAME, false) as StringName)
   }
 
-  /**
-   * Returns `true` if the script, or a base class, defines a signal with the given name.
-   */
   public fun hasScriptSignal(signalName: StringName): Boolean {
     TransferContext.writeArguments(STRING_NAME to signalName)
     TransferContext.callMethod(rawPtr, MethodBindings.hasScriptSignalPtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Returns the list of properties in this [godot.Script].
-   */
   public fun getScriptPropertyList(): VariantArray<Dictionary<Any?, Any?>> {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getScriptPropertyListPtr, ARRAY)
     return (TransferContext.readReturnValue(ARRAY, false) as VariantArray<Dictionary<Any?, Any?>>)
   }
 
-  /**
-   * Returns the list of methods in this [godot.Script].
-   */
   public fun getScriptMethodList(): VariantArray<Dictionary<Any?, Any?>> {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getScriptMethodListPtr, ARRAY)
     return (TransferContext.readReturnValue(ARRAY, false) as VariantArray<Dictionary<Any?, Any?>>)
   }
 
-  /**
-   * Returns the list of user signals defined in this [godot.Script].
-   */
   public fun getScriptSignalList(): VariantArray<Dictionary<Any?, Any?>> {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getScriptSignalListPtr, ARRAY)
     return (TransferContext.readReturnValue(ARRAY, false) as VariantArray<Dictionary<Any?, Any?>>)
   }
 
-  /**
-   * Returns a dictionary containing constant names and their values.
-   */
   public fun getScriptConstantMap(): Dictionary<Any?, Any?> {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getScriptConstantMapPtr, DICTIONARY)
     return (TransferContext.readReturnValue(DICTIONARY, false) as Dictionary<Any?, Any?>)
   }
 
-  /**
-   * Returns the default value of the specified property.
-   */
   public fun getPropertyDefaultValue(`property`: StringName): Any? {
     TransferContext.writeArguments(STRING_NAME to property)
     TransferContext.callMethod(rawPtr, MethodBindings.getPropertyDefaultValuePtr, ANY)
     return (TransferContext.readReturnValue(ANY, true) as Any?)
   }
 
-  /**
-   * Returns `true` if the script is a tool script. A tool script can run in the editor.
-   */
   public fun isTool(): Boolean {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.isToolPtr, BOOL)

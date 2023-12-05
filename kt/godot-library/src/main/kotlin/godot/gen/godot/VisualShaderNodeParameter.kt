@@ -19,16 +19,8 @@ import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
 
-/**
- * A base type for the parameters within the visual shader graph.
- *
- * A parameter represents a variable in the shader which is set externally, i.e. from the [godot.ShaderMaterial]. Parameters are exposed as properties in the [godot.ShaderMaterial] and can be assigned from the Inspector or from a script.
- */
 @GodotBaseType
 public open class VisualShaderNodeParameter internal constructor() : VisualShaderNode() {
-  /**
-   * Name of the parameter, by which it can be accessed through the [godot.ShaderMaterial] properties.
-   */
   public var parameterName: String
     get() {
       TransferContext.writeArguments()
@@ -40,9 +32,6 @@ public open class VisualShaderNodeParameter internal constructor() : VisualShade
       TransferContext.callMethod(rawPtr, MethodBindings.setParameterNamePtr, NIL)
     }
 
-  /**
-   * Defines the scope of the parameter.
-   */
   public var qualifier: Qualifier
     get() {
       TransferContext.writeArguments()
@@ -54,7 +43,7 @@ public open class VisualShaderNodeParameter internal constructor() : VisualShade
       TransferContext.callMethod(rawPtr, MethodBindings.setQualifierPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_VISUALSHADERNODEPARAMETER, scriptIndex)
     return true
   }
@@ -62,21 +51,9 @@ public open class VisualShaderNodeParameter internal constructor() : VisualShade
   public enum class Qualifier(
     id: Long,
   ) {
-    /**
-     * The parameter will be tied to the [godot.ShaderMaterial] using this shader.
-     */
     QUAL_NONE(0),
-    /**
-     * The parameter will use a global value, defined in Project Settings.
-     */
     QUAL_GLOBAL(1),
-    /**
-     * The parameter will be tied to the node with attached [godot.ShaderMaterial] using this shader.
-     */
     QUAL_INSTANCE(2),
-    /**
-     * Represents the size of the [enum Qualifier] enum.
-     */
     QUAL_MAX(3),
     ;
 
@@ -86,7 +63,9 @@ public open class VisualShaderNodeParameter internal constructor() : VisualShade
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): Qualifier = entries.single {
+          it.id == `value`
+      }
     }
   }
 

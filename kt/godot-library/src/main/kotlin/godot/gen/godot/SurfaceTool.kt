@@ -7,7 +7,6 @@
 package godot
 
 import godot.`annotation`.GodotBaseType
-import godot.core.AABB
 import godot.core.Color
 import godot.core.PackedColorArray
 import godot.core.PackedFloat32Array
@@ -46,209 +45,94 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
-import kotlin.Unit
 import kotlin.jvm.JvmOverloads
+import godot.core.AABB as CoreAABB
+import godot.core.VariantType.AABB as VariantTypeAABB
 
-/**
- * Helper tool to create geometry.
- *
- * Tutorials:
- * [https://godotengine.org/asset-library/asset/676](https://godotengine.org/asset-library/asset/676)
- *
- * The [godot.SurfaceTool] is used to construct a [godot.Mesh] by specifying vertex attributes individually. It can be used to construct a [godot.Mesh] from a script. All properties except indices need to be added before calling [addVertex]. For example, to add vertex colors and UVs:
- *
- * [codeblocks]
- *
- * [gdscript]
- *
- * var st = SurfaceTool.new()
- *
- * st.begin(Mesh.PRIMITIVE_TRIANGLES)
- *
- * st.set_color(Color(1, 0, 0))
- *
- * st.set_uv(Vector2(0, 0))
- *
- * st.add_vertex(Vector3(0, 0, 0))
- *
- * [/gdscript]
- *
- * [csharp]
- *
- * var st = new SurfaceTool();
- *
- * st.Begin(Mesh.PrimitiveType.Triangles);
- *
- * st.SetColor(new Color(1, 0, 0));
- *
- * st.SetUV(new Vector2(0, 0));
- *
- * st.AddVertex(new Vector3(0, 0, 0));
- *
- * [/csharp]
- *
- * [/codeblocks]
- *
- * The above [godot.SurfaceTool] now contains one vertex of a triangle which has a UV coordinate and a specified [godot.core.Color]. If another vertex were added without calling [setUv] or [setColor], then the last values would be used.
- *
- * Vertex attributes must be passed **before** calling [addVertex]. Failure to do so will result in an error when committing the vertex information to a mesh.
- *
- * Additionally, the attributes used before the first vertex is added determine the format of the mesh. For example, if you only add UVs to the first vertex, you cannot add color to any of the subsequent vertices.
- *
- * See also [godot.ArrayMesh], [godot.ImmediateMesh] and [godot.MeshDataTool] for procedural geometry generation.
- *
- * **Note:** Godot uses clockwise [winding order](https://learnopengl.com/Advanced-OpenGL/Face-culling) for front faces of triangle primitive modes.
- */
 @GodotBaseType
 public open class SurfaceTool : RefCounted() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_SURFACETOOL, scriptIndex)
     return true
   }
 
-  /**
-   * Set to [godot.SKIN_8_WEIGHTS] to indicate that up to 8 bone influences per vertex may be used.
-   *
-   * By default, only 4 bone influences are used ([godot.SKIN_4_WEIGHTS])
-   *
-   * **Note:** This function takes an enum, not the exact number of weights.
-   */
-  public fun setSkinWeightCount(count: SkinWeightCount): Unit {
+  public fun setSkinWeightCount(count: SkinWeightCount) {
     TransferContext.writeArguments(LONG to count.id)
     TransferContext.callMethod(rawPtr, MethodBindings.setSkinWeightCountPtr, NIL)
   }
 
-  /**
-   * By default, returns [godot.SKIN_4_WEIGHTS] to indicate only 4 bone influences per vertex are used.
-   *
-   * Returns [godot.SKIN_8_WEIGHTS] if up to 8 influences are used.
-   *
-   * **Note:** This function returns an enum, not the exact number of weights.
-   */
   public fun getSkinWeightCount(): SkinWeightCount {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getSkinWeightCountPtr, LONG)
     return SurfaceTool.SkinWeightCount.from(TransferContext.readReturnValue(LONG) as Long)
   }
 
-  /**
-   * Sets the color format for this custom [channelIndex]. Use [CUSTOM_MAX] to disable.
-   *
-   * Must be invoked after [begin] and should be set before [commit] or [commitToArrays].
-   */
-  public fun setCustomFormat(channelIndex: Int, format: CustomFormat): Unit {
+  public fun setCustomFormat(channelIndex: Int, format: CustomFormat) {
     TransferContext.writeArguments(LONG to channelIndex.toLong(), LONG to format.id)
     TransferContext.callMethod(rawPtr, MethodBindings.setCustomFormatPtr, NIL)
   }
 
-  /**
-   * Returns the format for custom [channelIndex] (currently up to 4). Returns [CUSTOM_MAX] if this custom channel is unused.
-   */
   public fun getCustomFormat(channelIndex: Int): CustomFormat {
     TransferContext.writeArguments(LONG to channelIndex.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.getCustomFormatPtr, LONG)
     return SurfaceTool.CustomFormat.from(TransferContext.readReturnValue(LONG) as Long)
   }
 
-  /**
-   * Called before adding any vertices. Takes the primitive type as an argument (e.g. [godot.Mesh.PRIMITIVE_TRIANGLES]).
-   */
-  public fun begin(primitive: Mesh.PrimitiveType): Unit {
+  public fun begin(primitive: Mesh.PrimitiveType) {
     TransferContext.writeArguments(LONG to primitive.id)
     TransferContext.callMethod(rawPtr, MethodBindings.beginPtr, NIL)
   }
 
-  /**
-   * Specifies the position of current vertex. Should be called after specifying other vertex properties (e.g. Color, UV).
-   */
-  public fun addVertex(vertex: Vector3): Unit {
+  public fun addVertex(vertex: Vector3) {
     TransferContext.writeArguments(VECTOR3 to vertex)
     TransferContext.callMethod(rawPtr, MethodBindings.addVertexPtr, NIL)
   }
 
-  /**
-   * Specifies a [godot.core.Color] to use for the *next* vertex. If every vertex needs to have this information set and you fail to submit it for the first vertex, this information may not be used at all.
-   *
-   * **Note:** The material must have [godot.BaseMaterial3D.vertexColorUseAsAlbedo] enabled for the vertex color to be visible.
-   */
-  public fun setColor(color: Color): Unit {
+  public fun setColor(color: Color) {
     TransferContext.writeArguments(COLOR to color)
     TransferContext.callMethod(rawPtr, MethodBindings.setColorPtr, NIL)
   }
 
-  /**
-   * Specifies a normal to use for the *next* vertex. If every vertex needs to have this information set and you fail to submit it for the first vertex, this information may not be used at all.
-   */
-  public fun setNormal(normal: Vector3): Unit {
+  public fun setNormal(normal: Vector3) {
     TransferContext.writeArguments(VECTOR3 to normal)
     TransferContext.callMethod(rawPtr, MethodBindings.setNormalPtr, NIL)
   }
 
-  /**
-   * Specifies a tangent to use for the *next* vertex. If every vertex needs to have this information set and you fail to submit it for the first vertex, this information may not be used at all.
-   */
-  public fun setTangent(tangent: Plane): Unit {
+  public fun setTangent(tangent: Plane) {
     TransferContext.writeArguments(PLANE to tangent)
     TransferContext.callMethod(rawPtr, MethodBindings.setTangentPtr, NIL)
   }
 
-  /**
-   * Specifies a set of UV coordinates to use for the *next* vertex. If every vertex needs to have this information set and you fail to submit it for the first vertex, this information may not be used at all.
-   */
-  public fun setUv(uv: Vector2): Unit {
+  public fun setUv(uv: Vector2) {
     TransferContext.writeArguments(VECTOR2 to uv)
     TransferContext.callMethod(rawPtr, MethodBindings.setUvPtr, NIL)
   }
 
-  /**
-   * Specifies an optional second set of UV coordinates to use for the *next* vertex. If every vertex needs to have this information set and you fail to submit it for the first vertex, this information may not be used at all.
-   */
-  public fun setUv2(uv2: Vector2): Unit {
+  public fun setUv2(uv2: Vector2) {
     TransferContext.writeArguments(VECTOR2 to uv2)
     TransferContext.callMethod(rawPtr, MethodBindings.setUv2Ptr, NIL)
   }
 
-  /**
-   * Specifies an array of bones to use for the *next* vertex. [bones] must contain 4 integers.
-   */
-  public fun setBones(bones: PackedInt32Array): Unit {
+  public fun setBones(bones: PackedInt32Array) {
     TransferContext.writeArguments(PACKED_INT_32_ARRAY to bones)
     TransferContext.callMethod(rawPtr, MethodBindings.setBonesPtr, NIL)
   }
 
-  /**
-   * Specifies weight values to use for the *next* vertex. [weights] must contain 4 values. If every vertex needs to have this information set and you fail to submit it for the first vertex, this information may not be used at all.
-   */
-  public fun setWeights(weights: PackedFloat32Array): Unit {
+  public fun setWeights(weights: PackedFloat32Array) {
     TransferContext.writeArguments(PACKED_FLOAT_32_ARRAY to weights)
     TransferContext.callMethod(rawPtr, MethodBindings.setWeightsPtr, NIL)
   }
 
-  /**
-   * Sets the custom value on this vertex for [channelIndex].
-   *
-   * [setCustomFormat] must be called first for this [channelIndex]. Formats which are not RGBA will ignore other color channels.
-   */
-  public fun setCustom(channelIndex: Int, customColor: Color): Unit {
+  public fun setCustom(channelIndex: Int, customColor: Color) {
     TransferContext.writeArguments(LONG to channelIndex.toLong(), COLOR to customColor)
     TransferContext.callMethod(rawPtr, MethodBindings.setCustomPtr, NIL)
   }
 
-  /**
-   * Specifies the smooth group to use for the *next* vertex. If this is never called, all vertices will have the default smooth group of `0` and will be smoothed with adjacent vertices of the same group. To produce a mesh with flat normals, set the smooth group to `-1`.
-   *
-   * **Note:** This function actually takes a `uint32_t`, so C# users should use `uint32.MaxValue` instead of `-1` to produce a mesh with flat normals.
-   */
-  public fun setSmoothGroup(index: Long): Unit {
+  public fun setSmoothGroup(index: Long) {
     TransferContext.writeArguments(LONG to index)
     TransferContext.callMethod(rawPtr, MethodBindings.setSmoothGroupPtr, NIL)
   }
 
-  /**
-   * Inserts a triangle fan made of array data into [godot.Mesh] being constructed.
-   *
-   * Requires the primitive type be set to [godot.Mesh.PRIMITIVE_TRIANGLES].
-   */
   @JvmOverloads
   public fun addTriangleFan(
     vertices: PackedVector3Array,
@@ -257,78 +141,48 @@ public open class SurfaceTool : RefCounted() {
     uv2s: PackedVector2Array = PackedVector2Array(),
     normals: PackedVector3Array = PackedVector3Array(),
     tangents: VariantArray<Plane> = godot.core.variantArrayOf(),
-  ): Unit {
+  ) {
     TransferContext.writeArguments(PACKED_VECTOR3_ARRAY to vertices, PACKED_VECTOR2_ARRAY to uvs, PACKED_COLOR_ARRAY to colors, PACKED_VECTOR2_ARRAY to uv2s, PACKED_VECTOR3_ARRAY to normals, ARRAY to tangents)
     TransferContext.callMethod(rawPtr, MethodBindings.addTriangleFanPtr, NIL)
   }
 
-  /**
-   * Adds a vertex to index array if you are using indexed vertices. Does not need to be called before adding vertices.
-   */
-  public fun addIndex(index: Int): Unit {
+  public fun addIndex(index: Int) {
     TransferContext.writeArguments(LONG to index.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.addIndexPtr, NIL)
   }
 
-  /**
-   * Shrinks the vertex array by creating an index array. This can improve performance by avoiding vertex reuse.
-   */
-  public fun index(): Unit {
+  public fun index() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.indexPtr, NIL)
   }
 
-  /**
-   * Removes the index array by expanding the vertex array.
-   */
-  public fun deindex(): Unit {
+  public fun deindex() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.deindexPtr, NIL)
   }
 
-  /**
-   * Generates normals from vertices so you do not have to do it manually. If [flip] is `true`, the resulting normals will be inverted. [generateNormals] should be called *after* generating geometry and *before* committing the mesh using [commit] or [commitToArrays]. For correct display of normal-mapped surfaces, you will also have to generate tangents using [generateTangents].
-   *
-   * **Note:** [generateNormals] only works if the primitive type to be set to [godot.Mesh.PRIMITIVE_TRIANGLES].
-   *
-   * **Note:** [generateNormals] takes smooth groups into account. To generate smooth normals, set the smooth group to a value greater than or equal to `0` using [setSmoothGroup] or leave the smooth group at the default of `0`. To generate flat normals, set the smooth group to `-1` using [setSmoothGroup] prior to adding vertices.
-   */
   @JvmOverloads
-  public fun generateNormals(flip: Boolean = false): Unit {
+  public fun generateNormals(flip: Boolean = false) {
     TransferContext.writeArguments(BOOL to flip)
     TransferContext.callMethod(rawPtr, MethodBindings.generateNormalsPtr, NIL)
   }
 
-  /**
-   * Generates a tangent vector for each vertex. Requires that each vertex have UVs and normals set already (see [generateNormals]).
-   */
-  public fun generateTangents(): Unit {
+  public fun generateTangents() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.generateTangentsPtr, NIL)
   }
 
-  /**
-   * Optimizes triangle sorting for performance. Requires that [getPrimitiveType] is [godot.Mesh.PRIMITIVE_TRIANGLES].
-   */
-  public fun optimizeIndicesForCache(): Unit {
+  public fun optimizeIndicesForCache() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.optimizeIndicesForCachePtr, NIL)
   }
 
-  /**
-   * Returns the axis-aligned bounding box of the vertex positions.
-   */
-  public fun getAabb(): AABB {
+  public fun getAabb(): CoreAABB {
     TransferContext.writeArguments()
-    TransferContext.callMethod(rawPtr, MethodBindings.getAabbPtr, godot.core.VariantType.AABB)
-    return (TransferContext.readReturnValue(godot.core.VariantType.AABB, false) as AABB)
+    TransferContext.callMethod(rawPtr, MethodBindings.getAabbPtr, VariantTypeAABB)
+    return (TransferContext.readReturnValue(VariantTypeAABB, false) as CoreAABB)
   }
 
-  /**
-   * Generates a LOD for a given [ndThreshold] in linear units (square root of quadric error metric), using at most [targetIndexCount] indices.
-   *
-   * *Deprecated.* Unused internally and neglects to preserve normals or UVs. Consider using [godot.ImporterMesh.generateLods] instead.
-   */
   @JvmOverloads
   public fun generateLod(ndThreshold: Float, targetIndexCount: Int = 3): PackedInt32Array {
     TransferContext.writeArguments(DOUBLE to ndThreshold.toDouble(), LONG to targetIndexCount.toLong())
@@ -336,68 +190,45 @@ public open class SurfaceTool : RefCounted() {
     return (TransferContext.readReturnValue(PACKED_INT_32_ARRAY, false) as PackedInt32Array)
   }
 
-  /**
-   * Sets [godot.Material] to be used by the [godot.Mesh] you are constructing.
-   */
-  public fun setMaterial(material: Material): Unit {
+  public fun setMaterial(material: Material) {
     TransferContext.writeArguments(OBJECT to material)
     TransferContext.callMethod(rawPtr, MethodBindings.setMaterialPtr, NIL)
   }
 
-  /**
-   * Returns the type of mesh geometry, such as [godot.Mesh.PRIMITIVE_TRIANGLES].
-   */
   public fun getPrimitiveType(): Mesh.PrimitiveType {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getPrimitiveTypePtr, LONG)
     return Mesh.PrimitiveType.from(TransferContext.readReturnValue(LONG) as Long)
   }
 
-  /**
-   * Clear all information passed into the surface tool so far.
-   */
-  public fun clear(): Unit {
+  public fun clear() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.clearPtr, NIL)
   }
 
-  /**
-   * Creates a vertex array from an existing [godot.Mesh].
-   */
-  public fun createFrom(existing: Mesh, surface: Int): Unit {
+  public fun createFrom(existing: Mesh, surface: Int) {
     TransferContext.writeArguments(OBJECT to existing, LONG to surface.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.createFromPtr, NIL)
   }
 
-  /**
-   * Creates a vertex array from the specified blend shape of an existing [godot.Mesh]. This can be used to extract a specific pose from a blend shape.
-   */
   public fun createFromBlendShape(
     existing: Mesh,
     surface: Int,
     blendShape: String,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(OBJECT to existing, LONG to surface.toLong(), STRING to blendShape)
     TransferContext.callMethod(rawPtr, MethodBindings.createFromBlendShapePtr, NIL)
   }
 
-  /**
-   * Append vertices from a given [godot.Mesh] surface onto the current vertex array with specified [godot.Transform3D].
-   */
   public fun appendFrom(
     existing: Mesh,
     surface: Int,
     transform: Transform3D,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(OBJECT to existing, LONG to surface.toLong(), TRANSFORM3D to transform)
     TransferContext.callMethod(rawPtr, MethodBindings.appendFromPtr, NIL)
   }
 
-  /**
-   * Returns a constructed [godot.ArrayMesh] from current information passed in. If an existing [godot.ArrayMesh] is passed in as an argument, will add an extra surface to the existing [godot.ArrayMesh].
-   *
-   * **FIXME:** Document possible values for [flags], it changed in 4.0. Likely some combinations of [enum Mesh.ArrayFormat].
-   */
   @JvmOverloads
   public fun commit(existing: ArrayMesh? = null, flags: Long = 0): ArrayMesh? {
     TransferContext.writeArguments(OBJECT to existing, LONG to flags)
@@ -405,9 +236,6 @@ public open class SurfaceTool : RefCounted() {
     return (TransferContext.readReturnValue(OBJECT, true) as ArrayMesh?)
   }
 
-  /**
-   * Commits the data to the same format used by [godot.ArrayMesh.addSurfaceFromArrays]. This way you can further process the mesh data using the [godot.ArrayMesh] API.
-   */
   public fun commitToArrays(): VariantArray<Any?> {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.commitToArraysPtr, ARRAY)
@@ -417,41 +245,14 @@ public open class SurfaceTool : RefCounted() {
   public enum class CustomFormat(
     id: Long,
   ) {
-    /**
-     * Limits range of data passed to [setCustom] to unsigned normalized 0 to 1 stored in 8 bits per channel. See [godot.Mesh.ARRAY_CUSTOM_RGBA8_UNORM].
-     */
     CUSTOM_RGBA8_UNORM(0),
-    /**
-     * Limits range of data passed to [setCustom] to signed normalized -1 to 1 stored in 8 bits per channel. See [godot.Mesh.ARRAY_CUSTOM_RGBA8_SNORM].
-     */
     CUSTOM_RGBA8_SNORM(1),
-    /**
-     * Stores data passed to [setCustom] as half precision floats, and uses only red and green color channels. See [godot.Mesh.ARRAY_CUSTOM_RG_HALF].
-     */
     CUSTOM_RG_HALF(2),
-    /**
-     * Stores data passed to [setCustom] as half precision floats and uses all color channels. See [godot.Mesh.ARRAY_CUSTOM_RGBA_HALF].
-     */
     CUSTOM_RGBA_HALF(3),
-    /**
-     * Stores data passed to [setCustom] as full precision floats, and uses only red color channel. See [godot.Mesh.ARRAY_CUSTOM_R_FLOAT].
-     */
     CUSTOM_R_FLOAT(4),
-    /**
-     * Stores data passed to [setCustom] as full precision floats, and uses only red and green color channels. See [godot.Mesh.ARRAY_CUSTOM_RG_FLOAT].
-     */
     CUSTOM_RG_FLOAT(5),
-    /**
-     * Stores data passed to [setCustom] as full precision floats, and uses only red, green and blue color channels. See [godot.Mesh.ARRAY_CUSTOM_RGB_FLOAT].
-     */
     CUSTOM_RGB_FLOAT(6),
-    /**
-     * Stores data passed to [setCustom] as full precision floats, and uses all color channels. See [godot.Mesh.ARRAY_CUSTOM_RGBA_FLOAT].
-     */
     CUSTOM_RGBA_FLOAT(7),
-    /**
-     * Used to indicate a disabled custom channel.
-     */
     CUSTOM_MAX(8),
     ;
 
@@ -461,20 +262,16 @@ public open class SurfaceTool : RefCounted() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): CustomFormat = entries.single {
+          it.id == `value`
+      }
     }
   }
 
   public enum class SkinWeightCount(
     id: Long,
   ) {
-    /**
-     * Each individual vertex can be influenced by only 4 bone weights.
-     */
     SKIN_4_WEIGHTS(0),
-    /**
-     * Each individual vertex can be influenced by up to 8 bone weights.
-     */
     SKIN_8_WEIGHTS(1),
     ;
 
@@ -484,7 +281,9 @@ public open class SurfaceTool : RefCounted() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): SkinWeightCount = entries.single {
+          it.id == `value`
+      }
     }
   }
 

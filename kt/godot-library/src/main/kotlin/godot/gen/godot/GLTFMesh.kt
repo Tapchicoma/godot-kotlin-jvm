@@ -55,7 +55,7 @@ public open class GLTFMesh : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setInstanceMaterialsPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_GLTFMESH, scriptIndex)
     return true
   }

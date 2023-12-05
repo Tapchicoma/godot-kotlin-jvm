@@ -28,26 +28,12 @@ import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 
-/**
- * 2D sprite node in a 3D world.
- *
- * A node that displays a 2D texture in a 3D environment. The texture displayed can be a region from a larger atlas texture, or a frame from a sprite sheet animation. See also [godot.SpriteBase3D] where properties such as the billboard mode are defined.
- */
 @GodotBaseType
 public open class Sprite3D : SpriteBase3D() {
-  /**
-   * Emitted when the [frame] changes.
-   */
   public val frameChanged: Signal0 by signal()
 
-  /**
-   * Emitted when the [texture] changes.
-   */
   public val textureChanged: Signal0 by signal()
 
-  /**
-   * [godot.Texture2D] object to draw. If [godot.GeometryInstance3D.materialOverride] is used, this will be overridden. The size information is still used.
-   */
   public var texture: Texture2D?
     get() {
       TransferContext.writeArguments()
@@ -59,9 +45,6 @@ public open class Sprite3D : SpriteBase3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTexturePtr, NIL)
     }
 
-  /**
-   * The number of columns in the sprite sheet.
-   */
   public var hframes: Int
     get() {
       TransferContext.writeArguments()
@@ -73,9 +56,6 @@ public open class Sprite3D : SpriteBase3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setHframesPtr, NIL)
     }
 
-  /**
-   * The number of rows in the sprite sheet.
-   */
   public var vframes: Int
     get() {
       TransferContext.writeArguments()
@@ -87,9 +67,6 @@ public open class Sprite3D : SpriteBase3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setVframesPtr, NIL)
     }
 
-  /**
-   * Current frame to display from sprite sheet. [hframes] or [vframes] must be greater than 1.
-   */
   public var frame: Int
     get() {
       TransferContext.writeArguments()
@@ -101,9 +78,6 @@ public open class Sprite3D : SpriteBase3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFramePtr, NIL)
     }
 
-  /**
-   * Coordinates of the frame to display from sprite sheet. This is as an alias for the [frame] property. [hframes] or [vframes] must be greater than 1.
-   */
   @CoreTypeLocalCopy
   public var frameCoords: Vector2i
     get() {
@@ -116,9 +90,6 @@ public open class Sprite3D : SpriteBase3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFrameCoordsPtr, NIL)
     }
 
-  /**
-   * If `true`, the sprite will use [regionRect] and display only the specified part of its texture.
-   */
   public var regionEnabled: Boolean
     get() {
       TransferContext.writeArguments()
@@ -130,9 +101,6 @@ public open class Sprite3D : SpriteBase3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRegionEnabledPtr, NIL)
     }
 
-  /**
-   * The region of the atlas texture to display. [regionEnabled] must be `true`.
-   */
   @CoreTypeLocalCopy
   public var regionRect: Rect2
     get() {
@@ -145,14 +113,12 @@ public open class Sprite3D : SpriteBase3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRegionRectPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_SPRITE3D, scriptIndex)
     return true
   }
 
   /**
-   * Coordinates of the frame to display from sprite sheet. This is as an alias for the [frame] property. [hframes] or [vframes] must be greater than 1.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -175,8 +141,6 @@ public open class Sprite3D : SpriteBase3D() {
 
 
   /**
-   * The region of the atlas texture to display. [regionEnabled] must be `true`.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our

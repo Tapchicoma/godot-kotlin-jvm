@@ -23,77 +23,47 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
 import kotlin.Suppress
-import kotlin.Unit
 
-/**
- * A node used to generate previews of resources or files.
- *
- * This node is used to generate previews for resources of files.
- *
- * **Note:** This class shouldn't be instantiated directly. Instead, access the singleton using [godot.EditorInterface.getResourcePreviewer].
- */
 @GodotBaseType
 public open class EditorResourcePreview internal constructor() : Node() {
-  /**
-   * Emitted if a preview was invalidated (changed). [path] corresponds to the path of the preview.
-   */
   public val previewInvalidated: Signal1<String> by signal("path")
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_EDITORRESOURCEPREVIEW, scriptIndex)
     return true
   }
 
-  /**
-   * Queue a resource file located at [path] for preview. Once the preview is ready, the [receiver]'s [receiverFunc] will be called. The [receiverFunc] must take the following four arguments: [godot.String] path, [godot.Texture2D] preview, [godot.Texture2D] thumbnail_preview, [Variant] userdata. [userdata] can be anything, and will be returned when [receiverFunc] is called.
-   *
-   * **Note:** If it was not possible to create the preview the [receiverFunc] will still be called, but the preview will be null.
-   */
   public fun queueResourcePreview(
     path: String,
     `receiver`: Object,
     receiverFunc: StringName,
     userdata: Any?,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(STRING to path, OBJECT to receiver, STRING_NAME to receiverFunc, ANY to userdata)
     TransferContext.callMethod(rawPtr, MethodBindings.queueResourcePreviewPtr, NIL)
   }
 
-  /**
-   * Queue the [resource] being edited for preview. Once the preview is ready, the [receiver]'s [receiverFunc] will be called. The [receiverFunc] must take the following four arguments: [godot.String] path, [godot.Texture2D] preview, [godot.Texture2D] thumbnail_preview, [Variant] userdata. [userdata] can be anything, and will be returned when [receiverFunc] is called.
-   *
-   * **Note:** If it was not possible to create the preview the [receiverFunc] will still be called, but the preview will be null.
-   */
   public fun queueEditedResourcePreview(
     resource: Resource,
     `receiver`: Object,
     receiverFunc: StringName,
     userdata: Any?,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(OBJECT to resource, OBJECT to receiver, STRING_NAME to receiverFunc, ANY to userdata)
     TransferContext.callMethod(rawPtr, MethodBindings.queueEditedResourcePreviewPtr, NIL)
   }
 
-  /**
-   * Create an own, custom preview generator.
-   */
-  public fun addPreviewGenerator(generator: EditorResourcePreviewGenerator): Unit {
+  public fun addPreviewGenerator(generator: EditorResourcePreviewGenerator) {
     TransferContext.writeArguments(OBJECT to generator)
     TransferContext.callMethod(rawPtr, MethodBindings.addPreviewGeneratorPtr, NIL)
   }
 
-  /**
-   * Removes a custom preview generator.
-   */
-  public fun removePreviewGenerator(generator: EditorResourcePreviewGenerator): Unit {
+  public fun removePreviewGenerator(generator: EditorResourcePreviewGenerator) {
     TransferContext.writeArguments(OBJECT to generator)
     TransferContext.callMethod(rawPtr, MethodBindings.removePreviewGeneratorPtr, NIL)
   }
 
-  /**
-   * Check if the resource changed, if so, it will be invalidated and the corresponding signal emitted.
-   */
-  public fun checkForInvalidation(path: String): Unit {
+  public fun checkForInvalidation(path: String) {
     TransferContext.writeArguments(STRING to path)
     TransferContext.callMethod(rawPtr, MethodBindings.checkForInvalidationPtr, NIL)
   }

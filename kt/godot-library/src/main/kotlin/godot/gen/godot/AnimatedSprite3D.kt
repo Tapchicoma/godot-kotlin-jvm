@@ -27,47 +27,20 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
-import kotlin.Unit
 import kotlin.jvm.JvmOverloads
 
-/**
- * 2D sprite node in 3D world, that can use multiple 2D textures for animation.
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/2d/2d_sprite_animation.html]($DOCS_URL/tutorials/2d/2d_sprite_animation.html)
- *
- * [godot.AnimatedSprite3D] is similar to the [godot.Sprite3D] node, except it carries multiple textures as animation [spriteFrames]. Animations are created using a [godot.SpriteFrames] resource, which allows you to import image files (or a folder containing said files) to provide the animation frames for the sprite. The [godot.SpriteFrames] resource can be configured in the editor via the SpriteFrames bottom panel.
- */
 @GodotBaseType
 public open class AnimatedSprite3D : SpriteBase3D() {
-  /**
-   * Emitted when [spriteFrames] changes.
-   */
   public val spriteFramesChanged: Signal0 by signal()
 
-  /**
-   * Emitted when [animation] changes.
-   */
   public val animationChanged: Signal0 by signal()
 
-  /**
-   * Emitted when [frame] changes.
-   */
   public val frameChanged: Signal0 by signal()
 
-  /**
-   * Emitted when the animation loops.
-   */
   public val animationLooped: Signal0 by signal()
 
-  /**
-   * Emitted when the animation reaches the end, or the start if it is played in reverse. When the animation finishes, it pauses the playback.
-   */
   public val animationFinished: Signal0 by signal()
 
-  /**
-   * The [godot.SpriteFrames] resource containing the animation(s). Allows you the option to load, edit, clear, make unique and save the states of the [godot.SpriteFrames] resource.
-   */
   public var spriteFrames: SpriteFrames?
     get() {
       TransferContext.writeArguments()
@@ -79,9 +52,6 @@ public open class AnimatedSprite3D : SpriteBase3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSpriteFramesPtr, NIL)
     }
 
-  /**
-   * The current animation from the [spriteFrames] resource. If this value is changed, the [frame] counter and the [frameProgress] are reset.
-   */
   public var animation: StringName
     get() {
       TransferContext.writeArguments()
@@ -93,9 +63,6 @@ public open class AnimatedSprite3D : SpriteBase3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAnimationPtr, NIL)
     }
 
-  /**
-   * The key of the animation to play when the scene loads.
-   */
   public var autoplay: String
     get() {
       TransferContext.writeArguments()
@@ -107,9 +74,6 @@ public open class AnimatedSprite3D : SpriteBase3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAutoplayPtr, NIL)
     }
 
-  /**
-   * The displayed animation frame's index. Setting this property also resets [frameProgress]. If this is not desired, use [setFrameAndProgress].
-   */
   public var frame: Int
     get() {
       TransferContext.writeArguments()
@@ -121,9 +85,6 @@ public open class AnimatedSprite3D : SpriteBase3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFramePtr, NIL)
     }
 
-  /**
-   * The progress value between `0.0` and `1.0` until the current frame transitions to the next frame. If the animation is playing backwards, the value transitions from `1.0` to `0.0`.
-   */
   public var frameProgress: Float
     get() {
       TransferContext.writeArguments()
@@ -135,11 +96,6 @@ public open class AnimatedSprite3D : SpriteBase3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFrameProgressPtr, NIL)
     }
 
-  /**
-   * The speed scaling ratio. For example, if this value is `1`, then the animation plays at normal speed. If it's `0.5`, then it plays at half speed. If it's `2`, then it plays at double speed.
-   *
-   * If set to a negative value, the animation is played in reverse. If set to `0`, the animation will not advance.
-   */
   public var speedScale: Float
     get() {
       TransferContext.writeArguments()
@@ -151,99 +107,48 @@ public open class AnimatedSprite3D : SpriteBase3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSpeedScalePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_ANIMATEDSPRITE3D, scriptIndex)
     return true
   }
 
-  /**
-   * Returns `true` if an animation is currently playing (even if [speedScale] and/or `custom_speed` are `0`).
-   */
   public fun isPlaying(): Boolean {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.isPlayingPtr, BOOL)
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Plays the animation with key [name]. If [customSpeed] is negative and [fromEnd] is `true`, the animation will play backwards (which is equivalent to calling [playBackwards]).
-   *
-   * If this method is called with that same animation [name], or with no [name] parameter, the assigned animation will resume playing if it was paused.
-   */
   @JvmOverloads
   public fun play(
     name: StringName = StringName(""),
     customSpeed: Float = 1.0f,
     fromEnd: Boolean = false,
-  ): Unit {
+  ) {
     TransferContext.writeArguments(STRING_NAME to name, DOUBLE to customSpeed.toDouble(), BOOL to fromEnd)
     TransferContext.callMethod(rawPtr, MethodBindings.playPtr, NIL)
   }
 
-  /**
-   * Plays the animation with key [name] in reverse.
-   *
-   * This method is a shorthand for [play] with `custom_speed = -1.0` and `from_end = true`, so see its description for more information.
-   */
   @JvmOverloads
-  public fun playBackwards(name: StringName = StringName("")): Unit {
+  public fun playBackwards(name: StringName = StringName("")) {
     TransferContext.writeArguments(STRING_NAME to name)
     TransferContext.callMethod(rawPtr, MethodBindings.playBackwardsPtr, NIL)
   }
 
-  /**
-   * Pauses the currently playing animation. The [frame] and [frameProgress] will be kept and calling [play] or [playBackwards] without arguments will resume the animation from the current playback position.
-   *
-   * See also [stop].
-   */
-  public fun pause(): Unit {
+  public fun pause() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.pausePtr, NIL)
   }
 
-  /**
-   * Stops the currently playing animation. The animation position is reset to `0` and the `custom_speed` is reset to `1.0`. See also [pause].
-   */
-  public fun stop(): Unit {
+  public fun stop() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.stopPtr, NIL)
   }
 
-  /**
-   * The setter of [frame] resets the [frameProgress] to `0.0` implicitly, but this method avoids that.
-   *
-   * This is useful when you want to carry over the current [frameProgress] to another [frame].
-   *
-   * **Example:**
-   *
-   * [codeblocks]
-   *
-   * [gdscript]
-   *
-   * # Change the animation with keeping the frame index and progress.
-   *
-   * var current_frame = animated_sprite.get_frame()
-   *
-   * var current_progress = animated_sprite.get_frame_progress()
-   *
-   * animated_sprite.play("walk_another_skin")
-   *
-   * animated_sprite.set_frame_and_progress(current_frame, current_progress)
-   *
-   * [/gdscript]
-   *
-   * [/codeblocks]
-   */
-  public fun setFrameAndProgress(frame: Int, progress: Float): Unit {
+  public fun setFrameAndProgress(frame: Int, progress: Float) {
     TransferContext.writeArguments(LONG to frame.toLong(), DOUBLE to progress.toDouble())
     TransferContext.callMethod(rawPtr, MethodBindings.setFrameAndProgressPtr, NIL)
   }
 
-  /**
-   * Returns the actual playing speed of current animation or `0` if not playing. This speed is the [speedScale] property multiplied by `custom_speed` argument specified when calling the [play] method.
-   *
-   * Returns a negative value if the current animation is playing backwards.
-   */
   public fun getPlayingSpeed(): Float {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getPlayingSpeedPtr, DOUBLE)

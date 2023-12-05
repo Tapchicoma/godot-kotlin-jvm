@@ -17,20 +17,9 @@ import godot.util.VoidPtr
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
-import kotlin.Unit
 
-/**
- * RemoteTransform2D pushes its own [godot.core.Transform2D] to another [godot.Node2D] derived node in the scene.
- *
- * RemoteTransform2D pushes its own [godot.core.Transform2D] to another [godot.Node2D] derived node (called the remote node) in the scene.
- *
- * It can be set to update another node's position, rotation and/or scale. It can use either global or local coordinates.
- */
 @GodotBaseType
 public open class RemoteTransform2D : Node2D() {
-  /**
-   * The [godot.core.NodePath] to the remote node, relative to the RemoteTransform2D's position in the scene.
-   */
   public var remotePath: NodePath
     get() {
       TransferContext.writeArguments()
@@ -42,9 +31,6 @@ public open class RemoteTransform2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRemoteNodePtr, NIL)
     }
 
-  /**
-   * If `true`, global coordinates are used. If `false`, local coordinates are used.
-   */
   public var useGlobalCoordinates: Boolean
     get() {
       TransferContext.writeArguments()
@@ -56,9 +42,6 @@ public open class RemoteTransform2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setUseGlobalCoordinatesPtr, NIL)
     }
 
-  /**
-   * If `true`, the remote node's position is updated.
-   */
   public var updatePosition: Boolean
     get() {
       TransferContext.writeArguments()
@@ -70,9 +53,6 @@ public open class RemoteTransform2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setUpdatePositionPtr, NIL)
     }
 
-  /**
-   * If `true`, the remote node's rotation is updated.
-   */
   public var updateRotation: Boolean
     get() {
       TransferContext.writeArguments()
@@ -84,9 +64,6 @@ public open class RemoteTransform2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setUpdateRotationPtr, NIL)
     }
 
-  /**
-   * If `true`, the remote node's scale is updated.
-   */
   public var updateScale: Boolean
     get() {
       TransferContext.writeArguments()
@@ -98,15 +75,12 @@ public open class RemoteTransform2D : Node2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setUpdateScalePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_REMOTETRANSFORM2D, scriptIndex)
     return true
   }
 
-  /**
-   * [godot.RemoteTransform2D] caches the remote node. It may not notice if the remote node disappears; [forceUpdateCache] forces it to update the cache again.
-   */
-  public fun forceUpdateCache(): Unit {
+  public fun forceUpdateCache() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.forceUpdateCachePtr, NIL)
   }

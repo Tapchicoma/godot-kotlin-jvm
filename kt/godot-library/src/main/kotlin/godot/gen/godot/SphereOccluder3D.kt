@@ -18,18 +18,8 @@ import kotlin.Float
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * Spherical shape for use with occlusion culling in [godot.OccluderInstance3D].
- *
- * [godot.SphereOccluder3D] stores a sphere shape that can be used by the engine's occlusion culling system.
- *
- * See [godot.OccluderInstance3D]'s documentation for instructions on setting up occlusion culling.
- */
 @GodotBaseType
 public open class SphereOccluder3D : Occluder3D() {
-  /**
-   * The sphere's radius in 3D units.
-   */
   public var radius: Float
     get() {
       TransferContext.writeArguments()
@@ -41,7 +31,7 @@ public open class SphereOccluder3D : Occluder3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setRadiusPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_SPHEREOCCLUDER3D, scriptIndex)
     return true
   }

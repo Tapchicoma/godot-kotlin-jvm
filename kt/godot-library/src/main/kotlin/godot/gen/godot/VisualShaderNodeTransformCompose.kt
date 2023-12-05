@@ -11,14 +11,9 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * Composes a [godot.Transform3D] from four [godot.core.Vector3]s within the visual shader graph.
- *
- * Creates a 4x4 transform matrix using four vectors of type `vec3`. Each vector is one row in the matrix and the last column is a `vec4(0, 0, 0, 1)`.
- */
 @GodotBaseType
 public open class VisualShaderNodeTransformCompose : VisualShaderNode() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_VISUALSHADERNODETRANSFORMCOMPOSE, scriptIndex)
     return true
   }

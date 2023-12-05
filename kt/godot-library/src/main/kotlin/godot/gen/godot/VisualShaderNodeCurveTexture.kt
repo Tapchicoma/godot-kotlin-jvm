@@ -16,16 +16,8 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * Performs a [godot.CurveTexture] lookup within the visual shader graph.
- *
- * Comes with a built-in editor for texture's curves.
- */
 @GodotBaseType
 public open class VisualShaderNodeCurveTexture : VisualShaderNodeResizableBase() {
-  /**
-   * The source texture.
-   */
   public var texture: CurveTexture?
     get() {
       TransferContext.writeArguments()
@@ -37,7 +29,7 @@ public open class VisualShaderNodeCurveTexture : VisualShaderNodeResizableBase()
       TransferContext.callMethod(rawPtr, MethodBindings.setTexturePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_VISUALSHADERNODECURVETEXTURE, scriptIndex)
     return true
   }

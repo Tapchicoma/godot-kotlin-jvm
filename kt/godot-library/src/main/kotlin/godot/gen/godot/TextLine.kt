@@ -38,19 +38,10 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
-import kotlin.Unit
 import kotlin.jvm.JvmOverloads
 
-/**
- * Holds a line of text.
- *
- * Abstraction over [godot.TextServer] for handling a single line of text.
- */
 @GodotBaseType
 public open class TextLine : RefCounted() {
-  /**
-   * Text writing direction.
-   */
   public var direction: TextServer.Direction
     get() {
       TransferContext.writeArguments()
@@ -62,9 +53,6 @@ public open class TextLine : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDirectionPtr, NIL)
     }
 
-  /**
-   * Text orientation.
-   */
   public var orientation: TextServer.Orientation
     get() {
       TransferContext.writeArguments()
@@ -76,9 +64,6 @@ public open class TextLine : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setOrientationPtr, NIL)
     }
 
-  /**
-   * If set to `true` text will display invalid characters.
-   */
   public var preserveInvalid: Boolean
     get() {
       TransferContext.writeArguments()
@@ -90,9 +75,6 @@ public open class TextLine : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setPreserveInvalidPtr, NIL)
     }
 
-  /**
-   * If set to `true` text will display control characters.
-   */
   public var preserveControl: Boolean
     get() {
       TransferContext.writeArguments()
@@ -104,9 +86,6 @@ public open class TextLine : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setPreserveControlPtr, NIL)
     }
 
-  /**
-   * Text line width.
-   */
   public var width: Float
     get() {
       TransferContext.writeArguments()
@@ -118,9 +97,6 @@ public open class TextLine : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setWidthPtr, NIL)
     }
 
-  /**
-   * Sets text alignment within the line as if the line was horizontal.
-   */
   public var alignment: HorizontalAlignment
     get() {
       TransferContext.writeArguments()
@@ -132,9 +108,6 @@ public open class TextLine : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setHorizontalAlignmentPtr, NIL)
     }
 
-  /**
-   * Line alignment rules. For more info see [godot.TextServer].
-   */
   public var flags: TextServer.JustificationFlag
     get() {
       TransferContext.writeArguments()
@@ -146,9 +119,6 @@ public open class TextLine : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFlagsPtr, NIL)
     }
 
-  /**
-   * Sets the clipping behavior when the text exceeds the text line's set width. See [enum TextServer.OverrunBehavior] for a description of all modes.
-   */
   public var textOverrunBehavior: TextServer.OverrunBehavior
     get() {
       TransferContext.writeArguments()
@@ -160,32 +130,21 @@ public open class TextLine : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTextOverrunBehaviorPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_TEXTLINE, scriptIndex)
     return true
   }
 
-  /**
-   * Clears text line (removes text and inline objects).
-   */
-  public fun clear(): Unit {
+  public fun clear() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.clearPtr, NIL)
   }
 
-  /**
-   * Overrides BiDi for the structured text.
-   *
-   * Override ranges should cover full source text without overlaps. BiDi algorithm will be used on each range separately.
-   */
-  public fun setBidiOverride(`override`: VariantArray<Any?>): Unit {
+  public fun setBidiOverride(`override`: VariantArray<Any?>) {
     TransferContext.writeArguments(ARRAY to override)
     TransferContext.callMethod(rawPtr, MethodBindings.setBidiOverridePtr, NIL)
   }
 
-  /**
-   * Adds text span and font to draw it.
-   */
   @JvmOverloads
   public fun addString(
     text: String,
@@ -199,9 +158,6 @@ public open class TextLine : RefCounted() {
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Adds inline object to the text buffer, [key] must be unique. In the text, object is represented as [length] object replacement characters.
-   */
   @JvmOverloads
   public fun addObject(
     key: Any?,
@@ -215,9 +171,6 @@ public open class TextLine : RefCounted() {
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Sets new size and alignment of embedded object.
-   */
   @JvmOverloads
   public fun resizeObject(
     key: Any?,
@@ -230,125 +183,86 @@ public open class TextLine : RefCounted() {
     return (TransferContext.readReturnValue(BOOL, false) as Boolean)
   }
 
-  /**
-   * Aligns text to the given tab-stops.
-   */
-  public fun tabAlign(tabStops: PackedFloat32Array): Unit {
+  public fun tabAlign(tabStops: PackedFloat32Array) {
     TransferContext.writeArguments(PACKED_FLOAT_32_ARRAY to tabStops)
     TransferContext.callMethod(rawPtr, MethodBindings.tabAlignPtr, NIL)
   }
 
-  /**
-   * Returns array of inline objects.
-   */
   public fun getObjects(): VariantArray<Any?> {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getObjectsPtr, ARRAY)
     return (TransferContext.readReturnValue(ARRAY, false) as VariantArray<Any?>)
   }
 
-  /**
-   * Returns bounding rectangle of the inline object.
-   */
   public fun getObjectRect(key: Any?): Rect2 {
     TransferContext.writeArguments(ANY to key)
     TransferContext.callMethod(rawPtr, MethodBindings.getObjectRectPtr, RECT2)
     return (TransferContext.readReturnValue(RECT2, false) as Rect2)
   }
 
-  /**
-   * Returns size of the bounding box of the text.
-   */
   public fun getSize(): Vector2 {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getSizePtr, VECTOR2)
     return (TransferContext.readReturnValue(VECTOR2, false) as Vector2)
   }
 
-  /**
-   * Returns TextServer buffer RID.
-   */
   public fun getRid(): RID {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getRidPtr, _RID)
     return (TransferContext.readReturnValue(_RID, false) as RID)
   }
 
-  /**
-   * Returns the text ascent (number of pixels above the baseline for horizontal layout or to the left of baseline for vertical).
-   */
   public fun getLineAscent(): Float {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getLineAscentPtr, DOUBLE)
     return (TransferContext.readReturnValue(DOUBLE, false) as Double).toFloat()
   }
 
-  /**
-   * Returns the text descent (number of pixels below the baseline for horizontal layout or to the right of baseline for vertical).
-   */
   public fun getLineDescent(): Float {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getLineDescentPtr, DOUBLE)
     return (TransferContext.readReturnValue(DOUBLE, false) as Double).toFloat()
   }
 
-  /**
-   * Returns width (for horizontal layout) or height (for vertical) of the text.
-   */
   public fun getLineWidth(): Float {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getLineWidthPtr, DOUBLE)
     return (TransferContext.readReturnValue(DOUBLE, false) as Double).toFloat()
   }
 
-  /**
-   * Returns pixel offset of the underline below the baseline.
-   */
   public fun getLineUnderlinePosition(): Float {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getLineUnderlinePositionPtr, DOUBLE)
     return (TransferContext.readReturnValue(DOUBLE, false) as Double).toFloat()
   }
 
-  /**
-   * Returns thickness of the underline.
-   */
   public fun getLineUnderlineThickness(): Float {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getLineUnderlineThicknessPtr, DOUBLE)
     return (TransferContext.readReturnValue(DOUBLE, false) as Double).toFloat()
   }
 
-  /**
-   * Draw text into a canvas item at a given position, with [color]. [pos] specifies the top left corner of the bounding box.
-   */
   @JvmOverloads
   public fun draw(
     canvas: RID,
     pos: Vector2,
     color: Color = Color(Color(1, 1, 1, 1)),
-  ): Unit {
+  ) {
     TransferContext.writeArguments(_RID to canvas, VECTOR2 to pos, COLOR to color)
     TransferContext.callMethod(rawPtr, MethodBindings.drawPtr, NIL)
   }
 
-  /**
-   * Draw text into a canvas item at a given position, with [color]. [pos] specifies the top left corner of the bounding box.
-   */
   @JvmOverloads
   public fun drawOutline(
     canvas: RID,
     pos: Vector2,
     outlineSize: Int = 1,
     color: Color = Color(Color(1, 1, 1, 1)),
-  ): Unit {
+  ) {
     TransferContext.writeArguments(_RID to canvas, VECTOR2 to pos, LONG to outlineSize.toLong(), COLOR to color)
     TransferContext.callMethod(rawPtr, MethodBindings.drawOutlinePtr, NIL)
   }
 
-  /**
-   * Returns caret character offset at the specified pixel offset at the baseline. This function always returns a valid position.
-   */
   public fun hitTest(coords: Float): Int {
     TransferContext.writeArguments(DOUBLE to coords.toDouble())
     TransferContext.callMethod(rawPtr, MethodBindings.hitTestPtr, LONG)

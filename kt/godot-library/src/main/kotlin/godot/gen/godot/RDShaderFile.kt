@@ -21,21 +21,10 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
 import kotlin.Suppress
-import kotlin.Unit
 import kotlin.jvm.JvmOverloads
 
-/**
- * Compiled shader file in SPIR-V form (used by [godot.RenderingDevice]). Not to be confused with Godot's own [godot.Shader].
- *
- * Compiled shader file in SPIR-V form.
- *
- * See also [godot.RDShaderSource]. [godot.RDShaderFile] is only meant to be used with the [godot.RenderingDevice] API. It should not be confused with Godot's own [godot.Shader] resource, which is what Godot's various nodes use for high-level shader programming.
- */
 @GodotBaseType
 public open class RDShaderFile : Resource() {
-  /**
-   * The base compilation error message, which indicates errors not related to a specific shader stage if non-empty. If empty, shader compilation is not necessarily successful (check [godot.RDShaderSPIRV]'s error message members).
-   */
   public var baseError: String
     get() {
       TransferContext.writeArguments()
@@ -47,23 +36,17 @@ public open class RDShaderFile : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setBaseErrorPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_RDSHADERFILE, scriptIndex)
     return true
   }
 
-  /**
-   * Sets the SPIR-V [bytecode] that will be compiled for the specified [version].
-   */
   @JvmOverloads
-  public fun setBytecode(bytecode: RDShaderSPIRV, version: StringName = StringName("")): Unit {
+  public fun setBytecode(bytecode: RDShaderSPIRV, version: StringName = StringName("")) {
     TransferContext.writeArguments(OBJECT to bytecode, STRING_NAME to version)
     TransferContext.callMethod(rawPtr, MethodBindings.setBytecodePtr, NIL)
   }
 
-  /**
-   * Returns the SPIR-V intermediate representation for the specified shader [version].
-   */
   @JvmOverloads
   public fun getSpirv(version: StringName = StringName("")): RDShaderSPIRV? {
     TransferContext.writeArguments(STRING_NAME to version)
@@ -71,9 +54,6 @@ public open class RDShaderFile : Resource() {
     return (TransferContext.readReturnValue(OBJECT, true) as RDShaderSPIRV?)
   }
 
-  /**
-   * Returns the list of compiled versions for this shader.
-   */
   public fun getVersionList(): VariantArray<StringName> {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getVersionListPtr, ARRAY)

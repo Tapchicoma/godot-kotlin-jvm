@@ -54,7 +54,7 @@ public open class OpenXRHand : Node3D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setHandSkeletonPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_OPENXRHAND, scriptIndex)
     return true
   }
@@ -73,7 +73,9 @@ public open class OpenXRHand : Node3D() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): Hands = entries.single {
+          it.id == `value`
+      }
     }
   }
 
@@ -91,7 +93,9 @@ public open class OpenXRHand : Node3D() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): MotionRange = entries.single {
+          it.id == `value`
+      }
     }
   }
 

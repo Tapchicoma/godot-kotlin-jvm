@@ -20,16 +20,8 @@ import kotlin.Int
 import kotlin.Suppress
 import kotlin.Unit
 
-/**
- * Base class for resizable nodes in a visual shader graph.
- *
- * Resizable nodes have a handle that allows the user to adjust their size as needed.
- */
 @GodotBaseType
 public open class VisualShaderNodeResizableBase internal constructor() : VisualShaderNode() {
-  /**
-   * The size of the node in the visual shader graph.
-   */
   @CoreTypeLocalCopy
   public var size: Vector2
     get() {
@@ -42,14 +34,12 @@ public open class VisualShaderNodeResizableBase internal constructor() : VisualS
       TransferContext.callMethod(rawPtr, MethodBindings.setSizePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_VISUALSHADERNODERESIZABLEBASE, scriptIndex)
     return true
   }
 
   /**
-   * The size of the node in the visual shader graph.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our

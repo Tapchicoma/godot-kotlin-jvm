@@ -21,16 +21,8 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
 
-/**
- * Pipeline rasterization state (used by [godot.RenderingDevice]).
- *
- * This object is used by [godot.RenderingDevice].
- */
 @GodotBaseType
 public open class RDPipelineRasterizationState : RefCounted() {
-  /**
-   *
-   */
   public var enableDepthClamp: Boolean
     get() {
       TransferContext.writeArguments()
@@ -42,9 +34,6 @@ public open class RDPipelineRasterizationState : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setEnableDepthClampPtr, NIL)
     }
 
-  /**
-   * If `true`, primitives are discarded immediately before the rasterization stage.
-   */
   public var discardPrimitives: Boolean
     get() {
       TransferContext.writeArguments()
@@ -56,9 +45,6 @@ public open class RDPipelineRasterizationState : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDiscardPrimitivesPtr, NIL)
     }
 
-  /**
-   * If `true`, performs wireframe rendering for triangles instead of flat or textured rendering.
-   */
   public var wireframe: Boolean
     get() {
       TransferContext.writeArguments()
@@ -70,9 +56,6 @@ public open class RDPipelineRasterizationState : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setWireframePtr, NIL)
     }
 
-  /**
-   * The cull mode to use when drawing polygons, which determines whether front faces or backfaces are hidden.
-   */
   public var cullMode: RenderingDevice.PolygonCullMode
     get() {
       TransferContext.writeArguments()
@@ -84,9 +67,6 @@ public open class RDPipelineRasterizationState : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setCullModePtr, NIL)
     }
 
-  /**
-   * The winding order to use to determine which face of a triangle is considered its front face.
-   */
   public var frontFace: RenderingDevice.PolygonFrontFace
     get() {
       TransferContext.writeArguments()
@@ -98,9 +78,6 @@ public open class RDPipelineRasterizationState : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFrontFacePtr, NIL)
     }
 
-  /**
-   *
-   */
   public var depthBiasEnabled: Boolean
     get() {
       TransferContext.writeArguments()
@@ -112,9 +89,6 @@ public open class RDPipelineRasterizationState : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDepthBiasEnabledPtr, NIL)
     }
 
-  /**
-   *
-   */
   public var depthBiasConstantFactor: Float
     get() {
       TransferContext.writeArguments()
@@ -126,9 +100,6 @@ public open class RDPipelineRasterizationState : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDepthBiasConstantFactorPtr, NIL)
     }
 
-  /**
-   *
-   */
   public var depthBiasClamp: Float
     get() {
       TransferContext.writeArguments()
@@ -140,9 +111,6 @@ public open class RDPipelineRasterizationState : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDepthBiasClampPtr, NIL)
     }
 
-  /**
-   *
-   */
   public var depthBiasSlopeFactor: Float
     get() {
       TransferContext.writeArguments()
@@ -154,9 +122,6 @@ public open class RDPipelineRasterizationState : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setDepthBiasSlopeFactorPtr, NIL)
     }
 
-  /**
-   * THe line width to use when drawing lines (in pixels). Thick lines may not be supported on all hardware.
-   */
   public var lineWidth: Float
     get() {
       TransferContext.writeArguments()
@@ -168,9 +133,6 @@ public open class RDPipelineRasterizationState : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setLineWidthPtr, NIL)
     }
 
-  /**
-   * The number of control points to use when drawing a patch with tessellation enabled. Higher values result in higher quality at the cost of performance.
-   */
   public var patchControlPoints: Long
     get() {
       TransferContext.writeArguments()
@@ -182,7 +144,7 @@ public open class RDPipelineRasterizationState : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setPatchControlPointsPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_RDPIPELINERASTERIZATIONSTATE, scriptIndex)
     return true
   }

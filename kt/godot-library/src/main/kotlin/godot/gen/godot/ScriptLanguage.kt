@@ -11,12 +11,9 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- *
- */
 @GodotBaseType
 public open class ScriptLanguage internal constructor() : Object() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_SCRIPTLANGUAGE, scriptIndex)
     return true
   }

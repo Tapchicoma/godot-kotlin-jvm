@@ -19,31 +19,19 @@ import kotlin.Float
 import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
-import kotlin.Unit
 
-/**
- * A physics joint that restricts the movement of a 3D physics body along an axis relative to another physics body.
- *
- * A physics joint that restricts the movement of a 3D physics body along an axis relative to another physics body. For example, Body A could be a [godot.StaticBody3D] representing a piston base, while Body B could be a [godot.RigidBody3D] representing the piston head, moving up and down.
- */
 @GodotBaseType
 public open class SliderJoint3D : Joint3D() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_SLIDERJOINT3D, scriptIndex)
     return true
   }
 
-  /**
-   *
-   */
-  public fun setParam(`param`: Param, `value`: Float): Unit {
+  public fun setParam(`param`: Param, `value`: Float) {
     TransferContext.writeArguments(LONG to param.id, DOUBLE to value.toDouble())
     TransferContext.callMethod(rawPtr, MethodBindings.setParamPtr, NIL)
   }
 
-  /**
-   *
-   */
   public fun getParam(`param`: Param): Float {
     TransferContext.writeArguments(LONG to param.id)
     TransferContext.callMethod(rawPtr, MethodBindings.getParamPtr, DOUBLE)
@@ -53,97 +41,28 @@ public open class SliderJoint3D : Joint3D() {
   public enum class Param(
     id: Long,
   ) {
-    /**
-     * The maximum difference between the pivot points on their X axis before damping happens.
-     */
     PARAM_LINEAR_LIMIT_UPPER(0),
-    /**
-     * The minimum difference between the pivot points on their X axis before damping happens.
-     */
     PARAM_LINEAR_LIMIT_LOWER(1),
-    /**
-     * A factor applied to the movement across the slider axis once the limits get surpassed. The lower, the slower the movement.
-     */
     PARAM_LINEAR_LIMIT_SOFTNESS(2),
-    /**
-     * The amount of restitution once the limits are surpassed. The lower, the more velocity-energy gets lost.
-     */
     PARAM_LINEAR_LIMIT_RESTITUTION(3),
-    /**
-     * The amount of damping once the slider limits are surpassed.
-     */
     PARAM_LINEAR_LIMIT_DAMPING(4),
-    /**
-     * A factor applied to the movement across the slider axis as long as the slider is in the limits. The lower, the slower the movement.
-     */
     PARAM_LINEAR_MOTION_SOFTNESS(5),
-    /**
-     * The amount of restitution inside the slider limits.
-     */
     PARAM_LINEAR_MOTION_RESTITUTION(6),
-    /**
-     * The amount of damping inside the slider limits.
-     */
     PARAM_LINEAR_MOTION_DAMPING(7),
-    /**
-     * A factor applied to the movement across axes orthogonal to the slider.
-     */
     PARAM_LINEAR_ORTHOGONAL_SOFTNESS(8),
-    /**
-     * The amount of restitution when movement is across axes orthogonal to the slider.
-     */
     PARAM_LINEAR_ORTHOGONAL_RESTITUTION(9),
-    /**
-     * The amount of damping when movement is across axes orthogonal to the slider.
-     */
     PARAM_LINEAR_ORTHOGONAL_DAMPING(10),
-    /**
-     * The upper limit of rotation in the slider.
-     */
     PARAM_ANGULAR_LIMIT_UPPER(11),
-    /**
-     * The lower limit of rotation in the slider.
-     */
     PARAM_ANGULAR_LIMIT_LOWER(12),
-    /**
-     * A factor applied to the all rotation once the limit is surpassed.
-     */
     PARAM_ANGULAR_LIMIT_SOFTNESS(13),
-    /**
-     * The amount of restitution of the rotation when the limit is surpassed.
-     */
     PARAM_ANGULAR_LIMIT_RESTITUTION(14),
-    /**
-     * The amount of damping of the rotation when the limit is surpassed.
-     */
     PARAM_ANGULAR_LIMIT_DAMPING(15),
-    /**
-     * A factor applied to the all rotation in the limits.
-     */
     PARAM_ANGULAR_MOTION_SOFTNESS(16),
-    /**
-     * The amount of restitution of the rotation in the limits.
-     */
     PARAM_ANGULAR_MOTION_RESTITUTION(17),
-    /**
-     * The amount of damping of the rotation in the limits.
-     */
     PARAM_ANGULAR_MOTION_DAMPING(18),
-    /**
-     * A factor applied to the all rotation across axes orthogonal to the slider.
-     */
     PARAM_ANGULAR_ORTHOGONAL_SOFTNESS(19),
-    /**
-     * The amount of restitution of the rotation across axes orthogonal to the slider.
-     */
     PARAM_ANGULAR_ORTHOGONAL_RESTITUTION(20),
-    /**
-     * The amount of damping of the rotation across axes orthogonal to the slider.
-     */
     PARAM_ANGULAR_ORTHOGONAL_DAMPING(21),
-    /**
-     * Represents the size of the [enum Param] enum.
-     */
     PARAM_MAX(22),
     ;
 
@@ -153,7 +72,9 @@ public open class SliderJoint3D : Joint3D() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): Param = entries.single {
+          it.id == `value`
+      }
     }
   }
 

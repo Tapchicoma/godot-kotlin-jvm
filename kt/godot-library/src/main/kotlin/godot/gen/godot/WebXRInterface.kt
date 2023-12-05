@@ -30,7 +30,6 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
-import kotlin.Unit
 
 @GodotBaseType
 public open class WebXRInterface internal constructor() : XRInterface() {
@@ -118,12 +117,12 @@ public open class WebXRInterface internal constructor() : XRInterface() {
       return (TransferContext.readReturnValue(STRING, false) as String)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_WEBXRINTERFACE, scriptIndex)
     return true
   }
 
-  public fun isSessionSupported(sessionMode: String): Unit {
+  public fun isSessionSupported(sessionMode: String) {
     TransferContext.writeArguments(STRING to sessionMode)
     TransferContext.callMethod(rawPtr, MethodBindings.isSessionSupportedPtr, NIL)
   }
@@ -152,7 +151,7 @@ public open class WebXRInterface internal constructor() : XRInterface() {
     return (TransferContext.readReturnValue(DOUBLE, false) as Double).toFloat()
   }
 
-  public fun setDisplayRefreshRate(refreshRate: Float): Unit {
+  public fun setDisplayRefreshRate(refreshRate: Float) {
     TransferContext.writeArguments(DOUBLE to refreshRate.toDouble())
     TransferContext.callMethod(rawPtr, MethodBindings.setDisplayRefreshRatePtr, NIL)
   }
@@ -178,7 +177,9 @@ public open class WebXRInterface internal constructor() : XRInterface() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): TargetRayMode = entries.single {
+          it.id == `value`
+      }
     }
   }
 

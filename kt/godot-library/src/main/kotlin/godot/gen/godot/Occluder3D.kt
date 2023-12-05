@@ -18,32 +18,19 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * Occluder shape resource for use with occlusion culling in [godot.OccluderInstance3D].
- *
- * [godot.Occluder3D] stores an occluder shape that can be used by the engine's occlusion culling system.
- *
- * See [godot.OccluderInstance3D]'s documentation for instructions on setting up occlusion culling.
- */
 @GodotBaseType
 public open class Occluder3D internal constructor() : Resource() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_OCCLUDER3D, scriptIndex)
     return true
   }
 
-  /**
-   * Returns the occluder shape's vertex positions.
-   */
   public fun getVertices(): PackedVector3Array {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getVerticesPtr, PACKED_VECTOR3_ARRAY)
     return (TransferContext.readReturnValue(PACKED_VECTOR3_ARRAY, false) as PackedVector3Array)
   }
 
-  /**
-   * Returns the occluder shape's vertex indices.
-   */
   public fun getIndices(): PackedInt32Array {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getIndicesPtr, PACKED_INT_32_ARRAY)

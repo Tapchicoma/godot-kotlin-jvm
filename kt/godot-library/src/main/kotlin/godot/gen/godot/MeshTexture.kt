@@ -21,16 +21,8 @@ import kotlin.Int
 import kotlin.Suppress
 import kotlin.Unit
 
-/**
- * Simple texture that uses a mesh to draw itself.
- *
- * Simple texture that uses a mesh to draw itself. It's limited because flags can't be changed and region drawing is not supported.
- */
 @GodotBaseType
 public open class MeshTexture : Texture2D() {
-  /**
-   * Sets the mesh used to draw. It must be a mesh using 2D vertices.
-   */
   public var mesh: Mesh?
     get() {
       TransferContext.writeArguments()
@@ -42,9 +34,6 @@ public open class MeshTexture : Texture2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setMeshPtr, NIL)
     }
 
-  /**
-   * Sets the base texture that the Mesh will use to draw.
-   */
   public var baseTexture: Texture2D?
     get() {
       TransferContext.writeArguments()
@@ -56,9 +45,6 @@ public open class MeshTexture : Texture2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setBaseTexturePtr, NIL)
     }
 
-  /**
-   * Sets the size of the image, needed for reference.
-   */
   @CoreTypeLocalCopy
   public var imageSize: Vector2
     get() {
@@ -71,14 +57,12 @@ public open class MeshTexture : Texture2D() {
       TransferContext.callMethod(rawPtr, MethodBindings.setImageSizePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_MESHTEXTURE, scriptIndex)
     return true
   }
 
   /**
-   * Sets the size of the image, needed for reference.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our

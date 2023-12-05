@@ -18,16 +18,8 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
 
-/**
- * A node that controls how the object faces the camera to be used within the visual shader graph.
- *
- * The output port of this node needs to be connected to `Model View Matrix` port of [godot.VisualShaderNodeOutput].
- */
 @GodotBaseType
 public open class VisualShaderNodeBillboard : VisualShaderNode() {
-  /**
-   * Controls how the object faces the camera. See [enum BillboardType].
-   */
   public var billboardType: BillboardType
     get() {
       TransferContext.writeArguments()
@@ -39,9 +31,6 @@ public open class VisualShaderNodeBillboard : VisualShaderNode() {
       TransferContext.callMethod(rawPtr, MethodBindings.setBillboardTypePtr, NIL)
     }
 
-  /**
-   * If `true`, the shader will keep the scale set for the mesh. Otherwise, the scale is lost when billboarding.
-   */
   public var keepScale: Boolean
     get() {
       TransferContext.writeArguments()
@@ -53,7 +42,7 @@ public open class VisualShaderNodeBillboard : VisualShaderNode() {
       TransferContext.callMethod(rawPtr, MethodBindings.setKeepScaleEnabledPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_VISUALSHADERNODEBILLBOARD, scriptIndex)
     return true
   }
@@ -61,25 +50,10 @@ public open class VisualShaderNodeBillboard : VisualShaderNode() {
   public enum class BillboardType(
     id: Long,
   ) {
-    /**
-     * Billboarding is disabled and the node does nothing.
-     */
     BILLBOARD_TYPE_DISABLED(0),
-    /**
-     * A standard billboarding algorithm is enabled.
-     */
     BILLBOARD_TYPE_ENABLED(1),
-    /**
-     * A billboarding algorithm to rotate around Y-axis is enabled.
-     */
     BILLBOARD_TYPE_FIXED_Y(2),
-    /**
-     * A billboarding algorithm designed to use on particles is enabled.
-     */
     BILLBOARD_TYPE_PARTICLES(3),
-    /**
-     * Represents the size of the [enum BillboardType] enum.
-     */
     BILLBOARD_TYPE_MAX(4),
     ;
 
@@ -89,7 +63,9 @@ public open class VisualShaderNodeBillboard : VisualShaderNode() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): BillboardType = entries.single {
+          it.id == `value`
+      }
     }
   }
 

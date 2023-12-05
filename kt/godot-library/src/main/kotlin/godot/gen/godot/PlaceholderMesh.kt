@@ -9,7 +9,6 @@ package godot
 import godot.`annotation`.CoreTypeHelper
 import godot.`annotation`.CoreTypeLocalCopy
 import godot.`annotation`.GodotBaseType
-import godot.core.AABB
 import godot.core.TypeManager
 import godot.core.VariantType.NIL
 import godot.core.memory.TransferContext
@@ -19,39 +18,27 @@ import kotlin.Int
 import kotlin.Suppress
 import kotlin.Unit
 import kotlin.jvm.JvmName
+import godot.core.AABB as CoreAABB
+import godot.core.VariantType.AABB as VariantTypeAABB
 
-/**
- * Placeholder class for a mesh.
- *
- * This class is used when loading a project that uses a [godot.Mesh] subclass in 2 conditions:
- *
- * - When running the project exported in dedicated server mode, only the texture's dimensions are kept (as they may be relied upon for gameplay purposes or positioning of other elements). This allows reducing the exported PCK's size significantly.
- *
- * - When this subclass is missing due to using a different engine version or build (e.g. modules disabled).
- */
 @GodotBaseType
 public open class PlaceholderMesh : Mesh() {
-  /**
-   * The smallest [AABB] enclosing this mesh in local space.
-   */
   @CoreTypeLocalCopy
-  public var aabb: AABB
+  public var aabb: CoreAABB
     @JvmName("getAabb_prop")
     @Suppress("INAPPLICABLE_JVM_NAME")
     get() = super.getAabb()
     set(`value`) {
-      TransferContext.writeArguments(godot.core.VariantType.AABB to value)
+      TransferContext.writeArguments(VariantTypeAABB to value)
       TransferContext.callMethod(rawPtr, MethodBindings.setAabbPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_PLACEHOLDERMESH, scriptIndex)
     return true
   }
 
   /**
-   * The smallest [AABB] enclosing this mesh in local space.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -67,7 +54,7 @@ public open class PlaceholderMesh : Mesh() {
    * ``````
    */
   @CoreTypeHelper
-  public open fun aabbMutate(block: AABB.() -> Unit): AABB = aabb.apply{
+  public open fun aabbMutate(block: CoreAABB.() -> Unit): CoreAABB = aabb.apply{
       block(this)
       aabb = this
   }

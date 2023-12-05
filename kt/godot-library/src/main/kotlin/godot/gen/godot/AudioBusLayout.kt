@@ -11,14 +11,9 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * Stores information about the audio buses.
- *
- * Stores position, muting, solo, bypass, effects, effect position, volume, and the connections between buses. See [godot.AudioServer] for usage.
- */
 @GodotBaseType
 public open class AudioBusLayout : Resource() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_AUDIOBUSLAYOUT, scriptIndex)
     return true
   }

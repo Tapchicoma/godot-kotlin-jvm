@@ -25,20 +25,8 @@ import kotlin.Int
 import kotlin.Suppress
 import kotlin.Unit
 
-/**
- * A [godot.Material] used with [godot.Sky] to generate a background based on user input parameters.
- *
- * ProceduralSkyMaterial provides a way to create an effective background quickly by defining procedural parameters for the sun, the sky and the ground. The sky and ground are very similar, they are defined by a color at the horizon, another color, and finally an easing curve to interpolate between these two colors. Similarly, the sun is described by a position in the sky, a color, and an easing curve. However, the sun also defines a minimum and maximum angle, these two values define at what distance the easing curve begins and ends from the sun, and thus end up defining the size of the sun in the sky.
- *
- * The [godot.ProceduralSkyMaterial] uses a lightweight shader to draw the sky and is thus suited for real time updates. When you do not need a quick sky that is not realistic, this is a good option. If you need a more realistic option, try using [godot.PhysicalSkyMaterial] instead.
- *
- * The [godot.ProceduralSkyMaterial] supports up to 4 suns. Each sun takes its color, energy, and direction from the corresponding [godot.DirectionalLight3D] in the scene.
- */
 @GodotBaseType
 public open class ProceduralSkyMaterial : Material() {
-  /**
-   * Color of the sky at the top. Blends with [skyHorizonColor].
-   */
   @CoreTypeLocalCopy
   public var skyTopColor: Color
     get() {
@@ -51,9 +39,6 @@ public open class ProceduralSkyMaterial : Material() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSkyTopColorPtr, NIL)
     }
 
-  /**
-   * Color of the sky at the horizon. Blends with [skyTopColor].
-   */
   @CoreTypeLocalCopy
   public var skyHorizonColor: Color
     get() {
@@ -66,9 +51,6 @@ public open class ProceduralSkyMaterial : Material() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSkyHorizonColorPtr, NIL)
     }
 
-  /**
-   * How quickly the [skyHorizonColor] fades into the [skyTopColor].
-   */
   public var skyCurve: Float
     get() {
       TransferContext.writeArguments()
@@ -80,9 +62,6 @@ public open class ProceduralSkyMaterial : Material() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSkyCurvePtr, NIL)
     }
 
-  /**
-   * Multiplier for sky color. A higher value will make the sky brighter.
-   */
   public var skyEnergyMultiplier: Float
     get() {
       TransferContext.writeArguments()
@@ -94,9 +73,6 @@ public open class ProceduralSkyMaterial : Material() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSkyEnergyMultiplierPtr, NIL)
     }
 
-  /**
-   * The sky cover texture to use. This texture must use an equirectangular projection (similar to [godot.PanoramaSkyMaterial]). The texture's colors will be *added* to the existing sky color, and will be multiplied by [skyEnergyMultiplier] and [skyCoverModulate]. This is mainly suited to displaying stars at night, but it can also be used to display clouds at day or night (with a non-physically-accurate look).
-   */
   public var skyCover: Texture2D?
     get() {
       TransferContext.writeArguments()
@@ -108,9 +84,6 @@ public open class ProceduralSkyMaterial : Material() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSkyCoverPtr, NIL)
     }
 
-  /**
-   * The tint to apply to the [skyCover] texture. This can be used to change the sky cover's colors or opacity independently of the sky energy, which is useful for day/night or weather transitions. Only effective if a texture is defined in [skyCover].
-   */
   @CoreTypeLocalCopy
   public var skyCoverModulate: Color
     get() {
@@ -123,9 +96,6 @@ public open class ProceduralSkyMaterial : Material() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSkyCoverModulatePtr, NIL)
     }
 
-  /**
-   * Color of the ground at the bottom. Blends with [groundHorizonColor].
-   */
   @CoreTypeLocalCopy
   public var groundBottomColor: Color
     get() {
@@ -138,9 +108,6 @@ public open class ProceduralSkyMaterial : Material() {
       TransferContext.callMethod(rawPtr, MethodBindings.setGroundBottomColorPtr, NIL)
     }
 
-  /**
-   * Color of the ground at the horizon. Blends with [groundBottomColor].
-   */
   @CoreTypeLocalCopy
   public var groundHorizonColor: Color
     get() {
@@ -153,9 +120,6 @@ public open class ProceduralSkyMaterial : Material() {
       TransferContext.callMethod(rawPtr, MethodBindings.setGroundHorizonColorPtr, NIL)
     }
 
-  /**
-   * How quickly the [groundHorizonColor] fades into the [groundBottomColor].
-   */
   public var groundCurve: Float
     get() {
       TransferContext.writeArguments()
@@ -167,9 +131,6 @@ public open class ProceduralSkyMaterial : Material() {
       TransferContext.callMethod(rawPtr, MethodBindings.setGroundCurvePtr, NIL)
     }
 
-  /**
-   * Multiplier for ground color. A higher value will make the ground brighter.
-   */
   public var groundEnergyMultiplier: Float
     get() {
       TransferContext.writeArguments()
@@ -181,9 +142,6 @@ public open class ProceduralSkyMaterial : Material() {
       TransferContext.callMethod(rawPtr, MethodBindings.setGroundEnergyMultiplierPtr, NIL)
     }
 
-  /**
-   * Distance from center of sun where it fades out completely.
-   */
   public var sunAngleMax: Float
     get() {
       TransferContext.writeArguments()
@@ -195,9 +153,6 @@ public open class ProceduralSkyMaterial : Material() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSunAngleMaxPtr, NIL)
     }
 
-  /**
-   * How quickly the sun fades away between the edge of the sun disk and [sunAngleMax].
-   */
   public var sunCurve: Float
     get() {
       TransferContext.writeArguments()
@@ -209,9 +164,6 @@ public open class ProceduralSkyMaterial : Material() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSunCurvePtr, NIL)
     }
 
-  /**
-   * If `true`, enables debanding. Debanding adds a small amount of noise which helps reduce banding that appears from the smooth changes in color in the sky.
-   */
   public var useDebanding: Boolean
     get() {
       TransferContext.writeArguments()
@@ -223,14 +175,12 @@ public open class ProceduralSkyMaterial : Material() {
       TransferContext.callMethod(rawPtr, MethodBindings.setUseDebandingPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_PROCEDURALSKYMATERIAL, scriptIndex)
     return true
   }
 
   /**
-   * Color of the sky at the top. Blends with [skyHorizonColor].
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -253,8 +203,6 @@ public open class ProceduralSkyMaterial : Material() {
 
 
   /**
-   * Color of the sky at the horizon. Blends with [skyTopColor].
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -277,8 +225,6 @@ public open class ProceduralSkyMaterial : Material() {
 
 
   /**
-   * The tint to apply to the [skyCover] texture. This can be used to change the sky cover's colors or opacity independently of the sky energy, which is useful for day/night or weather transitions. Only effective if a texture is defined in [skyCover].
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -301,8 +247,6 @@ public open class ProceduralSkyMaterial : Material() {
 
 
   /**
-   * Color of the ground at the bottom. Blends with [groundHorizonColor].
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -325,8 +269,6 @@ public open class ProceduralSkyMaterial : Material() {
 
 
   /**
-   * Color of the ground at the horizon. Blends with [groundBottomColor].
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our

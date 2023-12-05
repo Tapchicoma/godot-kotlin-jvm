@@ -28,16 +28,8 @@ import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 
-/**
- * Provides common settings to customize the text in a [godot.Label].
- *
- * [godot.LabelSettings] is a resource that provides common settings to customize the text in a [godot.Label]. It will take priority over the properties defined in [godot.Control.theme]. The resource can be shared between multiple labels and changed on the fly, so it's convenient and flexible way to setup text style.
- */
 @GodotBaseType
 public open class LabelSettings : Resource() {
-  /**
-   * Vertical space between lines when the text is multiline.
-   */
   public var lineSpacing: Float
     get() {
       TransferContext.writeArguments()
@@ -49,9 +41,6 @@ public open class LabelSettings : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setLineSpacingPtr, NIL)
     }
 
-  /**
-   * [godot.Font] used for the text.
-   */
   public var font: Font?
     get() {
       TransferContext.writeArguments()
@@ -63,9 +52,6 @@ public open class LabelSettings : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFontPtr, NIL)
     }
 
-  /**
-   * Size of the text.
-   */
   public var fontSize: Int
     get() {
       TransferContext.writeArguments()
@@ -77,9 +63,6 @@ public open class LabelSettings : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFontSizePtr, NIL)
     }
 
-  /**
-   * Color of the text.
-   */
   @CoreTypeLocalCopy
   public var fontColor: Color
     get() {
@@ -92,9 +75,6 @@ public open class LabelSettings : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setFontColorPtr, NIL)
     }
 
-  /**
-   * Text outline size.
-   */
   public var outlineSize: Int
     get() {
       TransferContext.writeArguments()
@@ -106,9 +86,6 @@ public open class LabelSettings : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setOutlineSizePtr, NIL)
     }
 
-  /**
-   * The color of the outline.
-   */
   @CoreTypeLocalCopy
   public var outlineColor: Color
     get() {
@@ -121,9 +98,6 @@ public open class LabelSettings : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setOutlineColorPtr, NIL)
     }
 
-  /**
-   * Size of the shadow effect.
-   */
   public var shadowSize: Int
     get() {
       TransferContext.writeArguments()
@@ -135,9 +109,6 @@ public open class LabelSettings : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setShadowSizePtr, NIL)
     }
 
-  /**
-   * Color of the shadow effect. If alpha is `0`, no shadow will be drawn.
-   */
   @CoreTypeLocalCopy
   public var shadowColor: Color
     get() {
@@ -150,9 +121,6 @@ public open class LabelSettings : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setShadowColorPtr, NIL)
     }
 
-  /**
-   * Offset of the shadow effect, in pixels.
-   */
   @CoreTypeLocalCopy
   public var shadowOffset: Vector2
     get() {
@@ -165,14 +133,12 @@ public open class LabelSettings : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setShadowOffsetPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_LABELSETTINGS, scriptIndex)
     return true
   }
 
   /**
-   * Color of the text.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -195,8 +161,6 @@ public open class LabelSettings : Resource() {
 
 
   /**
-   * The color of the outline.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -219,8 +183,6 @@ public open class LabelSettings : Resource() {
 
 
   /**
-   * Color of the shadow effect. If alpha is `0`, no shadow will be drawn.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -243,8 +205,6 @@ public open class LabelSettings : Resource() {
 
 
   /**
-   * Offset of the shadow effect, in pixels.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our

@@ -32,59 +32,8 @@ import kotlin.UninitializedPropertyAccessException
 import kotlin.Unit
 import kotlin.jvm.JvmName
 
-/**
- * A variation of a font with additional settings.
- *
- * Provides OpenType variations, simulated bold / slant, and additional font settings like OpenType features and extra spacing.
- *
- * To use simulated bold font variant:
- *
- * [codeblocks]
- *
- * [gdscript]
- *
- * var fv = FontVariation.new()
- *
- * fv.set_base_font(load("res://BarlowCondensed-Regular.ttf"))
- *
- * fv.set_variation_embolden(1.2)
- *
- * $Label.add_theme_font_override("font", fv)
- *
- * $Label.add_theme_font_size_override("font_size", 64)
- *
- * [/gdscript]
- *
- * [csharp]
- *
- * var fv = new FontVariation();
- *
- * fv.SetBaseFont(ResourceLoader.Load<FontFile>("res://BarlowCondensed-Regular.ttf"));
- *
- * fv.SetVariationEmbolden(1.2);
- *
- * GetNode("Label").AddThemeFontOverride("font", fv);
- *
- * GetNode("Label").AddThemeFontSizeOverride("font_size", 64);
- *
- * [/csharp]
- *
- * [/codeblocks]
- *
- * To set the coordinate of multiple variation axes:
- *
- * ```
- * 		var fv = FontVariation.new();
- * 		var ts = TextServerManager.get_primary_interface()
- * 		fv.base_font = load("res://BarlowCondensed-Regular.ttf")
- * 		fv.variation_opentype = { ts.name_to_tag("wght"): 900, ts.name_to_tag("custom_hght"): 900 }
- * 		```
- */
 @GodotBaseType
 public open class FontVariation : Font() {
-  /**
-   * Base font used to create a variation. If not set, default [godot.Theme] font is used.
-   */
   public var baseFont: Font?
     get() {
       TransferContext.writeArguments()
@@ -96,9 +45,6 @@ public open class FontVariation : Font() {
       TransferContext.callMethod(rawPtr, MethodBindings.setBaseFontPtr, NIL)
     }
 
-  /**
-   * Array of fallback [godot.Font]s to use as a substitute if a glyph is not found in this [godot.FontVariation]. If not set, [baseFont]'s fallbacks are used instead.
-   */
   public var fallbacks: VariantArray<Font>
     @JvmName("getFallbacks_prop")
     @Suppress("INAPPLICABLE_JVM_NAME")
@@ -109,13 +55,6 @@ public open class FontVariation : Font() {
       super.setFallbacks(value)
     }
 
-  /**
-   * Font OpenType variation coordinates. More info: [godot.OpenType variation tags](https://docs.microsoft.com/en-us/typography/opentype/spec/dvaraxisreg).
-   *
-   * **Note:** This [godot.core.Dictionary] uses OpenType tags as keys. Variation axes can be identified both by tags(`int`) and names (`string`). Some axes might be accessible by multiple names. For example, `wght` refers to the same axis as `weight`. Tags on the other hand are unique. To convert between names and tags, use [godot.TextServer.nameToTag] and [godot.TextServer.tagToName].
-   *
-   * **Note:** To get available variation axes of a font, use [godot.Font.getSupportedVariationList].
-   */
   public var variationOpentype: Dictionary<Any?, Any?>
     get() {
       TransferContext.writeArguments()
@@ -127,9 +66,6 @@ public open class FontVariation : Font() {
       TransferContext.callMethod(rawPtr, MethodBindings.setVariationOpentypePtr, NIL)
     }
 
-  /**
-   * Active face index in the TrueType / OpenType collection file.
-   */
   public var variationFaceIndex: Int
     get() {
       TransferContext.writeArguments()
@@ -141,11 +77,6 @@ public open class FontVariation : Font() {
       TransferContext.callMethod(rawPtr, MethodBindings.setVariationFaceIndexPtr, NIL)
     }
 
-  /**
-   * If is not equal to zero, emboldens the font outlines. Negative values reduce the outline thickness.
-   *
-   * **Note:** Emboldened fonts might have self-intersecting outlines, which will prevent MSDF fonts and [godot.TextMesh] from working correctly.
-   */
   public var variationEmbolden: Float
     get() {
       TransferContext.writeArguments()
@@ -157,11 +88,6 @@ public open class FontVariation : Font() {
       TransferContext.callMethod(rawPtr, MethodBindings.setVariationEmboldenPtr, NIL)
     }
 
-  /**
-   * 2D transform, applied to the font outlines, can be used for slanting, flipping and rotating glyphs.
-   *
-   * For example, to simulate italic typeface by slanting, apply the following transform `Transform2D(1.0, slant, 0.0, 1.0, 0.0, 0.0)`.
-   */
   @CoreTypeLocalCopy
   public var variationTransform: Transform2D
     get() {
@@ -174,9 +100,6 @@ public open class FontVariation : Font() {
       TransferContext.callMethod(rawPtr, MethodBindings.setVariationTransformPtr, NIL)
     }
 
-  /**
-   * A set of OpenType feature tags. More info: [godot.OpenType feature tags](https://docs.microsoft.com/en-us/typography/opentype/spec/featuretags).
-   */
   public var opentypeFeatures: Dictionary<Any?, Any?>
     @JvmName("getOpentypeFeatures_prop")
     @Suppress("INAPPLICABLE_JVM_NAME")
@@ -186,9 +109,6 @@ public open class FontVariation : Font() {
       TransferContext.callMethod(rawPtr, MethodBindings.setOpentypeFeaturesPtr, NIL)
     }
 
-  /**
-   * Extra spacing between graphical glyphs.
-   */
   public var spacingGlyph: Long
     get() {
       throw
@@ -199,9 +119,6 @@ public open class FontVariation : Font() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSpacingPtr, NIL)
     }
 
-  /**
-   * Extra width of the space glyphs.
-   */
   public var spacingSpace: Long
     get() {
       throw
@@ -212,9 +129,6 @@ public open class FontVariation : Font() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSpacingPtr, NIL)
     }
 
-  /**
-   * Extra spacing at the top of the line in pixels.
-   */
   public var spacingTop: Long
     get() {
       throw UninitializedPropertyAccessException("Cannot access property spacingTop: has no getter")
@@ -224,9 +138,6 @@ public open class FontVariation : Font() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSpacingPtr, NIL)
     }
 
-  /**
-   * Extra spacing at the bottom of the line in pixels.
-   */
   public var spacingBottom: Long
     get() {
       throw
@@ -237,16 +148,12 @@ public open class FontVariation : Font() {
       TransferContext.callMethod(rawPtr, MethodBindings.setSpacingPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_FONTVARIATION, scriptIndex)
     return true
   }
 
   /**
-   * 2D transform, applied to the font outlines, can be used for slanting, flipping and rotating glyphs.
-   *
-   * For example, to simulate italic typeface by slanting, apply the following transform `Transform2D(1.0, slant, 0.0, 1.0, 0.0, 0.0)`.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our

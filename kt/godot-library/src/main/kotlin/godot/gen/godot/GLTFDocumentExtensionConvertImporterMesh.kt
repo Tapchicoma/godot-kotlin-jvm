@@ -13,7 +13,7 @@ import kotlin.Suppress
 
 @GodotBaseType
 public open class GLTFDocumentExtensionConvertImporterMesh : GLTFDocumentExtension() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_GLTFDOCUMENTEXTENSIONCONVERTIMPORTERMESH, scriptIndex)
     return true
   }

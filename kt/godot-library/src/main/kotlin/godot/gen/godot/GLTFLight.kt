@@ -98,7 +98,7 @@ public open class GLTFLight : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setOuterConeAnglePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_GLTFLIGHT, scriptIndex)
     return true
   }

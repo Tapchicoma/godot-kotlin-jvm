@@ -24,7 +24,7 @@ import kotlin.jvm.JvmOverloads
 
 @GodotBaseType
 public open class ZIPPacker : RefCounted() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_ZIPPACKER, scriptIndex)
     return true
   }
@@ -75,7 +75,9 @@ public open class ZIPPacker : RefCounted() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): ZipAppend = entries.single {
+          it.id == `value`
+      }
     }
   }
 

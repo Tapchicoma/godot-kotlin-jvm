@@ -20,18 +20,9 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Long
 import kotlin.Suppress
-import kotlin.Unit
 
-/**
- * Shader uniform (used by [godot.RenderingDevice]).
- *
- * This object is used by [godot.RenderingDevice].
- */
 @GodotBaseType
 public open class RDUniform : RefCounted() {
-  /**
-   * The uniform's data type.
-   */
   public var uniformType: RenderingDevice.UniformType
     get() {
       TransferContext.writeArguments()
@@ -43,9 +34,6 @@ public open class RDUniform : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setUniformTypePtr, NIL)
     }
 
-  /**
-   * The uniform's binding.
-   */
   public var binding: Int
     get() {
       TransferContext.writeArguments()
@@ -57,30 +45,21 @@ public open class RDUniform : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setBindingPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_RDUNIFORM, scriptIndex)
     return true
   }
 
-  /**
-   *
-   */
-  public fun addId(id: RID): Unit {
+  public fun addId(id: RID) {
     TransferContext.writeArguments(_RID to id)
     TransferContext.callMethod(rawPtr, MethodBindings.addIdPtr, NIL)
   }
 
-  /**
-   *
-   */
-  public fun clearIds(): Unit {
+  public fun clearIds() {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.clearIdsPtr, NIL)
   }
 
-  /**
-   *
-   */
   public fun getIds(): VariantArray<RID> {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getIdsPtr, ARRAY)

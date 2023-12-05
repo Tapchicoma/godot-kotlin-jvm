@@ -17,19 +17,13 @@ import kotlin.Int
 import kotlin.String
 import kotlin.Suppress
 
-/**
- *
- */
 @GodotBaseType
 public object JavaClassWrapper : Object() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     getSingleton(ENGINECLASS_JAVACLASSWRAPPER)
     return false
   }
 
-  /**
-   *
-   */
   public fun wrap(name: String): JavaClass? {
     TransferContext.writeArguments(STRING to name)
     TransferContext.callMethod(rawPtr, MethodBindings.wrapPtr, OBJECT)

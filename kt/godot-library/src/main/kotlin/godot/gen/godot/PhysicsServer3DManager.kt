@@ -19,34 +19,20 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.String
 import kotlin.Suppress
-import kotlin.Unit
 
-/**
- * A singleton for managing [godot.PhysicsServer3D] implementations.
- *
- * [godot.PhysicsServer3DManager] is the API for registering [godot.PhysicsServer3D] implementations and for setting the default implementation.
- *
- * **Note:** It is not possible to switch physics servers at runtime. This class is only used on startup at the server initialization level, by Godot itself and possibly by GDExtensions.
- */
 @GodotBaseType
 public object PhysicsServer3DManager : Object() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     getSingleton(ENGINECLASS_PHYSICSSERVER3DMANAGER)
     return false
   }
 
-  /**
-   * Register a [godot.PhysicsServer3D] implementation by passing a [name] and a [godot.Callable] that returns a [godot.PhysicsServer3D] object.
-   */
-  public fun registerServer(name: String, createCallback: Callable): Unit {
+  public fun registerServer(name: String, createCallback: Callable) {
     TransferContext.writeArguments(STRING to name, CALLABLE to createCallback)
     TransferContext.callMethod(rawPtr, MethodBindings.registerServerPtr, NIL)
   }
 
-  /**
-   * Set the default [godot.PhysicsServer3D] implementation to the one identified by [name], if [priority] is greater than the priority of the current default implementation.
-   */
-  public fun setDefaultServer(name: String, priority: Int): Unit {
+  public fun setDefaultServer(name: String, priority: Int) {
     TransferContext.writeArguments(STRING to name, LONG to priority.toLong())
     TransferContext.callMethod(rawPtr, MethodBindings.setDefaultServerPtr, NIL)
   }

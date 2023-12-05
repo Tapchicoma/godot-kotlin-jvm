@@ -19,11 +19,10 @@ import kotlin.Int
 import kotlin.NotImplementedError
 import kotlin.String
 import kotlin.Suppress
-import kotlin.Unit
 
 @GodotBaseType
 public open class GLTFDocumentExtension : Resource() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_GLTFDOCUMENTEXTENSION, scriptIndex)
     return true
   }
@@ -94,7 +93,7 @@ public open class GLTFDocumentExtension : Resource() {
     state: GLTFState,
     gltfNode: GLTFNode,
     sceneNode: Node,
-  ): Unit {
+  ) {
   }
 
   public open fun _exportNode(

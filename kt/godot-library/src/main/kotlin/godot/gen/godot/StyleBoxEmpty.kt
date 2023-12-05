@@ -11,14 +11,9 @@ import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
 
-/**
- * An empty [godot.StyleBox] (does not display anything).
- *
- * An empty [godot.StyleBox] that can be used to display nothing instead of the default style (e.g. it can "disable" `focus` styles).
- */
 @GodotBaseType
 public open class StyleBoxEmpty : StyleBox() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_STYLEBOXEMPTY, scriptIndex)
     return true
   }

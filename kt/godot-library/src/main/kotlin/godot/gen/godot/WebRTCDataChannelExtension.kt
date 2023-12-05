@@ -15,11 +15,10 @@ import kotlin.Int
 import kotlin.NotImplementedError
 import kotlin.String
 import kotlin.Suppress
-import kotlin.Unit
 
 @GodotBaseType
 public open class WebRTCDataChannelExtension : WebRTCDataChannel() {
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_WEBRTCDATACHANNELEXTENSION, scriptIndex)
     return true
   }
@@ -36,10 +35,10 @@ public open class WebRTCDataChannelExtension : WebRTCDataChannel() {
     throw NotImplementedError("_poll is not implemented for WebRTCDataChannelExtension")
   }
 
-  public open fun _close(): Unit {
+  public open fun _close() {
   }
 
-  public open fun _setWriteMode(pWriteMode: WebRTCDataChannel.WriteMode): Unit {
+  public open fun _setWriteMode(pWriteMode: WebRTCDataChannel.WriteMode) {
   }
 
   public open fun _getWriteMode(): WebRTCDataChannel.WriteMode {

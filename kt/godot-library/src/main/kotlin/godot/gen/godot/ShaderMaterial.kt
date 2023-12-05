@@ -19,21 +19,9 @@ import kotlin.Any
 import kotlin.Boolean
 import kotlin.Int
 import kotlin.Suppress
-import kotlin.Unit
 
-/**
- * A material that uses a custom [godot.Shader] program.
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/shaders/index.html]($DOCS_URL/tutorials/shaders/index.html)
- *
- * A material that uses a custom [godot.Shader] program to render either items to screen or process particles. You can create multiple materials for the same shader but configure different values for the uniforms defined in the shader.
- */
 @GodotBaseType
 public open class ShaderMaterial : Material() {
-  /**
-   * The [godot.Shader] program used to render this material.
-   */
   public var shader: Shader?
     get() {
       TransferContext.writeArguments()
@@ -45,26 +33,16 @@ public open class ShaderMaterial : Material() {
       TransferContext.callMethod(rawPtr, MethodBindings.setShaderPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_SHADERMATERIAL, scriptIndex)
     return true
   }
 
-  /**
-   * Changes the value set for this material of a uniform in the shader.
-   *
-   * **Note:** [param] is case-sensitive and must match the name of the uniform in the code exactly (not the capitalized name in the inspector).
-   *
-   * **Note:** Changes to the shader uniform will be effective on all instances using this [godot.ShaderMaterial]. To prevent this, use per-instance uniforms with [godot.GeometryInstance3D.setInstanceShaderParameter] or duplicate the [godot.ShaderMaterial] resource using [godot.Resource.duplicate]. Per-instance uniforms allow for better shader reuse and are therefore faster, so they should be preferred over duplicating the [godot.ShaderMaterial] when possible.
-   */
-  public fun setShaderParameter(`param`: StringName, `value`: Any?): Unit {
+  public fun setShaderParameter(`param`: StringName, `value`: Any?) {
     TransferContext.writeArguments(STRING_NAME to param, ANY to value)
     TransferContext.callMethod(rawPtr, MethodBindings.setShaderParameterPtr, NIL)
   }
 
-  /**
-   * Returns the current value set for this material of a uniform in the shader.
-   */
   public fun getShaderParameter(`param`: StringName): Any? {
     TransferContext.writeArguments(STRING_NAME to param)
     TransferContext.callMethod(rawPtr, MethodBindings.getShaderParameterPtr, ANY)

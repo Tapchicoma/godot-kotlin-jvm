@@ -17,19 +17,8 @@ import kotlin.Int
 import kotlin.String
 import kotlin.Suppress
 
-/**
- * A snippet of shader code to be included in a [godot.Shader] with `#include`.
- *
- * Tutorials:
- * [$DOCS_URL/tutorials/shaders/shader_reference/shader_preprocessor.html]($DOCS_URL/tutorials/shaders/shader_reference/shader_preprocessor.html)
- *
- * A shader include file, saved with the `.gdshaderinc` extension. This class allows you to define a custom shader snippet that can be included in a [godot.Shader] by using the preprocessor directive `#include`, followed by the file path (e.g. `#include "res://shader_lib.gdshaderinc"`). The snippet doesn't have to be a valid shader on its own.
- */
 @GodotBaseType
 public open class ShaderInclude : Resource() {
-  /**
-   * Returns the code of the shader include file. The returned text is what the user has written, not the full generated code used internally.
-   */
   public var code: String
     get() {
       TransferContext.writeArguments()
@@ -41,7 +30,7 @@ public open class ShaderInclude : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setCodePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_SHADERINCLUDE, scriptIndex)
     return true
   }

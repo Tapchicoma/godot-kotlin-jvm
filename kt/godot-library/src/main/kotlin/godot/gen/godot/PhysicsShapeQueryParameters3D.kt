@@ -33,16 +33,8 @@ import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 
-/**
- * Provides parameters for [godot.PhysicsDirectSpaceState3D.intersectShape].
- *
- * By changing various properties of this object, such as the shape, you can configure the parameters for [godot.PhysicsDirectSpaceState3D.intersectShape].
- */
 @GodotBaseType
 public open class PhysicsShapeQueryParameters3D : RefCounted() {
-  /**
-   * The physics layers the query will detect (as a bitmask). By default, all collision layers are detected. See [godot.Collision layers and masks]($DOCS_URL/tutorials/physics/physics_introduction.html#collision-layers-and-masks) in the documentation for more information.
-   */
   public var collisionMask: Long
     get() {
       TransferContext.writeArguments()
@@ -54,9 +46,6 @@ public open class PhysicsShapeQueryParameters3D : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setCollisionMaskPtr, NIL)
     }
 
-  /**
-   * The list of object [RID]s that will be excluded from collisions. Use [godot.CollisionObject3D.getRid] to get the [RID] associated with a [godot.CollisionObject3D]-derived node.
-   */
   public var exclude: VariantArray<RID>
     get() {
       TransferContext.writeArguments()
@@ -68,9 +57,6 @@ public open class PhysicsShapeQueryParameters3D : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setExcludePtr, NIL)
     }
 
-  /**
-   * The collision margin for the shape.
-   */
   public var margin: Float
     get() {
       TransferContext.writeArguments()
@@ -82,9 +68,6 @@ public open class PhysicsShapeQueryParameters3D : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setMarginPtr, NIL)
     }
 
-  /**
-   * The motion of the shape being queried for.
-   */
   @CoreTypeLocalCopy
   public var motion: Vector3
     get() {
@@ -97,9 +80,6 @@ public open class PhysicsShapeQueryParameters3D : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setMotionPtr, NIL)
     }
 
-  /**
-   * The [godot.Shape3D] that will be used for collision/intersection queries. This stores the actual reference which avoids the shape to be released while being used for queries, so always prefer using this over [shapeRid].
-   */
   public var shape: Resource?
     get() {
       TransferContext.writeArguments()
@@ -111,65 +91,6 @@ public open class PhysicsShapeQueryParameters3D : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setShapePtr, NIL)
     }
 
-  /**
-   * The queried shape's [RID] that will be used for collision/intersection queries. Use this over [shape] if you want to optimize for performance using the Servers API:
-   *
-   * [codeblocks]
-   *
-   * [gdscript]
-   *
-   * var shape_rid = PhysicsServer3D.shape_create(PhysicsServer3D.SHAPE_SPHERE)
-   *
-   * var radius = 2.0
-   *
-   * PhysicsServer3D.shape_set_data(shape_rid, radius)
-   *
-   *
-   *
-   * var params = PhysicsShapeQueryParameters3D.new()
-   *
-   * params.shape_rid = shape_rid
-   *
-   *
-   *
-   * # Execute physics queries here...
-   *
-   *
-   *
-   * # Release the shape when done with physics queries.
-   *
-   * PhysicsServer3D.free_rid(shape_rid)
-   *
-   * [/gdscript]
-   *
-   * [csharp]
-   *
-   * RID shapeRid = PhysicsServer3D.ShapeCreate(PhysicsServer3D.ShapeType.Sphere);
-   *
-   * float radius = 2.0f;
-   *
-   * PhysicsServer3D.ShapeSetData(shapeRid, radius);
-   *
-   *
-   *
-   * var params = new PhysicsShapeQueryParameters3D();
-   *
-   * params.ShapeRid = shapeRid;
-   *
-   *
-   *
-   * // Execute physics queries here...
-   *
-   *
-   *
-   * // Release the shape when done with physics queries.
-   *
-   * PhysicsServer3D.FreeRid(shapeRid);
-   *
-   * [/csharp]
-   *
-   * [/codeblocks]
-   */
   public var shapeRid: RID
     get() {
       TransferContext.writeArguments()
@@ -181,9 +102,6 @@ public open class PhysicsShapeQueryParameters3D : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setShapeRidPtr, NIL)
     }
 
-  /**
-   * The queried shape's transform matrix.
-   */
   @CoreTypeLocalCopy
   public var transform: Transform3D
     get() {
@@ -196,9 +114,6 @@ public open class PhysicsShapeQueryParameters3D : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTransformPtr, NIL)
     }
 
-  /**
-   * If `true`, the query will take [godot.PhysicsBody3D]s into account.
-   */
   public var collideWithBodies: Boolean
     get() {
       TransferContext.writeArguments()
@@ -210,9 +125,6 @@ public open class PhysicsShapeQueryParameters3D : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setCollideWithBodiesPtr, NIL)
     }
 
-  /**
-   * If `true`, the query will take [godot.Area3D]s into account.
-   */
   public var collideWithAreas: Boolean
     get() {
       TransferContext.writeArguments()
@@ -224,14 +136,12 @@ public open class PhysicsShapeQueryParameters3D : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setCollideWithAreasPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_PHYSICSSHAPEQUERYPARAMETERS3D, scriptIndex)
     return true
   }
 
   /**
-   * The motion of the shape being queried for.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -254,8 +164,6 @@ public open class PhysicsShapeQueryParameters3D : RefCounted() {
 
 
   /**
-   * The queried shape's transform matrix.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our

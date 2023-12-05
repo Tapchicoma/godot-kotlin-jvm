@@ -22,7 +22,6 @@ import kotlin.Int
 import kotlin.Long
 import kotlin.String
 import kotlin.Suppress
-import kotlin.Unit
 
 @GodotBaseType
 public open class OpenXRActionSet : Resource() {
@@ -59,7 +58,7 @@ public open class OpenXRActionSet : Resource() {
       TransferContext.callMethod(rawPtr, MethodBindings.setActionsPtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_OPENXRACTIONSET, scriptIndex)
     return true
   }
@@ -70,12 +69,12 @@ public open class OpenXRActionSet : Resource() {
     return (TransferContext.readReturnValue(LONG, false) as Long).toInt()
   }
 
-  public fun addAction(action: OpenXRAction): Unit {
+  public fun addAction(action: OpenXRAction) {
     TransferContext.writeArguments(OBJECT to action)
     TransferContext.callMethod(rawPtr, MethodBindings.addActionPtr, NIL)
   }
 
-  public fun removeAction(action: OpenXRAction): Unit {
+  public fun removeAction(action: OpenXRAction) {
     TransferContext.writeArguments(OBJECT to action)
     TransferContext.callMethod(rawPtr, MethodBindings.removeActionPtr, NIL)
   }

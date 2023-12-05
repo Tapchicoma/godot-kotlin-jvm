@@ -27,18 +27,8 @@ import kotlin.Long
 import kotlin.Suppress
 import kotlin.Unit
 
-/**
- * This object contains all data related to a pose on a tracked object.
- *
- * XR runtimes often identify multiple locations on devices such as controllers that are spatially tracked.
- *
- * Orientation, location, linear velocity and angular velocity are all provided for each pose by the XR runtime. This object contains this state of a pose.
- */
 @GodotBaseType
 public open class XRPose : RefCounted() {
-  /**
-   * If `true` our tracking data is up to date. If `false` we're no longer receiving new tracking data and our state is whatever that last valid state was.
-   */
   public var hasTrackingData: Boolean
     get() {
       TransferContext.writeArguments()
@@ -50,17 +40,6 @@ public open class XRPose : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setHasTrackingDataPtr, NIL)
     }
 
-  /**
-   * The name of this pose. Pose names are often driven by an action map setup by the user. Godot does suggest a number of pose names that it expects [godot.XRInterface]s to implement:
-   *
-   * - `root` defines a root location, often used for tracked objects that do not have further nodes.
-   *
-   * - `aim` defines the tip of a controller with the orientation pointing outwards, for example: add your raycasts to this.
-   *
-   * - `grip` defines the location where the user grips the controller
-   *
-   * - `skeleton` defines the root location a hand mesh should be placed when using hand tracking and the animated skeleton supplied by the XR runtime.
-   */
   public var name: StringName
     get() {
       TransferContext.writeArguments()
@@ -72,9 +51,6 @@ public open class XRPose : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setNamePtr, NIL)
     }
 
-  /**
-   * The transform containing the original and transform as reported by the XR runtime.
-   */
   @CoreTypeLocalCopy
   public var transform: Transform3D
     get() {
@@ -87,9 +63,6 @@ public open class XRPose : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTransformPtr, NIL)
     }
 
-  /**
-   * The linear velocity of this pose.
-   */
   @CoreTypeLocalCopy
   public var linearVelocity: Vector3
     get() {
@@ -102,9 +75,6 @@ public open class XRPose : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setLinearVelocityPtr, NIL)
     }
 
-  /**
-   * The angular velocity for this pose.
-   */
   @CoreTypeLocalCopy
   public var angularVelocity: Vector3
     get() {
@@ -117,9 +87,6 @@ public open class XRPose : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setAngularVelocityPtr, NIL)
     }
 
-  /**
-   * The tracking confidence for this pose, provides insight on how accurate the spatial positioning of this record is.
-   */
   public var trackingConfidence: TrackingConfidence
     get() {
       TransferContext.writeArguments()
@@ -131,14 +98,12 @@ public open class XRPose : RefCounted() {
       TransferContext.callMethod(rawPtr, MethodBindings.setTrackingConfidencePtr, NIL)
     }
 
-  public override fun new(scriptIndex: Int): Boolean {
+  override fun new(scriptIndex: Int): Boolean {
     callConstructor(ENGINECLASS_XRPOSE, scriptIndex)
     return true
   }
 
   /**
-   * The transform containing the original and transform as reported by the XR runtime.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -161,8 +126,6 @@ public open class XRPose : RefCounted() {
 
 
   /**
-   * The linear velocity of this pose.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -185,8 +148,6 @@ public open class XRPose : RefCounted() {
 
 
   /**
-   * The angular velocity for this pose.
-   *
    * This is a helper function to make dealing with local copies easier. 
    *
    * For more information, see our
@@ -208,9 +169,6 @@ public open class XRPose : RefCounted() {
   }
 
 
-  /**
-   * Returns the [transform] with world scale and our reference frame applied. This is the transform used to position [godot.XRNode3D] objects.
-   */
   public fun getAdjustedTransform(): Transform3D {
     TransferContext.writeArguments()
     TransferContext.callMethod(rawPtr, MethodBindings.getAdjustedTransformPtr, TRANSFORM3D)
@@ -220,17 +178,8 @@ public open class XRPose : RefCounted() {
   public enum class TrackingConfidence(
     id: Long,
   ) {
-    /**
-     * No tracking information is available for this pose.
-     */
     XR_TRACKING_CONFIDENCE_NONE(0),
-    /**
-     * Tracking information may be inaccurate or estimated. For example, with inside out tracking this would indicate a controller may be (partially) obscured.
-     */
     XR_TRACKING_CONFIDENCE_LOW(1),
-    /**
-     * Tracking information is deemed accurate and up to date.
-     */
     XR_TRACKING_CONFIDENCE_HIGH(2),
     ;
 
@@ -240,7 +189,9 @@ public open class XRPose : RefCounted() {
     }
 
     public companion object {
-      public fun from(`value`: Long) = entries.single { it.id == `value` }
+      public fun from(`value`: Long): TrackingConfidence = entries.single {
+          it.id == `value`
+      }
     }
   }
 
